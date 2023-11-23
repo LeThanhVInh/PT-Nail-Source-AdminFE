@@ -1,0 +1,20 @@
+.wrapper {
+  padding: 10px 20px;
+  width: 100%;
+}
+.container {
+  display: flex;
+}
+
+.content-layout {
+  // min-width: 75vw;
+  background-color: var(--bg-white-color);
+  border-radius: 30px;
+  .content-layout-wrapper {
+    margin-left: 1px;
+    height: 100%;
+    // width: auto;
+    // max-width: 95vw;
+    border-radius: 30px;
+  }
+}
