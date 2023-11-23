@@ -34,73 +34,10 @@ function Sidebar() {
 
   return (
     <>
-      <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "#312e81" }}>
+      <Box
+        sx={{ width: "100%", maxWidth: 360, bgcolor: "#312e81", mt: "26px" }}
+      >
         <List
-          // sx={{
-          //   position: "relative",
-          //   width: "100%",
-          //   maxWidth: 360,
-          //   bgcolor: "#312e81",
-          //   color: "#f1f5f9",
-          //   paddingX: 3,
-          //   paddingY: 3,
-
-          //   // selected state
-          //   "&& .Mui-selected, && .Mui-selected:hover": {
-          //     bgcolor: "#f1f5f9",
-          //     width: "calc(100% + 25px)",
-          //     borderBottomLeftRadius: 999,
-          //     borderTopLeftRadius: 999,
-          //     "&, & .MuiListItemIcon-root": {
-          //       color: "#1e293B",
-          //       borderBottomLeftRadius: 999,
-          //       borderTopLeftRadius: 999,
-          //     },
-          //   },
-
-          //   "&& .Mui-selected::after": {
-          //     content: '""',
-          //     height: "30px",
-          //     width: "30px",
-          //     backgroundImage: `url(${icon1})`,
-          //     backgroundPosition: "right",
-          //     backgroundRepeat: "no-repeat",
-          //     backgroundSize: "100%",
-          //     position: "absolute",
-          //     top: -30,
-          //     right: 0,
-          //     transform: "rotate(90deg)",
-          //     zIndex: 10,
-          //   },
-          //   "&& .Mui-selected::before": {
-          //     content: '""',
-          //     height: "30px",
-          //     width: "30px",
-          //     backgroundImage: `url(${icon1})`,
-          //     backgroundPosition: "right",
-          //     backgroundRepeat: "no-repeat",
-          //     backgroundSize: "100%",
-          //     position: "absolute",
-          //     bottom: -29,
-          //     right: -11,
-          //     transform: "rotate(0)",
-          //     zIndex: 10,
-          //   },
-          //   // hover states
-          //   "& .MuiListItemButton-root:hover": {
-          //     bgcolor: "#294ab3",
-          //     borderBottomLeftRadius: 999,
-          //     borderTopLeftRadius: 999,
-          //     width: "calc(100% + 25px)",
-
-          //     "&, & .MuiListItemIcon-root": {
-          //       color: "#c9d1ec",
-          //       borderBottomLeftRadius: 999,
-          //       borderTopLeftRadius: 999,
-          //     },
-          //   },
-          // }}
-
           subheader={
             <ListSubheader
               component="div"
@@ -129,7 +66,7 @@ function Sidebar() {
             </ListItem>
           </NavLink>
 
-          <NavLink to="/sss" className="category-list-item">
+          <NavLink to={config.routes.table} className="category-list-item">
             <ListItem disablePadding>
               <ListItemButton
                 disableRipple
@@ -139,7 +76,7 @@ function Sidebar() {
                 <ListItemIcon sx={{ color: "white" }}>
                   <DraftsIcon />
                 </ListItemIcon>
-                <ListItemText primary="Drafts" />
+                <ListItemText primary="Table" />
               </ListItemButton>
             </ListItem>
           </NavLink>
@@ -157,7 +94,11 @@ function Sidebar() {
           </ListItemButton>
 
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
+            <List
+              component="div"
+              disablePadding
+              // sx={{ backgroundColor: "#2c2974" }}
+            >
               <NavLink to="/4" className="category-list-item">
                 <ListItem disablePadding>
                   <ListItemButton sx={{ pl: 4 }}>

@@ -1,4 +1,4 @@
-@import "normalize.css";
+// @import "normalize.css";
 @import url("https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;700&display=swap");
 
 :root {
@@ -7,14 +7,16 @@
   --text-color: rgb(30, 41, 59);
   --white-color: #fff;
   --bg-white-color: #f1f5f9;
-  //Default layout
+
+  --btn-edit: #1e293b;
+  --btn-delete: #b91c1c;
+  --btn-active: #059669;
+  --btn-primary: #44418c;
+
   --font-family: "IBM Plex Sans", sans-serif;
-  --default-layout-header-height: 60px;
-  // --default-layout-width: 1150px;
-  --defualt-layout-horizontal-spacer: 24px;
-  // --base-color: rgb(22, 24, 35);
-  // --height-video: 700px;
-  // --height-banner: 1080px;
+  // --default-layout-header-height: 60px;
+  // --defualt-layout-horizontal-spacer: 24px;
+
   background-color: var(--primary-color);
 }
 
@@ -25,7 +27,7 @@
 }
 
 body {
-  background-color: var(--primary-color);
+  background-color: var(--primary-color) !important;
   font-size: 16px;
   line-height: 1.5;
   text-rendering: optimizeSpeed;
@@ -58,7 +60,7 @@ body {
 // }
 
 a {
-  color: var(--white-color);
+  // color: var(--white-color);
   text-decoration: none;
 }
 
