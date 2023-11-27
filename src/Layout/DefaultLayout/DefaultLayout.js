@@ -170,6 +170,7 @@ function DefaultLayout({ children }) {
               paddingTop: "14px",
               paddingLeft: "20px",
               width: { xs: drawerWidth, tablet: "120px" },
+              borderRight: 0,
             },
           }}
           variant="persistent"

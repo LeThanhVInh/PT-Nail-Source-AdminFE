@@ -25,11 +25,12 @@ function LoginPage() {
             position: "relative",
             height: "100vh",
             backgroundColor: {
-              xl: "white",
+              xl: "var(--white-color)",
               lg: "none",
               xs: "none",
               sm: "none",
               md: "none",
+              overflow: "hidden",
             },
             minHeight: "100%",
             mt: 0,
@@ -57,12 +58,24 @@ function LoginPage() {
               ":before": {
                 position: "absolute",
                 width: "50%",
-                height: "100%",
+                height: "140%",
+                backgroundColor: "#d6d5e6",
+                content: `""`,
+                left: "0",
+                zIndex: 0,
+                borderTopRightRadius: "25% 50%",
+                borderBottomRightRadius: "25% 50%",
+              },
+              ":after": {
+                position: "absolute",
+                width: "50%",
+                height: "140%",
                 backgroundColor: "var(--primary-color)",
                 content: `""`,
                 left: "0",
                 zIndex: 0,
-                borderRadius: "0% 20% 20% 0% / 50% 100% 100% 50% ",
+                borderTopRightRadius: "40% 50%",
+                borderBottomRightRadius: "40% 50%",
               },
             }}
           >
@@ -72,11 +85,24 @@ function LoginPage() {
               >
                 Logo
               </Typography>
-              <div>
+              <Box>
                 <img src={loginImg} alt="login" />
-                <h3>A few more clicks to sign in to your account.</h3>
-                <h4>Manage all your e-commerce accounts in one place</h4>
-              </div>
+                <Typography
+                  variant="h4"
+                  sx={{ maxWidth: "370px", fontWeight: "700" }}
+                >
+                  A few more clicks to sign in to your account.
+                </Typography>
+                <Typography
+                  sx={{
+                    maxWidth: "400px",
+                    color: "#FFFFFFB3",
+                    marginTop: "20px",
+                  }}
+                >
+                  Manage all your e-commerce accounts in one place
+                </Typography>
+              </Box>
             </Box>
           </Grid>
           <Grid
@@ -108,7 +134,19 @@ function LoginPage() {
               padding: "16px",
             }}
           >
-            <Typography sx={{ fontSize: "24px" }}>Sign In</Typography>
+            <Typography
+              sx={{
+                marginBottom: "20px",
+                fontSize: "30px",
+                fontWeight: "700",
+                transform: {
+                  xl: "translateX(-166px)",
+                  lg: "translateX(0)",
+                },
+              }}
+            >
+              Sign In
+            </Typography>
             <Box
               component="form"
               sx={{
@@ -128,12 +166,65 @@ function LoginPage() {
               noValidate
               autoComplete="off"
             >
-              <TextField id="outlined-basic" label="Email" variant="outlined" />
               <TextField
-                id="outlined-password-input"
+                // id="outlined-basic"
+                label="Email"
+                variant="outlined"
+                inputProps={{
+                  style: {
+                    padding: "11.5px 14px",
+                  },
+                }}
+                sx={{
+                  "& label": {
+                    top: "-4px",
+                  },
+                  // height: "46px",
+                  "& label.Mui-focused": {
+                    color: "var(--primary-color)",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "var(--primary-color)",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "var(--primary-color)",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "var(--primary-color)",
+                    },
+                  },
+                }}
+              />
+              <TextField
+                // id="outlined-password-input"
                 label="Password"
                 type="password"
-                autoComplete="current-password"
+                // autoComplete="current-password"
+                inputProps={{
+                  style: {
+                    padding: "11.5px 14px",
+                  },
+                }}
+                sx={{
+                  "& label": {
+                    top: "-4px",
+                  },
+                  "& label.Mui-focused": {
+                    color: "var(--primary-color)",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "var(--primary-color)",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "var(--primary-color)",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "var(--primary-color)",
+                    },
+                  },
+                }}
               />
 
               <Stack
@@ -143,12 +234,27 @@ function LoginPage() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
+                  fontSize: "14px",
                 }}
               >
                 <FormGroup>
                   <FormControlLabel
-                    control={<Checkbox defaultChecked />}
-                    label="Remember me"
+                    control={
+                      <Checkbox
+                        defaultChecked
+                        size="small"
+                        sx={{
+                          color: "var(--primary-color)",
+                          "&.Mui-checked": {
+                            color: "var(--primary-color)",
+                          },
+                        }}
+                      />
+                    }
+                    label={
+                      <span style={{ fontSize: "14px" }}>{"Remember me"}</span>
+                    }
+                    fontSize="14px"
                   />
                 </FormGroup>
 
@@ -178,6 +284,7 @@ function LoginPage() {
                 fontSize: "14px",
                 marginTop: "20px",
                 textAlign: "center",
+                maxWidth: "100%",
                 width: {
                   xl: "425px",
                   lg: "425px",
