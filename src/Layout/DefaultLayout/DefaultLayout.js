@@ -45,6 +45,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 
 import classNames from "classnames/bind";
 import styles from "./DefaultLayout.module.scss";
+
 const cx = classNames.bind(styles);
 
 const drawerWidth = 240;
@@ -136,7 +137,7 @@ function DefaultLayout({ children }) {
             alignItems: "center",
             // ...(open && { display: "none" }),
             ...(open && {
-              left: "-2px",
+              left: "-16px",
               zIndex: "9999",
               // transition: "all ease-in .1s",
             }),
@@ -159,14 +160,16 @@ function DefaultLayout({ children }) {
         <Drawer
           sx={{
             width: drawerWidth,
+
             flexShrink: 0,
             "& .MuiDrawer-paper": {
               backgroundColor: "var(--primary-color)",
-              width: drawerWidth,
+              // width: drawerWidth,
               boxSizing: "border-box",
               overflow: "unset",
               paddingTop: "14px",
               paddingLeft: "20px",
+              width: { xs: drawerWidth, tablet: "120px" },
             },
           }}
           variant="persistent"

@@ -1,3 +1,7 @@
+//Private Layout
+import PrivateLayout from "../../Layout/PrivateLayout";
+import LoginPage from "../../components/LoginPage";
+
 //Layouts
 import Home from "../../components/Home";
 import NotFound from "../../components/NotFound";
@@ -7,12 +11,11 @@ import Table from "../../components/Table";
 const publicRoutes = [
   { path: "/", component: Home },
   { path: "/table", component: Table },
-  { path: "*", component: NotFound },
 ];
 
 const privateRoutes = [
-  //   { path: "/cart", component: Cart, layout: HeaderOnly },
-  //   { path: "/admin", component: AdminPage, layout: HeaderOnly },
+  { path: "*", component: NotFound, layout: PrivateLayout },
+  { path: "/login", component: LoginPage, layout: PrivateLayout },
 ];
 
 export { publicRoutes, privateRoutes };

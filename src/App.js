@@ -3,9 +3,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Fragment } from "react";
 
-import { publicRoutes } from "./router/routes";
+import { publicRoutes, privateRoutes } from "./router/routes";
 
 import DefaultLayout from "./Layout/DefaultLayout";
+import PrivateLayout from "./Layout/PrivateLayout";
 
 function App() {
   return (
@@ -28,6 +29,29 @@ function App() {
                   <Layout>
                     <Page />
                   </Layout>
+                }
+              />
+            );
+          })}
+
+          {privateRoutes.map((route, index) => {
+            const Page = route.component;
+            let Layout = PrivateLayout;
+            if (route.layout) {
+              Layout = route.layout;
+            } else if (route.layout === null) {
+              Layout = Fragment;
+            }
+            return (
+              <Route
+                key={index}
+                path={route.path}
+                element={
+                  // <PrivateRoute>
+                  <Layout>
+                    <Page />
+                  </Layout>
+                  // </PrivateRoute>
                 }
               />
             );

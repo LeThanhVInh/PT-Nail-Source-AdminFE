@@ -145,7 +145,7 @@ function Tables() {
               <h3>Categories</h3>
             </div>
             <div className={cx("action-wrapper")}>
-              <div className={cx("action-add")}>
+              <div className={cx("action-add", "pt-10")}>
                 <Stack direction="row" spacing={1}>
                   <Button variant="primary" className={cx("btn-add-new")}>
                     Add New Category
@@ -155,7 +155,7 @@ function Tables() {
                   </IconButton>
                 </Stack>
               </div>
-              <div className={cx("action-search")}>
+              <div className={cx("action-search", "pt-10")}>
                 <Search sx={{ boxShadow: "20px 3px 20px #0000000b" }}>
                   <SearchIconWrapper>
                     <SearchIcon />
@@ -213,7 +213,7 @@ function Tables() {
 
                   <StyledTableCell align="center">
                     <Button className={cx("btn-is-active")}>
-                      <CheckBoxIcon /> &nbsp; Active
+                      <CheckBoxIcon /> Active
                     </Button>
                   </StyledTableCell>
 

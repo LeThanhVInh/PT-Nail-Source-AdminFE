@@ -1,0 +1,27 @@
+// .wrapper {
+//   min-height: 100vh;
+// }
+
+.btn-login {
+  background-color: var(--primary-color) !important;
+  &:hover {
+    background-color: var(--primary-color) !important;
+  }
+}
+
+.btn-register {
+  color: var(--primary-color) !important;
+  &:hover {
+    color: var(--primary-color) !important;
+  }
+}
+
+.text-policy {
+  font-size: 14px;
+  margin-top: 20px;
+  width: 425px;
+  a {
+    cursor: pointer;
+    color: var(--primary-color);
+  }
+}

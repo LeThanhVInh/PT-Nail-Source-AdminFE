@@ -38,8 +38,6 @@ function Header() {
     handleMobileMenuClose();
   };
 
-  console.log("header log", path);
-
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };

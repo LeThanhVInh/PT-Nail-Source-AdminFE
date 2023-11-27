@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 // import classNames from "classnames/bind";
 // import styles from "./Sidebar.module.scss";
@@ -21,21 +21,35 @@ import ListItem from "@mui/material/ListItem";
 import config from "../../router/config";
 import "./Sidebar.scss";
 
-import icon1 from "../../assest/svg/icon1.svg";
-
 // const cx = classNames.bind(styles);
 
 function Sidebar() {
   const [open, setOpen] = useState(true);
 
+  const [isListChildActive, setIsListChildActive] = useState(false);
+  const [isListParentActive, setIsListParentActive] = useState("");
+
   const handleClick = () => {
     setOpen(!open);
   };
 
+  useEffect(() => {
+    if (isListChildActive === true) {
+      setIsListParentActive("active");
+    } else {
+      setIsListParentActive("");
+    }
+  }, [isListChildActive]);
+
   return (
     <>
       <Box
-        sx={{ width: "100%", maxWidth: 360, bgcolor: "#312e81", mt: "26px" }}
+        sx={{
+          width: "100%",
+          maxWidth: 360,
+          bgcolor: "var(--primary-color)",
+          mt: "26px",
+        }}
       >
         <List
           subheader={
@@ -51,22 +65,36 @@ function Sidebar() {
           <div className="divider">
             <Divider />
           </div>
-          <NavLink to={config.routes.home} className="category-list-item">
+          <NavLink
+            to={config.routes.home}
+            className="category-list-item"
+            onClick={() => setIsListChildActive(false)}
+          >
             <ListItem disablePadding>
               <ListItemButton
                 disableRipple
                 disableTouchRipple
-                sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
+                sx={{
+                  borderBottomLeftRadius: 999,
+                  borderTopLeftRadius: 999,
+                }}
               >
                 <ListItemIcon sx={{ color: "white" }}>
                   <HomeIcon />
                 </ListItemIcon>
-                <ListItemText primary="Dashboard" />
+                <ListItemText
+                  primary="Dashboard"
+                  // sx={{ display: { xs: "none", md: "block" } }}
+                />
               </ListItemButton>
             </ListItem>
           </NavLink>
 
-          <NavLink to={config.routes.table} className="category-list-item">
+          <NavLink
+            to={config.routes.table}
+            className="category-list-item"
+            onClick={() => setIsListChildActive(false)}
+          >
             <ListItem disablePadding>
               <ListItemButton
                 disableRipple
@@ -84,7 +112,17 @@ function Sidebar() {
           <ListItemButton
             onClick={handleClick}
             disableRipple
-            sx={{ color: "#f1f5f9" }}
+            disableTouchRipple
+            sx={{
+              color: "var(--white-color)",
+              borderRadius: "999px",
+              // "&:hover": {
+              //   backgroundColor: "var(--white-color)",
+              //   opacity: "0.9",
+              // },
+            }}
+            // className={`category-list-parent ${isListParentActive}`}
+            // className="category-list-parent"
           >
             <ListItemIcon sx={{ color: "white" }}>
               <InboxIcon />
@@ -98,8 +136,13 @@ function Sidebar() {
               component="div"
               disablePadding
               // sx={{ backgroundColor: "#2c2974" }}
+              className={`category-list-parent ${isListParentActive}`}
             >
-              <NavLink to="/4" className="category-list-item">
+              <NavLink
+                to="/4"
+                className="category-list-item-child"
+                onClick={() => setIsListChildActive(true)}
+              >
                 <ListItem disablePadding>
                   <ListItemButton sx={{ pl: 4 }}>
                     <ListItemIcon sx={{ color: "white" }}>
@@ -110,7 +153,11 @@ function Sidebar() {
                 </ListItem>
               </NavLink>
 
-              <NavLink to="/5" className="category-list-item">
+              <NavLink
+                to="/5"
+                className="category-list-item-child"
+                onClick={() => setIsListChildActive(true)}
+              >
                 <ListItem disablePadding>
                   <ListItemButton sx={{ pl: 4 }}>
                     <ListItemIcon sx={{ color: "white" }}>
@@ -123,7 +170,11 @@ function Sidebar() {
             </List>
           </Collapse>
 
-          <NavLink to="/6" className="category-list-item">
+          <NavLink
+            to="/6"
+            className="category-list-item"
+            onClick={() => setIsListChildActive(false)}
+          >
             <ListItem disablePadding>
               <ListItemButton
                 disableRipple
@@ -138,7 +189,11 @@ function Sidebar() {
             </ListItem>
           </NavLink>
 
-          <NavLink to="/7" className="category-list-item">
+          <NavLink
+            to="/7"
+            className="category-list-item"
+            onClick={() => setIsListChildActive(false)}
+          >
             <ListItem disablePadding>
               <ListItemButton
                 disableRipple
