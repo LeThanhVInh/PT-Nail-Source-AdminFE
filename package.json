@@ -19,7 +19,12 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.19.0",
     "react-scripts": "5.0.1",
+    "react-scroll": "^1.9.0",
+    "react-scroll-into-view": "^2.0.2",
+    "react-select": "^5.8.0",
     "sass": "^1.69.5",
+    "suneditor": "^2.45.1",
+    "suneditor-react": "^3.6.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

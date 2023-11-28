@@ -1,16 +1,18 @@
 //Private Layout
 import PrivateLayout from "../../Layout/PrivateLayout";
-import LoginPage from "../../components/LoginPage";
+import LoginPage from "../../components/pages/LoginPage";
 
 //Layouts
-import Home from "../../components/Home";
-import NotFound from "../../components/NotFound";
-import Table from "../../components/Table";
+import Home from "../../components/pages/Home";
+import NotFound from "../../components/pages/NotFound";
+import Products from "../../components/pages/Products";
+import ProductEdit from "../../components/pages/ProductEdit/ProductEdit";
 
 //Public routes
 const publicRoutes = [
   { path: "/", component: Home },
-  { path: "/table", component: Table },
+  { path: "/products", component: Products },
+  { path: "/products-edit", component: ProductEdit },
 ];
 
 const privateRoutes = [

@@ -1,0 +1,107 @@
+.products-edit-wrapper {
+  padding: 10px;
+
+  .content-items {
+    margin-bottom: 20px;
+    background-color: var(--white-color);
+    border-radius: 10px;
+    padding: 20px;
+
+    .item {
+      padding: 20px;
+      border: 1px solid #e2e8f099;
+      border-radius: 10px;
+      .item-title {
+        font-size: 16px;
+        font-weight: 600;
+        padding: 10px 0;
+      }
+
+      .item-title-content {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .item-title-content-aside {
+          max-width: 250px;
+          width: 100%;
+          padding-right: 20px;
+          .aside-text-info {
+            display: flex;
+            font-size: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+            p {
+              font-size: 12px;
+              margin-left: 10px;
+              background-color: rgb(226 232 240);
+              padding: 2px 5px;
+              border-radius: 3px;
+            }
+          }
+        }
+
+        .aside-text-tip {
+          margin-top: 20px;
+          font-size: 12px;
+          color: var(--grey-color);
+          line-height: 20px;
+          p {
+            margin-top: 10px;
+          }
+        }
+
+        .item-title-content-main {
+          flex: 1;
+          border-radius: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .fl-start {
+          justify-content: flex-start;
+          margin-left: 8px;
+        }
+
+        .item-title-content-main-img {
+          flex: 1;
+          border-radius: 10px;
+          border: 2px dashed #e5e7eb;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          .main-img {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            .img-item {
+              position: relative;
+              &:hover {
+                scale: 1.05;
+                transition: all ease-in 0.2s;
+              }
+
+              .img-item-icon {
+                position: absolute;
+                top: 0;
+                right: 0;
+                color: rgb(255, 255, 255);
+              }
+              img {
+                border-radius: 12px;
+                object-fit: cover;
+                height: 112px;
+                width: 180px;
+                padding: 5px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -29,7 +29,7 @@
 
 import * as React from "react";
 import { useState } from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -37,8 +37,8 @@ import MuiAppBar from "@mui/material/AppBar";
 
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+// import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+// import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -102,24 +102,24 @@ const AppBar = styled(MuiAppBar, {
 // }));
 
 function DefaultLayout({ children }) {
-  const theme = useTheme();
+  // const theme = useTheme();
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen((prev) => !prev);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  // const handleDrawerClose = () => {
+  //   setOpen(false);
+  // };
 
   return (
     <div className={cx("wrapper")}>
       <Box
         sx={{
           display: "flex",
-          backgroundColor: "var(--primary-color)",
-          borderRadius: "30px",
+          // backgroundColor: "var(--primary-color)",
+          // borderRadius: "30px",
         }}
       >
         <CssBaseline />
@@ -209,6 +209,8 @@ function DefaultLayout({ children }) {
             backgroundColor: "var(--bg-white-color)",
             borderRadius: "30px",
             overflow: "auto",
+            padding: "14px",
+            height: "90vh",
           }}
         >
           <Header />

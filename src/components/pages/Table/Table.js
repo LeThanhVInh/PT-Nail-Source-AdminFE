@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { styled, alpha } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -23,10 +23,6 @@ const cx = classNames.bind(styles);
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  // backgroundColor: alpha(theme.palette.common.white, 0.15),
-  // "&:hover": {
-  //   backgroundColor: alpha(theme.palette.common.white, 0.25),
-  // },
   backgroundColor: "var(--white-color)",
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -133,7 +129,6 @@ function Tables() {
     <>
       <div className={cx("table-wrapper")}>
         <TableContainer
-          // component={Paper}
           sx={{
             m: "10px",
             width: "auto",

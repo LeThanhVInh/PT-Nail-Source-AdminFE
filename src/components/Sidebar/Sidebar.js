@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-// import classNames from "classnames/bind";
-// import styles from "./Sidebar.module.scss";
 
+import { styled } from "@mui/system";
 import Box from "@mui/material/Box";
 import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
@@ -21,7 +20,10 @@ import ListItem from "@mui/material/ListItem";
 import config from "../../router/config";
 import "./Sidebar.scss";
 
-// const cx = classNames.bind(styles);
+const ListItemIconCustom = styled(ListItemIcon)({
+  minWidth: "35px",
+  color: "var(--white-color)",
+});
 
 function Sidebar() {
   const [open, setOpen] = useState(true);
@@ -48,7 +50,7 @@ function Sidebar() {
           width: "100%",
           maxWidth: 360,
           bgcolor: "var(--primary-color)",
-          mt: "26px",
+          mt: "15px",
         }}
       >
         <List
@@ -56,15 +58,16 @@ function Sidebar() {
             <ListSubheader
               component="div"
               id="nested-list-subheader"
-              sx={{ background: "transparent" }}
+              sx={{ background: "transparent", color: "var(--white-color)" }}
             >
-              Nested List Items
+              Logo
             </ListSubheader>
           }
         >
           <div className="divider">
-            <Divider />
+            <Divider sx={{ borderColor: "#413e8b" }} />
           </div>
+
           <NavLink
             to={config.routes.home}
             className="category-list-item"
@@ -79,19 +82,16 @@ function Sidebar() {
                   borderTopLeftRadius: 999,
                 }}
               >
-                <ListItemIcon sx={{ color: "white" }}>
+                <ListItemIconCustom>
                   <HomeIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Dashboard"
-                  // sx={{ display: { xs: "none", md: "block" } }}
-                />
+                </ListItemIconCustom>
+                <ListItemText primary="Dashboard" />
               </ListItemButton>
             </ListItem>
           </NavLink>
 
           <NavLink
-            to={config.routes.table}
+            to={config.routes.products}
             className="category-list-item"
             onClick={() => setIsListChildActive(false)}
           >
@@ -101,10 +101,10 @@ function Sidebar() {
                 disableTouchRipple
                 sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
               >
-                <ListItemIcon sx={{ color: "white" }}>
+                <ListItemIconCustom>
                   <DraftsIcon />
-                </ListItemIcon>
-                <ListItemText primary="Table" />
+                </ListItemIconCustom>
+                <ListItemText primary="Products" />
               </ListItemButton>
             </ListItem>
           </NavLink>
@@ -116,18 +116,12 @@ function Sidebar() {
             sx={{
               color: "var(--white-color)",
               borderRadius: "999px",
-              // "&:hover": {
-              //   backgroundColor: "var(--white-color)",
-              //   opacity: "0.9",
-              // },
             }}
-            // className={`category-list-parent ${isListParentActive}`}
-            // className="category-list-parent"
           >
-            <ListItemIcon sx={{ color: "white" }}>
+            <ListItemIconCustom>
               <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Inbox" />
+            </ListItemIconCustom>
+            <ListItemText primary="E-Commerce" />
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
 
@@ -135,20 +129,20 @@ function Sidebar() {
             <List
               component="div"
               disablePadding
-              // sx={{ backgroundColor: "#2c2974" }}
+              sx={{ backgroundColor: "#2c2974", borderRadius: "10px" }}
               className={`category-list-parent ${isListParentActive}`}
             >
               <NavLink
-                to="/4"
+                to={config.routes.productsEdit}
                 className="category-list-item-child"
                 onClick={() => setIsListChildActive(true)}
               >
                 <ListItem disablePadding>
                   <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemIcon sx={{ color: "white" }}>
+                    <ListItemIconCustom>
                       <StarBorder />
-                    </ListItemIcon>
-                    <ListItemText primary="Starred" />
+                    </ListItemIconCustom>
+                    <ListItemText primary="Product Edit" />
                   </ListItemButton>
                 </ListItem>
               </NavLink>
@@ -160,9 +154,9 @@ function Sidebar() {
               >
                 <ListItem disablePadding>
                   <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemIcon sx={{ color: "white" }}>
+                    <ListItemIconCustom>
                       <StarBorder />
-                    </ListItemIcon>
+                    </ListItemIconCustom>
                     <ListItemText primary="Starred 2" />
                   </ListItemButton>
                 </ListItem>
@@ -181,9 +175,9 @@ function Sidebar() {
                 disableTouchRipple
                 sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
               >
-                <ListItemIcon sx={{ color: "white" }}>
+                <ListItemIconCustom>
                   <DraftsIcon />
-                </ListItemIcon>
+                </ListItemIconCustom>
                 <ListItemText primary="Drafts" />
               </ListItemButton>
             </ListItem>
@@ -200,9 +194,9 @@ function Sidebar() {
                 disableTouchRipple
                 sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
               >
-                <ListItemIcon sx={{ color: "white" }}>
+                <ListItemIconCustom>
                   <DraftsIcon />
-                </ListItemIcon>
+                </ListItemIconCustom>
                 <ListItemText primary="Drafts" />
               </ListItemButton>
             </ListItem>

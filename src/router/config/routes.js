@@ -1,7 +1,8 @@
 const routes = {
   home: "/",
-  table: "/table",
+  products: "/products",
   notfound: "*",
+  productsEdit: "/products-edit",
 };
 
 export default routes;

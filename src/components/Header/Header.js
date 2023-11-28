@@ -9,7 +9,6 @@ import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { useParams } from "react-router-dom";
 
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
@@ -18,7 +17,6 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import Divider from "@mui/material/Divider";
 
 function Header() {
-  const { path } = useParams();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -118,14 +116,14 @@ function Header() {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, padding: "0 15px" }}>
         <AppBar
           position="static"
           elevation={0}
           color="inherit"
           sx={{ backgroundColor: "var(--white-bg-color)" }}
         >
-          <Toolbar>
+          <Toolbar sx={{}}>
             <Typography
               variant="h6"
               noWrap
