@@ -1,4 +1,8 @@
 import * as React from "react";
+import { useState } from "react";
+import Validation from "react-validation-framework";
+import validator from "validator";
+import { fieldValidatorCore } from "react-validation-framework";
 
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -18,6 +22,8 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import classNames from "classnames/bind";
 import styles from "./Table.module.scss";
+import ModalAddNew from "../Modal/ModalAddNew";
+
 const cx = classNames.bind(styles);
 
 const Search = styled("div")(({ theme }) => ({
@@ -125,6 +131,10 @@ const rows = [
 ];
 
 function Tables() {
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+
   return (
     <>
       <div className={cx("table-wrapper")}>
@@ -142,7 +152,11 @@ function Tables() {
             <div className={cx("action-wrapper")}>
               <div className={cx("action-add", "pt-10")}>
                 <Stack direction="row" spacing={1}>
-                  <Button variant="primary" className={cx("btn-add-new")}>
+                  <Button
+                    variant="primary"
+                    className={cx("btn-add-new")}
+                    onClick={handleOpenModal}
+                  >
                     Add New Category
                   </Button>
                   <IconButton aria-label="Add">
@@ -229,6 +243,7 @@ function Tables() {
           </Table>
         </TableContainer>
       </div>
+      <ModalAddNew open={openModal} handleClose={handleCloseModal} />
     </>
   );
 }

@@ -8,17 +8,18 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
+import { Stack } from "@mui/material";
 
-import classNames from "classnames/bind";
-import styles from "./ProductEdit.module.scss";
 import ProductInformation from "./ProductInformation";
 import ProductDetail from "./ProductDetail";
 import UploadProduct from "./UploadProduct";
 import ProductManagement from "./ProductManagement";
+import classNames from "classnames/bind";
+import styles from "./ProductEdit.module.scss";
 
 const cx = classNames.bind(styles);
 
-const StackCustom = styled("Stack")(({ theme }) => ({
+const StackCustom = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(1),
   [theme.breakpoints.down("md")]: {
     justifyContent: "center",
@@ -87,11 +88,23 @@ function ProductEdit() {
 
   return (
     <div className={cx("products-edit-wrapper")}>
-      <h1>ProductEdit</h1>
+      <div className={cx("title")}>
+        <h3>Product Edit</h3>
+      </div>
       <div className={cx("upload-product")}>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={1}>
-            <Grid xs={10}>
+            <Grid
+              xs={10}
+              sx={{
+                width: {
+                  xs: "100%",
+                  md: "100%",
+                  lg: "100%",
+                  xl: "calc(100% * 10 / var(--Grid-columns))",
+                },
+              }}
+            >
               <div id="section-1">
                 <UploadProduct />
               </div>
@@ -133,7 +146,17 @@ function ProductEdit() {
                 </ButtonCustom>
               </StackCustom>
             </Grid>
-            <Grid xs={2}>
+            <Grid
+              xs={2}
+              sx={{
+                display: {
+                  xs: "none",
+                  md: "none",
+                  lg: "none",
+                  xl: "block",
+                },
+              }}
+            >
               <Box
                 sx={{
                   width: "100%",

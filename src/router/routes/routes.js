@@ -1,12 +1,12 @@
 //Private Layout
 import PrivateLayout from "../../Layout/PrivateLayout";
-import LoginPage from "../../components/pages/LoginPage";
+import LoginPage from "../../pages/LoginPage";
 
 //Layouts
-import Home from "../../components/pages/Home";
-import NotFound from "../../components/pages/NotFound";
-import Products from "../../components/pages/Products";
-import ProductEdit from "../../components/pages/ProductEdit/ProductEdit";
+import Home from "../../pages/Home";
+import NotFound from "../../pages/NotFound";
+import Products from "../../pages/Products";
+import ProductEdit from "../../pages/ProductEdit/ProductEdit";
 
 //Public routes
 const publicRoutes = [

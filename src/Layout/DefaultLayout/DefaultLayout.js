@@ -118,8 +118,9 @@ function DefaultLayout({ children }) {
       <Box
         sx={{
           display: "flex",
-          // backgroundColor: "var(--primary-color)",
-          // borderRadius: "30px",
+          maxHeight: "95vh",
+          height: "100%",
+          overflow: "hidden",
         }}
       >
         <CssBaseline />
@@ -138,7 +139,7 @@ function DefaultLayout({ children }) {
             // ...(open && { display: "none" }),
             ...(open && {
               left: "-16px",
-              zIndex: "9999",
+              zIndex: "1300",
               // transition: "all ease-in .1s",
             }),
           }}
@@ -210,7 +211,7 @@ function DefaultLayout({ children }) {
             borderRadius: "30px",
             overflow: "auto",
             padding: "14px",
-            height: "90vh",
+            // height: "100%",
           }}
         >
           <Header />
