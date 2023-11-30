@@ -17,12 +17,16 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import StarBorder from "@mui/icons-material/StarBorder";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
+import DescriptionIcon from "@mui/icons-material/Description";
 import config from "../../router/config";
 import "./Sidebar.scss";
 
 const ListItemIconCustom = styled(ListItemIcon)({
   minWidth: "35px",
   color: "var(--white-color)",
+  ":hover": {
+    backgroundColor: "rgba(0, 0, 0, 0.04)",
+  },
 });
 
 function Sidebar() {
@@ -165,7 +169,7 @@ function Sidebar() {
           </Collapse>
 
           <NavLink
-            to="/6"
+            to={config.routes.post}
             className="category-list-item"
             onClick={() => setIsListChildActive(false)}
           >
@@ -176,9 +180,9 @@ function Sidebar() {
                 sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
               >
                 <ListItemIconCustom>
-                  <DraftsIcon />
+                  <DescriptionIcon />
                 </ListItemIconCustom>
-                <ListItemText primary="Drafts" />
+                <ListItemText primary="Post" />
               </ListItemButton>
             </ListItem>
           </NavLink>

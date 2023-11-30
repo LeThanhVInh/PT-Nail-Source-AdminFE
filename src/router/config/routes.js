@@ -3,6 +3,7 @@ const routes = {
   products: "/products",
   notfound: "*",
   productsEdit: "/products-edit",
+  post: "/post",
 };
 
 export default routes;

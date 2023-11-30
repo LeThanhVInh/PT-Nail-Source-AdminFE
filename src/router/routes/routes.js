@@ -7,12 +7,14 @@ import Home from "../../pages/Home";
 import NotFound from "../../pages/NotFound";
 import Products from "../../pages/Products";
 import ProductEdit from "../../pages/ProductEdit/ProductEdit";
+import Post from "../../pages/Post/Post";
 
 //Public routes
 const publicRoutes = [
   { path: "/", component: Home },
   { path: "/products", component: Products },
   { path: "/products-edit", component: ProductEdit },
+  { path: "/post", component: Post },
 ];
 
 const privateRoutes = [

@@ -1,10 +1,8 @@
 import { useState } from "react";
-import "react-datepicker/dist/react-datepicker.css";
+import { useForm } from "react-hook-form";
 import Select from "react-select";
 import Box from "@mui/material/Box";
-import DatePicker from "react-datepicker";
 import ClearIcon from "@mui/icons-material/Clear";
-// import Grid from "@mui/material/Unstable_Grid2";
 import { styled } from "@mui/system";
 import RadioGroup from "@mui/material/RadioGroup";
 import Modal from "@mui/material/Modal";
@@ -17,13 +15,53 @@ import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 import { Stack } from "@mui/material";
 import Button from "@mui/material/Button";
-import { useForm } from "react-hook-form";
+import Tooltip from "@mui/material/Tooltip";
+
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import classNames from "classnames/bind";
 import styles from "./ModalAddNew.module.scss";
 
 const cx = classNames.bind(styles);
 
+const ProSpan = styled("span")({
+  display: "inline-block",
+  height: "1em",
+  width: "1em",
+  verticalAlign: "middle",
+  marginLeft: "0.3em",
+  marginBottom: "0.08em",
+  backgroundSize: "contain",
+  backgroundRepeat: "no-repeat",
+  backgroundImage: "url(https://mui.com/static/x/pro.svg)",
+});
+
+function Label({ componentName, valueType, isProOnly }) {
+  const content = (
+    <span>
+      <strong>{componentName}</strong> for {valueType} editing
+    </span>
+  );
+
+  if (isProOnly) {
+    return (
+      <Stack direction="row" spacing={0.5} component="span">
+        <Tooltip title="Included on Pro package">
+          <a href="https://mui.com/x/introduction/licensing/#pro-plan">
+            <ProSpan />
+          </a>
+        </Tooltip>
+        {content}
+      </Stack>
+    );
+  }
+
+  return content;
+}
+
+//Dummy Data
 const categoryList = [
   {
     id: 1,
@@ -42,6 +80,7 @@ const categoryList = [
   },
 ];
 
+//Custom
 const theme = (theme) => ({
   ...theme,
   colors: {
@@ -85,12 +124,17 @@ const FormControlLabelCustom = styled(FormControlLabel)({
 });
 
 const StackCustom = styled(Stack)(({ theme }) => ({
+  marginTop: "10px",
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "flex-end",
+  alignItems: "center",
   padding: theme.spacing(1),
   [theme.breakpoints.down("md")]: {
     justifyContent: "center",
   },
   [theme.breakpoints.up("md")]: {
-    justifyContent: "center",
+    justifyContent: "space-evenly",
   },
   [theme.breakpoints.up("lg")]: {
     justifyContent: "flex-end",
@@ -98,26 +142,52 @@ const StackCustom = styled(Stack)(({ theme }) => ({
 }));
 
 const ButtonCustom = styled(Button)(({ theme }) => ({
-  marginBottom: "20px",
   color: "var(--grey-color)",
   width: "208px",
   height: "46px",
   fontSize: "14px",
   textTransform: "capitalize",
   borderColor: "var(--gray-color)",
-  // flexGrow: 1,
-  marginLeft: "20px",
+  marginBottom: "20px",
   ":hover": {
     borderColor: "var(--primary-color)",
   },
   [theme.breakpoints.down("md")]: {
     flexGrow: 1,
+    width: "100%",
   },
   [theme.breakpoints.up("md")]: {
     flexGrow: 1,
+    margin: "0 20px 20px 20px",
   },
   [theme.breakpoints.up("lg")]: {
     flexGrow: 0,
+    margin: "0 0 0 20px",
+  },
+}));
+
+const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
+  input: {
+    padding: "7.5px 14px",
+  },
+
+  "& .Mui-focused": {
+    fieldset: {
+      "&.MuiOutlinedInput-notchedOutline, &.css-1d3z3hw-MuiOutlinedInput-notchedOutline":
+        {
+          borderColor: "var(--primary-color)",
+        },
+      ":hover": {
+        borderColor: "var(--primary-color)",
+      },
+    },
+  },
+  "&.MuiPickersFadeTransitionGroup-root": {
+    backgroundColor: "#209214 !important",
+
+    "&.MuiButtonBase-root-MuiPickersDay-root, &.Mui-selected": {
+      backgroundColor: "#209214 !important",
+    },
   },
 }));
 
@@ -173,28 +243,27 @@ function ModalAddNew(props) {
                 autoComplete="off"
                 onSubmit={handleSubmit(onSubmit)}
               >
-                <div className={cx("title")}>
-                  <h3>Modal Add New</h3>
-                  <IconButton
-                    // disableElevation
-                    // disableRipple
-                    aria-label="Close"
-                    sx={{
-                      ":hover": {
-                        color: "var(--primary-color)",
-                      },
-                    }}
-                    onClick={handleClose}
-                  >
-                    <ClearIcon fontSize="inherit" />
-                  </IconButton>
-                </div>
-
                 <div className={cx("add-new-container")}>
+                  {/* <div className={cx("add-new-header")}>
+                    <h3>Modal Add New</h3>
+                  </div> */}
                   <div className={cx("content-items")}>
                     <div className={cx("item")}>
                       <div className={cx("item-title")}>
-                        <p>Add New</p>
+                        <p>Modal Add New</p>
+                        <IconButton
+                          // disableElevation
+                          // disableRipple
+                          aria-label="Close"
+                          sx={{
+                            ":hover": {
+                              color: "var(--primary-color)",
+                            },
+                          }}
+                          onClick={handleClose}
+                        >
+                          <ClearIcon fontSize="inherit" />
+                        </IconButton>
                       </div>
                       <Divider />
                       <div className={cx("item-title-content")}>
@@ -365,53 +434,52 @@ function ModalAddNew(props) {
 
                         <div>
                           <TypographyCustom>Date Picker</TypographyCustom>
-                          <DatePicker
-                            width="100%"
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
-                          />
+
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePickerCustom
+                              className={cx("date-time-picker")}
+                            />
+                          </LocalizationProvider>
                         </div>
+                      </div>
+
+                      <Divider sx={{ m: "20px 0" }} />
+
+                      <div className={cx("add-new-footer")}>
+                        <StackCustom direction="row">
+                          <ButtonCustom
+                            variant="outlined"
+                            onClick={handleClose}
+                          >
+                            Cancel
+                          </ButtonCustom>
+                          <ButtonCustom
+                            // disableElevation
+                            disableRipple
+                            variant="outlined"
+                          >
+                            Save & Add New
+                          </ButtonCustom>
+                          <ButtonCustom
+                            // disableElevation
+                            disableRipple
+                            type="submit"
+                            variant="contained"
+                            sx={{
+                              backgroundColor: "var(--primary-color)",
+                              color: "var(--white-color)",
+                              ":hover": {
+                                backgroundColor: "var(--primary-color)",
+                              },
+                            }}
+                          >
+                            Save
+                          </ButtonCustom>
+                        </StackCustom>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                <StackCustom
-                  direction="row"
-                  sx={{
-                    marginTop: "10px",
-                    display: "flex",
-                    flexWrap: "wrap",
-                    justifyContent: "flex-end",
-                    alignItems: "center",
-                  }}
-                >
-                  <ButtonCustom variant="outlined" onClick={handleClose}>
-                    Cancel
-                  </ButtonCustom>
-                  <ButtonCustom
-                    // disableElevation
-                    disableRipple
-                    variant="outlined"
-                  >
-                    Save & Add New
-                  </ButtonCustom>
-                  <ButtonCustom
-                    // disableElevation
-                    disableRipple
-                    type="submit"
-                    variant="contained"
-                    sx={{
-                      backgroundColor: "var(--primary-color)",
-                      color: "var(--white-color)",
-                      ":hover": {
-                        backgroundColor: "var(--primary-color)",
-                      },
-                    }}
-                  >
-                    Save
-                  </ButtonCustom>
-                </StackCustom>
               </form>
             </div>
           </Box>

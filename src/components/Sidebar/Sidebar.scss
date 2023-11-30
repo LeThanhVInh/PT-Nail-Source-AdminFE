@@ -32,7 +32,7 @@
       border-top-left-radius: 999px;
       border-bottom-left-radius: 999px;
       &:hover {
-        background-color: var(--bg-white-color);
+        background-color: rgb(255, 255, 255) !important;
         opacity: 1;
       }
       &::after {

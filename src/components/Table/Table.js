@@ -94,35 +94,35 @@ function createData(images, categoryName, slug, status, actions) {
 
 const rows = [
   createData(
-    "https://scontent.fsgn5-9.fna.fbcdn.net/v/t39.30808-6/279010736_2344780688996019_4166994336824590836_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_ohc=MyW08_XuaxEAX84VnV2&_nc_ht=scontent.fsgn5-9.fna&oh=00_AfDgstXKJcOVVKhVkaZQeTwTXO5xMsa2NHoYTc7xTo0yuQ&oe=65638800",
+    "https://rubick-react.left4code.com/assets/profile-3.614e7dcb.jpg",
     159,
     6.0,
     24,
     4.0
   ),
   createData(
-    "https://scontent.fsgn5-15.fna.fbcdn.net/v/t39.30808-6/278865349_161336839629250_6774608535506922596_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=qYlXWqcpIuMAX8V_EVr&_nc_ht=scontent.fsgn5-15.fna&oh=00_AfA9jtcYmQl25tqUD4YASGiAzk1qmsZOqIA7of4rjlkCgA&oe=65639CB7",
+    "https://rubick-react.left4code.com/assets/profile-10.7f88f31b.jpg",
     237,
     9.0,
     37,
     4.3
   ),
   createData(
-    "https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-6/272012476_2273064789500943_3135069605339884067_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=9O1-YA8z7KwAX9R4XJZ&_nc_ht=scontent.fsgn5-10.fna&oh=00_AfDzm5qjDs9LJ3NLlx5-TVepWWkn4uIaxKyEqosdJ4i40Q&oe=65636F75",
+    "https://rubick-react.left4code.com/assets/profile-6.a9037862.jpg",
     262,
     16.0,
     24,
     6.0
   ),
   createData(
-    "https://scontent.fsgn5-10.fna.fbcdn.net/v/t1.6435-9/150859384_2016340621840029_6005421481631494320_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=dd63ad&_nc_ohc=COIOtd54DkkAX8zLV-u&_nc_ht=scontent.fsgn5-10.fna&oh=00_AfC-N9rJ6uGY8Ns825hgDgO0cEvOhsztJ1UP0LCWp8TIWQ&oe=65865838",
+    "https://rubick-react.left4code.com/assets/profile-2.21f19505.jpg",
     305,
     3.7,
     67,
     4.3
   ),
   createData(
-    "https://scontent.fsgn5-5.fna.fbcdn.net/v/t1.6435-9/61034573_1407251922748905_6084097512979824640_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=dd63ad&_nc_ohc=n_AbJ88Q9roAX-qSXpJ&_nc_ht=scontent.fsgn5-5.fna&oh=00_AfCZnAH_0mE8E3Ge0RL37V6AAkilfOIKtK-whxcILw3Jlg&oe=658635A4",
+    "https://rubick-react.left4code.com/assets/profile-2.21f19505.jpg",
     356,
     16.0,
     49,
