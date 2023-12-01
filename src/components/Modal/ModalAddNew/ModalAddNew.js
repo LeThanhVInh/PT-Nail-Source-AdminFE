@@ -174,9 +174,9 @@ const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
   "& .Mui-focused": {
     fieldset: {
       "&.MuiOutlinedInput-notchedOutline, &.css-1d3z3hw-MuiOutlinedInput-notchedOutline":
-        {
-          borderColor: "var(--primary-color)",
-        },
+      {
+        borderColor: "var(--primary-color)",
+      },
       ":hover": {
         borderColor: "var(--primary-color)",
       },
@@ -232,8 +232,7 @@ function ModalAddNew(props) {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        className="animate__animated animate__zoomIn animate__fast"
       >
         <Box sx={style}>
           <Box sx={{ overflow: "auto", height: "100%" }}>
