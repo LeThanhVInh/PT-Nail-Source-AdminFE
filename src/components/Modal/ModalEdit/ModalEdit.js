@@ -20,9 +20,10 @@ import Tooltip from "@mui/material/Tooltip";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import Autocomplete from "@mui/material/Autocomplete";
 
 import classNames from "classnames/bind";
-import styles from "./ModalAddNew.module.scss";
+import styles from "./ModalEdit.module.scss";
 
 const cx = classNames.bind(styles);
 
@@ -80,6 +81,12 @@ const categoryList = [
   },
 ];
 
+const top100Films = [
+  { label: "Pê Cê & Láp Tóp" },
+  { label: "Ê Lếc Trô Níc " },
+  { label: "Phát sành & Mếch Úp" },
+];
+
 //Custom
 const theme = (theme) => ({
   ...theme,
@@ -91,6 +98,21 @@ const theme = (theme) => ({
 });
 
 const TextFieldCustom = styled(TextField)({
+  margin: "10px 0",
+  input: {
+    padding: "0 14px",
+    height: "38px",
+  },
+
+  "&.MuiTextField-root label": {
+    top: "-7px",
+  },
+
+  "& label.MuiInputLabel-outlined.MuiInputLabel-shrink": {
+    transform: "translate(14px, -5px) scale(0.8)",
+    color: "var(--primary-color)",
+  },
+
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
       borderColor: "var(--grey-border)",
@@ -104,9 +126,72 @@ const TextFieldCustom = styled(TextField)({
   },
 });
 
-const TypographyCustom = styled(Typography)({
+const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
   margin: "10px 0",
-  paddingTop: "10px",
+
+  [theme.breakpoints.down("md")]: {
+    "& .MuiAutocomplete-inputRoot": {
+      minHeight: "38px",
+    },
+  },
+  [theme.breakpoints.up("md")]: {
+    "& .MuiAutocomplete-inputRoot": {
+      height: "38px",
+    },
+  },
+  [theme.breakpoints.up("lg")]: {
+    "& .MuiAutocomplete-inputRoot": {
+      height: "38px",
+    },
+  },
+
+  "& .MuiInputLabel-outlined:not(.MuiInputLabel-shrink)": {
+    transform: "translate(12px, 8px) scale(1);",
+  },
+
+  "&.Mui-focused .MuiInputLabel-outlined": {
+    color: "var(--primary-color)",
+  },
+
+  "& .MuiAutocomplete-inputRoot": {
+    '&[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input:first-of-type': {
+      padding: "0 0 0 6px",
+    },
+    "& .MuiOutlinedInput-notchedOutline": {
+      // borderColor: "var(--primary-color)",
+    },
+    "&:hover .MuiOutlinedInput-notchedOutline": {
+      // borderColor: "red",
+    },
+    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "var(--primary-color)",
+    },
+  },
+
+  "& + .MuiAutocomplete-popper .MuiAutocomplete-option": {
+    "&.Mui-focused": {
+      color: "var(--text-color)",
+      backgroundColor: "var(--primary-light)",
+    },
+
+    '&[aria-selected="true"]': {
+      color: "var(--white-color)",
+      backgroundColor: "var(--primary-color)",
+      "&.Mui-focused": {
+        color: "var(--white-color)",
+        backgroundColor: "var(--primary-color)",
+      },
+      "&:hover": {
+        color: "var(--white-color)",
+        backgroundColor: "var(--primary-color)",
+      },
+    },
+  },
+}));
+
+const TypographyCustom = styled(Typography)({
+  // margin: "5px 0",
+  // paddingTop: "10px",
 });
 
 const TypographyError = styled(Typography)({
@@ -167,11 +252,38 @@ const ButtonCustom = styled(Button)(({ theme }) => ({
 }));
 
 const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
+  margin: "10px 0",
+
   input: {
     padding: "7.5px 14px",
   },
 
+  "& .MuiInputLabel-outlined:not(.MuiInputLabel-shrink)": {
+    transform: "translate(12px, 8px) scale(1);",
+  },
+
+  "&.Mui-focused .MuiInputLabel-outlined": {
+    color: "var(--primary-color)",
+  },
+
+  "& .MuiAutocomplete-inputRoot": {
+    // height: "38px",
+    '&[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input:first-of-type': {
+      padding: "0 0 0 6px",
+    },
+    "& .MuiOutlinedInput-notchedOutline": {
+      // borderColor: "var(--primary-color)",
+    },
+    "&:hover .MuiOutlinedInput-notchedOutline": {
+      // borderColor: "red",
+    },
+    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "var(--primary-color)",
+    },
+  },
+
   "& .Mui-focused": {
+    color: "var(--primary-color)",
     fieldset: {
       "&.MuiOutlinedInput-notchedOutline, &.css-1d3z3hw-MuiOutlinedInput-notchedOutline":
         {
@@ -207,7 +319,7 @@ const style = {
   // maxHeight: "100%",
 };
 
-function ModalAddNew(props) {
+function ModalEdit(props) {
   const { handleClose, open } = props;
   const {
     register,
@@ -232,8 +344,7 @@ function ModalAddNew(props) {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        className="animate__animated animate__zoomIn animate__fast"
       >
         {/* <Box sx={style}> */}
         <Box sx={{ overflow: "auto", height: "100%" }}>
@@ -244,13 +355,10 @@ function ModalAddNew(props) {
               onSubmit={handleSubmit(onSubmit)}
             >
               <div className={cx("add-new-container")}>
-                {/* <div className={cx("add-new-header")}>
-                    <h3>Modal Add New</h3>
-                  </div> */}
                 <div className={cx("content-items")}>
                   <div className={cx("item")}>
                     <div className={cx("item-title")}>
-                      <p>Modal Add New</p>
+                      <p>Modal Edit</p>
                       <IconButton
                         // disableElevation
                         // disableRipple
@@ -265,123 +373,127 @@ function ModalAddNew(props) {
                         <ClearIcon fontSize="inherit" />
                       </IconButton>
                     </div>
-                    <Divider />
+                    <Divider sx={{ margin: "20px 0" }} />
                     <div className={cx("item-title-content")}>
-                      <div>
-                        <TypographyCustom>Email</TypographyCustom>
+                      <div className={cx("item-content")}>
                         <TextFieldCustom
-                          placeholder="Email"
                           fullWidth
-                          inputProps={{
-                            style: {
-                              padding: "7.5px 14px",
-                            },
-                          }}
+                          label="Email"
                           {...register("email", {
                             required: true,
                             pattern: /\S+@\S+\.\S+/,
                           })}
                         />
-                        <Box>
-                          <TypographyError>
-                            {errors.email &&
-                              errors.email.type === "required" &&
-                              "Email is required"}
-                          </TypographyError>
-                          <TypographyError>
-                            {errors.email &&
-                              errors.email.type === "pattern" &&
-                              "Enter a valid email"}
-                          </TypographyError>
-                        </Box>
+
+                        {errors.email && errors.email.type === "required" && (
+                          <TypographyError>Email is required</TypographyError>
+                        )}
+
+                        {errors.email && errors.email.type === "pattern" && (
+                          <TypographyError>Enter a valid email</TypographyError>
+                        )}
                       </div>
 
-                      <div>
-                        <TypographyCustom>User name</TypographyCustom>
+                      <div className={cx("item-content")}>
                         <TextFieldCustom
-                          placeholder="User name"
+                          label="User name"
                           fullWidth
-                          inputProps={{
-                            style: {
-                              padding: "7.5px 14px",
-                            },
-                          }}
                           {...register("userName", {
                             required: true,
                           })}
                         />
-                        <Box>
-                          <TypographyError>
-                            {errors.userName &&
-                              errors.userName.type === "required" &&
-                              "User name is required"}
-                          </TypographyError>
-                        </Box>
+
+                        {errors.userName &&
+                          errors.userName.type === "required" && (
+                            <TypographyError>
+                              User name is required
+                            </TypographyError>
+                          )}
                       </div>
 
-                      <div>
-                        <TypographyCustom>Password</TypographyCustom>
+                      <div className={cx("item-content")}>
                         <TextFieldCustom
-                          placeholder="Password"
+                          label="Password"
                           type="password"
                           fullWidth
-                          inputProps={{
-                            style: {
-                              padding: "7.5px 14px",
-                            },
-                          }}
                           {...register("passWord", {
                             required: true,
                             minLength: 4,
                           })}
                         />
                         <Box>
-                          <TypographyError>
-                            {errors.passWord &&
-                              errors.passWord.type === "required" &&
-                              "Password is required"}
-                          </TypographyError>
-                          <TypographyError>
-                            {errors.passWord &&
-                              errors.passWord.type === "minLength" &&
-                              "Minimum characters 4 required"}
-                          </TypographyError>
+                          {errors.passWord &&
+                            errors.passWord.type === "required" && (
+                              <TypographyError>
+                                Password is required
+                              </TypographyError>
+                            )}
+
+                          {errors.passWord &&
+                            errors.passWord.type === "minLength" && (
+                              <TypographyError>
+                                Minimum characters 4 required
+                              </TypographyError>
+                            )}
                         </Box>
                       </div>
 
-                      <div>
-                        <TypographyCustom>Select</TypographyCustom>
+                      <div className={cx("item-content")}>
                         <FormControl
                           sx={{ minWidth: 120 }}
                           size="small"
                           fullWidth
                         >
-                          <Select
-                            isClearable={isClearable}
-                            options={categoryList}
-                            theme={theme}
+                          <StyledAutocomplete
+                            disablePortal
+                            options={top100Films}
+                            renderInput={(params) => (
+                              <TextField {...params} label="Select" fullWidth />
+                            )}
                           />
                         </FormControl>
                       </div>
 
-                      <div>
-                        <TypographyCustom>Multi Select</TypographyCustom>
-
+                      <div className={cx("item-content")}>
                         <FormControl
                           sx={{ minWidth: 120 }}
                           size="small"
                           fullWidth
                         >
-                          <Select
+                          <StyledAutocomplete
+                            disablePortal
+                            multiple
+                            filterSelectedOptions
+                            options={top100Films}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                label="Multi Select"
+                                fullWidth
+                              />
+                            )}
+                            size="small"
+                          />
+
+                          {/* <Select
                             isMulti
                             theme={theme}
                             isClearable={isClearable}
                             options={categoryList}
-                          />
+                          /> */}
                         </FormControl>
                       </div>
 
-                      <div>
+                      <div className={cx("item-content")}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DatePickerCustom
+                            label="Date Picker"
+                            className={cx("date-time-picker")}
+                          />
+                        </LocalizationProvider>
+                      </div>
+
+                      <div className={cx("item-content")}>
                         <FormControl>
                           <TypographyCustom>Radio</TypographyCustom>
 
@@ -405,7 +517,7 @@ function ModalAddNew(props) {
                         </FormControl>
                       </div>
 
-                      <div>
+                      <div className={cx("item-content")}>
                         <FormGroup>
                           <TypographyCustom>Check Box</TypographyCustom>
 
@@ -430,16 +542,6 @@ function ModalAddNew(props) {
                             fontSize="14px"
                           />
                         </FormGroup>
-                      </div>
-
-                      <div>
-                        <TypographyCustom>Date Picker</TypographyCustom>
-
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <DatePickerCustom
-                            className={cx("date-time-picker")}
-                          />
-                        </LocalizationProvider>
                       </div>
                     </div>
 
@@ -486,4 +588,4 @@ function ModalAddNew(props) {
   );
 }
 
-export default ModalAddNew;
+export default ModalEdit;

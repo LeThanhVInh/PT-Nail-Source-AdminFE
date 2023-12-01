@@ -1,0 +1,87 @@
+@media (max-width: 576px) {
+  .unlock-screen-alert {
+    top: 12% !important;
+  }
+}
+
+.unlock-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  .unlock-screen-bg {
+    height: 100vh;
+    width: 100vw;
+    backdrop-filter: blur(32px);
+    // filter: brightness(0.95);
+    filter: blur(6px);
+    background-image: url(../../assest/bg/lock-bg.jpg);
+  }
+  .unlock-screen-alert {
+    position: absolute;
+    top: 20%;
+    p {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white-color);
+      text-shadow: 1px 1px 12px #00000083;
+    }
+  }
+
+  .unlock-screen-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    z-index: 5;
+    position: absolute;
+
+    .passcode-display {
+      font-size: 24px;
+      margin-bottom: 20px;
+      background-color: transparent;
+      border: 1px solid rgba(0, 0, 0, 0.014);
+      text-align: center;
+      font-size: 50px;
+      color: white;
+      &:focus-visible {
+        outline: none;
+      }
+    }
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 30px;
+      button {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #0000002f;
+        border: 1px solid rgba(0, 0, 0, 0.014);
+        box-shadow: 1px 1px 12px #0000001e;
+
+        font-size: 24px;
+        color: #ffffff;
+        cursor: pointer;
+      }
+    }
+    .unlock-button {
+      width: 230px;
+      height: 40px;
+      margin-top: 20px;
+      border-radius: 5px;
+      background-color: #0000002f;
+      border: 1px solid rgba(0, 0, 0, 0.014);
+      box-shadow: 1px 1px 12px #0000001e;
+      border: none;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+}

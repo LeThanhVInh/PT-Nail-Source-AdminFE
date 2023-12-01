@@ -1,8 +1,5 @@
 import * as React from "react";
 import { useState } from "react";
-import Validation from "react-validation-framework";
-import validator from "validator";
-import { fieldValidatorCore } from "react-validation-framework";
 
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -19,10 +16,15 @@ import Stack from "@mui/material/Stack";
 import AddIcon from "@mui/icons-material/Add";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import Chip from "@mui/material/Chip";
 
 import classNames from "classnames/bind";
 import styles from "./Table.module.scss";
-import ModalAddNew from "../Modal/ModalAddNew";
+import ModalEdit from "../Modal/ModalEdit";
+import CheckBox from "@mui/icons-material/CheckBox";
 
 const cx = classNames.bind(styles);
 
@@ -88,56 +90,101 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(images, categoryName, slug, status, actions) {
-  return { images, categoryName, slug, status, actions };
-}
+const CheckboxTable = styled(Checkbox)(({ theme }) => ({
+  "&.Mui-checked": {
+    color: "var(--primary-color)",
+  },
+  "&.MuiCheckbox-indeterminate": {
+    color: "var(--primary-color)",
+  },
+}));
 
 const rows = [
-  createData(
-    "https://rubick-react.left4code.com/assets/profile-3.614e7dcb.jpg",
-    159,
-    6.0,
-    24,
-    4.0
-  ),
-  createData(
-    "https://rubick-react.left4code.com/assets/profile-10.7f88f31b.jpg",
-    237,
-    9.0,
-    37,
-    4.3
-  ),
-  createData(
-    "https://rubick-react.left4code.com/assets/profile-6.a9037862.jpg",
-    262,
-    16.0,
-    24,
-    6.0
-  ),
-  createData(
-    "https://rubick-react.left4code.com/assets/profile-2.21f19505.jpg",
-    305,
-    3.7,
-    67,
-    4.3
-  ),
-  createData(
-    "https://rubick-react.left4code.com/assets/profile-2.21f19505.jpg",
-    356,
-    16.0,
-    49,
-    3.9
-  ),
+  {
+    id: 1,
+    images: "https://rubick-react.left4code.com/assets/profile-3.614e7dcb.jpg",
+    categoryName: "1",
+    slug: "1",
+    status: "active",
+  },
+  {
+    id: 2,
+    images: "https://rubick-react.left4code.com/assets/profile-10.7f88f31b.jpg",
+    categoryName: "2",
+    slug: "2",
+    status: "active",
+  },
+  {
+    id: 3,
+    images: "https://rubick-react.left4code.com/assets/profile-6.a9037862.jpg",
+    categoryName: "3",
+    slug: "3",
+    status: "deactive",
+  },
+  {
+    id: 4,
+    images: "https://rubick-react.left4code.com/assets/profile-6.a9037862.jpg",
+    categoryName: "4",
+    slug: "4",
+    status: "deactive",
+  },
+  {
+    id: 5,
+    images: "https://rubick-react.left4code.com/assets/profile-2.21f19505.jpg",
+    categoryName: "5",
+    slug: "5",
+    status: "deactive",
+  },
+  {
+    id: 6,
+    images: "https://rubick-react.left4code.com/assets/profile-10.7f88f31b.jpg",
+    categoryName: "6",
+    slug: "6",
+    status: "active",
+  },
+  {
+    id: 7,
+    images: "https://rubick-react.left4code.com/assets/profile-3.614e7dcb.jpg",
+    categoryName: "7",
+    slug: "7",
+    status: "active",
+  },
 ];
 
 function Tables() {
   const [openModal, setOpenModal] = useState(false);
+  const [isCheckedItem, setIsCheckedItem] = React.useState([]);
+
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
 
+  const handleChange1 = (isChecked) => {
+    if (isChecked) return setIsCheckedItem(rows.map((row) => row.id));
+    else setIsCheckedItem([]);
+  };
+
+  const handleChange2 = (isChecked, id) => {
+    const index = isCheckedItem.indexOf(id);
+
+    if (isChecked) return setIsCheckedItem((state) => [...state, id]);
+
+    if (!isChecked && index > -1)
+      return setIsCheckedItem((state) => {
+        state.splice(index, 1);
+        return JSON.parse(JSON.stringify(state));
+      });
+  };
+
   return (
     <>
-      <div className={cx("table-wrapper")}>
+      <div
+        className={cx(
+          "table-wrapper",
+          "animate__animated",
+          "animate__fadeInRight",
+          "animate__fast"
+        )}
+      >
         <TableContainer
           sx={{
             m: "10px",
@@ -163,6 +210,8 @@ function Tables() {
                     <AddIcon />
                   </IconButton>
                 </Stack>
+
+                {/* <h3>ID's: {JSON.stringify(isCheckedItem)}</h3> */}
               </div>
               <div className={cx("action-search", "pt-10")}>
                 <Search sx={{ boxShadow: "20px 3px 20px #0000000b" }}>
@@ -181,69 +230,102 @@ function Tables() {
             </div>
           </div>
 
-          <Table
-            sx={{
-              minWidth: 700,
-              borderSpacing: "0 10px",
-              borderCollapse: "unset",
-            }}
-            aria-label="customized table"
-          >
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>IMAGES</StyledTableCell>
-                <StyledTableCell align="right">CATEGORY NAME</StyledTableCell>
-                <StyledTableCell align="right">SLUG</StyledTableCell>
-                <StyledTableCell align="center">STATUS</StyledTableCell>
-                <StyledTableCell align="center">ACTIONS</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <StyledTableRow
-                  key={row.images}
-                  sx={{
-                    backgroundColor: "var(--white-color)",
-                    borderRadius: "5px",
-                    boxShadow: "20px 3px 20px #0000000b",
-                  }}
-                >
-                  <StyledTableCell component="th" scope="row">
-                    <img
-                      src={row.images}
-                      alt={1}
-                      className={cx("images-table")}
+          <div style={{ overflow: "auto" }}>
+            <Table
+              sx={{
+                minWidth: 700,
+                borderSpacing: "0 10px",
+                borderCollapse: "unset",
+              }}
+              aria-label="customized table"
+            >
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>
+                    <CheckboxTable
+                      checked={isCheckedItem.length === rows.length}
+                      indeterminate={
+                        isCheckedItem.length !== rows.length &&
+                        isCheckedItem.length > 0
+                      }
+                      onChange={(event) => handleChange1(event.target.checked)}
                     />
+                    LỤM
                   </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.categoryName}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{row.slug}</StyledTableCell>
-
-                  <StyledTableCell align="center">
-                    <Button className={cx("btn-is-active")}>
-                      <CheckBoxIcon /> Active
-                    </Button>
-                  </StyledTableCell>
-
-                  <StyledTableCell
-                    align="center"
-                    className={cx("border-right")}
+                  <StyledTableCell>IMAGES</StyledTableCell>
+                  <StyledTableCell align="right">CATEGORY NAME</StyledTableCell>
+                  <StyledTableCell align="right">SLUG</StyledTableCell>
+                  <StyledTableCell align="center">STATUS</StyledTableCell>
+                  <StyledTableCell align="center">ACTIONS</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <StyledTableRow
+                    key={row.id}
+                    sx={{
+                      backgroundColor: "var(--white-color)",
+                      borderRadius: "5px",
+                      boxShadow: "20px 3px 20px #0000000b",
+                    }}
                   >
-                    <IconButton className={cx("btn-edit")}>
-                      <CheckBoxIcon />
-                    </IconButton>
-                    <IconButton className={cx("btn-delete")}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
+                    <StyledTableCell>
+                      <CheckboxTable
+                        key={rows.id}
+                        checked={isCheckedItem.includes(row.id)}
+                        onChange={(event) =>
+                          handleChange2(event.target.checked, row.id)
+                        }
+                        inputProps={{ "aria-label": "controlled" }}
+                      />
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      <img
+                        src={row.images}
+                        alt={1}
+                        className={cx("images-table")}
+                      />
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {row.categoryName}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{row.slug}</StyledTableCell>
+
+                    <StyledTableCell align="center">
+                      {row.status === "active" ? (
+                        <Chip
+                          sx={{ backgroundColor: "var(--white-color)" }}
+                          icon={<TaskAltIcon color="success" />}
+                          label="Active"
+                        />
+                      ) : (
+                        <Chip
+                          sx={{ backgroundColor: "var(--white-color)" }}
+                          icon={<TaskAltIcon color="error" />}
+                          label="Inactive"
+                        />
+                      )}
+                    </StyledTableCell>
+
+                    <StyledTableCell
+                      align="center"
+                      className={cx("border-right")}
+                    >
+                      <IconButton className={cx("btn-edit")}>
+                        <CheckBoxIcon />
+                      </IconButton>
+                      <IconButton className={cx("btn-delete")}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </TableContainer>
       </div>
-      <ModalAddNew open={openModal} handleClose={handleCloseModal} />
+      <ModalEdit open={openModal} handleClose={handleCloseModal} />
     </>
   );
 }

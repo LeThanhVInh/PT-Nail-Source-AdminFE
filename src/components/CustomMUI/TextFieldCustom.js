@@ -16,17 +16,42 @@ export const TextFieldCustom = styled(TextField)({
 });
 
 export const TextFieldNoneBorder = styled(TextField)({
+  input: {
+    padding: "0 14px",
+    height: "46px",
+  },
   borderRadius: "5px",
   boxShadow: "0 3px 20px #0000000b !important",
+  // "& .MuiOutlinedInput-root": {
+  //   "& fieldset": {
+  //     border: "none",
+  //   },
+  //   "&:hover fieldset": {
+  //     border: "none",
+  //   },
+  //   "&.Mui-focused fieldset": {
+  //     border: "none",
+  //   },
+  // },
+
+  "&.MuiTextField-root label": {
+    top: "-5px",
+  },
+
+  "& label.MuiInputLabel-outlined.MuiInputLabel-shrink": {
+    transform: "translate(14px, -5px) scale(0.8)",
+    color: "var(--primary-color)",
+  },
+
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
       border: "none",
     },
     "&:hover fieldset": {
-      border: "none",
+      borderColor: "var(--primary-color)",
     },
     "&.Mui-focused fieldset": {
-      border: "none",
+      borderColor: "var(--primary-color)",
     },
   },
 });

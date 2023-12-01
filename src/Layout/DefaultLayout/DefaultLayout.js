@@ -45,6 +45,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 
 import classNames from "classnames/bind";
 import styles from "./DefaultLayout.module.scss";
+import "animate.css";
 
 const cx = classNames.bind(styles);
 

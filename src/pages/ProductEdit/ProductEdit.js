@@ -87,7 +87,12 @@ function ProductEdit() {
   };
 
   return (
-    <div className={cx("products-edit-wrapper")}>
+    <div
+      className={cx(
+        "products-edit-wrapper",
+        "animate__animated animate__fadeInRight animate__fast"
+      )}
+    >
       <div className={cx("title")}>
         <h3>Product Edit</h3>
       </div>
@@ -105,16 +110,16 @@ function ProductEdit() {
                 },
               }}
             >
-              <div id="section-1">
+              <div id="section-1" style={{ boxShadow: "var(--box-shadow)" }}>
                 <UploadProduct />
               </div>
-              <div id="section-2">
+              <div id="section-2" style={{ boxShadow: "var(--box-shadow)" }}>
                 <ProductInformation />
               </div>
-              <div id="section-3">
+              <div id="section-3" style={{ boxShadow: "var(--box-shadow)" }}>
                 <ProductDetail />
               </div>
-              <div id="section-4">
+              <div id="section-4" style={{ boxShadow: "var(--box-shadow)" }}>
                 <ProductManagement />
               </div>
 

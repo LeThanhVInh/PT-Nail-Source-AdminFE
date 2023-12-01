@@ -1,6 +1,7 @@
 //Private Layout
 import PrivateLayout from "../../Layout/PrivateLayout";
 import LoginPage from "../../pages/LoginPage";
+import LockPage from "../../pages/LockPage";
 
 //Layouts
 import Home from "../../pages/Home";
@@ -20,6 +21,7 @@ const publicRoutes = [
 const privateRoutes = [
   { path: "*", component: NotFound, layout: PrivateLayout },
   { path: "/login", component: LoginPage, layout: PrivateLayout },
+  { path: "/lock", component: LockPage, layout: PrivateLayout },
 ];
 
 export { publicRoutes, privateRoutes };

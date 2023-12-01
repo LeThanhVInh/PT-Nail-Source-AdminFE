@@ -188,7 +188,7 @@ function Sidebar() {
           </NavLink>
 
           <NavLink
-            to="/7"
+            to={config.routes.lock}
             className="category-list-item"
             onClick={() => setIsListChildActive(false)}
           >
@@ -201,7 +201,7 @@ function Sidebar() {
                 <ListItemIconCustom>
                   <DraftsIcon />
                 </ListItemIconCustom>
-                <ListItemText primary="Drafts" />
+                <ListItemText primary="Lock" />
               </ListItemButton>
             </ListItem>
           </NavLink>

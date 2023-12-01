@@ -31,7 +31,12 @@ function Post() {
   };
 
   return (
-    <div className={cx("post-wrapper")}>
+    <div
+      className={cx(
+        "post-wrapper",
+        "animate__animated animate__fadeInRight animate__fast"
+      )}
+    >
       <div className={cx("post-header")}>
         <div className={cx("title")}>
           <h3>Add New Post</h3>
@@ -78,16 +83,12 @@ function Post() {
               <div className={cx("title")}>
                 <TextFieldNoneBorder
                   fullWidth
-                  placeholder="Title"
+                  label="Title"
                   id="fullWidth"
-                  inputProps={{
-                    style: {
-                      padding: "7.5px 14px",
-                    },
-                  }}
                   sx={{ backgroundColor: "var(--white-color)" }}
                 />
               </div>
+
               <div className={cx("contain")}>
                 <div className={cx("contain-btn")}>
                   <ToggleButtonGroup
