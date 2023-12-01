@@ -45,6 +45,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 
 import classNames from "classnames/bind";
 import styles from "./DefaultLayout.module.scss";
+import 'animate.css';
 
 const cx = classNames.bind(styles);
 
@@ -216,6 +217,14 @@ function DefaultLayout({ children }) {
         >
           <Header />
           {children}
+          {
+            open
+              ? <div
+                onClick={handleDrawerOpen}
+                class="animate__animated animate__fadeIn animate__fast"
+                style={{ zIndex: 2, height: '100%', width: '100%', backgroundColor: '#00000078', position: 'absolute', top: 0, left: 0, }}></div>
+              : <></>
+          }
         </Main>
       </Box>
     </div>

@@ -6,8 +6,6 @@ import { TextFieldNoneBorder } from "../../components/CustomMUI/TextFieldCustom"
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import Stack from "@mui/material/Stack";
-import { Button } from "@mui/material";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -32,7 +30,7 @@ function Post() {
   };
 
   return (
-    <div className={cx("post-wrapper")}>
+    <div className={cx("post-wrapper", "animate__animated animate__fadeInRight animate__fast")}>
       <div className={cx("post-header")}>
         <div className={cx("title")}>
           <h3>Add New Post</h3>

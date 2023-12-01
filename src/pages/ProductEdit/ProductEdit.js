@@ -87,7 +87,7 @@ function ProductEdit() {
   };
 
   return (
-    <div className={cx("products-edit-wrapper")}>
+    <div className={cx("products-edit-wrapper", "animate__animated animate__fadeInRight animate__fast")}>
       <div className={cx("title")}>
         <h3>Product Edit</h3>
       </div>

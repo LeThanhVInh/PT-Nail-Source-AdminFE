@@ -1,8 +1,5 @@
 import * as React from "react";
 import { useState } from "react";
-import Validation from "react-validation-framework";
-import validator from "validator";
-import { fieldValidatorCore } from "react-validation-framework";
 
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -137,7 +134,7 @@ function Tables() {
 
   return (
     <>
-      <div className={cx("table-wrapper")}>
+      <div className={cx("table-wrapper", "animate__animated animate__fadeInRight animate__fast")}>
         <TableContainer
           sx={{
             m: "10px",
