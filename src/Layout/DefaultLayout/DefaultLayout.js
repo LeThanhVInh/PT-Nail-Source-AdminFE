@@ -211,11 +211,27 @@ function DefaultLayout({ children }) {
             borderRadius: "30px",
             overflow: "auto",
             padding: "14px",
-            // height: "100%",
           }}
         >
           <Header />
           {children}
+          {open ? (
+            <div
+              onClick={handleDrawerOpen}
+              style={{
+                height: "100%",
+                width: "100%",
+                backgroundColor: "black",
+                opacity: 0.4,
+                position: "absolute",
+                top: 0,
+                left: 0,
+                zIndex: 10,
+              }}
+            ></div>
+          ) : (
+            <div></div>
+          )}
         </Main>
       </Box>
     </div>

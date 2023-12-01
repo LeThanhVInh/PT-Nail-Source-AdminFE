@@ -6,6 +6,7 @@ export const ToggleButtonCustom = styled(MuiToggleButton)(({ theme }) => ({
   minWidth: "158px",
   height: "52px",
   textTransform: "capitalize",
+  fontWeight: "600",
   fontSize: "16px",
   borderRadius: "0",
   flexWrap: "wrap",
