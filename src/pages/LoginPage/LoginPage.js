@@ -81,11 +81,12 @@ function LoginPage() {
           >
             <Box sx={{ zIndex: 6 }}>
               <Typography
+                className='animate__animated animate__fadeInLeft animate__fast'
                 sx={{ top: 0, position: "absolute", marginTop: "50px" }}
               >
                 Logo
               </Typography>
-              <Box>
+              <Box className='animate__animated animate__fadeInLeft animate__fast'>
                 <img src={loginImg} alt="login" />
                 <Typography
                   variant="h4"
@@ -134,24 +135,155 @@ function LoginPage() {
               padding: "16px",
             }}
           >
-            <Typography
-              sx={{
-                marginBottom: "20px",
-                fontSize: "30px",
-                fontWeight: "700",
-                transform: {
-                  xl: "translateX(-166px)",
-                  lg: "translateX(0)",
-                },
-              }}
-            >
-              Sign In
-            </Typography>
-            <Box
-              component="form"
-              sx={{
-                "& > :not(style)": {
-                  m: 1,
+            <div className="login-form animate__animated animate__fadeInRight animate__fast"  >
+              <Typography
+                sx={{
+                  marginBottom: "20px",
+                  fontSize: "30px",
+                  fontWeight: "700",
+                }}
+              >
+                Sign In
+              </Typography>
+              <Box
+                component="form"
+                sx={{
+                  "& > :not(style)": {
+                    m: 1,
+                    width: {
+                      xl: "425px",
+                      lg: "425px",
+                      xs: "320px",
+                      sm: "320px",
+                      md: "320px",
+                    },
+                  },
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+                noValidate
+                autoComplete="off"
+                className="animate__animated animate__fadeInRight animate__fast"
+              >
+                <TextField
+                  // id="outlined-basic"
+                  label="Email"
+                  variant="outlined"
+                  inputProps={{
+                    style: {
+                      padding: "11.5px 14px",
+                    },
+                  }}
+                  sx={{
+                    "& label": {
+                      top: "-4px",
+                    },
+                    // height: "46px",
+                    "& label.Mui-focused": {
+                      color: "var(--primary-color)",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "var(--primary-color)",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "var(--primary-color)",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "var(--primary-color)",
+                      },
+                    },
+                  }}
+                />
+                <TextField
+                  // id="outlined-password-input"
+                  label="Password"
+                  type="password"
+                  // autoComplete="current-password"
+                  inputProps={{
+                    style: {
+                      padding: "11.5px 14px",
+                    },
+                  }}
+                  sx={{
+                    "& label": {
+                      top: "-4px",
+                    },
+                    "& label.Mui-focused": {
+                      color: "var(--primary-color)",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "var(--primary-color)",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "var(--primary-color)",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderColor: "var(--primary-color)",
+                      },
+                    },
+                  }}
+                />
+
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    fontSize: "14px",
+                  }}
+                >
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          defaultChecked
+                          size="small"
+                          sx={{
+                            color: "var(--primary-color)",
+                            "&.Mui-checked": {
+                              color: "var(--primary-color)",
+                            },
+                          }}
+                        />
+                      }
+                      label={
+                        <span style={{ fontSize: "14px" }}>{"Remember me"}</span>
+                      }
+                      fontSize="14px"
+                    />
+                  </FormGroup>
+
+                  <a href="/">Forgot Password?</a>
+                </Stack>
+
+                <Stack direction="row" spacing={2}>
+                  <Button
+                    variant="contained"
+                    sx={{ width: "128px", height: "46px" }}
+                    className={cx("btn-login")}
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    sx={{ width: "128px", height: "46px" }}
+                    className={cx("btn-register")}
+                  >
+                    Register
+                  </Button>
+                </Stack>
+              </Box>
+              <Typography
+                className={cx("text-policy", "animate__animated animate__fadeInRight animate__fast")}
+                sx={{
+                  fontSize: "14px",
+                  marginTop: "20px",
+                  textAlign: "center",
+                  maxWidth: "100%",
                   width: {
                     xl: "425px",
                     lg: "425px",
@@ -159,144 +291,12 @@ function LoginPage() {
                     sm: "320px",
                     md: "320px",
                   },
-                },
-                display: "flex",
-                flexDirection: "column",
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
-                // id="outlined-basic"
-                label="Email"
-                variant="outlined"
-                inputProps={{
-                  style: {
-                    padding: "11.5px 14px",
-                  },
-                }}
-                sx={{
-                  "& label": {
-                    top: "-4px",
-                  },
-                  // height: "46px",
-                  "& label.Mui-focused": {
-                    color: "var(--primary-color)",
-                  },
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": {
-                      borderColor: "var(--primary-color)",
-                    },
-                    "&:hover fieldset": {
-                      borderColor: "var(--primary-color)",
-                    },
-                    "&.Mui-focused fieldset": {
-                      borderColor: "var(--primary-color)",
-                    },
-                  },
-                }}
-              />
-              <TextField
-                // id="outlined-password-input"
-                label="Password"
-                type="password"
-                // autoComplete="current-password"
-                inputProps={{
-                  style: {
-                    padding: "11.5px 14px",
-                  },
-                }}
-                sx={{
-                  "& label": {
-                    top: "-4px",
-                  },
-                  "& label.Mui-focused": {
-                    color: "var(--primary-color)",
-                  },
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": {
-                      borderColor: "var(--primary-color)",
-                    },
-                    "&:hover fieldset": {
-                      borderColor: "var(--primary-color)",
-                    },
-                    "&.Mui-focused fieldset": {
-                      borderColor: "var(--primary-color)",
-                    },
-                  },
-                }}
-              />
-
-              <Stack
-                direction="row"
-                spacing={2}
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  fontSize: "14px",
                 }}
               >
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        defaultChecked
-                        size="small"
-                        sx={{
-                          color: "var(--primary-color)",
-                          "&.Mui-checked": {
-                            color: "var(--primary-color)",
-                          },
-                        }}
-                      />
-                    }
-                    label={
-                      <span style={{ fontSize: "14px" }}>{"Remember me"}</span>
-                    }
-                    fontSize="14px"
-                  />
-                </FormGroup>
-
-                <a>Forgot Password?</a>
-              </Stack>
-
-              <Stack direction="row" spacing={2}>
-                <Button
-                  variant="contained"
-                  sx={{ width: "128px", height: "46px" }}
-                  className={cx("btn-login")}
-                >
-                  Login
-                </Button>
-                <Button
-                  variant="outlined"
-                  sx={{ width: "128px", height: "46px" }}
-                  className={cx("btn-register")}
-                >
-                  Register
-                </Button>
-              </Stack>
-            </Box>
-            <Typography
-              className={cx("text-policy")}
-              sx={{
-                fontSize: "14px",
-                marginTop: "20px",
-                textAlign: "center",
-                maxWidth: "100%",
-                width: {
-                  xl: "425px",
-                  lg: "425px",
-                  xs: "320px",
-                  sm: "320px",
-                  md: "320px",
-                },
-              }}
-            >
-              By signin up, you agree to our
-              <a> Terms and Conditions & Privacy Policy</a>
-            </Typography>
+                By signin up, you agree to our
+                <a href="/"> Terms and Conditions & Privacy Policy</a>
+              </Typography>
+            </div>
           </Grid>
         </Grid>
       </div>
