@@ -34,7 +34,7 @@ const UnlockScreen = () => {
     }
   };
 
-  const [keyPressed, setKeyPressed] = useState("");
+  //   const [keyPressed, setKeyPressed] = useState("");
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -44,7 +44,7 @@ const UnlockScreen = () => {
     } else if (event.key >= "0" && event.key <= "9") {
       setPasscode((prevPasscode) => prevPasscode + event.key);
       // Xử lý khi nhấn phím số từ 0 đến 9
-      console.log(`Number ${event.key} pressed`);
+      //   console.log(`Number ${event.key} pressed`);
     } else if (event.key === "Backspace") {
       handleBackspace();
     }
