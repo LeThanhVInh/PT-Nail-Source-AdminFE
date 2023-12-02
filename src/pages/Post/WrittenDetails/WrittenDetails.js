@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
 import Box from "@mui/material/Box";
-import ClearIcon from "@mui/icons-material/Clear";
+// import ClearIcon from "@mui/icons-material/Clear";
 import { styled } from "@mui/system";
 import RadioGroup from "@mui/material/RadioGroup";
 
-import Divider from "@mui/material/Divider";
-import { IconButton, TextField, Typography } from "@mui/material";
+// import Divider from "@mui/material/Divider";
+import { TextField, Typography } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -90,19 +90,19 @@ const theme = (theme) => ({
   },
 });
 
-const TextFieldCustom = styled(TextField)({
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "var(--grey-border)",
-    },
-    "&:hover fieldset": {
-      borderColor: "var(--primary-color)",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "var(--primary-color)",
-    },
-  },
-});
+// const TextFieldCustom = styled(TextField)({
+//   "& .MuiOutlinedInput-root": {
+//     "& fieldset": {
+//       borderColor: "var(--grey-border)",
+//     },
+//     "&:hover fieldset": {
+//       borderColor: "var(--primary-color)",
+//     },
+//     "&.Mui-focused fieldset": {
+//       borderColor: "var(--primary-color)",
+//     },
+//   },
+// });
 
 const TypographyCustom = styled(Typography)({
   margin: "10px 0",
@@ -110,11 +110,11 @@ const TypographyCustom = styled(Typography)({
   fontSize: "14px",
 });
 
-const TypographyError = styled(Typography)({
-  color: "red",
-  fontSize: "14px",
-  marginTop: "10px",
-});
+// const TypographyError = styled(Typography)({
+//   color: "red",
+//   fontSize: "14px",
+//   marginTop: "10px",
+// });
 
 const FormControlLabelCustom = styled(FormControlLabel)({
   span: {
@@ -124,23 +124,23 @@ const FormControlLabelCustom = styled(FormControlLabel)({
   },
 });
 
-const StackCustom = styled(Stack)(({ theme }) => ({
-  marginTop: "10px",
-  display: "flex",
-  flexWrap: "wrap",
-  justifyContent: "flex-end",
-  alignItems: "center",
-  padding: theme.spacing(1),
-  [theme.breakpoints.down("md")]: {
-    justifyContent: "center",
-  },
-  [theme.breakpoints.up("md")]: {
-    justifyContent: "space-evenly",
-  },
-  [theme.breakpoints.up("lg")]: {
-    justifyContent: "flex-end",
-  },
-}));
+// const StackCustom = styled(Stack)(({ theme }) => ({
+//   marginTop: "10px",
+//   display: "flex",
+//   flexWrap: "wrap",
+//   justifyContent: "flex-end",
+//   alignItems: "center",
+//   padding: theme.spacing(1),
+//   [theme.breakpoints.down("md")]: {
+//     justifyContent: "center",
+//   },
+//   [theme.breakpoints.up("md")]: {
+//     justifyContent: "space-evenly",
+//   },
+//   [theme.breakpoints.up("lg")]: {
+//     justifyContent: "flex-end",
+//   },
+// }));
 
 const ButtonCustom = styled(Button)(({ theme }) => ({
   color: "var(--grey-color)",
@@ -195,6 +195,7 @@ const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
 
 function WrittenDetails(props) {
   const { handleClose, open } = props;
+
   const {
     register,
     handleSubmit,

@@ -250,9 +250,8 @@ function Tables() {
                       }
                       onChange={(event) => handleChange1(event.target.checked)}
                     />
-                    LỤM
                   </StyledTableCell>
-                  <StyledTableCell>IMAGES</StyledTableCell>
+                  <StyledTableCell align="left">IMAGES</StyledTableCell>
                   <StyledTableCell align="right">CATEGORY NAME</StyledTableCell>
                   <StyledTableCell align="right">SLUG</StyledTableCell>
                   <StyledTableCell align="center">STATUS</StyledTableCell>
@@ -269,7 +268,7 @@ function Tables() {
                       boxShadow: "20px 3px 20px #0000000b",
                     }}
                   >
-                    <StyledTableCell>
+                    <StyledTableCell align="left">
                       <CheckboxTable
                         key={rows.id}
                         checked={isCheckedItem.includes(row.id)}

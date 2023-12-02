@@ -1,5 +1,5 @@
 //Private Layout
-import PrivateLayout from "../../layout/PrivateLayout";
+import PrivateLayout from "../../Layout/PrivateLayout";
 import LoginPage from "../../pages/LoginPage";
 import LockPage from "../../pages/LockPage";
 
@@ -9,6 +9,7 @@ import NotFound from "../../pages/NotFound";
 import Products from "../../pages/Products";
 import ProductEdit from "../../pages/ProductEdit/ProductEdit";
 import Post from "../../pages/Post/Post";
+import PointOfSale from "../../pages/PointOfSale/PointOfSale";
 
 //Public routes
 const publicRoutes = [
@@ -16,6 +17,7 @@ const publicRoutes = [
   { path: "/products", component: Products },
   { path: "/products-edit", component: ProductEdit },
   { path: "/post", component: Post },
+  { path: "/point-of-sale", component: PointOfSale },
 ];
 
 const privateRoutes = [

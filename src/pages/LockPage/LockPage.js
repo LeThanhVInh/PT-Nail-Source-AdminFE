@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from "./LockPage.module.scss";
@@ -32,7 +33,13 @@ const UnlockScreen = () => {
       setPasscode("");
       navigate(config.routes.home);
     } else {
-      setNotification("Passcode không chính xác!");
+      // setNotification("Passcode không chính xác!");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Passcode không chính xác!",
+        // footer: '<a href="#">Why do I have this issue?</a>',
+      });
       setPasscode("");
       inputRef.current.focus();
     }
@@ -78,7 +85,7 @@ const UnlockScreen = () => {
     };
   }, []);
 
-  const particlesInit = useCallback(async engine => {
+  const particlesInit = useCallback(async (engine) => {
     // console.log(engine);
     // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
     // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
@@ -87,7 +94,7 @@ const UnlockScreen = () => {
     // await loadSlim(engine);
   }, []);
 
-  const particlesLoaded = useCallback(async container => {
+  const particlesLoaded = useCallback(async (container) => {
     // await console.log(container);
   }, []);
 
@@ -116,24 +123,22 @@ const UnlockScreen = () => {
           ref={inputRef}
         />
         <div className={cx("button-grid")}>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, "", 0, "⌫"].map(
-            (buttonValue, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  if (buttonValue === "⌫") {
-                    handleBackspace();
-                  } else if (buttonValue === "") {
-                    // Nếu button không có giá trị thì không làm gì
-                  } else {
-                    handleButtonClick(buttonValue);
-                  }
-                }}
-              >
-                {buttonValue}
-              </button>
-            )
-          )}
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, "", 0, "⌫"].map((buttonValue, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                if (buttonValue === "⌫") {
+                  handleBackspace();
+                } else if (buttonValue === "") {
+                  // Nếu button không có giá trị thì không làm gì
+                } else {
+                  handleButtonClick(buttonValue);
+                }
+              }}
+            >
+              {buttonValue}
+            </button>
+          ))}
         </div>
         <button className={cx("unlock-button")} onClick={handleUnlock}>
           OK

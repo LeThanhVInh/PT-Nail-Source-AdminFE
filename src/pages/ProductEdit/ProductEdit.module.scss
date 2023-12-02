@@ -14,11 +14,10 @@
     background-color: var(--white-color);
     border-radius: 10px;
     padding: 20px;
-
     .item {
-      // padding: 20px;
       border: 1px solid #e2e8f099;
       border-radius: 10px;
+      overflow: hidden;
       .item-title {
         font-size: 16px;
         font-weight: 600;

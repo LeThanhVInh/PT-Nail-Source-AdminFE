@@ -188,6 +188,25 @@ function Sidebar() {
           </NavLink>
 
           <NavLink
+            to={config.routes.pos}
+            className="category-list-item"
+            onClick={() => setIsListChildActive(false)}
+          >
+            <ListItem disablePadding>
+              <ListItemButton
+                disableRipple
+                disableTouchRipple
+                sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
+              >
+                <ListItemIconCustom>
+                  <DraftsIcon />
+                </ListItemIconCustom>
+                <ListItemText primary="Point Of Sale" />
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
+
+          <NavLink
             to={config.routes.lock}
             className="category-list-item"
             onClick={() => setIsListChildActive(false)}

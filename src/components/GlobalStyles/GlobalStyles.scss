@@ -22,8 +22,6 @@
   --box-shadow: 1px 1px 10px #0000000b !important;
 
   --font-family: "IBM Plex Sans", sans-serif;
-  // --default-layout-header-height: 60px;
-  // --defualt-layout-horizontal-spacer: 24px;
 
   background-color: var(--primary-color);
 }
@@ -32,8 +30,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  // scroll-behavior: smooth;
-  // scroll-padding-top: 3px;
 }
 
 html {
@@ -45,6 +41,8 @@ body {
   line-height: 1.5;
   text-rendering: optimizeSpeed;
   overflow-y: overlay;
+  height: 100%;
+  max-height: 100vh;
 }
 
 //Scrollbar CSS

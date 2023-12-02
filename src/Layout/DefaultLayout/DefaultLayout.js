@@ -30,6 +30,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
+import { useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -37,15 +38,13 @@ import MuiAppBar from "@mui/material/AppBar";
 
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-// import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-// import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
 import classNames from "classnames/bind";
 import styles from "./DefaultLayout.module.scss";
 import "animate.css";
+import config from "../../router/config";
 
 const cx = classNames.bind(styles);
 
@@ -103,6 +102,8 @@ const AppBar = styled(MuiAppBar, {
 // }));
 
 function DefaultLayout({ children }) {
+  const location = useLocation();
+
   // const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -119,8 +120,9 @@ function DefaultLayout({ children }) {
       <Box
         sx={{
           display: "flex",
-          maxHeight: "95vh",
-          height: "100%",
+          // maxHeight: "95vh",
+
+          height: "calc(100vh - 20px)",
           overflow: "hidden",
         }}
       >
@@ -214,7 +216,7 @@ function DefaultLayout({ children }) {
             padding: "14px",
           }}
         >
-          <Header />
+          {config.routes.pos === location.pathname ? "" : <Header />}
           {children}
           {open ? (
             <div
