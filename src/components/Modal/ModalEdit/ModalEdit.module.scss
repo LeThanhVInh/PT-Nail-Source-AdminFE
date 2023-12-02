@@ -7,6 +7,7 @@
     justify-content: space-between;
 
     padding: 20px 0;
+
     h3 {
       font-weight: 500;
     }
@@ -16,20 +17,18 @@
     margin-bottom: 20px;
     background-color: var(--white-color);
     border-radius: 10px;
-    padding: 20px;
-    // width: 100%;
 
     .item {
       padding: 10px;
       border: 1px solid #e2e8f099;
       border-radius: 10px;
+
       .item-title {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 600;
-        padding: 10px 0;
       }
 
       .item-title-content {
@@ -41,8 +40,8 @@
         flex-direction: column;
         width: 100%;
 
-        .date-time-picker {
-        }
+        .date-time-picker {}
+
         .item-content {
           padding: 5px 0;
         }

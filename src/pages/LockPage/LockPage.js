@@ -1,8 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from "./LockPage.module.scss";
 import config from "../../router/config";
+import Particles from "react-tsparticles";
+import { loadFull } from "tsparticles";
+import particleOptions from "../../assest/json/particleOptions.json";
+
 const cx = classNames.bind(styles);
 
 const UnlockScreen = () => {
@@ -74,49 +78,68 @@ const UnlockScreen = () => {
     };
   }, []);
 
-  return (
-    <>
-      <div className={cx("unlock-screen")}>
-        <div className={cx("unlock-screen-bg")}></div>
+  const particlesInit = useCallback(async engine => {
+    // console.log(engine);
+    // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
+    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+    // starting from v2 you can add only the features you need reducing the bundle size
+    await loadFull(engine);
+    // await loadSlim(engine);
+  }, []);
 
-        <div className={cx("unlock-screen-alert")}>
-          <p>{notification}</p>
-        </div>
-        <div className={cx("unlock-screen-btn")}>
-          <input
-            type="password"
-            value={passcode}
-            readOnly
-            className={cx("passcode-display")}
-            onKeyDown={handleKeyDown}
-            ref={inputRef}
-          />
-          <div className={cx("button-grid")}>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, "", 0, "⌫"].map(
-              (buttonValue, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    if (buttonValue === "⌫") {
-                      handleBackspace();
-                    } else if (buttonValue === "") {
-                      // Nếu button không có giá trị thì không làm gì
-                    } else {
-                      handleButtonClick(buttonValue);
-                    }
-                  }}
-                >
-                  {buttonValue}
-                </button>
-              )
-            )}
-          </div>
-          <button className={cx("unlock-button")} onClick={handleUnlock}>
-            OK
-          </button>
-        </div>
+  const particlesLoaded = useCallback(async container => {
+    // await console.log(container);
+  }, []);
+
+  return (
+    <div className={cx("unlock-screen")}>
+      <Particles
+        id="tsparticles"
+        init={particlesInit}
+        loaded={particlesLoaded}
+        className={cx("the-particles-div")}
+        options={particleOptions}
+      />
+
+      <div className={cx("unlock-screen-bg")}></div>
+
+      <div className={cx("unlock-screen-alert")}>
+        <p>{notification}</p>
       </div>
-    </>
+      <div className={cx("unlock-screen-btn")}>
+        <input
+          type="password"
+          value={passcode}
+          readOnly
+          className={cx("passcode-display")}
+          onKeyDown={handleKeyDown}
+          ref={inputRef}
+        />
+        <div className={cx("button-grid")}>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, "", 0, "⌫"].map(
+            (buttonValue, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  if (buttonValue === "⌫") {
+                    handleBackspace();
+                  } else if (buttonValue === "") {
+                    // Nếu button không có giá trị thì không làm gì
+                  } else {
+                    handleButtonClick(buttonValue);
+                  }
+                }}
+              >
+                {buttonValue}
+              </button>
+            )
+          )}
+        </div>
+        <button className={cx("unlock-button")} onClick={handleUnlock}>
+          OK
+        </button>
+      </div>
+    </div>
   );
 };
 

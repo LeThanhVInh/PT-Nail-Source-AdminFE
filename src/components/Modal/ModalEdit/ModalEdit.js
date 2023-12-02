@@ -286,9 +286,9 @@ const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
     color: "var(--primary-color)",
     fieldset: {
       "&.MuiOutlinedInput-notchedOutline, &.css-1d3z3hw-MuiOutlinedInput-notchedOutline":
-        {
-          borderColor: "var(--primary-color)",
-        },
+      {
+        borderColor: "var(--primary-color)",
+      },
       ":hover": {
         borderColor: "var(--primary-color)",
       },
@@ -373,7 +373,7 @@ function ModalEdit(props) {
                         <ClearIcon fontSize="inherit" />
                       </IconButton>
                     </div>
-                    <Divider sx={{ margin: "20px 0" }} />
+                    <Divider sx={{ margin: "10px 0" }} />
                     <div className={cx("item-title-content")}>
                       <div className={cx("item-content")}>
                         <TextFieldCustom
@@ -545,7 +545,7 @@ function ModalEdit(props) {
                       </div>
                     </div>
 
-                    <Divider sx={{ m: "20px 0" }} />
+                    <Divider sx={{ m: "10px 0" }} />
 
                     <div className={cx("add-new-footer")}>
                       <StackCustom direction="row">

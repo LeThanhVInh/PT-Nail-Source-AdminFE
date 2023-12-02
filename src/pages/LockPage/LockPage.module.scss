@@ -13,17 +13,30 @@
   position: relative;
   overflow: hidden;
 
+  .the-particles-div {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+  }
+
   .unlock-screen-bg {
     height: 100vh;
     width: 100vw;
     backdrop-filter: blur(32px);
-    // filter: brightness(0.95);
-    filter: blur(6px);
+    filter: blur(2px) brightness(60%);
     background-image: url(../../assest/bg/lock-bg.jpg);
+    // background-image: url(https://source.unsplash.com/featured?nature);
+    background-position: center;
+    background-size: cover;
   }
+
   .unlock-screen-alert {
     position: absolute;
     top: 20%;
+
     p {
       font-size: 18px;
       font-weight: 700;
@@ -44,19 +57,23 @@
     .passcode-display {
       font-size: 24px;
       margin-bottom: 20px;
-      background-color: transparent;
+      background-color: #00000026;
       border: 1px solid rgba(0, 0, 0, 0.014);
+      border-radius: 30px;
       text-align: center;
       font-size: 50px;
       color: white;
+
       &:focus-visible {
         outline: none;
       }
     }
+
     .button-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 30px;
+
       button {
         width: 60px;
         height: 60px;
@@ -70,6 +87,7 @@
         cursor: pointer;
       }
     }
+
     .unlock-button {
       width: 230px;
       height: 40px;
