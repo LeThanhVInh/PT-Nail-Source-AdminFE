@@ -1,5 +1,5 @@
 //Private Layout
-import PrivateLayout from "../../Layout/PrivateLayout";
+import PrivateLayout from "../../layout/PrivateLayout";
 import LoginPage from "../../pages/LoginPage";
 import LockPage from "../../pages/LockPage";
 

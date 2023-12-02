@@ -7,7 +7,7 @@ import { styled } from "@mui/system";
 import RadioGroup from "@mui/material/RadioGroup";
 
 // import Divider from "@mui/material/Divider";
-import { TextField, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -176,9 +176,9 @@ const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
   "& .Mui-focused": {
     fieldset: {
       "&.MuiOutlinedInput-notchedOutline, &.css-1d3z3hw-MuiOutlinedInput-notchedOutline":
-        {
-          borderColor: "var(--primary-color)",
-        },
+      {
+        borderColor: "var(--primary-color)",
+      },
       ":hover": {
         borderColor: "var(--primary-color)",
       },
