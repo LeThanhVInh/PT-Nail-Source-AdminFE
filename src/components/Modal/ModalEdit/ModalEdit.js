@@ -27,75 +27,12 @@ import styles from "./ModalEdit.module.scss";
 
 const cx = classNames.bind(styles);
 
-const ProSpan = styled("span")({
-  display: "inline-block",
-  height: "1em",
-  width: "1em",
-  verticalAlign: "middle",
-  marginLeft: "0.3em",
-  marginBottom: "0.08em",
-  backgroundSize: "contain",
-  backgroundRepeat: "no-repeat",
-  backgroundImage: "url(https://mui.com/static/x/pro.svg)",
-});
-
-function Label({ componentName, valueType, isProOnly }) {
-  const content = (
-    <span>
-      <strong>{componentName}</strong> for {valueType} editing
-    </span>
-  );
-
-  if (isProOnly) {
-    return (
-      <Stack direction="row" spacing={0.5} component="span">
-        <Tooltip title="Included on Pro package">
-          <a href="https://mui.com/x/introduction/licensing/#pro-plan">
-            <ProSpan />
-          </a>
-        </Tooltip>
-        {content}
-      </Stack>
-    );
-  }
-
-  return content;
-}
-
-//Dummy Data
-const categoryList = [
-  {
-    id: 1,
-    value: "PC-Laptop",
-    label: "Pê Cê & Láp Tóp",
-  },
-  {
-    id: 2,
-    value: "Electronic",
-    label: "Ê Lếc Trô Níc",
-  },
-  {
-    id: 3,
-    value: "Fashion-Make-Up",
-    label: "Phát sành & Mếch Úp",
-  },
-];
-
+//#region const varibale
 const top100Films = [
   { label: "Pê Cê & Láp Tóp" },
   { label: "Ê Lếc Trô Níc " },
   { label: "Phát sành & Mếch Úp" },
 ];
-
-//Custom
-const theme = (theme) => ({
-  ...theme,
-  colors: {
-    ...theme.colors,
-    primary25: "#f3f3f3",
-    primary: "var(--primary-color)",
-  },
-});
 
 const TextFieldCustom = styled(TextField)({
   margin: "10px 0",
@@ -302,22 +239,7 @@ const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
     },
   },
 }));
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "90vw",
-  height: "100%",
-  bgcolor: "var(--bg-white-color)",
-  borderRadius: "30px",
-  boxShadow: 24,
-  p: 4,
-  zIndex: "1400",
-  // overflow: "auto",
-  // maxHeight: "100%",
-};
+//#endregion
 
 function ModalEdit(props) {
   const { handleClose, open } = props;
@@ -330,10 +252,6 @@ function ModalEdit(props) {
   const [isClearable, setIsClearable] = useState(true);
   const [value, setValue] = useState("male");
   const [startDate, setStartDate] = useState(new Date());
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
 
   const onSubmit = (data) => {
     console.log(data);
@@ -500,6 +418,7 @@ function ModalEdit(props) {
                           name="controlled-radio-buttons-group"
                           value={value}
                           onChange={handleChange}
+                          onChange={(event) => setValue(event.target.value)}
                         >
                           <FormControlLabelCustom
                             value="male"
