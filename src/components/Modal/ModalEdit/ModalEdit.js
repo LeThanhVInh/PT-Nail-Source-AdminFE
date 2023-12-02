@@ -1,26 +1,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import Select from "react-select";
-import Box from "@mui/material/Box";
-import ClearIcon from "@mui/icons-material/Clear";
 import { styled } from "@mui/system";
-import RadioGroup from "@mui/material/RadioGroup";
-import Modal from "@mui/material/Modal";
-import Divider from "@mui/material/Divider";
-import { IconButton, TextField, Typography } from "@mui/material";
-import Radio from "@mui/material/Radio";
-import FormControl from "@mui/material/FormControl";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
-import Checkbox from "@mui/material/Checkbox";
-import { Stack } from "@mui/material";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
+import ClearIcon from "@mui/icons-material/Clear";
+import { IconButton, TextField, Typography, Box, RadioGroup, Modal, Divider, Radio } from "@mui/material";
+import { FormControl, FormControlLabel, FormGroup, Checkbox, Stack, Button, Autocomplete } from "@mui/material";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import Autocomplete from "@mui/material/Autocomplete";
 
 import classNames from "classnames/bind";
 import styles from "./ModalEdit.module.scss";
@@ -249,13 +236,32 @@ function ModalEdit(props) {
     formState: { errors },
   } = useForm();
 
-  const [isClearable, setIsClearable] = useState(true);
   const [value, setValue] = useState("male");
-  const [startDate, setStartDate] = useState(new Date());
 
   const onSubmit = (data) => {
     console.log(data);
   };
+
+  const modalSize = {
+    mini: "360px",
+    tiny: "540px",
+    medium: "720px",
+    large: "1080px",
+    full: "auto",
+  }
+
+  const getSizeOfModal = (type) => {
+    if (type === modalSize.mini && window.innerWidth < 360)
+      return modalSize.full;
+    else if (type === modalSize.tiny && window.innerWidth < 540)
+      return modalSize.full;
+    else if (type === modalSize.medium && window.innerWidth < 720)
+      return modalSize.full;
+    else if (type === modalSize.large && window.innerWidth < 1080)
+      return modalSize.full;
+    else
+      return type.toString();
+  }
 
   return (
     <Modal
@@ -263,7 +269,7 @@ function ModalEdit(props) {
       onClose={handleClose}
       className="animate__animated animate__zoomIn animate__fast"
     >
-      <Box sx={{ overflow: "auto", height: "100%", width: 400, margin: 'auto' }}>
+      <Box sx={{ overflow: "auto", height: "100%", width: getSizeOfModal(modalSize.mini), margin: 'auto' }}>
         <div className={cx("wrapper")}>
           <form
             noValidate
@@ -417,7 +423,6 @@ function ModalEdit(props) {
                           row
                           name="controlled-radio-buttons-group"
                           value={value}
-                          onChange={handleChange}
                           onChange={(event) => setValue(event.target.value)}
                         >
                           <FormControlLabelCustom
