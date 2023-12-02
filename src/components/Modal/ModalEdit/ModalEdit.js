@@ -340,251 +340,247 @@ function ModalEdit(props) {
   };
 
   return (
-    <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        className="animate__animated animate__zoomIn animate__fast"
-      >
-        {/* <Box sx={style}> */}
-        <Box sx={{ overflow: "auto", height: "100%" }}>
-          <div className={cx("wrapper")}>
-            <form
-              noValidate
-              autoComplete="off"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <div className={cx("add-new-container")}>
-                <div className={cx("content-items")}>
-                  <div className={cx("item")}>
-                    <div className={cx("item-title")}>
-                      <p>Modal Edit</p>
-                      <IconButton
-                        // disableElevation
-                        // disableRipple
-                        aria-label="Close"
-                        sx={{
-                          ":hover": {
-                            color: "var(--primary-color)",
-                          },
-                        }}
-                        onClick={handleClose}
-                      >
-                        <ClearIcon fontSize="inherit" />
-                      </IconButton>
+    <Modal
+      open={open}
+      onClose={handleClose}
+      className="animate__animated animate__zoomIn animate__fast"
+    >
+      <Box sx={{ overflow: "auto", height: "100%", width: 400, margin: 'auto' }}>
+        <div className={cx("wrapper")}>
+          <form
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <div className={cx("add-new-container")}>
+              <div className={cx("content-items")}>
+                <div className={cx("item")}>
+                  <div className={cx("item-title")}>
+                    <p>Modal Edit</p>
+                    <IconButton
+                      // disableElevation
+                      // disableRipple
+                      aria-label="Close"
+                      sx={{
+                        ":hover": {
+                          color: "var(--primary-color)",
+                        },
+                      }}
+                      onClick={handleClose}
+                    >
+                      <ClearIcon fontSize="inherit" />
+                    </IconButton>
+                  </div>
+                  <Divider sx={{ margin: "10px 0" }} />
+                  <div className={cx("item-title-content")}>
+                    <div className={cx("item-content")}>
+                      <TextFieldCustom
+                        fullWidth
+                        label="Email"
+                        {...register("email", {
+                          required: true,
+                          pattern: /\S+@\S+\.\S+/,
+                        })}
+                      />
+
+                      {errors.email && errors.email.type === "required" && (
+                        <TypographyError>Email is required</TypographyError>
+                      )}
+
+                      {errors.email && errors.email.type === "pattern" && (
+                        <TypographyError>Enter a valid email</TypographyError>
+                      )}
                     </div>
-                    <Divider sx={{ margin: "10px 0" }} />
-                    <div className={cx("item-title-content")}>
-                      <div className={cx("item-content")}>
-                        <TextFieldCustom
-                          fullWidth
-                          label="Email"
-                          {...register("email", {
-                            required: true,
-                            pattern: /\S+@\S+\.\S+/,
-                          })}
-                        />
 
-                        {errors.email && errors.email.type === "required" && (
-                          <TypographyError>Email is required</TypographyError>
+                    <div className={cx("item-content")}>
+                      <TextFieldCustom
+                        label="User name"
+                        fullWidth
+                        {...register("userName", {
+                          required: true,
+                        })}
+                      />
+
+                      {errors.userName &&
+                        errors.userName.type === "required" && (
+                          <TypographyError>
+                            User name is required
+                          </TypographyError>
                         )}
+                    </div>
 
-                        {errors.email && errors.email.type === "pattern" && (
-                          <TypographyError>Enter a valid email</TypographyError>
-                        )}
-                      </div>
-
-                      <div className={cx("item-content")}>
-                        <TextFieldCustom
-                          label="User name"
-                          fullWidth
-                          {...register("userName", {
-                            required: true,
-                          })}
-                        />
-
-                        {errors.userName &&
-                          errors.userName.type === "required" && (
+                    <div className={cx("item-content")}>
+                      <TextFieldCustom
+                        label="Password"
+                        type="password"
+                        fullWidth
+                        {...register("passWord", {
+                          required: true,
+                          minLength: 4,
+                        })}
+                      />
+                      <Box>
+                        {errors.passWord &&
+                          errors.passWord.type === "required" && (
                             <TypographyError>
-                              User name is required
+                              Password is required
                             </TypographyError>
                           )}
-                      </div>
 
-                      <div className={cx("item-content")}>
-                        <TextFieldCustom
-                          label="Password"
-                          type="password"
-                          fullWidth
-                          {...register("passWord", {
-                            required: true,
-                            minLength: 4,
-                          })}
+                        {errors.passWord &&
+                          errors.passWord.type === "minLength" && (
+                            <TypographyError>
+                              Minimum characters 4 required
+                            </TypographyError>
+                          )}
+                      </Box>
+                    </div>
+
+                    <div className={cx("item-content")}>
+                      <FormControl
+                        sx={{ minWidth: 120 }}
+                        size="small"
+                        fullWidth
+                      >
+                        <StyledAutocomplete
+                          disablePortal
+                          options={top100Films}
+                          renderInput={(params) => (
+                            <TextField {...params} label="Select" fullWidth />
+                          )}
                         />
-                        <Box>
-                          {errors.passWord &&
-                            errors.passWord.type === "required" && (
-                              <TypographyError>
-                                Password is required
-                              </TypographyError>
-                            )}
+                      </FormControl>
+                    </div>
 
-                          {errors.passWord &&
-                            errors.passWord.type === "minLength" && (
-                              <TypographyError>
-                                Minimum characters 4 required
-                              </TypographyError>
-                            )}
-                        </Box>
-                      </div>
-
-                      <div className={cx("item-content")}>
-                        <FormControl
-                          sx={{ minWidth: 120 }}
+                    <div className={cx("item-content")}>
+                      <FormControl
+                        sx={{ minWidth: 120 }}
+                        size="small"
+                        fullWidth
+                      >
+                        <StyledAutocomplete
+                          disablePortal
+                          multiple
+                          filterSelectedOptions
+                          options={top100Films}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="Multi Select"
+                              fullWidth
+                            />
+                          )}
                           size="small"
-                          fullWidth
-                        >
-                          <StyledAutocomplete
-                            disablePortal
-                            options={top100Films}
-                            renderInput={(params) => (
-                              <TextField {...params} label="Select" fullWidth />
-                            )}
-                          />
-                        </FormControl>
-                      </div>
+                        />
 
-                      <div className={cx("item-content")}>
-                        <FormControl
-                          sx={{ minWidth: 120 }}
-                          size="small"
-                          fullWidth
-                        >
-                          <StyledAutocomplete
-                            disablePortal
-                            multiple
-                            filterSelectedOptions
-                            options={top100Films}
-                            renderInput={(params) => (
-                              <TextField
-                                {...params}
-                                label="Multi Select"
-                                fullWidth
-                              />
-                            )}
-                            size="small"
-                          />
-
-                          {/* <Select
+                        {/* <Select
                             isMulti
                             theme={theme}
                             isClearable={isClearable}
                             options={categoryList}
                           /> */}
-                        </FormControl>
-                      </div>
+                      </FormControl>
+                    </div>
 
-                      <div className={cx("item-content")}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <DatePickerCustom
-                            label="Date Picker"
-                            className={cx("date-time-picker")}
+                    <div className={cx("item-content")}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePickerCustom
+                          label="Date Picker"
+                          className={cx("date-time-picker")}
+                        />
+                      </LocalizationProvider>
+                    </div>
+
+                    <div className={cx("item-content")}>
+                      <FormControl>
+                        <TypographyCustom>Radio</TypographyCustom>
+
+                        <RadioGroup
+                          row
+                          name="controlled-radio-buttons-group"
+                          value={value}
+                          onChange={handleChange}
+                        >
+                          <FormControlLabelCustom
+                            value="male"
+                            control={<Radio />}
+                            label="Male"
                           />
-                        </LocalizationProvider>
-                      </div>
+                          <FormControlLabelCustom
+                            value="female"
+                            control={<Radio />}
+                            label="Female"
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
 
-                      <div className={cx("item-content")}>
-                        <FormControl>
-                          <TypographyCustom>Radio</TypographyCustom>
+                    <div className={cx("item-content")}>
+                      <FormGroup>
+                        <TypographyCustom>Check Box</TypographyCustom>
 
-                          <RadioGroup
-                            row
-                            name="controlled-radio-buttons-group"
-                            value={value}
-                            onChange={handleChange}
-                          >
-                            <FormControlLabelCustom
-                              value="male"
-                              control={<Radio />}
-                              label="Male"
-                            />
-                            <FormControlLabelCustom
-                              value="female"
-                              control={<Radio />}
-                              label="Female"
-                            />
-                          </RadioGroup>
-                        </FormControl>
-                      </div>
-
-                      <div className={cx("item-content")}>
-                        <FormGroup>
-                          <TypographyCustom>Check Box</TypographyCustom>
-
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                defaultChecked
-                                size="small"
-                                sx={{
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              defaultChecked
+                              size="small"
+                              sx={{
+                                color: "var(--primary-color)",
+                                "&.Mui-checked": {
                                   color: "var(--primary-color)",
-                                  "&.Mui-checked": {
-                                    color: "var(--primary-color)",
-                                  },
-                                }}
-                              />
-                            }
-                            label={
-                              <span style={{ fontSize: "14px" }}>
-                                {"Remember me"}
-                              </span>
-                            }
-                            fontSize="14px"
-                          />
-                        </FormGroup>
-                      </div>
+                                },
+                              }}
+                            />
+                          }
+                          label={
+                            <span style={{ fontSize: "14px" }}>
+                              {"Remember me"}
+                            </span>
+                          }
+                          fontSize="14px"
+                        />
+                      </FormGroup>
                     </div>
+                  </div>
 
-                    <Divider sx={{ m: "10px 0" }} />
+                  <Divider sx={{ m: "10px 0" }} />
 
-                    <div className={cx("add-new-footer")}>
-                      <StackCustom direction="row">
-                        <ButtonCustom variant="outlined" onClick={handleClose}>
-                          Cancel
-                        </ButtonCustom>
-                        <ButtonCustom
-                          // disableElevation
-                          disableRipple
-                          variant="outlined"
-                        >
-                          Save & Add New
-                        </ButtonCustom>
-                        <ButtonCustom
-                          // disableElevation
-                          disableRipple
-                          type="submit"
-                          variant="contained"
-                          sx={{
+                  <div className={cx("add-new-footer")}>
+                    <StackCustom direction="row">
+                      <ButtonCustom variant="outlined" onClick={handleClose}>
+                        Cancel
+                      </ButtonCustom>
+                      <ButtonCustom
+                        // disableElevation
+                        disableRipple
+                        variant="outlined"
+                      >
+                        Save & Add New
+                      </ButtonCustom>
+                      <ButtonCustom
+                        // disableElevation
+                        disableRipple
+                        type="submit"
+                        variant="contained"
+                        sx={{
+                          backgroundColor: "var(--primary-color)",
+                          color: "var(--white-color)",
+                          ":hover": {
                             backgroundColor: "var(--primary-color)",
-                            color: "var(--white-color)",
-                            ":hover": {
-                              backgroundColor: "var(--primary-color)",
-                            },
-                          }}
-                        >
-                          Save
-                        </ButtonCustom>
-                      </StackCustom>
-                    </div>
+                          },
+                        }}
+                      >
+                        Save
+                      </ButtonCustom>
+                    </StackCustom>
                   </div>
                 </div>
               </div>
-            </form>
-          </div>
-        </Box>
-        {/* </Box> */}
-      </Modal>
-    </div>
+            </div>
+          </form>
+        </div>
+      </Box>
+    </Modal>
   );
 }
 
