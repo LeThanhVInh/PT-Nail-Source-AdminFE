@@ -8,7 +8,7 @@
         "position": "",
         "repeat": "",
         "size": "",
-        "opacity": 0.2
+        "opacity": 0
     },
     "backgroundMask": {
         "composite": "destination-out",
@@ -33,7 +33,7 @@
         "detectsOn": "window",
         "events": {
             "onClick": {
-                "enable": true,
+                "enable": false,
                 "mode": "push"
             },
             "onDiv": {
@@ -96,7 +96,7 @@
                 }
             },
             "attract": {
-                "distance": 200,
+                "distance": 300,
                 "duration": 0.4,
                 "easing": "ease-out-quad",
                 "factor": 1,
@@ -104,10 +104,10 @@
                 "speed": 1
             },
             "bounce": {
-                "distance": 200
+                "distance": 100
             },
             "bubble": {
-                "distance": 200,
+                "distance": 100,
                 "duration": 0.4,
                 "mix": false,
                 "divs": {

@@ -6,15 +6,15 @@ import styles from "./LockPage.module.scss";
 import config from "../../router/config";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
-import particleOptions from "../../assest/json/particleOptions.json";
+import particleOptions from "../../assets/json/particleOptions.json";
 
 const cx = classNames.bind(styles);
 
-const UnlockScreen = () => {
+export default function UnlockScreen() {
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const [passcode, setPasscode] = useState("");
-  const [notification, setNotification] = useState("");
+  const [inputAnimation, setInputAnimation] = useState([]);
 
   const handleButtonClick = (value) => {
     setPasscode((prevPasscode) => prevPasscode + value);
@@ -25,27 +25,31 @@ const UnlockScreen = () => {
   };
 
   const handleUnlock = () => {
-    // Xử lý logic mở khóa ở đây, ví dụ kiểm tra passcode với một giá trị đã được thiết lập trước
-    // Nếu passcode đúng, mở khóa, ngược lại, hiển thị thông báo không chính xác và xóa passcode
-    // Ví dụ:
     if (passcode === "1234") {
-      setNotification("Màn hình đã được mở khóa!");
       setPasscode("");
       navigate(config.routes.home);
     } else {
-      // setNotification("Passcode không chính xác!");
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Passcode không chính xác!",
-        // footer: '<a href="#">Why do I have this issue?</a>',
-      });
+      Swal.mixin({
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+        showClass: { popup: "animate__animated animate__fadeInDown" },
+        hideClass: { popup: "animate__animated animate__fadeOutUp" },
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      }).fire('Wrong passcode !', '', 'error');
+      setInputAnimation(["animate__animated animate__shakeX", "border-error"]);
+      setTimeout(() => setInputAnimation([]), 3000);
+
       setPasscode("");
       inputRef.current.focus();
+
     }
   };
-
-  //   const [keyPressed, setKeyPressed] = useState("");
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -99,7 +103,8 @@ const UnlockScreen = () => {
   }, []);
 
   return (
-    <div className={cx("unlock-screen")}>
+    <div className={cx("unlock-screen")}
+      onKeyDown={handleKeyDown}>
       <Particles
         id="tsparticles"
         init={particlesInit}
@@ -107,45 +112,38 @@ const UnlockScreen = () => {
         className={cx("the-particles-div")}
         options={particleOptions}
       />
-
-      <div className={cx("unlock-screen-bg")}></div>
-
-      <div className={cx("unlock-screen-alert")}>
-        <p>{notification}</p>
-      </div>
-      <div className={cx("unlock-screen-btn")}>
-        <input
-          type="password"
-          value={passcode}
-          readOnly
-          className={cx("passcode-display")}
-          onKeyDown={handleKeyDown}
+      <div className={cx("background")}></div>
+      <div className={cx("form")}>
+        <div className={cx("avatar")}></div>
+        <input readOnly
+          type="password" value={passcode}
+          className={cx("passcode-display", inputAnimation)}
           ref={inputRef}
         />
         <div className={cx("button-grid")}>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, "", 0, "⌫"].map((buttonValue, index) => (
-            <button
-              key={index}
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, "", 0, "⌫"].map((buttonValue, i) => {
+            if (buttonValue === "" || buttonValue === "⌫" && passcode == "")
+              return <div key={i}></div>;
+
+            return <button key={i}
+              className="animate__animated animate__fadeIn animate__faster"
               onClick={() => {
                 if (buttonValue === "⌫") {
                   handleBackspace();
-                } else if (buttonValue === "") {
-                  // Nếu button không có giá trị thì không làm gì
                 } else {
                   handleButtonClick(buttonValue);
                 }
               }}
             >
               {buttonValue}
-            </button>
-          ))}
+            </button>;
+          })}
         </div>
-        <button className={cx("unlock-button")} onClick={handleUnlock}>
+        <button className={cx("unlock-button")}
+          onClick={handleUnlock}>
           OK
         </button>
       </div>
     </div>
   );
-};
-
-export default UnlockScreen;
+}; 
