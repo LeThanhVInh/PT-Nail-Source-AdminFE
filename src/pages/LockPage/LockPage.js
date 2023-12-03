@@ -108,7 +108,7 @@ export default function UnlockScreen() {
         />
         <div className={cx("button-grid")}>
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, "", 0, "⌫"].map((buttonValue, i) => {
-            if (buttonValue === "" || buttonValue === "⌫" && passcode == "")
+            if (buttonValue === "" || (buttonValue === "⌫" && passcode === ""))
               return <div key={i}></div>;
 
             return <button key={i}

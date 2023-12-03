@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { styled } from "@mui/system";
-import { Clear as ClearIcon, Check as CheckIcon, Close as CloseIcon } from "@mui/icons-material";
+import { Clear as ClearIcon, Check as CheckIcon } from "@mui/icons-material";
 import { IconButton, TextField, Typography, Box, RadioGroup, Modal, Divider, Radio, Grid } from "@mui/material";
-import { FormControl, FormControlLabel, FormGroup, Checkbox, Stack, Button, Autocomplete } from "@mui/material";
+import { FormControl, FormControlLabel, FormGroup, Checkbox, Button, Autocomplete } from "@mui/material";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -132,24 +132,6 @@ const FormControlLabelCustom = styled(FormControlLabel)({
     },
   },
 });
-
-const StackCustom = styled(Stack)(({ theme }) => ({
-  marginTop: "10px",
-  display: "flex",
-  flexWrap: "wrap",
-  justifyContent: "flex-end",
-  alignItems: "center",
-  padding: theme.spacing(1),
-  [theme.breakpoints.down("md")]: {
-    justifyContent: "center",
-  },
-  [theme.breakpoints.up("md")]: {
-    justifyContent: "space-evenly",
-  },
-  [theme.breakpoints.up("lg")]: {
-    justifyContent: "flex-end",
-  },
-}));
 
 const ButtonCustom = styled(Button)(({ theme }) => ({
   color: "var(--grey-color)",
@@ -466,7 +448,7 @@ export default function ModalEdit(props) {
               <Divider sx={{ m: "10px 0" }} />
 
               <div className={cx("footer")}>
-                <Grid container justifyContent={(modalSize == modalSizes.medium || modalSize == modalSizes.mini || modalSize == modalSizes.tiny ? "center" : "flex-end")}>
+                <Grid container justifyContent={(modalSize === modalSizes.medium || modalSize === modalSizes.mini || modalSize === modalSizes.tiny ? "center" : "flex-end")}>
                   <ButtonCustom
                     onClick={closeModal}
                     variant="outlined"
