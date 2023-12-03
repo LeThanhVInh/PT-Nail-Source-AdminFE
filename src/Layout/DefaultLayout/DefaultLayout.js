@@ -1,32 +1,3 @@
-// import * as React from "react";
-// import classNames from "classnames/bind";
-// import styles from "./DefaultLayout.module.scss";
-// import Box from "@mui/material/Box";
-// import Sidebar from "../../components/Sidebar";
-// import Header from "../../components/Header/Header";
-
-// const cx = classNames.bind(styles);
-
-// function DefaultLayout({ children }) {
-//   return (
-//     <>
-//       <Box sx={{ width: 1 }} className={cx("wrapper")}>
-//         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
-//           <Box gridColumn="span 2" className={cx("container")}>
-//             <Sidebar />
-//           </Box>
-//           <Box gridColumn="span 10" className={cx("content-layout")}>
-//             <Header />
-//             {children}
-//           </Box>
-//         </Box>
-//       </Box>
-//     </>
-//   );
-// }
-
-// export default DefaultLayout;
-
 import * as React from "react";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
@@ -88,40 +59,16 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-// const DrawerHeader = styled("div")(({ theme }) => ({
-//   display: "flex",
-//   alignItems: "center",
-//   padding: theme.spacing(0, 1),
-//   // necessary for content to be below app bar
-//   ...theme.mixins.toolbar,
-//   justifyContent: "flex-end",
-//   backgroundColor: "red",
-//   display: "none",
-//   height: "1px",
-//   maxHeight: "1px",
-// }));
-
 function DefaultLayout({ children }) {
   const location = useLocation();
-
-  // const theme = useTheme();
-  const [open, setOpen] = useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen((prev) => !prev);
-  };
-
-  // const handleDrawerClose = () => {
-  //   setOpen(false);
-  // };
+  const [isOpen, setOpen] = useState(false);
+  const isShowBackdrop = false;
 
   return (
     <div className={cx("wrapper")}>
       <Box
         sx={{
           display: "flex",
-          // maxHeight: "95vh",
-
           height: "calc(100vh - 20px)",
           overflow: "hidden",
         }}
@@ -129,7 +76,7 @@ function DefaultLayout({ children }) {
         <CssBaseline />
         <AppBar
           position="absolute"
-          open={open}
+          open={isOpen}
           sx={{
             top: "47px",
             left: "0px",
@@ -140,7 +87,7 @@ function DefaultLayout({ children }) {
             justifyContent: "center",
             alignItems: "center",
             // ...(open && { display: "none" }),
-            ...(open && {
+            ...(isOpen && {
               left: "-16px",
               zIndex: "1300",
               // transition: "all ease-in .1s",
@@ -150,12 +97,9 @@ function DefaultLayout({ children }) {
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={() => setOpen((prev) => !prev)}
             edge="start"
-            sx={{
-              transform: "translateX(15%)",
-              // ...(open && { display: "none" }),
-            }}
+            sx={{ transform: "translateX(15%)" }}
           >
             <MenuIcon />
           </IconButton>
@@ -164,11 +108,9 @@ function DefaultLayout({ children }) {
         <Drawer
           sx={{
             width: drawerWidth,
-
             flexShrink: 0,
             "& .MuiDrawer-paper": {
               backgroundColor: "var(--primary-color)",
-              // width: drawerWidth,
               boxSizing: "border-box",
               overflow: "unset",
               paddingTop: "14px",
@@ -179,36 +121,13 @@ function DefaultLayout({ children }) {
           }}
           variant="persistent"
           anchor="left"
-          open={open}
+          open={isOpen}
         >
-          {/* <IconButton
-            onClick={handleDrawerClose}
-            sx={{
-              position: "absolute",
-              top: "30px",
-              right: "0px",
-              width: "50px",
-              height: "50px",
-              borderRadius: "50%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "var(--white-color)",
-              zIndex: 999,
-            }}
-          >
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton> */}
-
           <Sidebar />
         </Drawer>
 
         <Main
-          open={open}
+          open={isOpen}
           sx={{
             backgroundColor: "var(--bg-white-color)",
             borderRadius: "30px",
@@ -218,26 +137,27 @@ function DefaultLayout({ children }) {
         >
           {config.routes.pos === location.pathname ? "" : <Header />}
           {children}
-          {open ? (
-            <div
-              onClick={handleDrawerOpen}
-              style={{
-                height: "100%",
-                width: "100%",
-                backgroundColor: "black",
-                opacity: 0.4,
-                position: "absolute",
-                top: 0,
-                left: 0,
-                zIndex: 10,
-              }}
-            ></div>
-          ) : (
-            <div></div>
-          )}
+          {
+            isShowBackdrop
+              ? isOpen
+                ? <div
+                  onClick={() => setOpen((prev) => !prev)}
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    backgroundColor: "black",
+                    opacity: 0.4,
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    zIndex: 10,
+                  }}></div>
+                : <div></div>
+              : <div></div>
+          }
         </Main>
       </Box>
-    </div>
+    </div >
   );
 }
 
