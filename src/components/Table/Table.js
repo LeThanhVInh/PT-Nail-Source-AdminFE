@@ -241,7 +241,7 @@ function Tables() {
             >
               <TableHead>
                 <TableRow>
-                  <StyledTableCell>
+                  <StyledTableCell width={60}>
                     <CheckboxTable
                       checked={isCheckedItem.length === rows.length}
                       indeterminate={

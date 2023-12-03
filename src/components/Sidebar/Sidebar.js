@@ -188,7 +188,7 @@ function Sidebar() {
           </NavLink>
 
           <NavLink
-            to={config.routes.pos}
+            to={config.routes.pos + `1`}
             className="category-list-item"
             onClick={() => setIsListChildActive(false)}
           >
