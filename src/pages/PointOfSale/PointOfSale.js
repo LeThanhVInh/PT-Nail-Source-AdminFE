@@ -183,13 +183,14 @@ function PointOfSale() {
                     aria-label="Platform"
                     sx={{
                       display: "flex",
-                      flexWrap: "wrap",
-                      justifyContent: {
-                        xs: "center",
-                        md: "center",
-                        lg: "flex-start",
-                        xl: "flex-start",
-                      },
+                      overflow: "auto",
+                      // flexWrap: "wrap",
+                      // justifyContent: {
+                      //   xs: "center",
+                      //   md: "center",
+                      //   lg: "flex-start",
+                      //   xl: "flex-start",
+                      // },
                     }}
                   >
                     {categoriesList.map((list) => (
@@ -234,19 +235,23 @@ function PointOfSale() {
                           xl: "column",
                         },
                         margin: "10px",
-                        // minWidth: 315,
+
                         height: {
                           xs: 150,
                           md: 150,
-                          lg: 300,
-                          xl: 300,
+                          lg: 265,
+                          xl: 265,
                         },
 
                         width: {
+                          // xs: 400,
+                          // md: 350,
+                          // lg: 230,
+                          // xl: 230,
                           xs: 400,
                           md: 350,
-                          lg: 230,
-                          xl: 230,
+                          lg: "20%",
+                          xl: "20%",
                         },
                       }}
                       key={menu.id}
@@ -258,7 +263,7 @@ function PointOfSale() {
                         image={menu.img}
                         sx={{
                           width: {
-                            xs: "150px",
+                            xs: "100px",
                             md: "150px",
                             lg: "100%",
                             xl: "100%",
@@ -391,162 +396,166 @@ function PointOfSale() {
                     <Divider sx={{ margin: "10px 0" }} />
                     {/* </div> */}
                   </div>
-                  <div className={cx("total")}>
-                    <Box
-                      component="div"
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        margin: "10px 0",
-                      }}
-                    >
-                      <Typography component="div" variant="subtitle1">
-                        Item
-                      </Typography>
-                      <Typography
+                  <div className={cx("total-payment")}>
+                    <div className={cx("total")}>
+                      <Box
                         component="div"
-                        variant="subtitle1"
-                        sx={{ fontWeight: "700" }}
-                      >
-                        X (Items)
-                      </Typography>
-                    </Box>
-
-                    <Box
-                      component="div"
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        margin: "10px 0",
-                      }}
-                    >
-                      <Typography component="div" variant="subtitle1">
-                        Subtotal
-                      </Typography>
-                      <Typography
-                        component="div"
-                        variant="subtitle1"
-                        sx={{ fontWeight: "700" }}
-                      >
-                        $9999
-                      </Typography>
-                    </Box>
-
-                    <Box
-                      component="div"
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        margin: "10px 0",
-                      }}
-                    >
-                      <Typography component="div" variant="subtitle1">
-                        Discount
-                      </Typography>
-                      <Typography
-                        component="div"
-                        variant="subtitle1"
-                        sx={{ fontWeight: "700" }}
-                      >
-                        -$9999
-                      </Typography>
-                    </Box>
-                    <Box
-                      component="div"
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        margin: "10px 0",
-                      }}
-                    >
-                      <Typography component="div" variant="subtitle1">
-                        Tax(15%)
-                      </Typography>
-                      <Typography
-                        component="div"
-                        variant="subtitle1"
-                        sx={{ fontWeight: "700" }}
-                      >
-                        $99
-                      </Typography>
-                    </Box>
-                    <Divider sx={{ margin: "10px 0" }} />
-                    <Box
-                      component="div"
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        margin: "10px 0",
-                      }}
-                    >
-                      <Typography component="div" variant="h5">
-                        Total
-                      </Typography>
-                      <Typography
-                        component="div"
-                        variant="h5"
-                        sx={{ fontWeight: "700" }}
-                      >
-                        $99
-                      </Typography>
-                    </Box>
-                    <Divider sx={{ margin: "10px 0" }} />
-                  </div>
-                  <div className={cx("payment")}>
-                    <div className={cx("header-title")}>
-                      <h3>Payment Method</h3>
-                    </div>
-                    <div>
-                      <ToggleButtonGroup
-                        color="primary"
-                        value={paymentMethod}
-                        exclusive
-                        onChange={handleChangePaymentMethod}
-                        aria-label="Platform"
                         sx={{
                           display: "flex",
-                          flexWrap: "wrap",
-                          justifyContent: "center",
+                          justifyContent: "space-between",
+                          margin: "10px 0",
                         }}
                       >
-                        <ToggleButtonPayment value="cash">
-                          <PaymentsIcon
-                            sx={{ width: "35px", height: "35px" }}
-                          />
+                        <Typography component="div" variant="subtitle1">
+                          Item
+                        </Typography>
+                        <Typography
+                          component="div"
+                          variant="subtitle1"
+                          sx={{ fontWeight: "700" }}
+                        >
+                          X (Items)
+                        </Typography>
+                      </Box>
 
-                          <Typography>Cash</Typography>
-                        </ToggleButtonPayment>
+                      <Box
+                        component="div"
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          margin: "10px 0",
+                        }}
+                      >
+                        <Typography component="div" variant="subtitle1">
+                          Subtotal
+                        </Typography>
+                        <Typography
+                          component="div"
+                          variant="subtitle1"
+                          sx={{ fontWeight: "700" }}
+                        >
+                          $9999
+                        </Typography>
+                      </Box>
 
-                        <ToggleButtonPayment value="debit">
-                          <PaymentIcon sx={{ width: "35px", height: "35px" }} />
+                      <Box
+                        component="div"
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          margin: "10px 0",
+                        }}
+                      >
+                        <Typography component="div" variant="subtitle1">
+                          Discount
+                        </Typography>
+                        <Typography
+                          component="div"
+                          variant="subtitle1"
+                          sx={{ fontWeight: "700" }}
+                        >
+                          -$9999
+                        </Typography>
+                      </Box>
+                      <Box
+                        component="div"
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          margin: "10px 0",
+                        }}
+                      >
+                        <Typography component="div" variant="subtitle1">
+                          Tax(15%)
+                        </Typography>
+                        <Typography
+                          component="div"
+                          variant="subtitle1"
+                          sx={{ fontWeight: "700" }}
+                        >
+                          $99
+                        </Typography>
+                      </Box>
+                      <Divider sx={{ margin: "10px 0" }} />
+                      <Box
+                        component="div"
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          margin: "10px 0",
+                        }}
+                      >
+                        <Typography component="div" variant="h5">
+                          Total
+                        </Typography>
+                        <Typography
+                          component="div"
+                          variant="h5"
+                          sx={{ fontWeight: "700" }}
+                        >
+                          $99
+                        </Typography>
+                      </Box>
+                      <Divider sx={{ margin: "10px 0" }} />
+                    </div>
+                    <div className={cx("payment")}>
+                      <div className={cx("header-title")}>
+                        <h3>Payment Method</h3>
+                      </div>
+                      <div>
+                        <ToggleButtonGroup
+                          color="primary"
+                          value={paymentMethod}
+                          exclusive
+                          onChange={handleChangePaymentMethod}
+                          aria-label="Platform"
+                          sx={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <ToggleButtonPayment value="cash">
+                            <PaymentsIcon
+                              sx={{ width: "35px", height: "35px" }}
+                            />
 
-                          <Typography>Debit</Typography>
-                        </ToggleButtonPayment>
+                            <Typography>Cash</Typography>
+                          </ToggleButtonPayment>
 
-                        <ToggleButtonPayment value="qris">
-                          <QrCodeScannerIcon
-                            sx={{ width: "35px", height: "35px" }}
-                          />
-                          <Typography>QRIS</Typography>
-                        </ToggleButtonPayment>
-                      </ToggleButtonGroup>
+                          <ToggleButtonPayment value="debit">
+                            <PaymentIcon
+                              sx={{ width: "35px", height: "35px" }}
+                            />
+
+                            <Typography>Debit</Typography>
+                          </ToggleButtonPayment>
+
+                          <ToggleButtonPayment value="qris">
+                            <QrCodeScannerIcon
+                              sx={{ width: "35px", height: "35px" }}
+                            />
+                            <Typography>QRIS</Typography>
+                          </ToggleButtonPayment>
+                        </ToggleButtonGroup>
+                      </div>
+                    </div>
+                    <div className={cx("footer")}>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        sx={{
+                          height: "50px",
+                          backgroundColor: "var(--primary-color)",
+                          ":hover": {
+                            backgroundColor: "var(--primary-color)",
+                          },
+                        }}
+                      >
+                        Process Transaction
+                      </Button>
                     </div>
                   </div>
-                </div>
-                <div className={cx("footer")}>
-                  <Button
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      height: "50px",
-                      backgroundColor: "var(--primary-color)",
-                      ":hover": {
-                        backgroundColor: "var(--primary-color)",
-                      },
-                    }}
-                  >
-                    Process Transaction
-                  </Button>
                 </div>
               </div>
             </div>
