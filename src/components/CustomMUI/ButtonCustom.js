@@ -1,4 +1,5 @@
 import Button from "@mui/material/Button";
+import { ToggleButton } from "@mui/material";
 import { styled } from "@mui/system";
 
 export const DefaultButton = styled(Button)(({ theme }) => ({
@@ -24,5 +25,24 @@ export const DefaultButton = styled(Button)(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {
     flexGrow: 0,
     margin: "0 0 0 20px",
+  },
+}));
+
+export const ToggleButtonPayment = styled(ToggleButton)(({ theme }) => ({
+  textTransform: "capitalize",
+  height: "90px",
+  width: "100px",
+  borderRadius: "20px !important",
+  boxShadow: "var(--box-shadow)",
+  margin: "10px 10px !important",
+  border: "1px solid var(--grey-border-half) !important",
+  flexDirection: "column",
+  "&.Mui-selected, &.Mui-selected:hover": {
+    color: "var(--primary-color)",
+    backgroundColor: "var(--white-color)",
+    border: "1px solid var(--primary-color) !important",
+    svg: {
+      color: "var(--primary-color)",
+    },
   },
 }));

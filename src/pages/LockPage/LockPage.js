@@ -89,27 +89,13 @@ export default function UnlockScreen() {
     };
   }, []);
 
-  const particlesInit = useCallback(async (engine) => {
-    // console.log(engine);
-    // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
-    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-    // starting from v2 you can add only the features you need reducing the bundle size
-    await loadFull(engine);
-    // await loadSlim(engine);
-  }, []);
-
-  const particlesLoaded = useCallback(async (container) => {
-    // await console.log(container);
-  }, []);
 
   return (
     <div className={cx("unlock-screen")}
       onKeyDown={handleKeyDown}>
       <Particles
-        id="tsparticles"
-        init={particlesInit}
-        loaded={particlesLoaded}
         className={cx("the-particles-div")}
+        init={useCallback(async (engine) => await loadFull(engine), [])}
         options={particleOptions}
       />
       <div className={cx("background")}></div>
@@ -122,7 +108,7 @@ export default function UnlockScreen() {
         />
         <div className={cx("button-grid")}>
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, "", 0, "⌫"].map((buttonValue, i) => {
-            if (buttonValue === "" || buttonValue === "⌫" && passcode == "")
+            if (buttonValue === "" || (buttonValue === "⌫" && passcode === ""))
               return <div key={i}></div>;
 
             return <button key={i}

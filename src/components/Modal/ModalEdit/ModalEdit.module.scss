@@ -1,29 +1,25 @@
-.wrapper {
-  padding: 20px;
+.main-box {
 
-  .title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 20px 0;
-
-    h3 {
-      font-weight: 500;
-    }
+  //Scrollbar CSS
+  &::-webkit-scrollbar {
+    width: 0px;
   }
 
-  .content-items {
-    margin-bottom: 20px;
-    background-color: var(--white-color);
-    border-radius: 10px;
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+  }
 
-    .item {
-      padding: 10px;
-      border: 1px solid #e2e8f099;
+  .wrapper {
+    padding: 20px;
+
+    .modal-box {
+      margin-bottom: 20px;
+      background-color: var(--white-color);
       border-radius: 10px;
+      border: 1px solid #e2e8f099;
+      padding: 10px;
 
-      .item-title {
+      .header {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -31,7 +27,7 @@
         font-weight: 600;
       }
 
-      .item-title-content {
+      .contents {
         flex: 1;
 
         display: flex;
@@ -40,12 +36,15 @@
         flex-direction: column;
         width: 100%;
 
-        .date-time-picker {}
-
         .item-content {
           padding: 5px 0;
+
+          .validation-text {
+            margin-top: 0;
+          }
         }
       }
     }
   }
+
 }

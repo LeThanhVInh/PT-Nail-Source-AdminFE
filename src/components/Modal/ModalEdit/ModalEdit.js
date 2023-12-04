@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { styled } from "@mui/system";
-import ClearIcon from "@mui/icons-material/Clear";
-import { IconButton, TextField, Typography, Box, RadioGroup, Modal, Divider, Radio } from "@mui/material";
-import { FormControl, FormControlLabel, FormGroup, Checkbox, Stack, Button, Autocomplete } from "@mui/material";
+import { Clear as ClearIcon, Check as CheckIcon } from "@mui/icons-material";
+import { IconButton, TextField, Typography, Box, RadioGroup, Modal, Divider, Radio, Grid } from "@mui/material";
+import { FormControl, FormControlLabel, FormGroup, Checkbox, Button, Autocomplete } from "@mui/material";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -11,6 +11,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import classNames from "classnames/bind";
 import styles from "./ModalEdit.module.scss";
+import { modalSizes } from '../../../providers/constants';
 
 const cx = classNames.bind(styles);
 
@@ -132,24 +133,6 @@ const FormControlLabelCustom = styled(FormControlLabel)({
   },
 });
 
-const StackCustom = styled(Stack)(({ theme }) => ({
-  marginTop: "10px",
-  display: "flex",
-  flexWrap: "wrap",
-  justifyContent: "flex-end",
-  alignItems: "center",
-  padding: theme.spacing(1),
-  [theme.breakpoints.down("md")]: {
-    justifyContent: "center",
-  },
-  [theme.breakpoints.up("md")]: {
-    justifyContent: "space-evenly",
-  },
-  [theme.breakpoints.up("lg")]: {
-    justifyContent: "flex-end",
-  },
-}));
-
 const ButtonCustom = styled(Button)(({ theme }) => ({
   color: "var(--grey-color)",
   width: "208px",
@@ -228,8 +211,8 @@ const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
 }));
 //#endregion
 
-function ModalEdit(props) {
-  const { handleClose, open } = props;
+export default function ModalEdit(props) {
+  const { closeModal, isOpen } = props;
   const {
     register,
     handleSubmit,
@@ -242,270 +225,257 @@ function ModalEdit(props) {
     console.log(data);
   };
 
-  const modalSize = {
-    mini: "360px",
-    tiny: "540px",
-    medium: "720px",
-    large: "1080px",
-    full: "auto",
-  }
+  const modalSize = modalSizes.medium;
 
   const getSizeOfModal = (type) => {
-    if (type === modalSize.mini && window.innerWidth < 360)
-      return modalSize.full;
-    else if (type === modalSize.tiny && window.innerWidth < 540)
-      return modalSize.full;
-    else if (type === modalSize.medium && window.innerWidth < 720)
-      return modalSize.full;
-    else if (type === modalSize.large && window.innerWidth < 1080)
-      return modalSize.full;
+    if (type === modalSizes.mini && window.innerWidth < 360)
+      return modalSizes.full;
+    else if (type === modalSizes.tiny && window.innerWidth < 540)
+      return modalSizes.full;
+    else if (type === modalSizes.medium && window.innerWidth < 720)
+      return modalSizes.full;
+    else if (type === modalSizes.large && window.innerWidth < 1080)
+      return modalSizes.full;
     else
       return type.toString();
   }
 
   return (
     <Modal
-      open={open}
-      onClose={handleClose}
-      className="animate__animated animate__zoomIn animate__fast"
+      open={isOpen}
+      onClose={closeModal}
     >
-      <Box sx={{ overflow: "auto", height: "100%", width: getSizeOfModal(modalSize.mini), margin: 'auto' }}>
+      <Box
+        className={cx("main-box", "animate__animated animate__zoomIn animate__fast")}
+        sx={{ width: getSizeOfModal(modalSize), overflow: "auto", height: "100%", margin: 'auto' }}>
         <div className={cx("wrapper")}>
           <form
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className={cx("add-new-container")}>
-              <div className={cx("content-items")}>
-                <div className={cx("item")}>
-                  <div className={cx("item-title")}>
-                    <p>Modal Edit</p>
-                    <IconButton
-                      // disableElevation
-                      // disableRipple
-                      aria-label="Close"
-                      sx={{
-                        ":hover": {
-                          color: "var(--primary-color)",
-                        },
-                      }}
-                      onClick={handleClose}
-                    >
-                      <ClearIcon fontSize="inherit" />
-                    </IconButton>
-                  </div>
-                  <Divider sx={{ margin: "10px 0" }} />
-                  <div className={cx("item-title-content")}>
-                    <div className={cx("item-content")}>
-                      <TextFieldCustom
-                        fullWidth
-                        label="Email"
-                        {...register("email", {
-                          required: true,
-                          pattern: /\S+@\S+\.\S+/,
-                        })}
-                      />
+            <div className={cx("modal-box")}>
+              <div className={cx("header")}>
+                <p>Modal Edit</p>
+                <IconButton
+                  // disableElevation
+                  // disableRipple
+                  aria-label="Close"
+                  sx={{
+                    ":hover": {
+                      color: "var(--primary-color)",
+                    },
+                  }}
+                  onClick={closeModal}
+                >
+                  <ClearIcon fontSize="inherit" />
+                </IconButton>
+              </div>
 
-                      {errors.email && errors.email.type === "required" && (
-                        <TypographyError>Email is required</TypographyError>
+              <Divider sx={{ margin: "10px 0" }} />
+
+              <div className={cx("contents")}>
+                <div className={cx("item-content")}>
+                  <TextFieldCustom
+                    fullWidth
+                    label="Email"
+                    {...register("email", {
+                      required: true,
+                      pattern: /\S+@\S+\.\S+/,
+                    })}
+                  />
+
+                  {errors.email && errors.email.type === "required" && (
+                    <TypographyError className={cx("validation-text")}>Email is required</TypographyError>
+                  )}
+
+                  {errors.email && errors.email.type === "pattern" && (
+                    <TypographyError className={cx("validation-text")}>Enter a valid email</TypographyError>
+                  )}
+                </div>
+
+                <div className={cx("item-content")}>
+                  <TextFieldCustom
+                    label="User name"
+                    fullWidth
+                    {...register("userName", {
+                      required: true,
+                    })}
+                  />
+
+                  {errors.userName &&
+                    errors.userName.type === "required" && (
+                      <TypographyError className={cx("validation-text")}>
+                        User name is required
+                      </TypographyError>
+                    )}
+                </div>
+
+                <div className={cx("item-content")}>
+                  <TextFieldCustom
+                    label="Password"
+                    type="password"
+                    fullWidth
+                    {...register("passWord", {
+                      required: true,
+                      minLength: 4,
+                    })}
+                  />
+                  <Box>
+                    {errors.passWord &&
+                      errors.passWord.type === "required" && (
+                        <TypographyError className={cx("validation-text")}>
+                          Password is required
+                        </TypographyError>
                       )}
 
-                      {errors.email && errors.email.type === "pattern" && (
-                        <TypographyError>Enter a valid email</TypographyError>
+                    {errors.passWord &&
+                      errors.passWord.type === "minLength" && (
+                        <TypographyError className={cx("validation-text")}>
+                          Minimum characters 4 required
+                        </TypographyError>
                       )}
-                    </div>
+                  </Box>
+                </div>
 
-                    <div className={cx("item-content")}>
-                      <TextFieldCustom
-                        label="User name"
-                        fullWidth
-                        {...register("userName", {
-                          required: true,
-                        })}
-                      />
+                <div className={cx("item-content")}>
+                  <FormControl
+                    sx={{ minWidth: 120 }}
+                    size="small"
+                    fullWidth
+                  >
+                    <StyledAutocomplete
+                      disablePortal
+                      options={top100Films}
+                      renderInput={(params) => (
+                        <TextField {...params} label="Select" fullWidth />
+                      )}
+                    />
+                  </FormControl>
+                </div>
 
-                      {errors.userName &&
-                        errors.userName.type === "required" && (
-                          <TypographyError>
-                            User name is required
-                          </TypographyError>
-                        )}
-                    </div>
-
-                    <div className={cx("item-content")}>
-                      <TextFieldCustom
-                        label="Password"
-                        type="password"
-                        fullWidth
-                        {...register("passWord", {
-                          required: true,
-                          minLength: 4,
-                        })}
-                      />
-                      <Box>
-                        {errors.passWord &&
-                          errors.passWord.type === "required" && (
-                            <TypographyError>
-                              Password is required
-                            </TypographyError>
-                          )}
-
-                        {errors.passWord &&
-                          errors.passWord.type === "minLength" && (
-                            <TypographyError>
-                              Minimum characters 4 required
-                            </TypographyError>
-                          )}
-                      </Box>
-                    </div>
-
-                    <div className={cx("item-content")}>
-                      <FormControl
-                        sx={{ minWidth: 120 }}
-                        size="small"
-                        fullWidth
-                      >
-                        <StyledAutocomplete
-                          disablePortal
-                          options={top100Films}
-                          renderInput={(params) => (
-                            <TextField {...params} label="Select" fullWidth />
-                          )}
+                <div className={cx("item-content")}>
+                  <FormControl
+                    sx={{ minWidth: 120 }}
+                    size="small"
+                    fullWidth
+                  >
+                    <StyledAutocomplete
+                      disablePortal
+                      multiple
+                      filterSelectedOptions
+                      options={top100Films}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="Multi Select"
+                          fullWidth
                         />
-                      </FormControl>
-                    </div>
+                      )}
+                      size="small"
+                    />
 
-                    <div className={cx("item-content")}>
-                      <FormControl
-                        sx={{ minWidth: 120 }}
-                        size="small"
-                        fullWidth
-                      >
-                        <StyledAutocomplete
-                          disablePortal
-                          multiple
-                          filterSelectedOptions
-                          options={top100Films}
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              label="Multi Select"
-                              fullWidth
-                            />
-                          )}
-                          size="small"
-                        />
-
-                        {/* <Select
+                    {/* <Select
                             isMulti
                             theme={theme}
                             isClearable={isClearable}
                             options={categoryList}
                           /> */}
-                      </FormControl>
-                    </div>
-
-                    <div className={cx("item-content")}>
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePickerCustom
-                          label="Date Picker"
-                          className={cx("date-time-picker")}
-                        />
-                      </LocalizationProvider>
-                    </div>
-
-                    <div className={cx("item-content")}>
-                      <FormControl>
-                        <TypographyCustom>Radio</TypographyCustom>
-
-                        <RadioGroup
-                          row
-                          name="controlled-radio-buttons-group"
-                          value={value}
-                          onChange={(event) => setValue(event.target.value)}
-                        >
-                          <FormControlLabelCustom
-                            value="male"
-                            control={<Radio />}
-                            label="Male"
-                          />
-                          <FormControlLabelCustom
-                            value="female"
-                            control={<Radio />}
-                            label="Female"
-                          />
-                        </RadioGroup>
-                      </FormControl>
-                    </div>
-
-                    <div className={cx("item-content")}>
-                      <FormGroup>
-                        <TypographyCustom>Check Box</TypographyCustom>
-
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              defaultChecked
-                              size="small"
-                              sx={{
-                                color: "var(--primary-color)",
-                                "&.Mui-checked": {
-                                  color: "var(--primary-color)",
-                                },
-                              }}
-                            />
-                          }
-                          label={
-                            <span style={{ fontSize: "14px" }}>
-                              {"Remember me"}
-                            </span>
-                          }
-                          fontSize="14px"
-                        />
-                      </FormGroup>
-                    </div>
-                  </div>
-
-                  <Divider sx={{ m: "10px 0" }} />
-
-                  <div className={cx("add-new-footer")}>
-                    <StackCustom direction="row">
-                      <ButtonCustom variant="outlined" onClick={handleClose}>
-                        Cancel
-                      </ButtonCustom>
-                      <ButtonCustom
-                        // disableElevation
-                        disableRipple
-                        variant="outlined"
-                      >
-                        Save & Add New
-                      </ButtonCustom>
-                      <ButtonCustom
-                        // disableElevation
-                        disableRipple
-                        type="submit"
-                        variant="contained"
-                        sx={{
-                          backgroundColor: "var(--primary-color)",
-                          color: "var(--white-color)",
-                          ":hover": {
-                            backgroundColor: "var(--primary-color)",
-                          },
-                        }}
-                      >
-                        Save
-                      </ButtonCustom>
-                    </StackCustom>
-                  </div>
+                  </FormControl>
                 </div>
+
+                <div className={cx("item-content")}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePickerCustom
+                      label="Date Picker"
+                      className={cx("date-time-picker")}
+                    />
+                  </LocalizationProvider>
+                </div>
+
+                <div className={cx("item-content")}>
+                  <FormControl>
+                    <TypographyCustom>Radio</TypographyCustom>
+
+                    <RadioGroup
+                      row
+                      name="controlled-radio-buttons-group"
+                      value={value}
+                      onChange={(event) => setValue(event.target.value)}
+                    >
+                      <FormControlLabelCustom
+                        value="male"
+                        control={<Radio />}
+                        label="Male"
+                      />
+                      <FormControlLabelCustom
+                        value="female"
+                        control={<Radio />}
+                        label="Female"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </div>
+
+                <div className={cx("item-content")}>
+                  <FormGroup>
+                    <TypographyCustom>Check Box</TypographyCustom>
+
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          defaultChecked
+                          size="small"
+                          sx={{
+                            color: "var(--primary-color)",
+                            "&.Mui-checked": {
+                              color: "var(--primary-color)",
+                            },
+                          }}
+                        />
+                      }
+                      label={
+                        <span style={{ fontSize: "14px" }}>
+                          {"Remember me"}
+                        </span>
+                      }
+                      fontSize="14px"
+                    />
+                  </FormGroup>
+                </div>
+              </div>
+
+              <Divider sx={{ m: "10px 0" }} />
+
+              <div className={cx("footer")}>
+                <Grid container justifyContent={(modalSize === modalSizes.medium || modalSize === modalSizes.mini || modalSize === modalSizes.tiny ? "center" : "flex-end")}>
+                  <ButtonCustom
+                    onClick={closeModal}
+                    variant="outlined"
+                    sx={{
+                      border: "1px solid red",
+                      color: "red",
+                    }}
+                  >Cancel</ButtonCustom>
+
+                  <ButtonCustom
+                    type="submit"
+                    variant="contained"
+                    startIcon={<CheckIcon />}
+                    sx={{
+                      backgroundColor: "var(--primary-color)",
+                      color: "var(--white-color)",
+                      ":hover": {
+                        backgroundColor: "var(--primary-color)",
+                      },
+                    }}
+                  >Save</ButtonCustom>
+                </Grid>
               </div>
             </div>
           </form>
         </div>
       </Box>
-    </Modal>
+    </Modal >
   );
 }
-
-export default ModalEdit;
