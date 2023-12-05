@@ -245,7 +245,7 @@ function ModalEdit(props, ref) {
       onClose={closeModal}
     >
       <Box
-        className={cx("main-box", animationClass)}
+        className={cx("modal-main-box", animationClass)}
         sx={{ width: getSizeOfModal(modalSize), overflow: "auto", height: "100%", margin: 'auto' }}>
         <div className={cx("wrapper")}>
           <form

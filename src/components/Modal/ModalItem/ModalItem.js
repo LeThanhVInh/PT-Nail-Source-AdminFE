@@ -61,14 +61,8 @@ function ModalItem(props, ref) {
   return (
     <Modal open={isOpen} onClose={closeModal}>
       <Box
-        className={cx("main-box", animationClass)}
-        sx={{
-          width: getSizeOfModal(modalSize),
-          overflow: "auto",
-          height: "100%",
-          margin: "auto",
-        }}
-      >
+        className={cx("modal-main-box", animationClass)}
+        sx={{ width: getSizeOfModal(modalSize), overflow: "auto", height: "100%", margin: 'auto' }}>
         <div className={cx("wrapper")}>
           <div className={cx("modal-box")}>
             <div className={cx("header")}>
