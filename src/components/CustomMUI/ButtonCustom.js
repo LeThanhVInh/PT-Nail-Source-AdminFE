@@ -46,3 +46,24 @@ export const ToggleButtonPayment = styled(ToggleButton)(({ theme }) => ({
     },
   },
 }));
+
+//Modal Edit
+export const ToggleButtonSelectSize = styled(ToggleButton)(({ theme }) => ({
+  textTransform: "capitalize",
+  height: "40px",
+  width: "auto",
+  borderRadius: "10px !important",
+  boxShadow: "var(--box-shadow)",
+  margin: "5px 10px !important",
+  border: "1px solid var(--grey-border-half) !important",
+  flexDirection: "column",
+  flexWrap: "wrap",
+  "&.Mui-selected, &.Mui-selected:hover": {
+    color: "var(--primary-color)",
+    backgroundColor: "var(--white-color)",
+    border: "1px solid var(--primary-color) !important",
+    svg: {
+      color: "var(--primary-color)",
+    },
+  },
+}));
