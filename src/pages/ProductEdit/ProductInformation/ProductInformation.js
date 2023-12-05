@@ -58,7 +58,7 @@ const TextFieldCustom = styled(TextField)({
 function ProductInformation() {
   const [expanded, setExpanded] = useState("panel1");
 
-  const [isClearable, setIsClearable] = useState(true);
+  const [isClearable] = useState(true);
 
   const handleChangeExpanded = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);

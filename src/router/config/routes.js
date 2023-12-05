@@ -7,6 +7,7 @@ const routes = {
   lock: "/lock",
   login: "/login",
   pos: "/point-of-sale",
+  categories: "/categories",
 };
 
 export default routes;

@@ -215,7 +215,7 @@ export default function Tables() {
                 </Stack>
               </div>
               <div className={cx("action-search", "pt-10")}>
-                <Search sx={{ boxShadow: "20px 3px 20px #0000000b" }}>
+                <Search sx={{ boxShadow: "20px 3px 20px #0000000b", margin: 0 }}>
                   <SearchIconWrapper>
                     <SearchIcon />
                   </SearchIconWrapper>

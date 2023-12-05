@@ -13,9 +13,6 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
-import { Stack } from "@mui/material";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -25,41 +22,6 @@ import classNames from "classnames/bind";
 import styles from "./WrittenDetails.module.scss";
 
 const cx = classNames.bind(styles);
-
-const ProSpan = styled("span")({
-  display: "inline-block",
-  height: "1em",
-  width: "1em",
-  verticalAlign: "middle",
-  marginLeft: "0.3em",
-  marginBottom: "0.08em",
-  backgroundSize: "contain",
-  backgroundRepeat: "no-repeat",
-  backgroundImage: "url(https://mui.com/static/x/pro.svg)",
-});
-
-function Label({ componentName, valueType, isProOnly }) {
-  const content = (
-    <span>
-      <strong>{componentName}</strong> for {valueType} editing
-    </span>
-  );
-
-  if (isProOnly) {
-    return (
-      <Stack direction="row" spacing={0.5} component="span">
-        <Tooltip title="Included on Pro package">
-          <a href="https://mui.com/x/introduction/licensing/#pro-plan">
-            <ProSpan />
-          </a>
-        </Tooltip>
-        {content}
-      </Stack>
-    );
-  }
-
-  return content;
-}
 
 //Dummy Data
 const categoryList = [
@@ -142,31 +104,6 @@ const FormControlLabelCustom = styled(FormControlLabel)({
 //   },
 // }));
 
-const ButtonCustom = styled(Button)(({ theme }) => ({
-  color: "var(--grey-color)",
-  width: "208px",
-  height: "46px",
-  fontSize: "14px",
-  textTransform: "capitalize",
-  borderColor: "var(--gray-color)",
-  marginBottom: "20px",
-  ":hover": {
-    borderColor: "var(--primary-color)",
-  },
-  [theme.breakpoints.down("md")]: {
-    flexGrow: 1,
-
-    width: "100%",
-  },
-  [theme.breakpoints.up("md")]: {
-    flexGrow: 1,
-    margin: "0 20px 20px 20px",
-  },
-  [theme.breakpoints.up("lg")]: {
-    flexGrow: 0,
-    margin: "0 0 0 20px",
-  },
-}));
 
 const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
   input: {
@@ -194,17 +131,14 @@ const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
 }));
 
 function WrittenDetails(props) {
-  const { handleClose, open } = props;
 
   const {
-    register,
     handleSubmit,
-    formState: { errors },
+    formState: { },
   } = useForm();
 
   const [isClearable, setIsClearable] = useState(true);
   const [value, setValue] = useState("male");
-  const [startDate, setStartDate] = useState(new Date());
 
   const handleChange = (event) => {
     setValue(event.target.value);

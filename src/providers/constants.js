@@ -5,6 +5,8 @@ const exportedObject = {
 };
 export default exportedObject
 
+export const dataTablePadWidth = 25;
+
 export const modalSizes = {
     mini: "360px",
     tiny: "540px",

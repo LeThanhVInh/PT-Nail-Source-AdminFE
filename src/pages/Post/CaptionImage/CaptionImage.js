@@ -5,7 +5,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import {
   Accordion,
   AccordionDetails,

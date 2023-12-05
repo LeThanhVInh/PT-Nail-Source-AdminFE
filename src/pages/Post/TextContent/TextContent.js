@@ -40,11 +40,7 @@ const cx = classNames.bind(styles);
 
 function TextContent() {
   const [expanded, setExpanded] = useState("panel1");
-  const [value, setValue] = useState("female");
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
 
   const handleChangeExpanded = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
