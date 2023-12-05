@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import { useForm } from "react-hook-form";
 import { styled } from "@mui/system";
 import { Clear as ClearIcon, Check as CheckIcon } from "@mui/icons-material";
@@ -11,7 +11,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import classNames from "classnames/bind";
 import styles from "./ModalEdit.module.scss";
-import { modalSizes } from '../../../providers/constants';
+import { modalSizes, getSizeOfModal } from '../../../providers/constants';
 
 const cx = classNames.bind(styles);
 
@@ -211,33 +211,32 @@ const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
 }));
 //#endregion
 
-export default function ModalEdit(props) {
-  const { closeModal, isOpen } = props;
+function ModalEdit(props, ref) {
+
+  const modalSize = modalSizes.medium;
+  const [value, setValue] = useState("male");
+  const [isOpen, setOpenModal] = useState(false);
+  const [animationClass, setAnimationClass] = useState("");
+
+  React.useImperativeHandle(ref, () => ({ openModal }));
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const [value, setValue] = useState("male");
-
   const onSubmit = (data) => {
     console.log(data);
   };
 
-  const modalSize = modalSizes.medium;
-
-  const getSizeOfModal = (type) => {
-    if (type === modalSizes.mini && window.innerWidth < 360)
-      return modalSizes.full;
-    else if (type === modalSizes.tiny && window.innerWidth < 540)
-      return modalSizes.full;
-    else if (type === modalSizes.medium && window.innerWidth < 720)
-      return modalSizes.full;
-    else if (type === modalSizes.large && window.innerWidth < 1080)
-      return modalSizes.full;
-    else
-      return type.toString();
+  const closeModal = () => {
+    setAnimationClass("animate__animated animate__zoomOut animate__fast");
+    setTimeout(() => setOpenModal(false), 250);
+  }
+  const openModal = () => {
+    setAnimationClass("animate__animated animate__zoomIn animate__fast");
+    setTimeout(() => setOpenModal(true), 100);
   }
 
   return (
@@ -246,7 +245,7 @@ export default function ModalEdit(props) {
       onClose={closeModal}
     >
       <Box
-        className={cx("main-box", "animate__animated animate__zoomIn animate__fast")}
+        className={cx("main-box", animationClass)}
         sx={{ width: getSizeOfModal(modalSize), overflow: "auto", height: "100%", margin: 'auto' }}>
         <div className={cx("wrapper")}>
           <form
@@ -479,3 +478,4 @@ export default function ModalEdit(props) {
     </Modal >
   );
 }
+export default forwardRef(ModalEdit);

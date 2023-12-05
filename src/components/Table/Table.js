@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import { styled } from "@mui/material/styles";
 import {
@@ -159,8 +158,8 @@ const rows = [
 //#endregion
 
 export default function Tables() {
-  const [isOpenModal, setOpenModal] = useState(false);
-  const [isCheckedItem, setIsCheckedItem] = React.useState([]);
+  const modalRef = useRef();
+  const [isCheckedItem, setIsCheckedItem] = useState([]);
 
   const checkAllRow = (isChecked) => {
     if (isChecked) return setIsCheckedItem(rows.map((row) => row.id));
@@ -178,6 +177,12 @@ export default function Tables() {
         return JSON.parse(JSON.stringify(state));
       });
   };
+
+  const openModal = () => {
+    if (modalRef.current && modalRef.current.openModal) {
+      modalRef.current.openModal();
+    }
+  }
 
   return (
     <>
@@ -200,7 +205,7 @@ export default function Tables() {
                   <Button
                     variant="primary"
                     className={cx("btn-add-new")}
-                    onClick={() => setOpenModal(true)}
+                    onClick={openModal}
                   >
                     Add New Category
                   </Button>
@@ -326,7 +331,7 @@ export default function Tables() {
           </div>
         </TableContainer>
       </div>
-      <ModalEdit isOpen={isOpenModal} closeModal={() => setOpenModal(false)} />
+      <ModalEdit ref={modalRef} />
     </>
   );
 }
