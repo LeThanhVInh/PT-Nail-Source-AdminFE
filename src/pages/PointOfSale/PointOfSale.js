@@ -253,8 +253,8 @@ function PointOfSale() {
                           },
 
                           width: {
-                            xs: 400,
-                            md: 350,
+                            xs: 320,
+                            md: 320,
                             lg: "22%",
                             xl: "18%",
                           },
