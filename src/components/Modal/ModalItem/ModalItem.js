@@ -1,31 +1,28 @@
-import {
-  Modal,
-  Box,
-  IconButton,
-  Divider,
-  Typography,
-  ToggleButton,
-  ToggleButtonGroup,
-  Button,
-} from "@mui/material";
+import React, { useState, useEffect, forwardRef } from "react";
+import { Modal, Box, IconButton, Divider, Typography, ToggleButtonGroup, Button, } from "@mui/material";
 import { Clear as ClearIcon } from "@mui/icons-material";
-import { modalSizes } from "../../../providers/constants";
 import { Remove as RemoveIcon, Add as AddIcon } from "@mui/icons-material";
 import Grid from "@mui/material/Unstable_Grid2";
 
 import classNames from "classnames/bind";
 import styles from "./ModalItem.module.scss";
-import { useEffect, useState } from "react";
 import { ToggleButtonSelectSize } from "../../CustomMUI/ButtonCustom";
+import { modalSizes, getSizeOfModal } from '../../../providers/constants';
+
 const cx = classNames.bind(styles);
 
-export default function ModalItem(props) {
-  const { closeModal, isOpen, dataItem } = props;
+function ModalItem(props, ref) {
+  const { dataItem } = props;
+  const modalSize = modalSizes.medium;
+  const [isOpen, setOpenModal] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [totalItem, setTotalItem] = useState(0);
 
   const [selectSize, setSelectSize] = useState("small");
   const [selectVariation, setSelectVariation] = useState("red");
+  const [animationClass, setAnimationClass] = useState("");
+
+  React.useImperativeHandle(ref, () => ({ openModal }));
 
   useEffect(() => {
     if (isOpen === false) {
@@ -52,27 +49,19 @@ export default function ModalItem(props) {
     setSelectVariation(newAlignment);
   };
 
-  const modalSize = modalSizes.medium;
-
-  const getSizeOfModal = (type) => {
-    if (type === modalSizes.mini && window.innerWidth < 360)
-      return modalSizes.full;
-    else if (type === modalSizes.tiny && window.innerWidth < 540)
-      return modalSizes.full;
-    else if (type === modalSizes.medium && window.innerWidth < 720)
-      return modalSizes.full;
-    else if (type === modalSizes.large && window.innerWidth < 1080)
-      return modalSizes.full;
-    else return type.toString();
-  };
+  const closeModal = () => {
+    setAnimationClass("animate__animated animate__zoomOut animate__fast");
+    setTimeout(() => setOpenModal(false), 250);
+  }
+  const openModal = () => {
+    setAnimationClass("animate__animated animate__zoomIn animate__fast");
+    setTimeout(() => setOpenModal(true), 100);
+  }
 
   return (
     <Modal open={isOpen} onClose={closeModal}>
       <Box
-        className={cx(
-          "main-box",
-          "animate__animated animate__zoomIn animate__fast"
-        )}
+        className={cx("main-box", animationClass)}
         sx={{
           width: getSizeOfModal(modalSize),
           overflow: "auto",
@@ -280,3 +269,4 @@ export default function ModalItem(props) {
     </Modal>
   );
 }
+export default forwardRef(ModalItem);

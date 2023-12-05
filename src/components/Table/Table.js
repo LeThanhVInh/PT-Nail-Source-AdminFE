@@ -1,22 +1,8 @@
 import React, { useState, useRef } from "react";
 
 import { styled } from "@mui/material/styles";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import {
-  Button,
-  IconButton,
-  Stack,
-  InputBase,
-  Checkbox,
-  Chip,
-} from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, } from "@mui/material";
+import { Button, IconButton, Stack, InputBase, Checkbox, Chip, } from "@mui/material";
 import { tableCellClasses } from "@mui/material/TableCell";
 import {
   Delete as DeleteIcon,

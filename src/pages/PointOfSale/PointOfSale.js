@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -29,6 +29,7 @@ import styles from "./PointOfSale.module.scss";
 import HeaderPOS from "../../components/HeaderPOS";
 import { ToggleButtonPayment } from "../../components/CustomMUI/ButtonCustom";
 import ModalItem from "../../components/Modal/ModalItem/ModalItem";
+
 const cx = classNames.bind(styles);
 
 const categoriesList = [
@@ -122,22 +123,18 @@ const menuList = [
 ];
 
 function PointOfSale() {
+  const modalRef = useRef();
   const [alignment, setAlignment] = useState("All");
   const [paymentMethod, setPaymentMethod] = useState("cash");
-  const [isOpenModal, setOpenModal] = useState(false);
   const [dataItem, setDataItem] = useState({});
 
   const [newData, setNewData] = useState([]);
-
-  const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
-  };
 
   const handleChangePaymentMethod = (event, newAlignment) => {
     setPaymentMethod(newAlignment);
   };
 
-  function dataSort() {
+  const dataSort = () => {
     let newData = [...menuList];
 
     if (alignment === "All") {
@@ -158,8 +155,14 @@ function PointOfSale() {
 
   const handleLearnMore = (item) => {
     setDataItem(item);
-    setOpenModal(true);
+    openModal();
   };
+
+  const openModal = () => {
+    if (modalRef.current && modalRef.current.openModal) {
+      modalRef.current.openModal();
+    }
+  }
 
   return (
     <>
@@ -189,7 +192,7 @@ function PointOfSale() {
                       color="primary"
                       value={alignment}
                       exclusive
-                      onChange={handleChange}
+                      onChange={(newAlignment) => setAlignment(newAlignment)}
                       aria-label="Platform"
                       sx={{
                         display: "flex",
@@ -580,11 +583,7 @@ function PointOfSale() {
           </Grid>
         </Box>
       </div>
-      <ModalItem
-        isOpen={isOpenModal}
-        closeModal={() => setOpenModal(false)}
-        dataItem={dataItem}
-      />
+      <ModalItem ref={modalRef} dataItem={dataItem} />
     </>
   );
 }
