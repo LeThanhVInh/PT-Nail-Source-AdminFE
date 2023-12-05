@@ -146,7 +146,7 @@ function PointOfSale() {
       );
       setNewData(filteredArray);
     }
-  }
+  };
 
   useEffect(() => {
     setNewData([...newData]);
@@ -162,7 +162,7 @@ function PointOfSale() {
     if (modalRef.current && modalRef.current.openModal) {
       modalRef.current.openModal();
     }
-  }
+  };
 
   return (
     <>
@@ -192,7 +192,9 @@ function PointOfSale() {
                       color="primary"
                       value={alignment}
                       exclusive
-                      onChange={(newAlignment) => setAlignment(newAlignment)}
+                      onChange={(event, newAlignment) =>
+                        setAlignment(newAlignment)
+                      }
                       aria-label="Platform"
                       sx={{
                         display: "flex",
@@ -382,6 +384,7 @@ function PointOfSale() {
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "space-between",
+                              flexWrap: "wrap",
                               pl: 1,
                               pb: 1,
                             }}

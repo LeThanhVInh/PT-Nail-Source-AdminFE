@@ -1,5 +1,13 @@
 import React, { useState, useEffect, forwardRef } from "react";
-import { Modal, Box, IconButton, Divider, Typography, ToggleButtonGroup, Button, } from "@mui/material";
+import {
+  Modal,
+  Box,
+  IconButton,
+  Divider,
+  Typography,
+  ToggleButtonGroup,
+  Button,
+} from "@mui/material";
 import { Clear as ClearIcon } from "@mui/icons-material";
 import { Remove as RemoveIcon, Add as AddIcon } from "@mui/icons-material";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -7,7 +15,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import classNames from "classnames/bind";
 import styles from "./ModalItem.module.scss";
 import { ToggleButtonSelectSize } from "../../CustomMUI/ButtonCustom";
-import { modalSizes, getSizeOfModal } from '../../../providers/constants';
+import { modalSizes, getSizeOfModal } from "../../../providers/constants";
 
 const cx = classNames.bind(styles);
 
@@ -52,17 +60,23 @@ function ModalItem(props, ref) {
   const closeModal = () => {
     setAnimationClass("animate__animated animate__zoomOut animate__fast");
     setTimeout(() => setOpenModal(false), 250);
-  }
+  };
   const openModal = () => {
     setAnimationClass("animate__animated animate__zoomIn animate__fast");
     setTimeout(() => setOpenModal(true), 100);
-  }
+  };
 
   return (
     <Modal open={isOpen} onClose={closeModal}>
       <Box
         className={cx("modal-main-box", animationClass)}
-        sx={{ width: getSizeOfModal(modalSize), overflow: "auto", height: "100%", margin: 'auto' }}>
+        sx={{
+          width: getSizeOfModal(modalSize),
+          overflow: "auto",
+          height: "100%",
+          margin: "auto",
+        }}
+      >
         <div className={cx("wrapper")}>
           <div className={cx("modal-box")}>
             <div className={cx("header")}>
@@ -244,6 +258,7 @@ function ModalItem(props, ref) {
                         variant="contained"
                         fullWidth
                         sx={{
+                          height: "50px",
                           backgroundColor: "var(--primary-color)",
                           ":hover": {
                             backgroundColor: "var(--primary-color)",

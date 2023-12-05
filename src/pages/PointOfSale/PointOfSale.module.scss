@@ -81,8 +81,8 @@
         justify-content: space-between;
         // flex-direction: column;
         flex-wrap: wrap;
-        max-height: 90vh;
-        height: 100%;
+        height: 90vh;
+        // height: 100%;
 
         .cart {
           flex-grow: 1;
@@ -100,6 +100,7 @@
         .total-payment {
           flex-grow: 1;
           margin: 10px 0;
+          align-self: flex-end;
 
           .total {
             background-color: var(--white-color);
