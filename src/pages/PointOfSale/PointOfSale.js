@@ -343,7 +343,14 @@ function PointOfSale() {
                         <CardMedia
                           component="img"
                           sx={{
-                            width: "20%",
+                            minWidth: "100px",
+                            width: {
+                              xs: "15%",
+                              md: "15%",
+                              lg: "20%",
+                              xl: "20%",
+                            },
+
                             height: "100%",
                             borderRadius: "20px",
                           }}
@@ -506,8 +513,8 @@ function PointOfSale() {
                             $99
                           </Typography>
                         </Box>
-                        <Divider sx={{ margin: "10px 0" }} />
                       </div>
+                      {/* <Divider sx={{ margin: "10px 0" }} /> */}
                       <div className={cx("payment")}>
                         <div className={cx("header-title")}>
                           <h3>Payment Method</h3>

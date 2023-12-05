@@ -101,7 +101,17 @@ export default function ModalItem(props) {
             <Divider sx={{ margin: "10px 0" }} />
             <div className={cx("contents")}>
               <Grid container spacing={2}>
-                <Grid xs={6}>
+                <Grid
+                  xs={6}
+                  sx={{
+                    width: {
+                      xs: "100%",
+                      md: "100%",
+                      lg: "calc(100% * 6 / var(--Grid-columns))",
+                      xl: "calc(100% * 6 / var(--Grid-columns))",
+                    },
+                  }}
+                >
                   <div className={cx("contents")}>
                     <img src={dataItem.img} alt={dataItem.name} />
                     <div className={cx("info")}>
@@ -163,7 +173,17 @@ export default function ModalItem(props) {
                     </div>
                   </div>
                 </Grid>
-                <Grid xs={6}>
+                <Grid
+                  xs={6}
+                  sx={{
+                    width: {
+                      xs: "100%",
+                      md: "100%",
+                      lg: "calc(100% * 6 / var(--Grid-columns))",
+                      xl: "calc(100% * 6 / var(--Grid-columns))",
+                    },
+                  }}
+                >
                   <div className={cx("title-aside")}>
                     <p>Select Option</p>
                   </div>

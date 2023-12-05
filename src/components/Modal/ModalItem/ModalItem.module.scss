@@ -27,7 +27,7 @@
         border-radius: 20px;
         height: 100%;
         width: 100%;
-        object-fit: cover;
+        object-fit: contain;
         max-height: 245px;
       }
       .info {
@@ -38,7 +38,7 @@
       }
       .description {
         padding: 5px;
-        text-align: justify;
+
         span {
           color: var(--text-color);
           font-size: 14px;
@@ -60,6 +60,10 @@
         margin-top: 20px;
         display: flex;
         // align-items: center;
+        flex-wrap: wrap;
+      }
+      .confirm-btn {
+        margin: 10px 0;
       }
     }
   }
