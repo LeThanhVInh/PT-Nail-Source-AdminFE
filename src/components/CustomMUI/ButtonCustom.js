@@ -30,11 +30,11 @@ export const DefaultButton = styled(Button)(({ theme }) => ({
 
 export const ToggleButtonPayment = styled(ToggleButton)(({ theme }) => ({
   textTransform: "capitalize",
-  height: "90px",
-  width: "100px",
-  borderRadius: "20px !important",
+  height: "70px",
+  width: "80px",
+  borderRadius: "10px !important",
   boxShadow: "var(--box-shadow)",
-  margin: "10px 10px !important",
+  margin: "5px 10px 0 0 !important",
   border: "1px solid var(--grey-border-half) !important",
   flexDirection: "column",
   "&.Mui-selected, &.Mui-selected:hover": {

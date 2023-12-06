@@ -1,5 +1,4 @@
 .modal-main-box {
-
   //Scrollbar CSS
   &::-webkit-scrollbar {
     width: 0px !important;
@@ -40,7 +39,7 @@
         border-radius: 20px;
         height: 100%;
         width: 100%;
-        object-fit: contain;
+        object-fit: cover;
         max-height: 245px;
       }
 

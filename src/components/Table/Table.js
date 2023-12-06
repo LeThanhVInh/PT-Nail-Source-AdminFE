@@ -1,8 +1,22 @@
 import React, { useState, useRef } from "react";
 
 import { styled } from "@mui/material/styles";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, } from "@mui/material";
-import { Button, IconButton, Stack, InputBase, Checkbox, Chip, } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Stack,
+  InputBase,
+  Checkbox,
+  Chip,
+} from "@mui/material";
 import { tableCellClasses } from "@mui/material/TableCell";
 import {
   Delete as DeleteIcon,
@@ -62,7 +76,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     color: "var(--text-color)",
     borderSpacing: "0 20px",
     border: 0,
-    fontWeight: 700,
+    fontWeight: 600,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -168,7 +182,7 @@ export default function Tables() {
     if (modalRef.current && modalRef.current.openModal) {
       modalRef.current.openModal();
     }
-  }
+  };
 
   return (
     <>
@@ -201,7 +215,9 @@ export default function Tables() {
                 </Stack>
               </div>
               <div className={cx("action-search", "pt-10")}>
-                <Search sx={{ boxShadow: "20px 3px 20px #0000000b", margin: 0 }}>
+                <Search
+                  sx={{ boxShadow: "20px 3px 20px #0000000b", margin: 0 }}
+                >
                   <SearchIconWrapper>
                     <SearchIcon />
                   </SearchIconWrapper>

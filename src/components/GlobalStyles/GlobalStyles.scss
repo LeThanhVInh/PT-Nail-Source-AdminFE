@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap");
 
 :root {
   --primary-color: rgba(49, 46, 129, 1);
@@ -22,15 +22,22 @@
   --scroll-bar-color: #312e8179;
   --box-shadow: 1px 1px 10px #0000000b !important;
 
-  --font-family: "IBM Plex Sans", sans-serif;
+  --font-family: "Lexend", sans-serif;
+  // font-family: "Catamaran", sans-serif;
 
   background-color: var(--primary-color);
+
+  strong,
+  b {
+    font-weight: 600;
+  }
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: var(--font-family) !important;
 }
 
 body {
@@ -75,7 +82,7 @@ body {
     padding: 8px 9px;
   }
 
-  .tippy-box[data-placment^="bottom"]>.tippy-arrow::before {
+  .tippy-box[data-placment^="bottom"] > .tippy-arrow::before {
     top: -8px;
   }
 }

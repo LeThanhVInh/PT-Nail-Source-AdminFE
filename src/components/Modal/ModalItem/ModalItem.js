@@ -58,11 +58,19 @@ function ModalItem(props, ref) {
   };
 
   const closeModal = () => {
-    setAnimationClass("animate__animated animate__zoomOut animate__fast");
+    setAnimationClass([
+      "animate__animated",
+      "animate__zoomOut",
+      "animate__fast",
+    ]);
     setTimeout(() => setOpenModal(false), 250);
   };
   const openModal = () => {
-    setAnimationClass("animate__animated animate__zoomIn animate__fast");
+    setAnimationClass([
+      "animate__animated",
+      "animate__zoomIn",
+      "animate__fast",
+    ]);
     setTimeout(() => setOpenModal(true), 100);
   };
 
@@ -73,8 +81,10 @@ function ModalItem(props, ref) {
         sx={{
           width: getSizeOfModal(modalSize),
           overflow: "auto",
-          height: "100%",
+
           margin: "auto",
+
+          border: "none !important",
         }}
       >
         <div className={cx("wrapper")}>
@@ -137,25 +147,58 @@ function ModalItem(props, ref) {
                         >
                           {quantity >= 1 ? (
                             <IconButton
-                              sx={{ color: "var(--primary-color)" }}
+                              sx={{
+                                margin: "0 5px",
+                                color: "var(--primary-color)",
+                                backgroundColor: "var(--white-color)",
+                                borderRadius: "50%",
+                                border: "1px solid var(--primary-color)",
+                                padding: "2px",
+                                ":hover": {
+                                  color: "var(--primary-color)",
+                                  backgroundColor: "var(--white-color)",
+                                },
+                              }}
                               onClick={() => setQuantity(quantity - 1)}
                             >
                               <RemoveIcon sx={{ height: 25, width: 25 }} />
                             </IconButton>
                           ) : (
                             <IconButton
-                              sx={{ color: "var(--primary-color)" }}
+                              sx={{
+                                margin: "0 5px",
+                                color: "var(--primary-color)",
+                                backgroundColor: "var(--white-color)",
+                                borderRadius: "50%",
+                                border: "1px solid transparent",
+                                padding: "2px",
+                              }}
                               disabled
                             >
                               <RemoveIcon sx={{ height: 25, width: 25 }} />
                             </IconButton>
                           )}
 
-                          <Typography component="div" variant="h6">
+                          <Typography
+                            component="div"
+                            variant="h6"
+                            sx={{ margin: "10px" }}
+                          >
                             {quantity}
                           </Typography>
                           <IconButton
-                            sx={{ color: "var(--primary-color)" }}
+                            sx={{
+                              margin: "0 5px",
+                              color: "var(--white-color)",
+                              backgroundColor: "var(--primary-color)",
+                              border: "1px solid var(--primary-color)",
+
+                              borderRadius: "50%",
+                              padding: "2px",
+                              ":hover": {
+                                backgroundColor: "var(--primary-color)",
+                              },
+                            }}
                             onClick={() => setQuantity(quantity + 1)}
                           >
                             <AddIcon sx={{ height: 25, width: 25 }} />

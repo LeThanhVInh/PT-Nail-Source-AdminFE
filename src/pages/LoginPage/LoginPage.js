@@ -81,12 +81,12 @@ function LoginPage() {
           >
             <Box sx={{ zIndex: 6 }}>
               <Typography
-                className='animate__animated animate__fadeInLeft animate__fast'
+                className="animate__animated animate__fadeInLeft animate__fast"
                 sx={{ top: 0, position: "absolute", marginTop: "50px" }}
               >
                 Logo
               </Typography>
-              <Box className='animate__animated animate__fadeInLeft animate__fast'>
+              <Box className="animate__animated animate__fadeInLeft animate__fast">
                 <img src={loginImg} alt="login" />
                 <Typography
                   variant="h4"
@@ -135,12 +135,12 @@ function LoginPage() {
               padding: "16px",
             }}
           >
-            <div className="login-form animate__animated animate__fadeInRight animate__fast"  >
+            <div className="login-form animate__animated animate__fadeInRight animate__fast">
               <Typography
                 sx={{
                   marginBottom: "20px",
                   fontSize: "30px",
-                  fontWeight: "700",
+                  fontWeight: "600",
                 }}
               >
                 Sign In
@@ -251,7 +251,9 @@ function LoginPage() {
                         />
                       }
                       label={
-                        <span style={{ fontSize: "14px" }}>{"Remember me"}</span>
+                        <span style={{ fontSize: "14px" }}>
+                          {"Remember me"}
+                        </span>
                       }
                       fontSize="14px"
                     />
@@ -278,7 +280,10 @@ function LoginPage() {
                 </Stack>
               </Box>
               <Typography
-                className={cx("text-policy", "animate__animated animate__fadeInRight animate__fast")}
+                className={cx(
+                  "text-policy",
+                  "animate__animated animate__fadeInRight animate__fast"
+                )}
                 sx={{
                   fontSize: "14px",
                   marginTop: "20px",

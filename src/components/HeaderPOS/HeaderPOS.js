@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useRef } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import {
   AppBar,
@@ -9,8 +9,8 @@ import {
   Badge,
   MenuItem,
   Menu,
-  InputBase,
   Divider,
+  // InputBase,
 } from "@mui/material";
 import {
   AccountCircle,
@@ -18,8 +18,23 @@ import {
   Notifications as NotificationsIcon,
   MoreVert as MoreIcon,
   Search as SearchIcon,
-  ExpandMore as ExpandMoreIcon,
 } from "@mui/icons-material";
+
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Grow from "@mui/material/Grow";
+import Paper from "@mui/material/Paper";
+import Popper from "@mui/material/Popper";
+import MenuList from "@mui/material/MenuList";
+import { TextFieldNoneBorder } from "../CustomMUI/TextFieldCustom";
+
+const options = [
+  "Create a merge commit",
+  "Squash and merge",
+  "Rebase and merge",
+];
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -37,37 +52,67 @@ const Search = styled("div")(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
+// const SearchIconWrapper = styled("div")(({ theme }) => ({
+//   padding: theme.spacing(0, 2),
+//   height: "100%",
+//   position: "absolute",
+//   pointerEvents: "none",
+//   display: "flex",
+//   alignItems: "center",
+//   justifyContent: "center",
+// }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
+// const StyledInputBase = styled(InputBase)(({ theme }) => ({
+//   color: "inherit",
+//   "& .MuiInputBase-input": {
+//     padding: theme.spacing(1, 1, 1, 0),
+//     // vertical padding + font size from searchIcon
+//     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+//     transition: theme.transitions.create("width"),
+//     width: "100%",
+//     [theme.breakpoints.up("md")]: {
+//       width: "20ch",
+//     },
+//   },
+//   "&.MuiToolbar-root": {
+//     paddingLeft: "24px",
+//     paddingRight: "0",
+//   },
+// }));
 
 function HeaderPOS() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  ////////////////////Select
+  const [openSelection, setOpenSelection] = useState(false);
+  const anchorRef = useRef(null);
+  const [selectedIndex, setSelectedIndex] = useState(1);
+
+  const handleClick = () => {
+    console.info(`You clicked ${options[selectedIndex]}`);
+  };
+
+  const handleMenuItemClick = (event, index) => {
+    setSelectedIndex(index);
+    setOpenSelection(false);
+  };
+
+  const handleToggle = () => {
+    setOpenSelection((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpenSelection(false);
+  };
+  //////
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -161,14 +206,14 @@ function HeaderPOS() {
   );
 
   return (
-    <Box sx={{ padding: "0 15px" }}>
+    <Box sx={{ paddingLeft: "15px", paddingRight: 0, height: 64 }}>
       <AppBar
         position="static"
         elevation={0}
         color="inherit"
         sx={{ backgroundColor: "var(--white-bg-color)" }}
       >
-        <Toolbar sx={{}}>
+        <Toolbar>
           <Typography
             variant="h6"
             noWrap
@@ -177,29 +222,95 @@ function HeaderPOS() {
           >
             MUI
           </Typography>
+
           <Search>
-            <SearchIconWrapper>
+            {/* <SearchIconWrapper>
               <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
+            </SearchIconWrapper> */}
+
+            {/* <TextFieldNoneBorder
+              label="Search"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="end">
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+              }}
+            /> */}
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+              <TextFieldNoneBorder label="With sx" />
+            </Box>
+
+            {/* <StyledInputBase
+              label="sasd"
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
+            <TextFieldNoneBorder label="Search" /> */}
           </Search>
 
           <Box sx={{ flexGrow: 1 }} />
+
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
+            <ButtonGroup
+              variant="contained"
+              ref={anchorRef}
+              aria-label="split button"
+              onClick={handleToggle}
             >
-              <ExpandMoreIcon />
-            </IconButton>
+              <Button onClick={handleClick}>{options[selectedIndex]}</Button>
+              <Button
+                size="small"
+                aria-controls={openSelection ? "split-button-menu" : undefined}
+                aria-expanded={openSelection ? "true" : undefined}
+                aria-label="select merge strategy"
+                aria-haspopup="menu"
+                onClick={handleClick}
+              >
+                <ArrowDropDownIcon />
+              </Button>
+            </ButtonGroup>
+            <Popper
+              sx={{
+                zIndex: 1,
+              }}
+              open={openSelection}
+              anchorEl={anchorRef.current}
+              role={undefined}
+              transition
+              disablePortal
+            >
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  style={{
+                    transformOrigin:
+                      placement === "bottom" ? "center top" : "center bottom",
+                  }}
+                >
+                  <Paper>
+                    <ClickAwayListener onClickAway={handleClose}>
+                      <MenuList id="split-button-menu" autoFocusItem>
+                        {options.map((option, index) => (
+                          <MenuItem
+                            key={option}
+                            disabled={index === 2}
+                            selected={index === selectedIndex}
+                            onClick={(event) =>
+                              handleMenuItemClick(event, index)
+                            }
+                          >
+                            {option}
+                          </MenuItem>
+                        ))}
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Popper>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
