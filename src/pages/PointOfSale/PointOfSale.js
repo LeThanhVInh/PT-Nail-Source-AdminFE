@@ -5,7 +5,6 @@ import Grid from "@mui/material/Unstable_Grid2";
 
 import {
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   Button,
@@ -127,6 +126,7 @@ function PointOfSale() {
   const [alignment, setAlignment] = useState("All");
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [dataItem, setDataItem] = useState({});
+  const [productListColumnAmount, setProductListColumnAmount] = useState(4);
 
   const [newData, setNewData] = useState([]);
 
@@ -186,134 +186,78 @@ function PointOfSale() {
                   <div className={cx("header-title")}>
                     <h3>Categories</h3>
                   </div>
-
                   <div className={cx("categories-body")}>
                     <ToggleButtonGroup
+                      exclusive
                       color="primary"
                       value={alignment}
-                      exclusive
-                      onChange={(event, newAlignment) =>
-                        setAlignment(newAlignment)
-                      }
-                      aria-label="Platform"
-                      sx={{
-                        display: "flex",
-                        overflow: "auto",
-                      }}
+                      className={cx("button-group")}
+                      onChange={(event, newAlignment) => setAlignment(newAlignment)}
                     >
-                      {categoriesList.map((list) => (
-                        <ToggleButton
-                          value={list.title}
-                          key={list.id}
-                          sx={{
-                            borderRadius: "10px !important",
-                            boxShadow: "var(--box-shadow)",
-                            margin: "10px 10px !important",
-                            border:
-                              "2px solid var(--grey-border-half) !important",
-                            "&.Mui-selected, &.Mui-selected:hover": {
-                              color: "var(--primary-color)",
-                              backgroundColor: "var(--white-color)",
-                              border:
-                                "2px solid var(--primary-color) !important",
-                            },
-                          }}
-                        >
-                          <div className={cx("categories-list-item")}>
-                            <img src={list.imgSrc} alt={list.title} />
-                            <p>{list.title}</p>
-                          </div>
-                        </ToggleButton>
-                      ))}
+                      {
+                        categoriesList.map((item) => (
+                          <ToggleButton
+                            key={item.id}
+                            value={item.title}
+                            className={cx("button")} >
+                            <div className={cx("categories-list-item")}>
+                              <img src={item.imgSrc} alt={item.title} />
+                              <p>{item.title}</p>
+                            </div>
+                          </ToggleButton>
+                        ))
+                      }
                     </ToggleButtonGroup>
                   </div>
                 </div>
                 <div className={cx("items-wrapper")}>
                   <div className={cx("header-title")}>
-                    <h3>Categories</h3>
+                    <h3>Products</h3>
                   </div>
                   <div className={cx("items-body")}>
-                    {newData.map((menu) => (
-                      <Card
-                        sx={{
-                          display: "flex",
-                          flexDirection: {
-                            xs: "row",
-                            md: "row",
-                            lg: "column",
-                            xl: "column",
-                          },
-                          margin: "10px",
-
-                          height: {
-                            xs: 150,
-                            md: 150,
-                            lg: 265,
-                            xl: 265,
-                          },
-
-                          width: {
-                            xs: 320,
-                            md: 320,
-                            lg: "22%",
-                            xl: "18%",
-                          },
-                        }}
-                        key={menu.id}
-                      >
-                        <CardMedia
-                          component="img"
-                          alt={menu.name}
-                          height="140"
-                          image={menu.img}
+                    {
+                      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((menu, i) => (
+                        <Card key={i}
+                          className={cx("item-card")}
+                          onClick={() => handleLearnMore(menuList[0])}
                           sx={{
-                            minHeight: "100px",
+                            flexDirection: {
+                              xs: "row",
+                              md: "row",
+                              lg: "column",
+                              xl: "column",
+                            },
+                            height: "auto",
                             width: {
-                              xs: "100px",
-                              md: "150px",
-                              lg: "100%",
-                              xl: "100%",
+                              xs: `calc( (100% / 1) - 20px)`,
+                              md: `calc( (100% / 2) - 20px)`,
+                              lg: `calc( (100% / ${productListColumnAmount}) - 20px)`,
+                              xl: `calc( (100% / ${productListColumnAmount}) - 20px)`,
                             },
-                            height: {
-                              xs: "100%",
-                              md: "100%",
-                              lg: "40%",
-                              xl: "50%",
-                            },
-                          }}
-                        />
-                        <Box
-                          component="div"
-                          sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            height: "100%",
-                          }}
-                        >
-                          <CardContent sx={{ height: "55%" }}>
-                            <Typography
-                              gutterBottom
-                              variant="h6"
-                              component="div"
-                            >
-                              {menu.name}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                              ${menu.price}
-                            </Typography>
-                          </CardContent>
-                          <CardActions sx={{ height: "40%" }}>
-                            <Button size="small">Share</Button>
-                            <Button
-                              size="small"
-                              onClick={() => handleLearnMore(menu)}
-                            >
-                              Learn More
-                            </Button>
-                          </CardActions>
-                        </Box>
-                      </Card>
-                    ))}
+                          }} >
+                          <CardMedia
+                            component="img"
+                            alt={menuList[0].name}
+                            image={menuList[0].img}
+                            sx={{
+                              minHeight: "100px",
+                              width: "100%",
+                              height: {
+                                xs: 70,
+                                md: 100,
+                                lg: 150,
+                                xl: 200,
+                              },
+                            }} />
+                          <Box component="div" sx={{ height: "auto" }} >
+                            <CardContent sx={{ height: "55%", padding: '10px 15px' }}>
+                              <Typography gutterBottom variant="h6" component="div" ><b>{menuList[0].name}</b></Typography>
+                              <Typography variant="body2" color="text.secondary"> ${menuList[0].price} </Typography>
+                            </CardContent>
+                          </Box>
+                        </Card>
+                      ))
+                    }
                   </div>
                 </div>
               </div>
@@ -336,191 +280,95 @@ function PointOfSale() {
                   </div>
                   <div className={cx("body")}>
                     <div className={cx("cart")}>
-                      {/* <div className={cx("cart-item")}> */}
-                      <Card
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          backgroundColor: "transparent",
-                          boxShadow: "none",
-                        }}
-                      >
-                        <CardMedia
-                          component="img"
-                          sx={{
-                            minWidth: "100px",
-                            width: {
-                              xs: "15%",
-                              md: "15%",
-                              lg: "20%",
-                              xl: "20%",
-                            },
-
-                            height: "100%",
-                            borderRadius: "20px",
-                          }}
-                          image="https://s23209.pcdn.co/wp-content/uploads/2022/07/220602_DD_The-Best-Ever-Cheeseburger_267-500x500.jpg"
-                          alt="Live from space album cover"
-                        />
-
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            flexGrow: 1,
-                            padding: "0 20px",
-                          }}
-                        >
-                          <CardContent sx={{ flex: "1 0 auto" }}>
-                            <Typography component="div" variant="h5">
-                              Name
-                            </Typography>
-                            <Typography component="div" variant="subtitle2">
-                              Name
-                            </Typography>
-                          </CardContent>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "space-between",
-                              flexWrap: "wrap",
-                              pl: 1,
-                              pb: 1,
-                            }}
-                          >
-                            <Box
-                              component="div"
+                      {
+                        [1, 1, 1, 1, 1, 1, 1, 1].map(i => (
+                          <Card className={cx("data-card")} >
+                            <CardMedia component="img"
+                              image="https://s23209.pcdn.co/wp-content/uploads/2022/07/220602_DD_The-Best-Ever-Cheeseburger_267-500x500.jpg"
+                              className={cx("image")}
                               sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                flexWrap: "wrap",
-                              }}
-                            >
-                              <IconButton>
-                                <RemoveIcon sx={{ height: 30, width: 30 }} />
-                              </IconButton>
-                              <Typography component="div" variant="h6">
-                                6
-                              </Typography>
-                              <IconButton>
-                                <AddIcon sx={{ height: 30, width: 30 }} />
-                              </IconButton>
-                            </Box>
+                                width: {
+                                  xs: "15%",
+                                  md: "15%",
+                                  lg: "20%",
+                                  xl: "20%",
+                                }
+                              }} />
+                            <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }} >
+                              <CardContent className={cx("content")} >
+                                <Typography component="div" variant="h5"><b>Cappuccino 2</b></Typography>
+                                <Typography component="div" variant="subtitle2"> Size XXL, không đường </Typography>
+                              </CardContent>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "space-between",
+                                  flexWrap: "wrap",
+                                  pl: 1,
+                                  pb: 1,
+                                }}
+                              >
+                                <Box component="div"
+                                  sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    flexWrap: "wrap",
+                                  }}  >
+                                  <IconButton> <RemoveIcon sx={{ height: 30, width: 30 }} /> </IconButton>
+                                  <Typography component="div" variant="h6"> 6 </Typography>
+                                  <IconButton> <AddIcon sx={{ height: 30, width: 30 }} /> </IconButton>
+                                </Box>
 
-                            <Box component="div">
-                              <Typography component="div" variant="h6">
-                                6 x $21
-                              </Typography>
+                                <Box component="div">
+                                  <Typography component="div" variant="h6"> 6 x $21 </Typography>
+                                </Box>
+                              </Box>
                             </Box>
-                          </Box>
-                        </Box>
-                      </Card>
-                      <Divider sx={{ margin: "10px 0" }} />
-                      {/* </div> */}
+                          </Card>
+                        ))
+                      }
                     </div>
                     <div className={cx("total-payment")}>
                       <div className={cx("total")}>
-                        <Box
-                          component="div"
+                        <Box component="div"
                           sx={{
                             display: "flex",
                             justifyContent: "space-between",
                             margin: "10px 0",
-                          }}
-                        >
-                          <Typography component="div" variant="subtitle1">
-                            Item
-                          </Typography>
-                          <Typography
-                            component="div"
-                            variant="subtitle1"
-                            sx={{ fontWeight: "700" }}
-                          >
-                            X (Items)
-                          </Typography>
+                          }} >
+                          <Typography component="div" variant="subtitle1">Item</Typography>
+                          <Typography component="div" variant="subtitle1" sx={{ fontWeight: "700" }}>X (Items)</Typography>
                         </Box>
 
-                        <Box
-                          component="div"
-                          sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            margin: "10px 0",
-                          }}
-                        >
-                          <Typography component="div" variant="subtitle1">
-                            Subtotal
-                          </Typography>
-                          <Typography
-                            component="div"
-                            variant="subtitle1"
-                            sx={{ fontWeight: "700" }}
-                          >
-                            $9999
-                          </Typography>
+                        <Box component="div" sx={{ display: "flex", justifyContent: "space-between" }} >
+                          <Typography component="div" variant="subtitle1">Subtotal</Typography>
+                          <Typography component="div" variant="subtitle1" sx={{ fontWeight: "700" }} >$9999</Typography>
                         </Box>
 
-                        <Box
-                          component="div"
+                        <Box component="div"
                           sx={{
                             display: "flex",
                             justifyContent: "space-between",
                             margin: "10px 0",
-                          }}
-                        >
-                          <Typography component="div" variant="subtitle1">
-                            Discount
-                          </Typography>
-                          <Typography
-                            component="div"
-                            variant="subtitle1"
-                            sx={{ fontWeight: "700" }}
-                          >
-                            -$9999
-                          </Typography>
+                          }} >
+                          <Typography component="div" variant="subtitle1">Discount</Typography>
+                          <Typography component="div" variant="subtitle1" sx={{ fontWeight: "700" }} > -$9999</Typography>
                         </Box>
-                        <Box
-                          component="div"
-                          sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            margin: "10px 0",
-                          }}
-                        >
-                          <Typography component="div" variant="subtitle1">
-                            Tax(15%)
-                          </Typography>
-                          <Typography
-                            component="div"
-                            variant="subtitle1"
-                            sx={{ fontWeight: "700" }}
-                          >
-                            $99
-                          </Typography>
+
+                        <Box component="div" sx={{ display: "flex", justifyContent: "space-between" }} >
+                          <Typography component="div" variant="subtitle1">Tax(15%)</Typography>
+                          <Typography component="div" variant="subtitle1" sx={{ fontWeight: "700" }} > $99 </Typography>
                         </Box>
+
                         <Divider sx={{ margin: "10px 0" }} />
-                        <Box
-                          component="div"
-                          sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            margin: "10px 0",
-                          }}
-                        >
-                          <Typography component="div" variant="h5">
-                            Total
-                          </Typography>
-                          <Typography
-                            component="div"
-                            variant="h5"
-                            sx={{ fontWeight: "700" }}
-                          >
-                            $99
-                          </Typography>
+
+                        <Box component="div" sx={{ display: "flex", justifyContent: "space-between" }} >
+                          <Typography component="div" variant="h5"><b>Total</b></Typography>
+                          <Typography component="div" variant="h5" sx={{ fontWeight: "700" }} > $99 </Typography>
                         </Box>
                       </div>
-                      {/* <Divider sx={{ margin: "10px 0" }} /> */}
+
                       <div className={cx("payment")}>
                         <div className={cx("header-title")}>
                           <h3>Payment Method</h3>
@@ -531,7 +379,6 @@ function PointOfSale() {
                             value={paymentMethod}
                             exclusive
                             onChange={handleChangePaymentMethod}
-                            aria-label="Platform"
                             sx={{
                               display: "flex",
                               flexWrap: "wrap",
@@ -539,33 +386,24 @@ function PointOfSale() {
                             }}
                           >
                             <ToggleButtonPayment value="cash">
-                              <PaymentsIcon
-                                sx={{ width: "35px", height: "35px" }}
-                              />
-
+                              <PaymentsIcon sx={{ width: "35px", height: "35px" }} />
                               <Typography>Cash</Typography>
                             </ToggleButtonPayment>
 
                             <ToggleButtonPayment value="debit">
-                              <PaymentIcon
-                                sx={{ width: "35px", height: "35px" }}
-                              />
-
+                              <PaymentIcon sx={{ width: "35px", height: "35px" }} />
                               <Typography>Debit</Typography>
                             </ToggleButtonPayment>
 
                             <ToggleButtonPayment value="qris">
-                              <QrCodeScannerIcon
-                                sx={{ width: "35px", height: "35px" }}
-                              />
+                              <QrCodeScannerIcon sx={{ width: "35px", height: "35px" }} />
                               <Typography>QRIS</Typography>
                             </ToggleButtonPayment>
                           </ToggleButtonGroup>
                         </div>
                       </div>
                       <div className={cx("footer")}>
-                        <Button
-                          variant="contained"
+                        <Button variant="contained"
                           fullWidth
                           sx={{
                             height: "50px",
@@ -573,8 +411,7 @@ function PointOfSale() {
                             ":hover": {
                               backgroundColor: "var(--primary-color)",
                             },
-                          }}
-                        >
+                          }} >
                           Process Transaction
                         </Button>
                       </div>
@@ -586,6 +423,7 @@ function PointOfSale() {
           </Grid>
         </Box>
       </div>
+
       <ModalItem ref={modalRef} dataItem={dataItem} />
     </>
   );

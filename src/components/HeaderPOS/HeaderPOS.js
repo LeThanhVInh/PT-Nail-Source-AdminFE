@@ -161,7 +161,7 @@ function HeaderPOS() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1, padding: "0 15px" }}>
+    <Box sx={{ padding: "0 15px" }}>
       <AppBar
         position="static"
         elevation={0}
