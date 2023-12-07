@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState, forwardRef, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { styled } from "@mui/system";
 import { Clear as ClearIcon, Check as CheckIcon } from "@mui/icons-material";
@@ -212,7 +212,7 @@ const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
 //#endregion
 
 function ModalEdit(props, ref) {
-
+  const focusFix = useRef();
   const modalSize = modalSizes.medium;
   const [value, setValue] = useState("male");
   const [isOpen, setOpenModal] = useState(false);
@@ -229,6 +229,14 @@ function ModalEdit(props, ref) {
   const onSubmit = (data) => {
     console.log(data);
   };
+
+  useEffect(() => {
+    if (isOpen === false) {
+    }
+    else {
+      setTimeout(() => focusFix.current.focus(), 100);
+    }
+  }, [isOpen]);
 
   const closeModal = () => {
     setAnimationClass("animate__animated animate__zoomOut animate__fast");
@@ -257,9 +265,7 @@ function ModalEdit(props, ref) {
               <div className={cx("header")}>
                 <p>Modal Edit</p>
                 <IconButton
-                  // disableElevation
-                  // disableRipple
-                  aria-label="Close"
+                  ref={focusFix}
                   sx={{
                     ":hover": {
                       color: "var(--primary-color)",

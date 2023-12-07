@@ -1,4 +1,4 @@
-import React, { useState, useEffect, forwardRef } from "react";
+import React, { useState, useRef, useEffect, forwardRef } from "react";
 import {
   Modal,
   Box,
@@ -15,11 +15,12 @@ import Grid from "@mui/material/Unstable_Grid2";
 import classNames from "classnames/bind";
 import styles from "./ModalItem.module.scss";
 import { ToggleButtonSelectSize } from "../../CustomMUI/ButtonCustom";
-import { modalSizes, getSizeOfModal } from "../../../providers/constants";
+import constants, { modalSizes, getSizeOfModal } from "../../../providers/constants";
 
 const cx = classNames.bind(styles);
 
 function ModalItem(props, ref) {
+  const focusFix = useRef();
   const { dataItem } = props;
   const modalSize = modalSizes.medium;
   const [isOpen, setOpenModal] = useState(false);
@@ -32,12 +33,16 @@ function ModalItem(props, ref) {
 
   React.useImperativeHandle(ref, () => ({ openModal }));
 
+
   useEffect(() => {
     if (isOpen === false) {
       setQuantity(0);
       setTotalItem(0);
       setSelectSize("small");
       setSelectVariation("red");
+    }
+    else {
+      setTimeout(() => focusFix.current.focus(), 100);
     }
   }, [isOpen]);
 
@@ -49,13 +54,6 @@ function ModalItem(props, ref) {
     }
   }, [quantity]);
 
-  const handleChangeSelectSize = (event, newAlignment) => {
-    setSelectSize(newAlignment);
-  };
-
-  const handleChangeSelectVariation = (event, newAlignment) => {
-    setSelectVariation(newAlignment);
-  };
 
   const closeModal = () => {
     setAnimationClass([
@@ -81,10 +79,8 @@ function ModalItem(props, ref) {
         sx={{
           width: getSizeOfModal(modalSize),
           overflow: "auto",
-
           margin: "auto",
-
-          border: "none !important",
+          //height: "100%",
         }}
       >
         <div className={cx("wrapper")}>
@@ -92,9 +88,7 @@ function ModalItem(props, ref) {
             <div className={cx("header")}>
               <p>Modal Item</p>
               <IconButton
-                // disableElevation
-                // disableRipple
-                aria-label="Close"
+                ref={focusFix}
                 sx={{
                   ":hover": {
                     color: "var(--primary-color)",
@@ -179,20 +173,13 @@ function ModalItem(props, ref) {
                             </IconButton>
                           )}
 
-                          <Typography
-                            component="div"
-                            variant="h6"
-                            sx={{ margin: "10px" }}
-                          >
-                            {quantity}
-                          </Typography>
+                          <Typography component="div" variant="h6" sx={{ margin: "10px" }} > {quantity} </Typography>
                           <IconButton
                             sx={{
                               margin: "0 5px",
                               color: "var(--white-color)",
                               backgroundColor: "var(--primary-color)",
                               border: "1px solid var(--primary-color)",
-
                               borderRadius: "50%",
                               padding: "2px",
                               ":hover": {
@@ -205,9 +192,7 @@ function ModalItem(props, ref) {
                           </IconButton>
                         </Box>
                         <Box>
-                          <Typography component="div" variant="h6">
-                            ${totalItem}
-                          </Typography>
+                          <Typography component="div" variant="h6"> ${totalItem} </Typography>
                         </Box>
                       </Box>
                     </div>
@@ -234,7 +219,7 @@ function ModalItem(props, ref) {
                         color="primary"
                         value={selectSize}
                         exclusive
-                        onChange={handleChangeSelectSize}
+                        onChange={(e, newValue) => setSelectSize(newValue)}
                         aria-label="Platform"
                         sx={{
                           display: "flex",
@@ -261,7 +246,7 @@ function ModalItem(props, ref) {
                         color="primary"
                         value={selectVariation}
                         exclusive
-                        onChange={handleChangeSelectVariation}
+                        onChange={(e, newValue) => setSelectVariation(newValue)}
                         aria-label="Platform"
                         sx={{
                           display: "flex",
@@ -295,7 +280,7 @@ function ModalItem(props, ref) {
                         </ToggleButtonSelectSize>
                       </ToggleButtonGroup>
                     </div>
-
+                    {constants.Spacer}
                     <div className={cx("confirm-btn")}>
                       <Button
                         variant="contained"

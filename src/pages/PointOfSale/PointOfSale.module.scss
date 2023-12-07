@@ -2,6 +2,7 @@
 @media (max-width: 575.98px) {
   .body {
     flex-direction: unset;
+
     .cart {
       min-height: 40vh;
     }
@@ -18,10 +19,11 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
     .categories-wrapper {
       padding: 10px 10px 0 10px;
+
       .header-title {
         h3 {
           font-weight: 600;
-          margin: 0px 10px 10px 10px;
+          margin: 0px 10px 10px 0px;
         }
       }
 
@@ -48,17 +50,31 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
             background-color: var(--scroll-bar-color);
           }
 
-          .button {
-            border-radius: 10px !important;
+          button {
+            border-radius: 10px;
             box-shadow: var(--box-shadow);
             margin: 10px 10px !important;
-            border: 2px solid var(--grey-border-half) !important;
+            border: 2px solid var(--grey-border-half);
+            background-color: var(--bg-white-color);
+            -webkit-transition: all 0.2s linear;
+            -ms-transition: all 0.2s linear;
+            transition: all 0.2s linear;
 
-            &.Mui-selected,
-            &.Mui-selected:hover {
-              color: var(--primary-color);
+            &[aria-pressed='true'],
+            [aria-pressed='true']:hover {
+              color: var(--white-color);
+              background-color: var(--primary-color);
+              border: 2px solid var(--primary-color);
+
+              p {
+                color: var(--white-color);
+              }
+            }
+
+            &[aria-pressed='false']:hover {
               background-color: var(--white-color);
-              border: 2px solid var(--primary-color) !important;
+              border: 2px solid var(--primary-color);
+              border-radius: 10px;
             }
           }
         }
@@ -139,7 +155,6 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
     .aside-wrapper {
       .header-title {
-        // margin-top: 10px;
         height: 64px;
         display: flex;
         align-items: center;
@@ -198,15 +213,41 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
           }
 
           .payment {
-            .header-title-payment {
-              margin-top: 0;
-            }
 
             margin-top: 10px;
             background-color: var(--white-color);
             padding: 10px;
             border-radius: 10px;
             box-shadow: $shadow;
+
+            .header-title-payment {
+              margin-top: 0;
+            }
+
+            button {
+              background-color: var(--bg-white-color);
+              border: none !important;
+              box-shadow: $shadow;
+              -webkit-transition: all .2s linear;
+              -ms-transition: all .2s linear;
+              transition: all .2s linear;
+
+              &:hover {
+                color: var(--primary-color);
+                background-color: var(--white-color);
+                border: 1px solid var(--primary-color) !important;
+              }
+
+              &[aria-pressed='true'] {
+                background-color: var(--primary-color);
+                border: 1px solid var(--primary-color);
+                color: white;
+
+                svg {
+                  color: white;
+                }
+              }
+            }
           }
 
           .footer {

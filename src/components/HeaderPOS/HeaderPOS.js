@@ -30,6 +30,8 @@ import Popper from "@mui/material/Popper";
 import MenuList from "@mui/material/MenuList";
 import { TextFieldNoneBorder } from "../CustomMUI/TextFieldCustom";
 
+//#region const
+
 const options = [
   "Create a merge commit",
   "Squash and merge",
@@ -79,6 +81,7 @@ const Search = styled("div")(({ theme }) => ({
 //     paddingRight: "0",
 //   },
 // }));
+//#endregion
 
 function HeaderPOS() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -92,17 +95,10 @@ function HeaderPOS() {
   const anchorRef = useRef(null);
   const [selectedIndex, setSelectedIndex] = useState(1);
 
-  const handleClick = () => {
-    console.info(`You clicked ${options[selectedIndex]}`);
-  };
-
+  //#region function
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setOpenSelection(false);
-  };
-
-  const handleToggle = () => {
-    setOpenSelection((prevOpen) => !prevOpen);
   };
 
   const handleClose = (event) => {
@@ -112,7 +108,6 @@ function HeaderPOS() {
 
     setOpenSelection(false);
   };
-  //////
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -124,10 +119,6 @@ function HeaderPOS() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const menuId = "primary-search-account-menu";
@@ -204,6 +195,7 @@ function HeaderPOS() {
       </MenuItem>
     </Menu>
   );
+  //#endregion
 
   return (
     <Box sx={{ paddingLeft: "15px", paddingRight: 0, height: 64 }}>
@@ -220,7 +212,7 @@ function HeaderPOS() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            PT Nail Source
           </Typography>
 
           <Search>
@@ -240,7 +232,7 @@ function HeaderPOS() {
             /> */}
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-              <TextFieldNoneBorder label="With sx" />
+              <TextFieldNoneBorder placeholder="Search..." />
             </Box>
 
             {/* <StyledInputBase
@@ -258,29 +250,31 @@ function HeaderPOS() {
               variant="contained"
               ref={anchorRef}
               aria-label="split button"
-              onClick={handleToggle}
+              color="warning"
+              onClick={() => setOpenSelection((prevOpen) => !prevOpen)}
             >
-              <Button onClick={handleClick}>{options[selectedIndex]}</Button>
+              <Button color="warning" onClick={() => { }}>{options[selectedIndex]}</Button>
               <Button
                 size="small"
+                color="warning"
                 aria-controls={openSelection ? "split-button-menu" : undefined}
                 aria-expanded={openSelection ? "true" : undefined}
                 aria-label="select merge strategy"
                 aria-haspopup="menu"
-                onClick={handleClick}
+                onClick={() => { }}
               >
                 <ArrowDropDownIcon />
               </Button>
             </ButtonGroup>
             <Popper
-              sx={{
-                zIndex: 1,
-              }}
               open={openSelection}
               anchorEl={anchorRef.current}
               role={undefined}
               transition
               disablePortal
+              sx={{
+                zIndex: 1,
+              }}
             >
               {({ TransitionProps, placement }) => (
                 <Grow
@@ -318,7 +312,7 @@ function HeaderPOS() {
               aria-label="show more"
               aria-controls={mobileMenuId}
               aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
+              onClick={(e) => setMobileMoreAnchorEl(e.currentTarget)}
               color="inherit"
             >
               <MoreIcon />

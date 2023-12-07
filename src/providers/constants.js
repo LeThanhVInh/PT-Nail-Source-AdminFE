@@ -2,6 +2,7 @@ let apiUrl = "https://phanmemvas.vn:444";
 
 const exportedObject = {
     'apiUrl': apiUrl,
+    'Spacer': <div style={{ flex: '1' }}></div>
 };
 export default exportedObject
 
