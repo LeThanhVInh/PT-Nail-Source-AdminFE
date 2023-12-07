@@ -15,6 +15,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Divider from "@mui/material/Divider";
+import SwitchMode from "../Switch/SwitchMode";
 
 function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -132,7 +133,11 @@ function Header() {
             PT Nail Source
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{ display: { xs: "none", md: "flex", alignItems: "center" } }}
+          >
+            <SwitchMode />
+
             <IconButton
               size="large"
               aria-label="show 4 new mails"

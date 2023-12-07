@@ -11,7 +11,6 @@ import {
   Typography,
   IconButton,
   Divider,
-  ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
 
@@ -24,8 +23,6 @@ import {
   Delete as DeleteIcon,
 } from "@mui/icons-material";
 
-import classNames from "classnames/bind";
-import styles from "./PointOfSale.module.scss";
 import HeaderPOS from "../../components/HeaderPOS";
 import { ToggleButtonPayment } from "../../components/CustomMUI/ButtonCustom";
 import ModalItem from "../../components/Modal/ModalItem/ModalItem";
@@ -34,7 +31,12 @@ import {
   TypographyMediumBold,
   TypographySmallBold,
 } from "../../components/CustomMUI/PosMuiCustom/PosMuiCustom";
+import classNames from "classnames/bind";
+import styles from "./PointOfSale.module.scss";
+import Categories from "./Categories";
 
+import ProductsPos from "./ProductsPos/ProductsPos";
+import CartPos from "./CartPos";
 const cx = classNames.bind(styles);
 
 const categoriesList = [
@@ -132,7 +134,7 @@ function PointOfSale() {
   const [alignment, setAlignment] = useState("All");
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [dataItem, setDataItem] = useState({});
-  const [productListColumnAmount, setProductListColumnAmount] = useState(4);
+  // const [productListColumnAmount, setProductListColumnAmount] = useState(4);
   const [newData, setNewData] = useState([]);
 
   const dataSort = () => {
@@ -183,118 +185,15 @@ function PointOfSale() {
             >
               <HeaderPOS />
               <div className={cx("body")}>
-                <div className={cx("categories-wrapper")}>
-                  <div className={cx("header-title")}>
-                    <h3>Categories</h3>
-                  </div>
-                  <div className={cx("categories-body")}>
-                    <ToggleButtonGroup
-                      exclusive
-                      color="primary"
-                      value={alignment}
-                      className={cx("button-group")}
-                      onChange={(event, newAlignment) =>
-                        setAlignment(newAlignment)
-                      }
-                    >
-                      {
-                        categoriesList.map((item) => (
-                          <ToggleButton
-                            key={item.id}
-                            value={item.title}
-                            className={cx("button")}
-                          >
-                            <div className={cx("categories-list-item")}>
-                              <img src={item.imgSrc} alt={item.title} />
-                              <p>{item.title}</p>
-                            </div>
-                          </ToggleButton>
-                        ))
-                      }
-                    </ToggleButtonGroup>
-                  </div>
-                </div>
-                <div className={cx("items-wrapper")}>
-                  <div className={cx("header-title-items")}>
-                    <h3>Products</h3>
-                  </div>
-                  <div className={cx("items-body")}>
-                    {
-                      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((menu, i) => (
-                        <Card
-                          key={i}
-                          className={cx("item-card")}
-                          onClick={() => handleLearnMore(menuList[0])}
-                          sx={{
-                            display: {
-                              xs: "flex !important",
-                              md: "flex !important",
-                              lg: "block",
-                              xl: "block",
-                            },
-                            flexDirection: {
-                              xs: "row",
-                              md: "row",
-                              lg: "column",
-                              xl: "column",
-                            },
-                            height: "auto",
-                            width: {
-                              xs: `calc( (100% / 1) - 20px)`,
-                              md: `calc( (100% / 2) - 20px)`,
-                              lg: `calc( (100% / ${productListColumnAmount}) - 20px)`,
-                              xl: `calc( (100% / ${productListColumnAmount}) - 20px)`,
-                            },
-                          }}
-                        >
-                          <CardMedia
-                            component="img"
-                            alt={menuList[0].name}
-                            image={menuList[0].img}
-                            sx={{
-                              minHeight: "100px",
-                              width: {
-                                xs: "40%",
-                                md: "40%",
-                                lg: "100%",
-                                xl: "100%",
-                              },
-                              height: {
-                                xs: "100%",
-                                md: "100%",
-                                lg: 150,
-                                xl: 200,
-                              },
-                            }}
-                          />
-                          <Box component="div" sx={{ height: "auto" }} >
-                            <CardContent
-                              sx={{
-                                height: "100%",
-                                "&.MuiCardContent-root:last-child": {
-                                  padding: "10px 10px",
-                                },
-                              }} >
-                              <Box component="div">
-                                <Typography gutterBottom variant="h6" component="div" >
-                                  <b>{menuList[0].name}</b>
-                                </Typography>
-
-                                <Typography variant="body2" color="text.secondary" component="div" >
-                                  0 Available
-                                </Typography>
-                              </Box>
-
-                              <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 600 }} >
-                                ${menuList[0].price}
-                              </Typography>
-                            </CardContent>
-                          </Box>
-                        </Card>
-                      ))
-                    }
-                  </div>
-                </div>
+                <Categories
+                  alignment={alignment}
+                  categoriesList={categoriesList}
+                  setAlignment={setAlignment}
+                />
+                <ProductsPos
+                  newData={newData}
+                  handleLearnMore={handleLearnMore}
+                />
               </div>
             </Grid>
             <Grid
@@ -314,126 +213,34 @@ function PointOfSale() {
                     <h3>Detail Items</h3>
                   </div>
                   <div className={cx("body")}>
-                    <div className={cx("cart")}>
-                      {[1, 1, 1, 1, 1, 1, 1, 1].map((item, i) => (
-                        <Card key={i} className={cx("data-card")}>
-                          <CardMedia
-                            component="img"
-                            image="https://s23209.pcdn.co/wp-content/uploads/2022/07/220602_DD_The-Best-Ever-Cheeseburger_267-500x500.jpg"
-                            className={cx("image")}
-                            sx={{
-                              width: {
-                                xs: "15%",
-                                md: "15%",
-                                lg: "20%",
-                                xl: "20%",
-                              },
-                            }}
-                          />
-                          <Box
-                            sx={{
-                              display: "flex",
-                              flexDirection: "column",
-                              flexGrow: 1,
-                            }}
-                          >
-                            <CardContent className={cx("content")}>
-                              <Typography component="div" variant="h6">
-                                <b>Cappuccino 2</b>
-                              </Typography>
-                              <Typography component="div" variant="subtitle2">
-                                Size XXL, không đường
-                              </Typography>
-                            </CardContent>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                flexWrap: "wrap",
-                                pl: 1,
-                                pb: 1,
-                              }}
-                            >
-                              <Box
-                                component="div"
-                                sx={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  flexWrap: "wrap",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                <IconButton
-                                  sx={{
-                                    margin: "0 5px",
-                                    color: "var(--primary-color)",
-                                    backgroundColor: "var(--white-color)",
-                                    borderRadius: "50%",
-                                    border: "1px solid var(--primary-color)",
-                                    padding: "2px",
-                                    ":hover": {
-                                      color: "var(--primary-color)",
-                                      backgroundColor: "var(--white-color)",
-                                    },
-                                  }}
-                                >
-                                  <DeleteIcon sx={{ height: 22, width: 22 }} />
-                                </IconButton>
-                                <Typography
-                                  component="div"
-                                  variant="subtitle1"
-                                  sx={{ margin: "5px" }}
-                                >
-                                  <strong>6</strong>
-                                </Typography>
-                                <IconButton
-                                  sx={{
-                                    margin: "0 5px",
-                                    color: "var(--white-color)",
-                                    backgroundColor: "var(--primary-color)",
-                                    border: "1px solid var(--primary-color)",
-
-                                    borderRadius: "50%",
-                                    padding: "2px",
-                                    ":hover": {
-                                      backgroundColor: "var(--primary-color)",
-                                    },
-                                  }}
-                                >
-                                  <AddIcon sx={{ height: 22, width: 22 }} />
-                                </IconButton>
-                              </Box>
-
-                              <Box component="div">
-                                <Typography component="div" variant="subtitle1">
-                                  6 x $21
-                                </Typography>
-                              </Box>
-                            </Box>
-                          </Box>
-                        </Card>
-                      ))}
-                    </div>
+                    <CartPos />
                     <div className={cx("total-payment")}>
                       <div className={cx("total")}>
                         <BoxSpaceBetween>
-                          <Typography component="div" variant="subtitle2">Item</Typography>
+                          <Typography component="div" variant="subtitle2">
+                            Item
+                          </Typography>
                           <TypographySmallBold>X (Items)</TypographySmallBold>
                         </BoxSpaceBetween>
 
                         <BoxSpaceBetween>
-                          <Typography component="div" variant="subtitle2">Subtotal</Typography>
+                          <Typography component="div" variant="subtitle2">
+                            Subtotal
+                          </Typography>
                           <TypographySmallBold>$9999</TypographySmallBold>
                         </BoxSpaceBetween>
 
                         <BoxSpaceBetween>
-                          <Typography component="div" variant="subtitle2">Discount</Typography>
+                          <Typography component="div" variant="subtitle2">
+                            Discount
+                          </Typography>
                           <TypographySmallBold>-$9999</TypographySmallBold>
                         </BoxSpaceBetween>
 
                         <BoxSpaceBetween>
-                          <Typography component="div" variant="subtitle2">Tax (15%)</Typography>
+                          <Typography component="div" variant="subtitle2">
+                            Tax (15%)
+                          </Typography>
                           <TypographySmallBold>$99</TypographySmallBold>
                         </BoxSpaceBetween>
 
@@ -447,14 +254,18 @@ function PointOfSale() {
 
                       <div className={cx("payment")}>
                         <div className={cx("header-title-payment")}>
-                          <TypographyMediumBold>Payment Method</TypographyMediumBold>
+                          <TypographyMediumBold>
+                            Payment Method
+                          </TypographyMediumBold>
                         </div>
                         <div>
                           <ToggleButtonGroup
                             color="primary"
                             value={paymentMethod}
                             exclusive
-                            onChange={(e, newAlignment) => setPaymentMethod(newAlignment)}
+                            onChange={(e, newAlignment) =>
+                              setPaymentMethod(newAlignment)
+                            }
                             sx={{
                               display: "flex",
                               flexWrap: "wrap",
@@ -462,17 +273,23 @@ function PointOfSale() {
                             }}
                           >
                             <ToggleButtonPayment value="cash">
-                              <PaymentsIcon sx={{ width: "30px", height: "30px" }} />
+                              <PaymentsIcon
+                                sx={{ width: "30px", height: "30px" }}
+                              />
                               <Typography>Cash</Typography>
                             </ToggleButtonPayment>
 
                             <ToggleButtonPayment value="debit">
-                              <PaymentIcon sx={{ width: "30px", height: "30px" }} />
+                              <PaymentIcon
+                                sx={{ width: "30px", height: "30px" }}
+                              />
                               <Typography>Debit</Typography>
                             </ToggleButtonPayment>
 
                             <ToggleButtonPayment value="qris">
-                              <QrCodeScannerIcon sx={{ width: "30px", height: "30px" }} />
+                              <QrCodeScannerIcon
+                                sx={{ width: "30px", height: "30px" }}
+                              />
                               <Typography>QRIS</Typography>
                             </ToggleButtonPayment>
                           </ToggleButtonGroup>

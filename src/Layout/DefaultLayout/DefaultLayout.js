@@ -43,6 +43,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
+  backgroundColor: "var(--warning-color)",
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -86,11 +87,9 @@ function DefaultLayout({ children }) {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            // ...(open && { display: "none" }),
             ...(isOpen && {
               left: "-16px",
               zIndex: "1300",
-              // transition: "all ease-in .1s",
             }),
           }}
         >

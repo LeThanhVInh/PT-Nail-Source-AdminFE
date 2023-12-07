@@ -216,31 +216,30 @@ function HeaderPOS() {
           </Typography>
 
           <Search>
-            {/* <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper> */}
-
-            {/* <TextFieldNoneBorder
-              label="Search"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="end">
-                    <AccountCircle />
-                  </InputAdornment>
-                ),
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                backgroundColor: "var(--white-color)",
+                padding: "0 10px",
               }}
-            /> */}
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-              <TextFieldNoneBorder placeholder="Search..." />
+            >
+              <SearchIcon
+                sx={{
+                  color: "action.active",
+                  mr: 1,
+                  my: 0.5,
+                }}
+              />
+              <TextFieldNoneBorder
+                label="Search"
+                sx={{
+                  input: {
+                    paddingLeft: "0px",
+                  },
+                }}
+              />
             </Box>
-
-            {/* <StyledInputBase
-              label="sasd"
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-            <TextFieldNoneBorder label="Search" /> */}
           </Search>
 
           <Box sx={{ flexGrow: 1 }} />
@@ -253,7 +252,9 @@ function HeaderPOS() {
               color="warning"
               onClick={() => setOpenSelection((prevOpen) => !prevOpen)}
             >
-              <Button color="warning" onClick={() => { }}>{options[selectedIndex]}</Button>
+              <Button color="warning" onClick={() => {}}>
+                {options[selectedIndex]}
+              </Button>
               <Button
                 size="small"
                 color="warning"
@@ -261,7 +262,7 @@ function HeaderPOS() {
                 aria-expanded={openSelection ? "true" : undefined}
                 aria-label="select merge strategy"
                 aria-haspopup="menu"
-                onClick={() => { }}
+                onClick={() => {}}
               >
                 <ArrowDropDownIcon />
               </Button>

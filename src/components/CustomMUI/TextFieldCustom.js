@@ -22,17 +22,6 @@ export const TextFieldNoneBorder = styled(TextField)({
   },
   borderRadius: "5px",
   boxShadow: "0 3px 20px #0000000b !important",
-  // "& .MuiOutlinedInput-root": {
-  //   "& fieldset": {
-  //     border: "none",
-  //   },
-  //   "&:hover fieldset": {
-  //     border: "none",
-  //   },
-  //   "&.Mui-focused fieldset": {
-  //     border: "none",
-  //   },
-  // },
 
   "&.MuiTextField-root label": {
     top: "-5px",

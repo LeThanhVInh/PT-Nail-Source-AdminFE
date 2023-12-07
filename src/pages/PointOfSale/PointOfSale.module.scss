@@ -9,9 +9,26 @@
   }
 }
 
+@media (max-width: 899.98px) {
+  .items-body {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    background-color: red;
+  }
+}
+
 $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
+//Scrollbar CSS
+
 .wrapper {
+  &::-webkit-scrollbar {
+    width: 0px !important;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px !important;
+  }
   .body {
     display: flex;
     height: 88vh;
@@ -35,7 +52,6 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         border-radius: 10px;
         box-shadow: $shadow;
         background-color: var(--white-color);
-
         .button-group {
           display: flex;
           overflow: auto;
@@ -60,8 +76,8 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
             -ms-transition: all 0.2s linear;
             transition: all 0.2s linear;
 
-            &[aria-pressed='true'],
-            [aria-pressed='true']:hover {
+            &[aria-pressed="true"],
+            [aria-pressed="true"]:hover {
               color: var(--white-color);
               background-color: var(--primary-color);
               border: 2px solid var(--primary-color);
@@ -71,7 +87,7 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
               }
             }
 
-            &[aria-pressed='false']:hover {
+            &[aria-pressed="false"]:hover {
               background-color: var(--white-color);
               border: 2px solid var(--primary-color);
               border-radius: 10px;
@@ -106,10 +122,8 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     .items-wrapper {
       display: flex;
       flex-direction: column;
-
       flex-grow: 1;
       overflow: auto;
-
       .header-title-items {
         position: sticky;
         top: 0;
@@ -129,7 +143,6 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         box-shadow: $shadow;
         background-color: var(--white-color);
         flex-grow: 1;
-
         .item-card {
           display: block;
           margin: 10px;
@@ -213,7 +226,6 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
           }
 
           .payment {
-
             margin-top: 10px;
             background-color: var(--white-color);
             padding: 10px;
@@ -228,9 +240,9 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
               background-color: var(--bg-white-color);
               border: none !important;
               box-shadow: $shadow;
-              -webkit-transition: all .2s linear;
-              -ms-transition: all .2s linear;
-              transition: all .2s linear;
+              -webkit-transition: all 0.2s linear;
+              -ms-transition: all 0.2s linear;
+              transition: all 0.2s linear;
 
               &:hover {
                 color: var(--primary-color);
@@ -238,7 +250,7 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
                 border: 1px solid var(--primary-color) !important;
               }
 
-              &[aria-pressed='true'] {
+              &[aria-pressed="true"] {
                 background-color: var(--primary-color);
                 border: 1px solid var(--primary-color);
                 color: white;

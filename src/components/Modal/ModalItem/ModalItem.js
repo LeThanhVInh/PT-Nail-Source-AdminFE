@@ -15,7 +15,10 @@ import Grid from "@mui/material/Unstable_Grid2";
 import classNames from "classnames/bind";
 import styles from "./ModalItem.module.scss";
 import { ToggleButtonSelectSize } from "../../CustomMUI/ButtonCustom";
-import constants, { modalSizes, getSizeOfModal } from "../../../providers/constants";
+import constants, {
+  modalSizes,
+  getSizeOfModal,
+} from "../../../providers/constants";
 
 const cx = classNames.bind(styles);
 
@@ -33,15 +36,13 @@ function ModalItem(props, ref) {
 
   React.useImperativeHandle(ref, () => ({ openModal }));
 
-
   useEffect(() => {
     if (isOpen === false) {
       setQuantity(0);
       setTotalItem(0);
       setSelectSize("small");
       setSelectVariation("red");
-    }
-    else {
+    } else {
       setTimeout(() => focusFix.current.focus(), 100);
     }
   }, [isOpen]);
@@ -53,7 +54,6 @@ function ModalItem(props, ref) {
       setTotalItem(`${quantity * dataItem.price}`);
     }
   }, [quantity]);
-
 
   const closeModal = () => {
     setAnimationClass([
@@ -173,7 +173,14 @@ function ModalItem(props, ref) {
                             </IconButton>
                           )}
 
-                          <Typography component="div" variant="h6" sx={{ margin: "10px" }} > {quantity} </Typography>
+                          <Typography
+                            component="div"
+                            variant="h6"
+                            sx={{ margin: "10px" }}
+                          >
+                            {" "}
+                            {quantity}{" "}
+                          </Typography>
                           <IconButton
                             sx={{
                               margin: "0 5px",
@@ -192,7 +199,10 @@ function ModalItem(props, ref) {
                           </IconButton>
                         </Box>
                         <Box>
-                          <Typography component="div" variant="h6"> ${totalItem} </Typography>
+                          <Typography component="div" variant="h6">
+                            {" "}
+                            ${totalItem}{" "}
+                          </Typography>
                         </Box>
                       </Box>
                     </div>
@@ -251,7 +261,6 @@ function ModalItem(props, ref) {
                         sx={{
                           display: "flex",
                           flexWrap: "wrap",
-                          //   justifyContent: "center",
                         }}
                       >
                         <ToggleButtonSelectSize value="red">
