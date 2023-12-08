@@ -19,9 +19,7 @@
 
 $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
-//Scrollbar CSS
-
-.wrapper {
+main {
   &::-webkit-scrollbar {
     width: 0px !important;
   }
@@ -29,6 +27,9 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   &::-webkit-scrollbar-thumb {
     border-radius: 4px !important;
   }
+}
+
+.wrapper {
   .body {
     display: flex;
     height: 88vh;
@@ -52,6 +53,7 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         border-radius: 10px;
         box-shadow: $shadow;
         background-color: var(--white-color);
+
         .button-group {
           display: flex;
           overflow: auto;
@@ -124,6 +126,7 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
       flex-direction: column;
       flex-grow: 1;
       overflow: auto;
+
       .header-title-items {
         position: sticky;
         top: 0;
@@ -143,6 +146,7 @@ $shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         box-shadow: $shadow;
         background-color: var(--white-color);
         flex-grow: 1;
+
         .item-card {
           display: block;
           margin: 10px;
