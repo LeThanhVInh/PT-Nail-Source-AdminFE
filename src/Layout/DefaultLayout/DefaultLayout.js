@@ -43,6 +43,8 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
+  zIndex: "1350",
+
   backgroundColor: "var(--warning-color)",
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
@@ -132,6 +134,7 @@ function DefaultLayout({ children }) {
             borderRadius: "30px",
             overflow: "auto",
             padding: "14px",
+            zIndex: "1201",
           }}
         >
           {config.routes.pos === location.pathname ? "" : <Header />}

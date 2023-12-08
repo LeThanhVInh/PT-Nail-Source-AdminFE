@@ -36,7 +36,7 @@ const cx = classNames.bind(styles);
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: "var(--white-color)",
+  backgroundColor: "var(--bg-white-color)",
   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
@@ -47,6 +47,7 @@ const Search = styled("div")(({ theme }) => ({
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
+  color: "var(--btn-edit)",
   padding: theme.spacing(0, 2),
   height: "100%",
   position: "absolute",
@@ -54,11 +55,13 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  zIndex: 1,
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
+  color: "var(--btn-edit)",
   "& .MuiInputBase-input": {
+    backgroundColor: "var(--bg-white-item)",
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
@@ -71,6 +74,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  color: "var(--text-color)",
+
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "transparent",
     color: "var(--text-color)",
@@ -83,6 +88,10 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     borderSpacing: "0 20px",
     border: 0,
   },
+}));
+
+const TableCellItem = styled(TableCell)(({ theme }) => ({
+  color: "var(--text-color)",
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -194,7 +203,7 @@ export default function Tables() {
           "animate__fast"
         )}
       >
-        <TableContainer sx={{ m: "10px", width: "auto" }} elevation={0}>
+        <TableContainer sx={{ m: "10px", width: "auto" }} elevation={1}>
           <div className={cx("action-container")}>
             <div className={cx("title")}>
               <h3>Categories</h3>
@@ -209,15 +218,16 @@ export default function Tables() {
                   >
                     Add New Category
                   </Button>
-                  <IconButton aria-label="Add">
+                  <IconButton
+                    aria-label="Add"
+                    sx={{ color: "var(--btn-primary)" }}
+                  >
                     <AddIcon />
                   </IconButton>
                 </Stack>
               </div>
               <div className={cx("action-search", "pt-10")}>
-                <Search
-                  sx={{ boxShadow: "20px 3px 20px #0000000b", margin: 0 }}
-                >
+                <Search sx={{ boxShadow: "var(--box-shadow)", margin: 0 }}>
                   <SearchIconWrapper>
                     <SearchIcon />
                   </SearchIconWrapper>
@@ -252,6 +262,7 @@ export default function Tables() {
                         isCheckedItem.length > 0
                       }
                       onChange={(event) => checkAllRow(event.target.checked)}
+                      sx={{ color: "var(--grey-color)" }}
                     />
                   </StyledTableCell>
                   <StyledTableCell align="left" style={{ width: "90px" }}>
@@ -272,13 +283,14 @@ export default function Tables() {
                   <StyledTableRow
                     key={row.id}
                     sx={{
-                      backgroundColor: "var(--white-color)",
+                      backgroundColor: "var(--bg-white-item)",
                       borderRadius: "5px",
-                      boxShadow: "20px 3px 20px #0000000b",
+                      boxShadow: "var(--box-shadow-item)",
                     }}
                   >
                     <StyledTableCell align="left">
                       <CheckboxTable
+                        sx={{ color: "var(--grey-color)" }}
                         key={rows.id}
                         checked={isCheckedItem.includes(row.id)}
                         onChange={(event) =>
@@ -302,14 +314,28 @@ export default function Tables() {
                     <StyledTableCell align="center">
                       {row.status === "active" ? (
                         <Chip
-                          sx={{ backgroundColor: "var(--white-color)" }}
-                          icon={<TaskAltIcon color="success" />}
+                          sx={{
+                            backgroundColor: "var(--bg-white-color)",
+                            color: "var(--text-color)",
+                          }}
+                          icon={
+                            <TaskAltIcon
+                              sx={{ color: "var(--green-color) !important" }}
+                            />
+                          }
                           label="Active"
                         />
                       ) : (
                         <Chip
-                          sx={{ backgroundColor: "var(--white-color)" }}
-                          icon={<TaskAltIcon color="error" />}
+                          sx={{
+                            backgroundColor: "var(--bg-white-color)",
+                            color: "var(--text-color)",
+                          }}
+                          icon={
+                            <TaskAltIcon
+                              sx={{ color: "var(--red-color) !important" }}
+                            />
+                          }
                           label="Inactive"
                         />
                       )}

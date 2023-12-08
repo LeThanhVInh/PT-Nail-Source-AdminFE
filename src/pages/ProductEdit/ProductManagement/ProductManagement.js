@@ -15,6 +15,7 @@ import {
 
 import classNames from "classnames/bind";
 import styles from "../ProductEdit.module.scss";
+import { TextFieldProductEdit } from "../../../components/CustomMUI/ProductEdit/TextFieldProductEdit";
 
 const cx = classNames.bind(styles);
 
@@ -69,20 +70,6 @@ const IOSSwitch = styled((props) => (
     opacity: 1,
   },
 }));
-
-const TextFieldCustom = styled(TextField)({
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "var(--grey-border)",
-    },
-    "&:hover fieldset": {
-      borderColor: "var(--primary-color)",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "var(--primary-color)",
-    },
-  },
-});
 
 function ProductManagement() {
   //Accordion
@@ -152,7 +139,7 @@ function ProductManagement() {
                 </div>
               </div>
               <div className={cx("item-title-content-main")}>
-                <TextFieldCustom
+                <TextFieldProductEdit
                   fullWidth
                   placeholder="Input Product Stock"
                   id="fullWidth"
@@ -178,7 +165,7 @@ function ProductManagement() {
                 </div>
               </div>
               <div className={cx("item-title-content-main")}>
-                <TextFieldCustom
+                <TextFieldProductEdit
                   fullWidth
                   placeholder="Input SKU"
                   id="fullWidth"

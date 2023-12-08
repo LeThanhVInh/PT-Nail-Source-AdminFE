@@ -69,7 +69,7 @@ function Sidebar() {
           }
         >
           <div className="divider">
-            <Divider sx={{ borderColor: "#413e8b" }} />
+            <Divider sx={{ borderColor: "var(--primary-light)" }} />
           </div>
 
           <NavLink
@@ -152,7 +152,10 @@ function Sidebar() {
             <List
               component="div"
               disablePadding
-              sx={{ backgroundColor: "#2c2974", borderRadius: "10px" }}
+              sx={{
+                backgroundColor: "var(--primary-dark)",
+                borderRadius: "10px",
+              }}
               className={`category-list-parent ${isListParentActive}`}
             >
               <NavLink

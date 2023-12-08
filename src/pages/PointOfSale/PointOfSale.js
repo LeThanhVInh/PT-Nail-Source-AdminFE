@@ -1,5 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 
+import { useSelector, useDispatch } from "react-redux";
+import {
+  decrement,
+  increment,
+} from "../../features/appSetting/appSettingSlice";
+
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 
@@ -166,6 +172,9 @@ function PointOfSale() {
       modalRef.current.openModal();
     }
   };
+
+  const count = useSelector((state) => state.appSetting.value);
+  const dispatch = useDispatch();
 
   return (
     <>

@@ -1,5 +1,4 @@
 .modal-main-box {
-
   //Scrollbar CSS
   &::-webkit-scrollbar {
     width: 0px !important;
@@ -14,17 +13,23 @@
 
     .modal-box {
       margin-bottom: 20px;
-      background-color: var(--white-color);
+      background-color: var(--background-modal);
       border-radius: 10px;
       border: 1px solid #e2e8f099;
       padding: 10px;
 
       .header {
+        padding: 0 10px;
+        border-radius: 999px;
+        background-color: var(--bg-white-item);
         display: flex;
         align-items: center;
         justify-content: space-between;
         font-size: 18px;
         font-weight: 600;
+        p {
+          color: var(--text-color);
+        }
       }
 
       .contents {
@@ -44,7 +49,9 @@
           }
         }
       }
+
+      .footer {
+      }
     }
   }
-
 }

@@ -9,24 +9,6 @@ $background-color_3: var(--primary);
 $background-color_4: hsl(0, 0%, 100%);
 $background-color_5: hsl(var(--hue), 10%, 10%);
 
-// :root {
-//   font: 1em/1.5 sans-serif;
-//   background-color: $background-color_1;
-//   color: var(--white-color);
-//   transition: background-color var(--trans-dur), color var(--trans-dur);
-//   &:has(.switch__input:checked) {
-//     div,
-//     tbody {
-//       background-color: #18191a !important;
-//       color: var(--white-color);
-//     }
-
-//     button {
-//       background-color: blue !important;
-//     }
-//   }
-// }
-
 .switch-wrapper {
   font-size: 20px;
   input {

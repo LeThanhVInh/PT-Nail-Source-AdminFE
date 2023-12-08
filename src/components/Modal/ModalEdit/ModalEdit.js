@@ -2,8 +2,25 @@ import React, { useState, forwardRef, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { styled } from "@mui/system";
 import { Clear as ClearIcon, Check as CheckIcon } from "@mui/icons-material";
-import { IconButton, TextField, Typography, Box, RadioGroup, Modal, Divider, Radio, Grid } from "@mui/material";
-import { FormControl, FormControlLabel, FormGroup, Checkbox, Button, Autocomplete } from "@mui/material";
+import {
+  IconButton,
+  TextField,
+  Typography,
+  Box,
+  RadioGroup,
+  Modal,
+  Divider,
+  Radio,
+  Grid,
+} from "@mui/material";
+import {
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Checkbox,
+  Button,
+  Autocomplete,
+} from "@mui/material";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -11,7 +28,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import classNames from "classnames/bind";
 import styles from "./ModalEdit.module.scss";
-import { modalSizes, getSizeOfModal } from '../../../providers/constants';
+import { modalSizes, getSizeOfModal } from "../../../providers/constants";
+import { StyledAutocomplete } from "../../CustomMUI/SelectCustom";
 
 const cx = classNames.bind(styles);
 
@@ -23,19 +41,24 @@ const top100Films = [
 ];
 
 const TextFieldCustom = styled(TextField)({
+  backgroundColor: "var(--bg-white-item)",
+  color: "var(--text-color)",
   margin: "10px 0",
+
   input: {
+    color: "var(--text-color)",
     padding: "0 14px",
     height: "38px",
   },
 
   "&.MuiTextField-root label": {
+    color: "var(--text-color)",
     top: "-7px",
   },
 
   "& label.MuiInputLabel-outlined.MuiInputLabel-shrink": {
     transform: "translate(14px, -5px) scale(0.8)",
-    color: "var(--primary-color)",
+    color: "var(--text-color)",
   },
 
   "& .MuiOutlinedInput-root": {
@@ -43,7 +66,7 @@ const TextFieldCustom = styled(TextField)({
       borderColor: "var(--grey-border)",
     },
     "&:hover fieldset": {
-      borderColor: "var(--primary-color)",
+      borderColor: "var(--grey-border-input)",
     },
     "&.Mui-focused fieldset": {
       borderColor: "var(--primary-color)",
@@ -51,84 +74,22 @@ const TextFieldCustom = styled(TextField)({
   },
 });
 
-const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
-  margin: "10px 0",
-
-  [theme.breakpoints.down("md")]: {
-    "& .MuiAutocomplete-inputRoot": {
-      minHeight: "38px",
-    },
-  },
-  [theme.breakpoints.up("md")]: {
-    "& .MuiAutocomplete-inputRoot": {
-      height: "38px",
-    },
-  },
-  [theme.breakpoints.up("lg")]: {
-    "& .MuiAutocomplete-inputRoot": {
-      height: "38px",
-    },
-  },
-
-  "& .MuiInputLabel-outlined:not(.MuiInputLabel-shrink)": {
-    transform: "translate(12px, 8px) scale(1);",
-  },
-
-  "&.Mui-focused .MuiInputLabel-outlined": {
-    color: "var(--primary-color)",
-  },
-
-  "& .MuiAutocomplete-inputRoot": {
-    '&[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input:first-of-type': {
-      padding: "0 0 0 6px",
-    },
-    "& .MuiOutlinedInput-notchedOutline": {
-      // borderColor: "var(--primary-color)",
-    },
-    "&:hover .MuiOutlinedInput-notchedOutline": {
-      // borderColor: "red",
-    },
-    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "var(--primary-color)",
-    },
-  },
-
-  "& + .MuiAutocomplete-popper .MuiAutocomplete-option": {
-    "&.Mui-focused": {
-      color: "var(--text-color)",
-      backgroundColor: "var(--primary-light)",
-    },
-
-    '&[aria-selected="true"]': {
-      color: "var(--white-color)",
-      backgroundColor: "var(--primary-color)",
-      "&.Mui-focused": {
-        color: "var(--white-color)",
-        backgroundColor: "var(--primary-color)",
-      },
-      "&:hover": {
-        color: "var(--white-color)",
-        backgroundColor: "var(--primary-color)",
-      },
-    },
-  },
-}));
-
 const TypographyCustom = styled(Typography)({
-  // margin: "5px 0",
-  // paddingTop: "10px",
+  color: "var(--text-color)",
 });
 
 const TypographyError = styled(Typography)({
-  color: "red",
+  color: "var(--red-color)",
   fontSize: "14px",
   marginTop: "10px",
 });
 
 const FormControlLabelCustom = styled(FormControlLabel)({
+  color: "var(--text-color)",
+
   span: {
     "&.Mui-checked": {
-      color: "var(--primary-color)",
+      color: "var(--primary-check)",
     },
   },
 });
@@ -141,9 +102,7 @@ const ButtonCustom = styled(Button)(({ theme }) => ({
   textTransform: "capitalize",
   borderColor: "var(--gray-color)",
   marginBottom: "20px",
-  ":hover": {
-    borderColor: "var(--primary-color)",
-  },
+
   [theme.breakpoints.down("md")]: {
     flexGrow: 1,
     width: "100%",
@@ -159,8 +118,19 @@ const ButtonCustom = styled(Button)(({ theme }) => ({
 }));
 
 const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
-  margin: "10px 0",
+  backgroundColor: "var(--bg-white-item)",
+  svg: {
+    color: "var(--text-color)",
+  },
+  span: {
+    color: "var(--text-color)",
+  },
+  label: {
+    color: "var(--text-color)",
+  },
 
+  margin: "10px 0",
+  color: "var(--text-color)",
   input: {
     padding: "7.5px 14px",
   },
@@ -170,34 +140,48 @@ const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
   },
 
   "&.Mui-focused .MuiInputLabel-outlined": {
-    color: "var(--primary-color)",
+    color: "var(--text-color)",
+  },
+
+  "& .MuiInputBase-input": {
+    color: "var(--text-color)",
+    input: {
+      color: "var(--text-color)",
+    },
+  },
+
+  "& .MuiInputBase-root": {
+    "&:hover fieldset": {
+      borderColor: "var(--grey-border-input)",
+    },
   },
 
   "& .MuiAutocomplete-inputRoot": {
+    color: "var(--text-color)",
     // height: "38px",
     '&[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input:first-of-type': {
       padding: "0 0 0 6px",
     },
     "& .MuiOutlinedInput-notchedOutline": {
-      // borderColor: "var(--primary-color)",
+      borderColor: "var(--grey-color-input)",
     },
     "&:hover .MuiOutlinedInput-notchedOutline": {
-      // borderColor: "red",
+      borderColor: "var(--grey-color-input)",
     },
     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "var(--primary-color)",
+      borderColor: "var(--grey-border-input)",
     },
   },
 
   "& .Mui-focused": {
-    color: "var(--primary-color)",
+    color: "var(--text-color)",
     fieldset: {
       "&.MuiOutlinedInput-notchedOutline, &.css-1d3z3hw-MuiOutlinedInput-notchedOutline":
-      {
-        borderColor: "var(--primary-color)",
-      },
+        {
+          borderColor: "var(--grey-border-input)",
+        },
       ":hover": {
-        borderColor: "var(--primary-color)",
+        borderColor: "var(--grey-border-input)",
       },
     },
   },
@@ -232,8 +216,7 @@ function ModalEdit(props, ref) {
 
   useEffect(() => {
     if (isOpen === false) {
-    }
-    else {
+    } else {
       setTimeout(() => focusFix.current.focus(), 100);
     }
   }, [isOpen]);
@@ -241,26 +224,25 @@ function ModalEdit(props, ref) {
   const closeModal = () => {
     setAnimationClass("animate__animated animate__zoomOut animate__fast");
     setTimeout(() => setOpenModal(false), 250);
-  }
+  };
   const openModal = () => {
     setAnimationClass("animate__animated animate__zoomIn animate__fast");
     setTimeout(() => setOpenModal(true), 100);
-  }
+  };
 
   return (
-    <Modal
-      open={isOpen}
-      onClose={closeModal}
-    >
+    <Modal open={isOpen} onClose={closeModal}>
       <Box
         className={cx("modal-main-box", animationClass)}
-        sx={{ width: getSizeOfModal(modalSize), overflow: "auto", height: "100%", margin: 'auto' }}>
+        sx={{
+          width: getSizeOfModal(modalSize),
+          overflow: "auto",
+          height: "100%",
+          margin: "auto",
+        }}
+      >
         <div className={cx("wrapper")}>
-          <form
-            noValidate
-            autoComplete="off"
-            onSubmit={handleSubmit(onSubmit)}
-          >
+          <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
             <div className={cx("modal-box")}>
               <div className={cx("header")}>
                 <p>Modal Edit</p>
@@ -273,7 +255,10 @@ function ModalEdit(props, ref) {
                   }}
                   onClick={closeModal}
                 >
-                  <ClearIcon fontSize="inherit" />
+                  <ClearIcon
+                    fontSize="inherit"
+                    sx={{ color: "var(--text-color)" }}
+                  />
                 </IconButton>
               </div>
 
@@ -291,11 +276,15 @@ function ModalEdit(props, ref) {
                   />
 
                   {errors.email && errors.email.type === "required" && (
-                    <TypographyError className={cx("validation-text")}>Email is required</TypographyError>
+                    <TypographyError className={cx("validation-text")}>
+                      Email is required
+                    </TypographyError>
                   )}
 
                   {errors.email && errors.email.type === "pattern" && (
-                    <TypographyError className={cx("validation-text")}>Enter a valid email</TypographyError>
+                    <TypographyError className={cx("validation-text")}>
+                      Enter a valid email
+                    </TypographyError>
                   )}
                 </div>
 
@@ -308,12 +297,11 @@ function ModalEdit(props, ref) {
                     })}
                   />
 
-                  {errors.userName &&
-                    errors.userName.type === "required" && (
-                      <TypographyError className={cx("validation-text")}>
-                        User name is required
-                      </TypographyError>
-                    )}
+                  {errors.userName && errors.userName.type === "required" && (
+                    <TypographyError className={cx("validation-text")}>
+                      User name is required
+                    </TypographyError>
+                  )}
                 </div>
 
                 <div className={cx("item-content")}>
@@ -327,12 +315,11 @@ function ModalEdit(props, ref) {
                     })}
                   />
                   <Box>
-                    {errors.passWord &&
-                      errors.passWord.type === "required" && (
-                        <TypographyError className={cx("validation-text")}>
-                          Password is required
-                        </TypographyError>
-                      )}
+                    {errors.passWord && errors.passWord.type === "required" && (
+                      <TypographyError className={cx("validation-text")}>
+                        Password is required
+                      </TypographyError>
+                    )}
 
                     {errors.passWord &&
                       errors.passWord.type === "minLength" && (
@@ -344,11 +331,7 @@ function ModalEdit(props, ref) {
                 </div>
 
                 <div className={cx("item-content")}>
-                  <FormControl
-                    sx={{ minWidth: 120 }}
-                    size="small"
-                    fullWidth
-                  >
+                  <FormControl sx={{ minWidth: 120 }} size="small" fullWidth>
                     <StyledAutocomplete
                       disablePortal
                       options={top100Films}
@@ -360,32 +343,17 @@ function ModalEdit(props, ref) {
                 </div>
 
                 <div className={cx("item-content")}>
-                  <FormControl
-                    sx={{ minWidth: 120 }}
-                    size="small"
-                    fullWidth
-                  >
+                  <FormControl sx={{ minWidth: 120 }} size="small" fullWidth>
                     <StyledAutocomplete
                       disablePortal
                       multiple
                       filterSelectedOptions
                       options={top100Films}
                       renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label="Multi Select"
-                          fullWidth
-                        />
+                        <TextField {...params} label="Multi Select" fullWidth />
                       )}
                       size="small"
                     />
-
-                    {/* <Select
-                            isMulti
-                            theme={theme}
-                            isClearable={isClearable}
-                            options={categoryList}
-                          /> */}
                   </FormControl>
                 </div>
 
@@ -410,12 +378,16 @@ function ModalEdit(props, ref) {
                     >
                       <FormControlLabelCustom
                         value="male"
-                        control={<Radio />}
+                        control={
+                          <Radio sx={{ color: "var(--primary-check)" }} />
+                        }
                         label="Male"
                       />
                       <FormControlLabelCustom
                         value="female"
-                        control={<Radio />}
+                        control={
+                          <Radio sx={{ color: "var(--primary-check)" }} />
+                        }
                         label="Female"
                       />
                     </RadioGroup>
@@ -432,16 +404,21 @@ function ModalEdit(props, ref) {
                           defaultChecked
                           size="small"
                           sx={{
-                            color: "var(--primary-color)",
+                            color: "var(--primary-check)",
                             "&.Mui-checked": {
-                              color: "var(--primary-color)",
+                              color: "var(--primary-check)",
                             },
                           }}
                         />
                       }
                       label={
-                        <span style={{ fontSize: "14px" }}>
-                          {"Remember me"}
+                        <span
+                          style={{
+                            fontSize: "14px",
+                            color: "var(--text-color)",
+                          }}
+                        >
+                          Remember me
                         </span>
                       }
                       fontSize="14px"
@@ -453,35 +430,51 @@ function ModalEdit(props, ref) {
               <Divider sx={{ m: "10px 0" }} />
 
               <div className={cx("footer")}>
-                <Grid container justifyContent={(modalSize === modalSizes.medium || modalSize === modalSizes.mini || modalSize === modalSizes.tiny ? "center" : "flex-end")}>
+                <Grid
+                  container
+                  justifyContent={
+                    modalSize === modalSizes.medium ||
+                    modalSize === modalSizes.mini ||
+                    modalSize === modalSizes.tiny
+                      ? "center"
+                      : "flex-end"
+                  }
+                >
                   <ButtonCustom
                     onClick={closeModal}
                     variant="outlined"
                     sx={{
-                      border: "1px solid red",
-                      color: "red",
+                      border: "1px solid var(--red-color)",
+                      color: "var(--red-color)",
+                      ":hover": {
+                        borderColor: "var(--red-color)",
+                      },
                     }}
-                  >Cancel</ButtonCustom>
+                  >
+                    Cancel
+                  </ButtonCustom>
 
                   <ButtonCustom
                     type="submit"
                     variant="contained"
                     startIcon={<CheckIcon />}
                     sx={{
-                      backgroundColor: "var(--primary-color)",
+                      backgroundColor: "var(--btn-primary)",
                       color: "var(--white-color)",
                       ":hover": {
-                        backgroundColor: "var(--primary-color)",
+                        backgroundColor: "var(--btn-primary)",
                       },
                     }}
-                  >Save</ButtonCustom>
+                  >
+                    Save
+                  </ButtonCustom>
                 </Grid>
               </div>
             </div>
           </form>
         </div>
       </Box>
-    </Modal >
+    </Modal>
   );
 }
 export default forwardRef(ModalEdit);
