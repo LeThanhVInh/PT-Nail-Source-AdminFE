@@ -81,8 +81,8 @@ function Header() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+        <IconButton size="large" aria-label="show 4 new mails">
+          <Badge badgeContent={4}>
             <MailIcon />
           </Badge>
         </IconButton>
@@ -121,14 +121,17 @@ function Header() {
         position="static"
         elevation={0}
         color="inherit"
-        sx={{ backgroundColor: "var(--white-bg-color)" }}
+        sx={{ backgroundColor: "var(--bg-white-item)", borderRadius: "10px" }}
       >
         <Toolbar sx={{}}>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{
+              color: "var(--text-color)",
+              display: { xs: "none", sm: "block" },
+            }}
           >
             PT Nail Source
           </Typography>
@@ -138,13 +141,9 @@ function Header() {
           >
             <SwitchMode />
 
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
+            <IconButton size="large" aria-label="show 4 new mails">
               <Badge badgeContent={4} color="error">
-                <MailIcon />
+                <MailIcon sx={{ color: "var(--btn-edit)" }} />
               </Badge>
             </IconButton>
             <IconButton
@@ -153,7 +152,7 @@ function Header() {
               color="inherit"
             >
               <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
+                <NotificationsIcon sx={{ color: "var(--btn-edit)" }} />
               </Badge>
             </IconButton>
             <IconButton
@@ -165,7 +164,7 @@ function Header() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <AccountCircle sx={{ color: "var(--btn-edit)" }} />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>

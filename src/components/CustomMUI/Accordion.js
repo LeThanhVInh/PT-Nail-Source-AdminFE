@@ -7,6 +7,7 @@ import MuiAccordionDetails from "@mui/material/AccordionDetails";
 export const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
+  backgroundColor: "var(--white-color-outline)",
   border: `1px solid ${theme.palette.divider}`,
   "&:not(:last-child)": {
     borderBottom: 0,
@@ -22,20 +23,28 @@ export const AccordionSummary = styled((props) => (
     {...props}
   />
 ))(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === "dark"
-      ? "rgba(255, 255, 255, .05)"
-      : "rgba(0, 0, 0, .03)",
+  backgroundColor: "var(--white-color-outline) !important",
   flexDirection: "row-reverse",
+  color: "var(--text-color)",
+
+  svg: {
+    color: "var(--text-color)",
+  },
+
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
     transform: "rotate(90deg)",
+    color: "var(--text-color)",
   },
   "& .MuiAccordionSummary-content": {
     marginLeft: theme.spacing(1),
+    color: "var(--text-color)",
   },
 }));
 
 export const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: theme.spacing(2),
   borderTop: "1px solid rgba(0, 0, 0, .125)",
+  "&.MuiAccordionDetails-root": {
+    borderTop: "1px solid var(--grey-border-item)",
+  },
 }));

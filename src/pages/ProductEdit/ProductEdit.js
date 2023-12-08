@@ -37,7 +37,7 @@ const ListItemButtonCustom = styled(ListItemButton)({
   borderLeft: "2px solid #64748b5c",
   "&.Mui-selected": {
     color: "var(--primary-color)",
-    borderLeft: "2px solid var(--primary-color)",
+    borderLeft: "2px solid var(--primary-check)",
   },
   // "&.Mui-focusVisible": {
   //   // backgroundColor: "#2e8b57",
@@ -46,7 +46,7 @@ const ListItemButtonCustom = styled(ListItemButton)({
 });
 
 const ListItemTextCustom = styled(ListItemText)({
-  color: "var(--grey-color)",
+  color: "var(--grey-color-text)",
   span: {
     fontSize: "14px",
     lineHeight: "14px",
@@ -55,7 +55,7 @@ const ListItemTextCustom = styled(ListItemText)({
 
 const ButtonCustom = styled(Button)(({ theme }) => ({
   marginBottom: "20px",
-  color: "var(--grey-color)",
+  color: "var(--primary-check)",
   width: "208px",
   height: "46px",
   fontSize: "14px",
@@ -64,7 +64,7 @@ const ButtonCustom = styled(Button)(({ theme }) => ({
   // flexGrow: 1,
   marginLeft: "20px",
   ":hover": {
-    borderColor: "var(--primary-color)",
+    borderColor: "var(--primary-check)",
   },
   [theme.breakpoints.down("md")]: {
     flexGrow: 1,
@@ -133,17 +133,25 @@ function ProductEdit() {
                   alignItems: "center",
                 }}
               >
-                <ButtonCustom variant="outlined">Cancel</ButtonCustom>
-                <ButtonCustom variant="outlined">
+                <ButtonCustom
+                  variant="outlined"
+                  sx={{ borderColor: "var(--primary-check)" }}
+                >
+                  Cancel
+                </ButtonCustom>
+                <ButtonCustom
+                  variant="outlined"
+                  sx={{ borderColor: "var(--primary-check)" }}
+                >
                   Save & Add New Product
                 </ButtonCustom>
                 <ButtonCustom
                   variant="contained"
                   sx={{
-                    backgroundColor: "var(--primary-color)",
+                    backgroundColor: "var(--btn-primary)",
                     color: "var(--white-color)",
                     ":hover": {
-                      backgroundColor: "var(--primary-color)",
+                      backgroundColor: "var(--btn-primary)",
                     },
                   }}
                 >

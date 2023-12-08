@@ -11,6 +11,8 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "../../../components/CustomMUI/Accordion";
+import { StyledAutocomplete } from "../../../components/CustomMUI/SelectCustom";
+import { TextFieldProductEdit } from "../../../components/CustomMUI/ProductEdit/TextFieldProductEdit";
 
 const cx = classNames.bind(styles);
 
@@ -32,33 +34,8 @@ const categoryList = [
   },
 ];
 
-const theme = (theme) => ({
-  ...theme,
-  colors: {
-    ...theme.colors,
-    primary25: "#f3f3f3",
-    primary: "var(--primary-color)",
-  },
-});
-
-const TextFieldCustom = styled(TextField)({
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "var(--grey-border)",
-    },
-    "&:hover fieldset": {
-      borderColor: "var(--primary-color)",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "var(--primary-color)",
-    },
-  },
-});
-
 function ProductInformation() {
   const [expanded, setExpanded] = useState("panel1");
-
-  const [isClearable] = useState(true);
 
   const handleChangeExpanded = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -99,7 +76,7 @@ function ProductInformation() {
               </div>
 
               <div className={cx("item-title-content-main")}>
-                <TextFieldCustom
+                <TextFieldProductEdit
                   fullWidth
                   placeholder="Product Name"
                   id="fullWidth"
@@ -122,10 +99,16 @@ function ProductInformation() {
 
               <div className={cx("item-title-content-main")}>
                 <FormControl sx={{ minWidth: 120 }} size="small" fullWidth>
-                  <Select
-                    isClearable={isClearable}
+                  <StyledAutocomplete
+                    disablePortal
                     options={categoryList}
-                    theme={theme}
+                    renderInput={(params) => (
+                      <TextFieldProductEdit
+                        {...params}
+                        placeholder="Category"
+                        fullWidth
+                      />
+                    )}
                   />
                 </FormControl>
               </div>
@@ -147,11 +130,19 @@ function ProductInformation() {
 
               <div className={cx("item-title-content-main")}>
                 <FormControl sx={{ minWidth: 120 }} size="small" fullWidth>
-                  <Select
-                    isMulti
-                    theme={theme}
-                    isClearable={isClearable}
+                  <StyledAutocomplete
+                    disablePortal
+                    multiple
+                    filterSelectedOptions
                     options={categoryList}
+                    renderInput={(params) => (
+                      <TextFieldProductEdit
+                        {...params}
+                        placeholder="Subcategory"
+                        fullWidth
+                      />
+                    )}
+                    size="small"
                   />
                 </FormControl>
               </div>

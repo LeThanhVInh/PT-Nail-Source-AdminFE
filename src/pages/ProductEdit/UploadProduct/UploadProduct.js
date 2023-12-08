@@ -32,7 +32,7 @@ const VisuallyHiddenInput = styled("input")({
 //Custom
 const ButtonCustom = styled(Button)(({ theme }) => ({
   marginBottom: "20px",
-  color: "var(--grey-color)",
+  color: "var(--grey-color-text)",
   width: "100%",
   height: "46px",
   fontSize: "14px",
@@ -161,7 +161,11 @@ function UploadProduct() {
                     fullWidth
                     component="label"
                     // variant="outlined"
-                    startIcon={<CloudUploadIcon />}
+                    startIcon={
+                      <CloudUploadIcon
+                        sx={{ color: "var(--grey-color-text)" }}
+                      />
+                    }
                   >
                     Upload file
                     <VisuallyHiddenInput type="file" />

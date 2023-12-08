@@ -21,9 +21,11 @@ import styles from "../ProductEdit.module.scss";
 const cx = classNames.bind(styles);
 
 const FormControlLabelCustom = styled(FormControlLabel)({
+  color: "var(--text-color)",
+
   span: {
     "&.Mui-checked": {
-      color: "var(--primary-color)",
+      color: "var(--primary-check)",
     },
   },
 });
@@ -31,11 +33,11 @@ const FormControlLabelCustom = styled(FormControlLabel)({
 const ButtonCustom = styled(Button)({
   height: "38px",
   textTransform: "capitalize",
-  color: "var(--grey-color)",
+  color: "var(--text-color)",
   borderColor: "var(--grey-color)",
   "&:hover": {
-    color: "var(--primary-color)",
-    borderColor: "var(--primary-color)",
+    color: "var(--text-color)",
+    borderColor: "var(--text-color)",
   },
 });
 
@@ -87,12 +89,12 @@ function ProductDetail() {
                   >
                     <FormControlLabelCustom
                       value="new"
-                      control={<Radio />}
+                      control={<Radio sx={{ color: "var(--primary-check)" }} />}
                       label="New"
                     />
                     <FormControlLabelCustom
                       value="second"
-                      control={<Radio />}
+                      control={<Radio sx={{ color: "var(--primary-check)" }} />}
                       label="Second"
                     />
                   </RadioGroup>
@@ -120,12 +122,11 @@ function ProductDetail() {
                 </div>
               </div>
               <div className={cx("item-title-content-main")}>
-                {/* <div style={{ width: "100%" }}> */}
                 <SunEditor
                   defaultValue="<p>Content of the editor.</p>"
                   height="100%"
+                  className={cx("suneditor")}
                 />
-                {/* </div> */}
               </div>
             </div>
 
@@ -142,7 +143,10 @@ function ProductDetail() {
                 </div>
               </div>
               <div className={cx("item-title-content-main", "fl-start")}>
-                <ButtonCustom variant="outlined" startIcon={<AddIcon />}>
+                <ButtonCustom
+                  variant="outlined"
+                  startIcon={<AddIcon sx={{ color: "var(--text-color)" }} />}
+                >
                   Add Video URL
                 </ButtonCustom>
               </div>

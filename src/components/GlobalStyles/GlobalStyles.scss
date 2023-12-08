@@ -2,26 +2,43 @@
 
 :root {
   --primary-color: rgba(49, 46, 129, 1);
-  --primary-light: rgba(129, 127, 199, 0.314);
+  --primary-light: rgba(129, 127, 199, 0.3);
   --primary-light2: rgba(129, 127, 199, 0.5);
+  --primary-dark: rgb(44, 41, 116);
+
+  --primary-icon: rgba(49, 46, 129, 1);
+  --primary-check: rgba(49, 46, 129, 1);
+
+  --background-modal: #f6f6f6;
+
+  --red-color: #d32f2f;
+  --green-color: #2e7d32;
 
   --black-color: #000;
   --text-color: #1e293b;
   --white-color: #fff;
   --bg-white-color: #f6f6f6;
+  --bg-white-item: #f6f6f6;
   --grey-color: #64748b;
+  --grey-color-text: #64748b;
   --grey-border: #b3b3b3;
+  --grey-border-item: rgba(226, 232, 240, 0.9);
+  --white-color-outline: #f6f6f6;
+
   --grey-border-half: #b3b3b33a;
   --grey-bg: #e2e8f0;
   --warning-color: #e65100;
-
+  --required-bg: rgb(226, 232, 240);
   --btn-edit: #1e293b;
   --btn-delete: #b91c1c;
   --btn-active: #059669;
   --btn-primary: #44418c;
+  --btn-black: #1e293b;
+  --input-color: #fff;
 
   --scroll-bar-color: #312e8179;
   --box-shadow: 1px 1px 10px #0000000b !important;
+  --box-shadow-item: 1px 1px 20px rgba(0, 0, 0, 0.1) !important;
   --font-family: "Lexend", sans-serif;
 
   // background-color: var(--primary-color);
@@ -52,6 +69,10 @@ body {
   overflow-y: overlay;
   height: 100%;
   max-height: 100vh;
+}
+
+.dark_mode {
+  background-color: #000 !important;
 }
 
 //Scrollbar CSS
@@ -97,15 +118,43 @@ body {
   margin-top: 20px;
 
   .MuiDataGrid-root {
-    background-color: white;
+    background-color: var(--bg-white-item);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+    border-color: var(--grey-border-item);
 
     .MuiDataGrid-columnHeaders {
       background-color: var(--primary-light2);
+      .MuiDataGrid-columnHeaderTitle {
+        color: var(--text-color);
+      }
+      svg {
+        color: var(--text-color);
+      }
     }
 
-    // .MuiDataGrid-footerContainer {
-    //   background-color: #eaeaea;
-    // }
+    .MuiDataGrid-withBorderColor {
+      border-color: var(--grey-border-item);
+    }
+
+    .MuiDataGrid-row {
+      .MuiDataGrid-cellContent {
+        color: var(--text-color);
+      }
+    }
+
+    .MuiDataGrid-footerContainer {
+      color: var(--text-color);
+      background-color: var(--bg-white-item);
+    }
+    .MuiTablePagination-root {
+      svg {
+        color: var(--text-color);
+      }
+      color: var(--text-color);
+    }
+    .MuiCheckbox-root {
+      color: var(--text-color);
+    }
   }
 }
