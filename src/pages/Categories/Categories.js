@@ -20,7 +20,8 @@ const cx = classNames.bind(styles);
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: "var(--white-color)",
+  backgroundColor: "var(--bg-white-color)",
+
   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
@@ -31,6 +32,7 @@ const Search = styled("div")(({ theme }) => ({
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
+  color: "var(--btn-edit)",
   padding: theme.spacing(0, 2),
   height: "100%",
   position: "absolute",
@@ -38,11 +40,15 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  zIndex: 1,
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
+  color: "var(--btn-edit)",
+
   "& .MuiInputBase-input": {
+    backgroundColor: "var(--bg-white-item)",
+
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
@@ -141,7 +147,7 @@ function Categories() {
               </Stack>
             </div>
             <div className={cx("action-search", "pt-10")}>
-              <Search sx={{ boxShadow: "20px 3px 20px #0000000b", margin: 0 }}>
+              <Search sx={{ boxShadow: "var(--box-shadow)", margin: 0 }}>
                 <SearchIconWrapper>
                   <SearchIcon />
                 </SearchIconWrapper>

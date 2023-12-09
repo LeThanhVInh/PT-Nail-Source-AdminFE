@@ -32,13 +32,10 @@
     border-radius: 50%;
     border: 1px solid var(--bg-white-color);
   }
-  // .table {
-  //   border-spacing: 0 10px;
-  // }
 
   .border-right {
     position: relative;
-    // float: right;
+
     width: 300px;
     &::before {
       content: "";

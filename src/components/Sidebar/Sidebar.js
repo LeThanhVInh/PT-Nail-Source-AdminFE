@@ -69,7 +69,7 @@ function Sidebar() {
           }
         >
           <div className="divider">
-            <Divider sx={{ borderColor: "var(--primary-light)" }} />
+            <Divider sx={{ borderColor: "var(--divider-primary)" }} />
           </div>
 
           <NavLink

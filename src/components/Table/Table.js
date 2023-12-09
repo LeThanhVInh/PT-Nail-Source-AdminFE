@@ -206,7 +206,7 @@ export default function Tables() {
         <TableContainer sx={{ m: "10px", width: "auto" }} elevation={1}>
           <div className={cx("action-container")}>
             <div className={cx("title")}>
-              <h3>Categories</h3>
+              <h3>Products</h3>
             </div>
             <div className={cx("action-wrapper")}>
               <div className={cx("action-add", "pt-10")}>

@@ -262,7 +262,12 @@ function ModalEdit(props, ref) {
                 </IconButton>
               </div>
 
-              <Divider sx={{ margin: "10px 0" }} />
+              <Divider
+                sx={{
+                  margin: "10px 0",
+                  backgroundColor: "var(--divider-primary)",
+                }}
+              />
 
               <div className={cx("contents")}>
                 <div className={cx("item-content")}>
@@ -427,7 +432,9 @@ function ModalEdit(props, ref) {
                 </div>
               </div>
 
-              <Divider sx={{ m: "10px 0" }} />
+              <Divider
+                sx={{ m: "10px 0", backgroundColor: "var(--divider-primary)" }}
+              />
 
               <div className={cx("footer")}>
                 <Grid
