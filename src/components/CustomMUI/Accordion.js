@@ -9,12 +9,16 @@ export const Accordion = styled((props) => (
 ))(({ theme }) => ({
   backgroundColor: "var(--white-color-outline)",
   border: `1px solid ${theme.palette.divider}`,
+  borderRadius: '10px',
   "&:not(:last-child)": {
     borderBottom: 0,
   },
   "&:before": {
     display: "none",
   },
+  ".MuiButtonBase-root": {
+    borderRadius: '10px',
+  }
 }));
 
 export const AccordionSummary = styled((props) => (

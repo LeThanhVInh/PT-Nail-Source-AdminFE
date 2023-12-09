@@ -48,6 +48,7 @@ const Search = styled("div")(({ theme }) => ({
   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
+  flexGrow: "1",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
     width: "auto",
@@ -220,8 +221,10 @@ function HeaderPOS() {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                backgroundColor: "var(--white-color)",
-                padding: "0 10px",
+                paddingLeft: "10px",
+                borderRadius: '30px',
+                overflow: 'hidden',
+                boxShadow: 'inset 0px 0px 12px #2f2f2f29',
               }}
             >
               <SearchIcon
@@ -232,17 +235,16 @@ function HeaderPOS() {
                 }}
               />
               <TextFieldNoneBorder
-                label="Search"
+                placeholder="Search..."
                 sx={{
+                  flexGrow: '1',
                   input: {
-                    paddingLeft: "0px",
+                    paddingLeft: "10px",
                   },
                 }}
               />
             </Box>
           </Search>
-
-          <Box sx={{ flexGrow: 1 }} />
 
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <ButtonGroup
@@ -252,7 +254,7 @@ function HeaderPOS() {
               color="warning"
               onClick={() => setOpenSelection((prevOpen) => !prevOpen)}
             >
-              <Button color="warning" onClick={() => {}}>
+              <Button color="warning" onClick={() => { }}>
                 {options[selectedIndex]}
               </Button>
               <Button
@@ -262,7 +264,7 @@ function HeaderPOS() {
                 aria-expanded={openSelection ? "true" : undefined}
                 aria-label="select merge strategy"
                 aria-haspopup="menu"
-                onClick={() => {}}
+                onClick={() => { }}
               >
                 <ArrowDropDownIcon />
               </Button>

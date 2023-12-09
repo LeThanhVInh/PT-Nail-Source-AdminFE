@@ -1,6 +1,7 @@
 .post-wrapper {
   padding: 20px;
   height: 84dvh;
+
   .post-header {
     .title {
       margin-bottom: 10px;
@@ -14,18 +15,15 @@
       }
     }
   }
+
   .post-body {
-    .title {
-    }
     .contain {
       margin-top: 20px;
       width: 100%;
       background-color: var(--grey-bg);
       box-shadow: var(--box-shadow);
-      .contain-btn {
-      }
-      .content {
-      }
+      border-radius: 10px;
+
     }
   }
 }

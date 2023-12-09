@@ -2,6 +2,7 @@
   margin-bottom: 20px;
   background-color: var(--white-color);
   padding: 20px;
+  border-radius: 0 0 10px 10px;
 
   .item {
     border: 1px solid #e2e8f099;
@@ -28,6 +29,7 @@
 
       .content-image {
         width: 100%;
+
         .item-title-content-main-img {
           flex: 1;
           border-radius: 10px;
@@ -36,6 +38,7 @@
           justify-content: center;
           align-items: center;
           flex-direction: column;
+
           .main-img {
             display: flex;
             flex-wrap: wrap;
@@ -43,6 +46,7 @@
 
             .img-item {
               position: relative;
+
               &:hover {
                 scale: 1.05;
                 transition: all ease-in 0.2s;
@@ -54,6 +58,7 @@
                 right: 0;
                 color: rgb(255, 255, 255);
               }
+
               img {
                 border-radius: 12px;
                 object-fit: cover;

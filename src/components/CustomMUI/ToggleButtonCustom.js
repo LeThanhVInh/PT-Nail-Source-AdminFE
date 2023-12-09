@@ -14,6 +14,9 @@ export const ToggleButtonCustom = styled(MuiToggleButton)(({ theme }) => ({
     color: "var(--primary-color)",
     backgroundColor: "var(--white-color)",
   },
+  "&.Mui-selected:first-child, &.Mui-selected:first-child:hover": {
+    borderRadius: "10px 0 0 0",
+  },
   [theme.breakpoints.down("sm")]: {
     width: "100%",
     justifyContent: "center",
