@@ -106,10 +106,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const CheckboxTable = styled(Checkbox)(({ theme }) => ({
   "&.Mui-checked": {
-    color: "var(--primary-color)",
+    color: "var(--primary-white)",
   },
   "&.MuiCheckbox-indeterminate": {
-    color: "var(--primary-color)",
+    color: "var(--primary-white)",
   },
 }));
 

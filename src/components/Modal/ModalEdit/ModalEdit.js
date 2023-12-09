@@ -40,7 +40,7 @@ const top100Films = [
 ];
 
 const TextFieldCustom = styled(TextField)({
-  backgroundColor: "var(--bg-white-item)",
+  backgroundColor: "var(--input-color)",
   color: "var(--text-color)",
   margin: "10px 0",
 
@@ -62,7 +62,7 @@ const TextFieldCustom = styled(TextField)({
 
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: "var(--grey-border)",
+      // borderColor: "var(--grey-border)",
     },
     "&:hover fieldset": {
       borderColor: "var(--grey-border-input)",
@@ -117,7 +117,7 @@ const ButtonCustom = styled(Button)(({ theme }) => ({
 }));
 
 const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
-  backgroundColor: "var(--bg-white-item)",
+  backgroundColor: "var(--input-color)",
   margin: "10px 0",
   color: "var(--text-color)",
 

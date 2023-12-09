@@ -40,15 +40,15 @@ export const TextFieldNoneBorder = styled(TextField)({
 
   "& label.MuiInputLabel-outlined.MuiInputLabel-shrink": {
     transform: "translate(14px, -5px) scale(0.8)",
-    color: "var(--primary-check)",
+    color: "var(--text-color)",
   },
 
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: "var(--grey-color)",
+      // borderColor: "var(--grey-color)",
     },
     "&:hover fieldset": {
-      borderColor: "var(--primary-color)",
+      borderColor: "var(--grey-border-input)",
     },
     "&.Mui-focused fieldset": {
       borderColor: "var(--primary-color)",

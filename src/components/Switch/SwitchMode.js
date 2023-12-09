@@ -8,8 +8,7 @@ const cx = classNames.bind(styles);
 export default function SwitchMode() {
   const root = document.documentElement;
   const savedIsChecked = JSON.parse(localStorage.getItem("DarkMode"));
-
-  const [darkMode, setDarkMode] = useState(savedIsChecked);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     setDarkMode(savedIsChecked);
@@ -23,6 +22,7 @@ export default function SwitchMode() {
       root.style.setProperty("--primary-light", "#18191a");
       root.style.setProperty("--primary-light2", "#202528");
       root.style.setProperty("--primary-dark", "#24282a");
+      root.style.setProperty("--primary-white", "#fff");
       root.style.setProperty("--divider-primary", "rgba(255, 255, 255, 0.3)");
       root.style.setProperty("--black-color", "#18191a");
       root.style.setProperty("--bg-white-color", "rgb(32, 37, 41)");
@@ -39,12 +39,15 @@ export default function SwitchMode() {
       root.style.setProperty("--grey-border-dash", "rgba(179, 179, 179, 0.3)");
       root.style.setProperty("--grey-border-input", "rgba(226, 232, 240, 0.6)");
       root.style.setProperty("--grey-bg", "#202529");
+      root.style.setProperty("--grey", "#808080");
+
       root.style.setProperty("--primary-check", "rgb(255, 255, 255)");
       root.style.setProperty("--background-modal", "#252a2e");
       root.style.setProperty("--white-color-outline", "#2c3135");
       root.style.setProperty("--required-bg", "rgb(226, 232, 240)");
       root.style.setProperty("--input-color", "#181a1b");
       root.style.setProperty("--box-shadow-item", "none");
+      root.style.setProperty("--grey-shadow", "none");
     } else {
       root.style.setProperty("--primary-color", "rgba(49, 46, 129, 1)");
       root.style.setProperty("--primary-icon", "rgba(49, 46, 129, 1)");
@@ -52,6 +55,7 @@ export default function SwitchMode() {
       root.style.setProperty("--divider-primary", "rgba(129, 127, 199, 0.314)");
       root.style.setProperty("--primary-light2", "rgba(129, 127, 199, 0.5)");
       root.style.setProperty("--primary-dark", "rgba(44, 41, 116)");
+      root.style.setProperty("--primary-white", "rgba(49, 46, 129, 1)");
       root.style.setProperty("--black-color", "#000");
       root.style.setProperty("--text-color", "#1e293b");
       root.style.setProperty("--bg-white-color", "#f6f6f6");
@@ -61,6 +65,7 @@ export default function SwitchMode() {
       root.style.setProperty("--btn-edit", "#1e293b");
       root.style.setProperty("--red-color", "#d32f2f");
       root.style.setProperty("--green-color", "#2e7d32");
+      root.style.setProperty("--grey", "#808080");
       root.style.setProperty("--grey-border", "#b3b3b3");
       root.style.setProperty("--grey-border-dash", "#b3b3b3");
       root.style.setProperty("--grey-border-item", "rgba(226, 232, 240, 0.9)");
@@ -75,6 +80,7 @@ export default function SwitchMode() {
         "--box-shadow-item",
         "1px 1px 20px rgba(0, 0, 0, 0.1) !important"
       );
+      root.style.setProperty("--grey-shadow", "none");
     }
   }, [darkMode]);
 

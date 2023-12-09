@@ -230,7 +230,7 @@ function HeaderPOS() {
                 paddingLeft: "10px",
                 borderRadius: "30px",
                 overflow: "hidden",
-                boxShadow: "inset 0px 0px 12px var(--box-shadow)",
+                boxShadow: "0px 0px 5px var(--grey-shadow)",
                 backgroundColor: "var(--input-color)",
               }}
             >

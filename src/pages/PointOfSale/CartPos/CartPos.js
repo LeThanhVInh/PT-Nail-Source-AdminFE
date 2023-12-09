@@ -82,13 +82,13 @@ export default function CartPos() {
                   <IconButton
                     sx={{
                       margin: "0 5px",
-                      color: "var(--primary-color)",
-                      backgroundColor: "var(--white-color)",
+                      color: "var(--white-color)",
+                      backgroundColor: "var(--btn-primary)",
                       borderRadius: "50%",
-                      border: "1px solid var(--primary-color)",
+                      border: "1px solid var(--btn-primary)",
                       padding: "2px",
                       ":hover": {
-                        color: "var(--primary-color)",
+                        color: "var(--btn-primary)",
                         backgroundColor: "var(--white-color)",
                       },
                     }}
@@ -106,12 +106,12 @@ export default function CartPos() {
                     sx={{
                       margin: "0 5px",
                       color: "var(--white-color)",
-                      backgroundColor: "var(--primary-color)",
-                      border: "1px solid var(--primary-color)",
+                      backgroundColor: "var(--btn-primary)",
+                      border: "1px solid var(--btn-primary)",
                       borderRadius: "50%",
                       padding: "2px",
                       ":hover": {
-                        backgroundColor: "var(--primary-color)",
+                        backgroundColor: "var(--btn-primary)",
                       },
                     }}
                   >

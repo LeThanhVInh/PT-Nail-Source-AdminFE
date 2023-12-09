@@ -6,7 +6,6 @@ export const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
   color: "var(--text-color)",
   margin: "10px 0",
   borderRadius: "5px",
-
   [theme.breakpoints.down("md")]: {
     "& .MuiAutocomplete-inputRoot": {
       minHeight: "38px",
@@ -70,22 +69,26 @@ export const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
     },
   },
 
+  "&.MuiPaper-root-MuiAutocomplete-paper": {
+    backgroundColor: "red",
+  },
+
   "& + .MuiAutocomplete-popper .MuiAutocomplete-option": {
     "&.Mui-focused": {
-      color: "var(--text-color)",
-      backgroundColor: "var(--primary-light)",
+      color: "var(--white-color)",
+      backgroundColor: "var(--btn-primary)",
     },
 
     '&[aria-selected="true"]': {
       color: "var(--white-color)",
-      backgroundColor: "var(--primary-color)",
+      backgroundColor: "var(--btn-primary)",
       "&.Mui-focused": {
         color: "var(--white-color)",
-        backgroundColor: "var(--primary-color)",
+        backgroundColor: "var(--btn-primary)",
       },
       "&:hover": {
         color: "var(--white-color)",
-        backgroundColor: "var(--primary-color)",
+        backgroundColor: "var(--btn-primary)",
       },
     },
   },

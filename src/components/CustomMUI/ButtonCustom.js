@@ -36,7 +36,8 @@ export const ToggleButtonCategories = styled(ToggleButton)(({ theme }) => ({
   margin: "5px 10px 0 0 !important",
   border: "1px solid transparent !important",
   flexDirection: "column",
-  color: "var(--grey-border-dash)",
+  color: "var(--grey)",
+
   ":hover": {
     backgroundColor: "var(--input-color) !important",
     color: "var(--primary-icon)",
@@ -46,7 +47,7 @@ export const ToggleButtonCategories = styled(ToggleButton)(({ theme }) => ({
   },
   "&.Mui-selected, &.Mui-selected:hover": {
     color: "var(--white-color)",
-    backgroundColor: "var(--primary-color) !important",
+    backgroundColor: "var(--btn-primary) !important",
     span: {
       border: "1px solid var(--primary-icon) !important",
     },
@@ -66,6 +67,8 @@ export const ToggleButtonPayment = styled(ToggleButton)(({ theme }) => ({
   margin: "5px 10px 0 0 !important",
   border: "1px solid red !important",
   flexDirection: "column",
+  color: "var(--grey-color-text)",
+
   ":hover": {
     backgroundColor: "var(--input-color) !important",
     color: "var(--primary-icon)",
@@ -75,7 +78,7 @@ export const ToggleButtonPayment = styled(ToggleButton)(({ theme }) => ({
   },
   "&.Mui-selected, &.Mui-selected:hover": {
     color: "var(--white-color)",
-    backgroundColor: "var(--primary-color) !important",
+    backgroundColor: "var(--btn-primary) !important",
     span: {
       border: "1px solid var(--primary-icon) !important",
     },
