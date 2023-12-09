@@ -1,11 +1,12 @@
 .content-items {
-  background-color: var(--white-color);
+  background-color: var(--white-color-outline);
   padding: 20px;
 
   .item {
-    border: 1px solid #e2e8f099;
+    border: 1px solid var(--grey-border-item);
     border-radius: 10px;
     .item-title {
+      color: var(--text-color);
       font-size: 14px;
       font-weight: 600;
       padding: 10px 0;

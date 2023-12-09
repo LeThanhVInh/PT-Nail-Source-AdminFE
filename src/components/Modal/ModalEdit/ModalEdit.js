@@ -19,7 +19,6 @@ import {
   FormGroup,
   Checkbox,
   Button,
-  Autocomplete,
 } from "@mui/material";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -119,6 +118,9 @@ const ButtonCustom = styled(Button)(({ theme }) => ({
 
 const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
   backgroundColor: "var(--bg-white-item)",
+  margin: "10px 0",
+  color: "var(--text-color)",
+
   svg: {
     color: "var(--text-color)",
   },
@@ -128,13 +130,9 @@ const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
   label: {
     color: "var(--text-color)",
   },
-
-  margin: "10px 0",
-  color: "var(--text-color)",
   input: {
     padding: "7.5px 14px",
   },
-
   "& .MuiInputLabel-outlined:not(.MuiInputLabel-shrink)": {
     transform: "translate(12px, 8px) scale(1);",
   },

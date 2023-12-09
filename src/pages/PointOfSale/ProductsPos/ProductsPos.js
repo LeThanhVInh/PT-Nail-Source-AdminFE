@@ -2,19 +2,22 @@ import { useState } from "react";
 
 import { Card, CardContent, CardMedia, Typography, Box } from "@mui/material";
 import constants from "../../../providers/constants";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 import classNames from "classnames/bind";
 import styles from "../PointOfSale.module.scss";
 const cx = classNames.bind(styles);
 
 export default function ProductsPos(props) {
-  const { newData, handleLearnMore } = props;
+  const { newData, handleLearnMore, alignment } = props;
   const [productListColumnAmount, setProductListColumnAmount] = useState(4);
 
   return (
     <div className={cx("items-wrapper")}>
       <div className={cx("header-title-items")}>
-        <h3>Products</h3>
+        <h3>
+          Products <KeyboardArrowRightIcon /> {alignment}
+        </h3>
       </div>
       <div className={cx("items-body")}>
         {newData.map((menu, i) => (
@@ -83,7 +86,12 @@ export default function ProductsPos(props) {
                 }}
               >
                 <Box component="div">
-                  <Typography gutterBottom variant="h6" component="div">
+                  <Typography
+                    gutterBottom
+                    variant="h6"
+                    component="div"
+                    sx={{ color: "var(--text-color)" }}
+                  >
                     <b>{menu.name}</b>
                   </Typography>
 
@@ -91,6 +99,7 @@ export default function ProductsPos(props) {
                     variant="body2"
                     color="text.secondary"
                     component="div"
+                    sx={{ color: "var(--text-color)" }}
                   >
                     0 Available
                   </Typography>
@@ -100,7 +109,10 @@ export default function ProductsPos(props) {
                   gutterBottom
                   variant="h6"
                   component="div"
-                  sx={{ fontWeight: 600 }}
+                  sx={{
+                    fontWeight: 600,
+                    color: "var(--text-color)",
+                  }}
                 >
                   ${menu.price}
                 </Typography>

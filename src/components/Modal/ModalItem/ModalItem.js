@@ -90,8 +90,9 @@ function ModalItem(props, ref) {
               <IconButton
                 ref={focusFix}
                 sx={{
+                  color: "var(--primary-icon)",
                   ":hover": {
-                    color: "var(--primary-color)",
+                    color: "var(--primary-icon)",
                   },
                 }}
                 onClick={closeModal}
@@ -99,7 +100,9 @@ function ModalItem(props, ref) {
                 <ClearIcon fontSize="inherit" />
               </IconButton>
             </div>
-            <Divider sx={{ margin: "10px 0" }} />
+            <Divider
+              sx={{ margin: "10px 0", borderColor: "var(--grey-border)" }}
+            />
             <div className={cx("contents")}>
               <Grid container spacing={2}>
                 <Grid
@@ -176,10 +179,9 @@ function ModalItem(props, ref) {
                           <Typography
                             component="div"
                             variant="h6"
-                            sx={{ margin: "10px" }}
+                            sx={{ margin: "10px", color: "var(--text-color)" }}
                           >
-                            {" "}
-                            {quantity}{" "}
+                            {quantity}
                           </Typography>
                           <IconButton
                             sx={{
@@ -199,9 +201,12 @@ function ModalItem(props, ref) {
                           </IconButton>
                         </Box>
                         <Box>
-                          <Typography component="div" variant="h6">
-                            {" "}
-                            ${totalItem}{" "}
+                          <Typography
+                            component="div"
+                            variant="h6"
+                            sx={{ color: "var(--text-color)" }}
+                          >
+                            ${totalItem}
                           </Typography>
                         </Box>
                       </Box>
@@ -296,9 +301,9 @@ function ModalItem(props, ref) {
                         fullWidth
                         sx={{
                           height: "50px",
-                          backgroundColor: "var(--primary-color)",
+                          backgroundColor: "var(--btn-primary)",
                           ":hover": {
-                            backgroundColor: "var(--primary-color)",
+                            backgroundColor: "var(--btn-primary)",
                           },
                         }}
                       >

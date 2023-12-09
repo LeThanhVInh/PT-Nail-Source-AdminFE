@@ -4,7 +4,7 @@ import { styled } from "@mui/system";
 export const TextFieldProductEdit = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     borderRadius: "5px",
-    borderColor: "1px solid yellow",
+    // borderColor: "1px solid yellow",
     backgroundColor: "var(--input-color)",
     "& .MuiOutlinedInput-input": {
       color: "var(--text-color)",

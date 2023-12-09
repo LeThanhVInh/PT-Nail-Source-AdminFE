@@ -41,7 +41,6 @@ const cx = classNames.bind(styles);
 function TextContent() {
   const [expanded, setExpanded] = useState("panel1");
 
-
   const handleChangeExpanded = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
@@ -57,7 +56,7 @@ function TextContent() {
           <AccordionSummary
             aria-controls="panel1d-content"
             id="panel1d-header"
-            sx={{ backgroundColor: "var(--white-color)" }}
+            sx={{ backgroundColor: "var(--white-color-outline)" }}
           >
             <div className={cx("item-title")}>
               <p>Text Content</p>

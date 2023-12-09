@@ -13,14 +13,13 @@
 
   .content-items {
     margin-bottom: 20px;
-    background-color: var(--white-color);
+    background-color: var(--white-color-outline);
     border-radius: 10px;
     padding: 20px;
-    // width: 100%;
 
     .item {
       padding: 10px;
-      border: 1px solid #e2e8f099;
+      border: 1px solid var(--box-shadow);
       border-radius: 10px;
       .item-title {
         display: flex;

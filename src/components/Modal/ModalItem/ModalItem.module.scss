@@ -1,5 +1,4 @@
 .modal-main-box {
-
   //Scrollbar CSS
   &::-webkit-scrollbar {
     width: 0px !important;
@@ -15,12 +14,13 @@
 
   .modal-box {
     margin-bottom: 20px;
-    background-color: var(--white-color);
+    background-color: var(--bg-white-item);
     border-radius: 10px;
     border: 1px solid #e2e8f099;
     padding: 10px;
 
     .header {
+      color: var(--text-color);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -45,6 +45,8 @@
       }
 
       .info {
+        color: var(--text-color);
+
         margin-top: 5px;
         padding: 5px;
         display: flex;
@@ -62,6 +64,9 @@
       }
     }
 
+    .title-aside {
+      color: var(--text-color);
+    }
     .action {
       display: flex;
       flex-direction: column;
@@ -76,7 +81,7 @@
         margin-top: 10px;
         display: flex;
         flex-wrap: wrap;
-
+        color: var(--text-color);
         button {
           h6 {
             font-weight: 400;

@@ -4,7 +4,7 @@ import { styled } from "@mui/system";
 
 export const DefaultButton = styled(Button)(({ theme }) => ({
   color: "var(--btn-edit)",
-  backgroundColor: "var(--white-color)",
+  backgroundColor: "var(--bg-white-item)",
   padding: "0 10px",
   fontSize: "14px",
   textTransform: "capitalize",
@@ -12,7 +12,7 @@ export const DefaultButton = styled(Button)(({ theme }) => ({
   height: "38px",
   minWidth: "80px",
   ":hover": {
-    backgroundColor: "var(--white-color)",
+    backgroundColor: "var(--bg-white-item)",
   },
   [theme.breakpoints.down("md")]: {
     flexGrow: 1,
@@ -28,6 +28,35 @@ export const DefaultButton = styled(Button)(({ theme }) => ({
   },
 }));
 
+//Categories
+export const ToggleButtonCategories = styled(ToggleButton)(({ theme }) => ({
+  textTransform: "capitalize",
+  borderRadius: "10px !important",
+  boxShadow: "var(--box-shadow)",
+  margin: "5px 10px 0 0 !important",
+  border: "1px solid transparent !important",
+  flexDirection: "column",
+  color: "var(--grey-border-dash)",
+  ":hover": {
+    backgroundColor: "var(--input-color) !important",
+    color: "var(--primary-icon)",
+    span: {
+      border: "1px solid var(--grey-border) !important",
+    },
+  },
+  "&.Mui-selected, &.Mui-selected:hover": {
+    color: "var(--white-color)",
+    backgroundColor: "var(--primary-color) !important",
+    span: {
+      border: "1px solid var(--primary-icon) !important",
+    },
+    svg: {
+      color: "var(--white-color)",
+    },
+  },
+}));
+
+//Payment
 export const ToggleButtonPayment = styled(ToggleButton)(({ theme }) => ({
   textTransform: "capitalize",
   height: "70px",
@@ -35,14 +64,23 @@ export const ToggleButtonPayment = styled(ToggleButton)(({ theme }) => ({
   borderRadius: "10px !important",
   boxShadow: "var(--box-shadow)",
   margin: "5px 10px 0 0 !important",
-  border: "1px solid var(--grey-border-half) !important",
+  border: "1px solid red !important",
   flexDirection: "column",
+  ":hover": {
+    backgroundColor: "var(--input-color) !important",
+    color: "var(--primary-icon)",
+    span: {
+      border: "1px solid var(--grey-border) !important",
+    },
+  },
   "&.Mui-selected, &.Mui-selected:hover": {
-    color: "var(--primary-color)",
-    backgroundColor: "var(--white-color)",
-    border: "1px solid var(--primary-color) !important",
+    color: "var(--white-color)",
+    backgroundColor: "var(--primary-color) !important",
+    span: {
+      border: "1px solid var(--primary-icon) !important",
+    },
     svg: {
-      color: "var(--primary-color)",
+      color: "var(--white-color)",
     },
   },
 }));
@@ -55,13 +93,19 @@ export const ToggleButtonSelectSize = styled(ToggleButton)(({ theme }) => ({
   borderRadius: "10px !important",
   boxShadow: "var(--box-shadow)",
   margin: "5px 10px !important",
-  border: "1px solid var(--grey-border-half) !important",
   flexDirection: "column",
   flexWrap: "wrap",
+  color: "var(--grey-color)",
+  backgroundColor: "var(--bg-white-color)",
+  border: "1px solid transparent !important",
+  ":hover": {
+    border: "1px solid var(--grey-border-half) !important",
+    color: "var(--primary-icon)",
+  },
   "&.Mui-selected, &.Mui-selected:hover": {
-    color: "var(--primary-color)",
-    backgroundColor: "var(--white-color)",
-    border: "1px solid var(--primary-color) !important",
+    color: "var(--white-color)",
+    backgroundColor: "var(--btn-primary)",
+    border: "1px solid var(--grey-border-half) !important",
     svg: {
       color: "var(--primary-color)",
     },

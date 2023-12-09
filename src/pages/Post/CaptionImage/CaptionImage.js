@@ -34,7 +34,7 @@ const VisuallyHiddenInput = styled("input")({
 //Custom
 const ButtonCustom = styled(Button)(({ theme }) => ({
   marginBottom: "20px",
-  color: "var(--grey-color)",
+  color: "var(--grey-color-text)",
   width: "100%",
   height: "46px",
   fontSize: "14px",
@@ -115,7 +115,13 @@ function CaptionImage() {
           <AccordionDetails>
             <div className={cx("item-title-content")}>
               <div className={cx("content-caption")}>
-                <Typography sx={{ margin: "15px 0", fontSize: "14px" }}>
+                <Typography
+                  sx={{
+                    margin: "15px 0",
+                    fontSize: "14px",
+                    color: "var(--text-color)",
+                  }}
+                >
                   Caption
                 </Typography>
                 <TextFieldCustom
@@ -131,7 +137,13 @@ function CaptionImage() {
               </div>
 
               <div className={cx("content-image")}>
-                <Typography sx={{ margin: "15px 0", fontSize: "14px" }}>
+                <Typography
+                  sx={{
+                    margin: "15px 0",
+                    fontSize: "14px",
+                    color: "var(--text-color)",
+                  }}
+                >
                   Upload Image
                 </Typography>
 
@@ -170,7 +182,11 @@ function CaptionImage() {
                       fullWidth
                       component="label"
                       // variant="outlined"
-                      startIcon={<CloudUploadIcon />}
+                      startIcon={
+                        <CloudUploadIcon
+                          sx={{ color: "var(--grey-color-text)" }}
+                        />
+                      }
                     >
                       Upload file
                       <VisuallyHiddenInput type="file" />

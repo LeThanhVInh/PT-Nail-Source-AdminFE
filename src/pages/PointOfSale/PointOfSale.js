@@ -200,6 +200,7 @@ function PointOfSale() {
                   setAlignment={setAlignment}
                 />
                 <ProductsPos
+                  alignment={alignment}
                   newData={newData}
                   handleLearnMore={handleLearnMore}
                 />
@@ -226,34 +227,55 @@ function PointOfSale() {
                     <div className={cx("total-payment")}>
                       <div className={cx("total")}>
                         <BoxSpaceBetween>
-                          <Typography component="div" variant="subtitle2">
+                          <Typography
+                            component="div"
+                            variant="subtitle2"
+                            sx={{ color: "var(--text-color)" }}
+                          >
                             Item
                           </Typography>
                           <TypographySmallBold>X (Items)</TypographySmallBold>
                         </BoxSpaceBetween>
 
                         <BoxSpaceBetween>
-                          <Typography component="div" variant="subtitle2">
+                          <Typography
+                            component="div"
+                            variant="subtitle2"
+                            sx={{ color: "var(--text-color)" }}
+                          >
                             Subtotal
                           </Typography>
                           <TypographySmallBold>$9999</TypographySmallBold>
                         </BoxSpaceBetween>
 
                         <BoxSpaceBetween>
-                          <Typography component="div" variant="subtitle2">
+                          <Typography
+                            component="div"
+                            variant="subtitle2"
+                            sx={{ color: "var(--text-color)" }}
+                          >
                             Discount
                           </Typography>
                           <TypographySmallBold>-$9999</TypographySmallBold>
                         </BoxSpaceBetween>
 
                         <BoxSpaceBetween>
-                          <Typography component="div" variant="subtitle2">
+                          <Typography
+                            component="div"
+                            variant="subtitle2"
+                            sx={{ color: "var(--text-color)" }}
+                          >
                             Tax (15%)
                           </Typography>
                           <TypographySmallBold>$99</TypographySmallBold>
                         </BoxSpaceBetween>
 
-                        <Divider sx={{ margin: "10px 0" }} />
+                        <Divider
+                          sx={{
+                            margin: "10px 0",
+                            borderColor: "var(--grey-border-item)",
+                          }}
+                        />
 
                         <BoxSpaceBetween>
                           <TypographyMediumBold>Total</TypographyMediumBold>
@@ -311,9 +333,9 @@ function PointOfSale() {
                           sx={{
                             fontWeight: 600,
                             height: "50px",
-                            backgroundColor: "var(--primary-color)",
+                            backgroundColor: "var(--btn-primary)",
                             ":hover": {
-                              backgroundColor: "var(--primary-color)",
+                              backgroundColor: "var(--btn-primary)",
                             },
                           }}
                         >

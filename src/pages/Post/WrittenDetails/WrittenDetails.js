@@ -20,6 +20,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import classNames from "classnames/bind";
 import styles from "./WrittenDetails.module.scss";
+import { StyledAutocomplete } from "../../../components/CustomMUI/SelectCustom";
+import { TextFieldProductEdit } from "../../../components/CustomMUI/ProductEdit/TextFieldProductEdit";
 
 const cx = classNames.bind(styles);
 
@@ -52,72 +54,87 @@ const theme = (theme) => ({
   },
 });
 
-// const TextFieldCustom = styled(TextField)({
-//   "& .MuiOutlinedInput-root": {
-//     "& fieldset": {
-//       borderColor: "var(--grey-border)",
-//     },
-//     "&:hover fieldset": {
-//       borderColor: "var(--primary-color)",
-//     },
-//     "&.Mui-focused fieldset": {
-//       borderColor: "var(--primary-color)",
-//     },
-//   },
-// });
-
 const TypographyCustom = styled(Typography)({
+  color: "var(--text-color)",
   margin: "10px 0",
-
   fontSize: "14px",
 });
 
-// const TypographyError = styled(Typography)({
-//   color: "red",
-//   fontSize: "14px",
-//   marginTop: "10px",
-// });
-
 const FormControlLabelCustom = styled(FormControlLabel)({
+  color: "var(--text-color)",
+
   span: {
     "&.Mui-checked": {
-      color: "var(--primary-color)",
+      color: "var(--primary-check)",
     },
   },
 });
 
-// const StackCustom = styled(Stack)(({ theme }) => ({
-//   marginTop: "10px",
-//   display: "flex",
-//   flexWrap: "wrap",
-//   justifyContent: "flex-end",
-//   alignItems: "center",
-//   padding: theme.spacing(1),
-//   [theme.breakpoints.down("md")]: {
-//     justifyContent: "center",
-//   },
-//   [theme.breakpoints.up("md")]: {
-//     justifyContent: "space-evenly",
-//   },
-//   [theme.breakpoints.up("lg")]: {
-//     justifyContent: "flex-end",
-//   },
-// }));
-
-
 const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
+  backgroundColor: "var(--input-color)",
+  margin: "10px 0",
+  borderRadius: "5px",
+  color: "var(--text-color)",
+
+  svg: {
+    color: "var(--text-color)",
+  },
+  span: {
+    color: "var(--text-color)",
+  },
+  label: {
+    color: "var(--text-color)",
+  },
   input: {
     padding: "7.5px 14px",
   },
+  "& .MuiInputLabel-outlined:not(.MuiInputLabel-shrink)": {
+    transform: "translate(12px, 8px) scale(1);",
+  },
+
+  "&.Mui-focused .MuiInputLabel-outlined": {
+    color: "var(--text-color)",
+  },
+
+  "& .MuiInputBase-input": {
+    color: "var(--text-color)",
+    input: {
+      color: "var(--text-color)",
+    },
+  },
+
+  "& .MuiInputBase-root": {
+    "&:hover fieldset": {
+      borderColor: "var(--grey-border-input)",
+    },
+  },
+
+  "& .MuiAutocomplete-inputRoot": {
+    color: "var(--text-color)",
+    // height: "38px",
+    '&[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input:first-of-type': {
+      padding: "0 0 0 6px",
+    },
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: "var(--grey-color-input)",
+    },
+    "&:hover .MuiOutlinedInput-notchedOutline": {
+      borderColor: "var(--grey-color-input)",
+    },
+    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "var(--grey-border-input)",
+    },
+  },
 
   "& .Mui-focused": {
+    color: "var(--text-color)",
     fieldset: {
       "&.MuiOutlinedInput-notchedOutline, &.css-1d3z3hw-MuiOutlinedInput-notchedOutline":
-      {
-        borderColor: "var(--primary-color)",
-      },
+        {
+          borderColor: "var(--grey-border-input)",
+        },
       ":hover": {
-        borderColor: "var(--primary-color)",
+        borderColor: "var(--grey-border-input)",
       },
     },
   },
@@ -131,10 +148,9 @@ const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
 }));
 
 function WrittenDetails(props) {
-
   const {
     handleSubmit,
-    formState: { },
+    formState: {},
   } = useForm();
 
   const [isClearable, setIsClearable] = useState(true);
@@ -164,10 +180,16 @@ function WrittenDetails(props) {
                         size="small"
                         fullWidth
                       >
-                        <Select
-                          isClearable={isClearable}
+                        <StyledAutocomplete
+                          disablePortal
                           options={categoryList}
-                          theme={theme}
+                          renderInput={(params) => (
+                            <TextFieldProductEdit
+                              {...params}
+                              placeholder="Written By"
+                              fullWidth
+                            />
+                          )}
                         />
                       </FormControl>
                     </Box>
@@ -186,10 +208,16 @@ function WrittenDetails(props) {
                         size="small"
                         fullWidth
                       >
-                        <Select
-                          isClearable={isClearable}
+                        <StyledAutocomplete
+                          disablePortal
                           options={categoryList}
-                          theme={theme}
+                          renderInput={(params) => (
+                            <TextFieldProductEdit
+                              {...params}
+                              placeholder="Categories"
+                              fullWidth
+                            />
+                          )}
                         />
                       </FormControl>
                     </Box>
@@ -201,11 +229,19 @@ function WrittenDetails(props) {
                         size="small"
                         fullWidth
                       >
-                        <Select
-                          isMulti
-                          theme={theme}
-                          isClearable={isClearable}
+                        <StyledAutocomplete
+                          disablePortal
+                          multiple
+                          filterSelectedOptions
                           options={categoryList}
+                          renderInput={(params) => (
+                            <TextFieldProductEdit
+                              {...params}
+                              placeholder="Tags"
+                              fullWidth
+                            />
+                          )}
+                          size="small"
                         />
                       </FormControl>
                     </Box>
@@ -222,12 +258,16 @@ function WrittenDetails(props) {
                         >
                           <FormControlLabelCustom
                             value="male"
-                            control={<Radio />}
+                            control={
+                              <Radio sx={{ color: "var(--primary-check)" }} />
+                            }
                             label="Male"
                           />
                           <FormControlLabelCustom
                             value="female"
-                            control={<Radio />}
+                            control={
+                              <Radio sx={{ color: "var(--primary-check)" }} />
+                            }
                             label="Female"
                           />
                         </RadioGroup>
@@ -244,15 +284,20 @@ function WrittenDetails(props) {
                               defaultChecked
                               size="small"
                               sx={{
-                                color: "var(--primary-color)",
+                                color: "var(--primary-check)",
                                 "&.Mui-checked": {
-                                  color: "var(--primary-color)",
+                                  color: "var(--primary-check)",
                                 },
                               }}
                             />
                           }
                           label={
-                            <span style={{ fontSize: "14px" }}>
+                            <span
+                              style={{
+                                fontSize: "14px",
+                                color: "var(--text-color)",
+                              }}
+                            >
                               {"Remember me"}
                             </span>
                           }

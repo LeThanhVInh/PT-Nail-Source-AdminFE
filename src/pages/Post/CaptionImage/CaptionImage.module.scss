@@ -1,14 +1,15 @@
 .content-items {
   margin-bottom: 20px;
-  background-color: var(--white-color);
+  background-color: var(--white-color-outline);
   padding: 20px;
   border-radius: 0 0 10px 10px;
 
   .item {
-    border: 1px solid #e2e8f099;
+    border: 1px solid var(--grey-border-item);
     border-radius: 10px;
 
     .item-title {
+      color: var(--text-color);
       font-size: 14px;
       font-weight: 600;
       padding: 10px 0;
@@ -33,7 +34,7 @@
         .item-title-content-main-img {
           flex: 1;
           border-radius: 10px;
-          border: 2px dashed #e5e7eb;
+          border: 2px dashed var(--grey-border-dash);
           display: flex;
           justify-content: center;
           align-items: center;

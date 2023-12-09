@@ -10,7 +10,14 @@ import {
   MenuItem,
   Menu,
   Divider,
-  // InputBase,
+  Button,
+  ButtonGroup,
+  ClickAwayListener,
+  Grow,
+  Paper,
+  Popper,
+  MenuList,
+  InputBase,
 } from "@mui/material";
 import {
   AccountCircle,
@@ -18,17 +25,11 @@ import {
   Notifications as NotificationsIcon,
   MoreVert as MoreIcon,
   Search as SearchIcon,
+  ArrowDropDown as ArrowDropDownIcon,
 } from "@mui/icons-material";
 
-import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import Grow from "@mui/material/Grow";
-import Paper from "@mui/material/Paper";
-import Popper from "@mui/material/Popper";
-import MenuList from "@mui/material/MenuList";
 import { TextFieldNoneBorder } from "../CustomMUI/TextFieldCustom";
+import SwitchMode from "../Switch/SwitchMode";
 
 //#region const
 
@@ -40,48 +41,50 @@ const options = [
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
+
   marginRight: theme.spacing(2),
   marginLeft: 0,
-  width: "100%",
+  width: "60%",
   flexGrow: "1",
+
+  "& .MuiBox-root": {
+    maxWidth: "60%",
+  },
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
     width: "auto",
   },
 }));
 
-// const SearchIconWrapper = styled("div")(({ theme }) => ({
-//   padding: theme.spacing(0, 2),
-//   height: "100%",
-//   position: "absolute",
-//   pointerEvents: "none",
-//   display: "flex",
-//   alignItems: "center",
-//   justifyContent: "center",
-// }));
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  color: "var(--btn-edit)",
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  zIndex: 1,
+}));
 
-// const StyledInputBase = styled(InputBase)(({ theme }) => ({
-//   color: "inherit",
-//   "& .MuiInputBase-input": {
-//     padding: theme.spacing(1, 1, 1, 0),
-//     // vertical padding + font size from searchIcon
-//     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-//     transition: theme.transitions.create("width"),
-//     width: "100%",
-//     [theme.breakpoints.up("md")]: {
-//       width: "20ch",
-//     },
-//   },
-//   "&.MuiToolbar-root": {
-//     paddingLeft: "24px",
-//     paddingRight: "0",
-//   },
-// }));
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "var(--btn-edit)",
+
+  "& .MuiInputBase-input": {
+    backgroundColor: "var(--input-color)",
+    borderRadius: "999px",
+    padding: theme.spacing(1, 1, 1, 0),
+    maxWidth: "50%",
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      maxWidth: "50ch",
+    },
+  },
+}));
 //#endregion
 
 function HeaderPOS() {
@@ -204,14 +207,17 @@ function HeaderPOS() {
         position="static"
         elevation={0}
         color="inherit"
-        sx={{ backgroundColor: "var(--white-bg-color)" }}
+        sx={{ backgroundColor: "var(--bg-white-item)", borderRadius: "10px" }}
       >
         <Toolbar>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{
+              color: "var(--text-color)",
+              display: { xs: "none", sm: "block" },
+            }}
           >
             PT Nail Source
           </Typography>
@@ -222,29 +228,29 @@ function HeaderPOS() {
                 display: "flex",
                 alignItems: "center",
                 paddingLeft: "10px",
-                borderRadius: '30px',
-                overflow: 'hidden',
-                boxShadow: 'inset 0px 0px 12px #2f2f2f29',
+                borderRadius: "30px",
+                overflow: "hidden",
+                boxShadow: "inset 0px 0px 12px var(--box-shadow)",
+                backgroundColor: "var(--input-color)",
               }}
             >
-              <SearchIcon
-                sx={{
-                  color: "action.active",
-                  mr: 1,
-                  my: 0.5,
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+                onChange={(e) => {
+                  console.log(e.target.value);
                 }}
-              />
-              <TextFieldNoneBorder
-                placeholder="Search..."
-                sx={{
-                  flexGrow: '1',
-                  input: {
-                    paddingLeft: "10px",
-                  },
-                }}
+                sx={{ width: "100%" }}
               />
             </Box>
           </Search>
+
+          <Box>
+            <SwitchMode />
+          </Box>
 
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <ButtonGroup
@@ -254,7 +260,7 @@ function HeaderPOS() {
               color="warning"
               onClick={() => setOpenSelection((prevOpen) => !prevOpen)}
             >
-              <Button color="warning" onClick={() => { }}>
+              <Button color="warning" onClick={() => {}}>
                 {options[selectedIndex]}
               </Button>
               <Button
@@ -264,7 +270,7 @@ function HeaderPOS() {
                 aria-expanded={openSelection ? "true" : undefined}
                 aria-label="select merge strategy"
                 aria-haspopup="menu"
-                onClick={() => { }}
+                onClick={() => {}}
               >
                 <ArrowDropDownIcon />
               </Button>

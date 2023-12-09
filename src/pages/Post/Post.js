@@ -85,7 +85,10 @@ function Post() {
                   fullWidth
                   label="Title"
                   id="fullWidth"
-                  sx={{ backgroundColor: "var(--white-color)" }}
+                  sx={{
+                    backgroundColor: "var(--bg-white-item)",
+                    color: "var(--primary-check)",
+                  }}
                 />
               </div>
 
@@ -117,14 +120,14 @@ function Post() {
                     </ToggleButtonCustom>
                   </ToggleButtonGroup>
                 </div>
-                {alignment !== "content"
-                  ? (" ")
-                  : (
-                    <div className={cx("content")} style={{ display: "block" }}>
-                      <TextContent />
-                      <CaptionImage />
-                    </div>
-                  )}
+                {alignment !== "content" ? (
+                  " "
+                ) : (
+                  <div className={cx("content")} style={{ display: "block" }}>
+                    <TextContent />
+                    <CaptionImage />
+                  </div>
+                )}
               </div>
             </Grid>
             <Grid

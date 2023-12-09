@@ -10,11 +10,12 @@ export const ToggleButtonCustom = styled(MuiToggleButton)(({ theme }) => ({
   fontSize: "16px",
   borderRadius: "0",
   flexWrap: "wrap",
+  color: "var(--grey-color-text)",
   "&.Mui-selected, &.Mui-selected:hover": {
-    color: "var(--primary-color)",
-    backgroundColor: "var(--white-color)",
+    color: "var(--primary-check)",
+    backgroundColor: "var(--white-color-outline)",
   },
-  "&.Mui-selected:first-child, &.Mui-selected:first-child:hover": {
+  "&.Mui-selected:first-of-type, &.Mui-selected:first-of-type:hover": {
     borderRadius: "10px 0 0 0",
   },
   [theme.breakpoints.down("sm")]: {

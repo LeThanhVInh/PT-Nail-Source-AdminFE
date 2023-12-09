@@ -10,12 +10,14 @@ export const BoxSpaceBetween = styled(Box)(({ theme }) => ({
 }));
 
 export const TypographySmallBold = styled(Typography)(({ theme }) => ({
+  color: "var(--text-color)",
   fontWeight: "600",
   variant: "subtitle1",
   component: "div",
 }));
 
 export const TypographyMediumBold = styled(Typography)(({ theme }) => ({
+  color: "var(--text-color)",
   fontSize: "20px",
   component: "div",
   fontWeight: "600",

@@ -2,6 +2,7 @@ import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 import classNames from "classnames/bind";
 import styles from "../PointOfSale.module.scss";
+import { ToggleButtonCategories } from "../../../components/CustomMUI/ButtonCustom";
 const cx = classNames.bind(styles);
 
 export default function Categories(props) {
@@ -21,7 +22,7 @@ export default function Categories(props) {
           onChange={(event, newAlignment) => setAlignment(newAlignment)}
         >
           {categoriesList.map((item) => (
-            <ToggleButton
+            <ToggleButtonCategories
               key={item.id}
               value={item.title}
               className={cx("button")}
@@ -30,7 +31,7 @@ export default function Categories(props) {
                 <img src={item.imgSrc} alt={item.title} />
                 <p>{item.title}</p>
               </div>
-            </ToggleButton>
+            </ToggleButtonCategories>
           ))}
         </ToggleButtonGroup>
       </div>

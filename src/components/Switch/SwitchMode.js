@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import classNames from "classnames/bind";
 import styles from "./Switch.module.scss";
@@ -6,43 +6,18 @@ import styles from "./Switch.module.scss";
 const cx = classNames.bind(styles);
 
 export default function SwitchMode() {
-  const [darkMode, setDarkMode] = useState(false);
+  const root = document.documentElement;
+  const savedIsChecked = JSON.parse(localStorage.getItem("DarkMode"));
 
-  const toggleDarkMode = () => {
-    setDarkMode((prevMode) => !prevMode);
-    // Update CSS variables based on dark mode
-    const root = document.documentElement;
-    if (darkMode) {
-      root.style.setProperty("--primary-color", "rgba(49, 46, 129, 1)");
-      root.style.setProperty("--primary-icon", "rgba(49, 46, 129, 1)");
-      root.style.setProperty("--primary-light", "rgba(129, 127, 199, 0.314)");
-      root.style.setProperty("--divider-primary", "rgba(129, 127, 199, 0.314)");
-      root.style.setProperty("--primary-light2", "rgba(129, 127, 199, 0.5)");
-      root.style.setProperty("--primary-dark", "rgba(44, 41, 116)");
-      root.style.setProperty("--black-color", "#000");
-      root.style.setProperty("--text-color", "#1e293b");
-      root.style.setProperty("--bg-white-color", "#f6f6f6");
-      root.style.setProperty("--white-color", "#fff");
-      root.style.setProperty("--bg-white-item", "#f6f6f6");
-      root.style.setProperty("--btn-primary", "#44418c");
-      root.style.setProperty("--btn-edit", "#1e293b");
-      root.style.setProperty("--red-color", "#d32f2f");
-      root.style.setProperty("--green-color", "#2e7d32");
-      root.style.setProperty("--grey-border", "#b3b3b3");
-      root.style.setProperty("--grey-border-dash", "#b3b3b3");
-      root.style.setProperty("--grey-border-item", "rgba(226, 232, 240, 0.9)");
-      root.style.setProperty("--grey-border-input", "rgba(49, 46, 129, 1)");
-      root.style.setProperty("--grey-color-text", "#64748b");
-      root.style.setProperty("--primary-check", "rgb(49, 46, 129)");
-      root.style.setProperty("--background-modal", "#f6f6f6");
-      root.style.setProperty("--white-color-outline", "#fff");
-      root.style.setProperty("--input-color", "#fff");
-      root.style.setProperty(
-        "--box-shadow-item",
-        "1px 1px 20px rgba(0, 0, 0, 0.1) !important"
-      );
-    } else {
-      // root.style.setProperty("--primary-color", "rgb(37, 42, 46)");
+  const [darkMode, setDarkMode] = useState(savedIsChecked);
+
+  useEffect(() => {
+    setDarkMode(savedIsChecked);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("DarkMode", JSON.stringify(darkMode));
+    if (darkMode === true) {
       root.style.setProperty("--primary-color", "#2c3135");
       root.style.setProperty("--primary-icon", "#f6f6f6");
       root.style.setProperty("--primary-light", "#18191a");
@@ -63,14 +38,115 @@ export default function SwitchMode() {
       root.style.setProperty("--grey-border-item", "rgba(226, 232, 240, 0.1)");
       root.style.setProperty("--grey-border-dash", "rgba(179, 179, 179, 0.3)");
       root.style.setProperty("--grey-border-input", "rgba(226, 232, 240, 0.6)");
+      root.style.setProperty("--grey-bg", "#202529");
       root.style.setProperty("--primary-check", "rgb(255, 255, 255)");
       root.style.setProperty("--background-modal", "#252a2e");
       root.style.setProperty("--white-color-outline", "#2c3135");
       root.style.setProperty("--required-bg", "rgb(226, 232, 240)");
       root.style.setProperty("--input-color", "#181a1b");
-
       root.style.setProperty("--box-shadow-item", "none");
+    } else {
+      root.style.setProperty("--primary-color", "rgba(49, 46, 129, 1)");
+      root.style.setProperty("--primary-icon", "rgba(49, 46, 129, 1)");
+      root.style.setProperty("--primary-light", "rgba(129, 127, 199, 0.314)");
+      root.style.setProperty("--divider-primary", "rgba(129, 127, 199, 0.314)");
+      root.style.setProperty("--primary-light2", "rgba(129, 127, 199, 0.5)");
+      root.style.setProperty("--primary-dark", "rgba(44, 41, 116)");
+      root.style.setProperty("--black-color", "#000");
+      root.style.setProperty("--text-color", "#1e293b");
+      root.style.setProperty("--bg-white-color", "#f6f6f6");
+      root.style.setProperty("--white-color", "#fff");
+      root.style.setProperty("--bg-white-item", "#f6f6f6");
+      root.style.setProperty("--btn-primary", "#44418c");
+      root.style.setProperty("--btn-edit", "#1e293b");
+      root.style.setProperty("--red-color", "#d32f2f");
+      root.style.setProperty("--green-color", "#2e7d32");
+      root.style.setProperty("--grey-border", "#b3b3b3");
+      root.style.setProperty("--grey-border-dash", "#b3b3b3");
+      root.style.setProperty("--grey-border-item", "rgba(226, 232, 240, 0.9)");
+      root.style.setProperty("--grey-border-input", "rgba(49, 46, 129, 1)");
+      root.style.setProperty("--grey-color-text", "#64748b");
+      root.style.setProperty("--grey-bg", "#e2e8f0");
+      root.style.setProperty("--primary-check", "rgb(49, 46, 129)");
+      root.style.setProperty("--background-modal", "#f6f6f6");
+      root.style.setProperty("--white-color-outline", "#fff");
+      root.style.setProperty("--input-color", "#fff");
+      root.style.setProperty(
+        "--box-shadow-item",
+        "1px 1px 20px rgba(0, 0, 0, 0.1) !important"
+      );
     }
+  }, [darkMode]);
+
+  const toggleDarkMode = (event) => {
+    if (event.target.checked) {
+      setDarkMode(true);
+    } else {
+      setDarkMode(false);
+    }
+
+    // Update CSS variables based on dark mode
+
+    // if (darkMode === false) {
+    // root.style.setProperty("--primary-color", "rgba(49, 46, 129, 1)");
+    // root.style.setProperty("--primary-icon", "rgba(49, 46, 129, 1)");
+    // root.style.setProperty("--primary-light", "rgba(129, 127, 199, 0.314)");
+    // root.style.setProperty("--divider-primary", "rgba(129, 127, 199, 0.314)");
+    // root.style.setProperty("--primary-light2", "rgba(129, 127, 199, 0.5)");
+    // root.style.setProperty("--primary-dark", "rgba(44, 41, 116)");
+    // root.style.setProperty("--black-color", "#000");
+    // root.style.setProperty("--text-color", "#1e293b");
+    // root.style.setProperty("--bg-white-color", "#f6f6f6");
+    // root.style.setProperty("--white-color", "#fff");
+    // root.style.setProperty("--bg-white-item", "#f6f6f6");
+    // root.style.setProperty("--btn-primary", "#44418c");
+    // root.style.setProperty("--btn-edit", "#1e293b");
+    // root.style.setProperty("--red-color", "#d32f2f");
+    // root.style.setProperty("--green-color", "#2e7d32");
+    // root.style.setProperty("--grey-border", "#b3b3b3");
+    // root.style.setProperty("--grey-border-dash", "#b3b3b3");
+    // root.style.setProperty("--grey-border-item", "rgba(226, 232, 240, 0.9)");
+    // root.style.setProperty("--grey-border-input", "rgba(49, 46, 129, 1)");
+    // root.style.setProperty("--grey-color-text", "#64748b");
+    // root.style.setProperty("--grey-bg", "#e2e8f0");
+    // root.style.setProperty("--primary-check", "rgb(49, 46, 129)");
+    // root.style.setProperty("--background-modal", "#f6f6f6");
+    // root.style.setProperty("--white-color-outline", "#fff");
+    // root.style.setProperty("--input-color", "#fff");
+    // root.style.setProperty(
+    //   "--box-shadow-item",
+    //   "1px 1px 20px rgba(0, 0, 0, 0.1) !important"
+    // );
+    // } else {
+    // root.style.setProperty("--primary-color", "rgb(37, 42, 46)");
+    // root.style.setProperty("--primary-color", "#2c3135");
+    // root.style.setProperty("--primary-icon", "#f6f6f6");
+    // root.style.setProperty("--primary-light", "#18191a");
+    // root.style.setProperty("--primary-light2", "#202528");
+    // root.style.setProperty("--primary-dark", "#24282a");
+    // root.style.setProperty("--divider-primary", "rgba(255, 255, 255, 0.3)");
+    // root.style.setProperty("--black-color", "#18191a");
+    // root.style.setProperty("--bg-white-color", "rgb(32, 37, 41)");
+    // root.style.setProperty("--text-color", "white");
+    // root.style.setProperty("--white-color", "#fff");
+    // root.style.setProperty("--bg-white-item", "#2c3135");
+    // root.style.setProperty("--btn-edit", "#f6f6f6");
+    // root.style.setProperty("--btn-primary", "#203f65");
+    // root.style.setProperty("--red-color", "#ff4428");
+    // root.style.setProperty("--green-color", "#3aa240");
+    // root.style.setProperty("--grey-color-text", "#b2b2b2");
+    // root.style.setProperty("--grey-border", "rgba(255, 255, 255, 0.3)");
+    // root.style.setProperty("--grey-border-item", "rgba(226, 232, 240, 0.1)");
+    // root.style.setProperty("--grey-border-dash", "rgba(179, 179, 179, 0.3)");
+    // root.style.setProperty("--grey-border-input", "rgba(226, 232, 240, 0.6)");
+    // root.style.setProperty("--grey-bg", "#202529");
+    // root.style.setProperty("--primary-check", "rgb(255, 255, 255)");
+    // root.style.setProperty("--background-modal", "#252a2e");
+    // root.style.setProperty("--white-color-outline", "#2c3135");
+    // root.style.setProperty("--required-bg", "rgb(226, 232, 240)");
+    // root.style.setProperty("--input-color", "#181a1b");
+    // root.style.setProperty("--box-shadow-item", "none");
+    // }
   };
 
   return (
@@ -144,7 +220,8 @@ export default function SwitchMode() {
           type="checkbox"
           role="switch"
           name="dark"
-          onClick={toggleDarkMode}
+          onChange={toggleDarkMode}
+          checked={darkMode}
         />
         <svg
           className={cx("switch__icon")}
