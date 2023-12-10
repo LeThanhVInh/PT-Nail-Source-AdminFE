@@ -43,7 +43,7 @@ const TextFieldCustom = styled(TextField)({
   backgroundColor: "var(--input-color)",
   color: "var(--text-color)",
   margin: "10px 0",
-
+  borderRadius: "5px",
   input: {
     color: "var(--text-color)",
     padding: "0 14px",
@@ -120,6 +120,7 @@ const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
   backgroundColor: "var(--input-color)",
   margin: "10px 0",
   color: "var(--text-color)",
+  borderRadius: "5px",
 
   svg: {
     color: "var(--text-color)",

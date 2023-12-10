@@ -80,7 +80,7 @@ export default function SwitchMode() {
         "--box-shadow-item",
         "1px 1px 20px rgba(0, 0, 0, 0.1) !important"
       );
-      root.style.setProperty("--grey-shadow", "none");
+      root.style.setProperty("--grey-shadow", "#cdcdcd");
     }
   }, [darkMode]);
 
