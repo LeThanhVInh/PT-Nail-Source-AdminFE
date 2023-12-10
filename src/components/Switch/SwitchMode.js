@@ -28,6 +28,7 @@ export default function SwitchMode() {
       root.style.setProperty("--bg-white-color", "rgb(32, 37, 41)");
       root.style.setProperty("--text-color", "white");
       root.style.setProperty("--white-color", "#fff");
+      root.style.setProperty("--white-dark", "#202529");
       root.style.setProperty("--bg-white-item", "#2c3135");
       root.style.setProperty("--btn-edit", "#f6f6f6");
       root.style.setProperty("--btn-primary", "#203f65");
@@ -40,7 +41,6 @@ export default function SwitchMode() {
       root.style.setProperty("--grey-border-input", "rgba(226, 232, 240, 0.6)");
       root.style.setProperty("--grey-bg", "#202529");
       root.style.setProperty("--grey", "#808080");
-
       root.style.setProperty("--primary-check", "rgb(255, 255, 255)");
       root.style.setProperty("--background-modal", "#252a2e");
       root.style.setProperty("--white-color-outline", "#2c3135");
@@ -60,6 +60,7 @@ export default function SwitchMode() {
       root.style.setProperty("--text-color", "#1e293b");
       root.style.setProperty("--bg-white-color", "#f6f6f6");
       root.style.setProperty("--white-color", "#fff");
+      root.style.setProperty("--white-dark", "#fff");
       root.style.setProperty("--bg-white-item", "#f6f6f6");
       root.style.setProperty("--btn-primary", "#44418c");
       root.style.setProperty("--btn-edit", "#1e293b");

@@ -55,7 +55,7 @@ main {
         width: 100%;
         border-radius: 10px;
         box-shadow: $shadow;
-        background-color: var(--bg-white-item);
+        background-color: var(--white-color-outline);
 
         .button-group {
           display: flex;
@@ -73,10 +73,10 @@ main {
 
           button {
             border-radius: 10px;
-            box-shadow: var(--box-shadow);
+            box-shadow: $shadow;
             margin: 10px 10px !important;
             border: 2px solid var(--grey-border-half);
-            background-color: var(--bg-white-color);
+            background-color: var(--white-dark);
             -webkit-transition: all 0.2s linear;
             -ms-transition: all 0.2s linear;
             transition: all 0.2s linear;
@@ -132,14 +132,14 @@ main {
         flex-wrap: wrap;
         border-radius: 10px;
         box-shadow: $shadow;
-        background-color: var(--bg-white-color);
+        background-color: var(--white-dark);
         flex-grow: 1;
 
         .item-card {
           display: block;
           margin: 10px;
           box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-          background-color: var(--bg-white-item);
+          background-color: var(--white-color-outline);
 
           &:hover {
             cursor: pointer;
@@ -181,7 +181,7 @@ main {
           width: 100%;
           border-radius: 10px;
           box-shadow: $shadow;
-          background-color: var(--bg-white-item);
+          background-color: var(--white-color-outline);
           padding: 0 10px 10px 10px;
           margin-top: 10px;
 
@@ -192,7 +192,7 @@ main {
             box-shadow: none;
             padding: 5px 0;
             border-radius: 0;
-            background-color: var(--bg-white-color);
+            background-color: var(--white-dark);
             margin: 10px 0;
             padding: 0 5px;
             border-radius: 10px;
@@ -214,7 +214,7 @@ main {
           margin: 10px 0 0 0;
 
           .total {
-            background-color: var(--bg-white-item);
+            background-color: var(--white-color-outline);
             padding: 10px;
             border-radius: 10px;
             box-shadow: $shadow;
@@ -222,7 +222,7 @@ main {
 
           .payment {
             margin-top: 10px;
-            background-color: var(--bg-white-item);
+            background-color: var(--white-color-outline);
             padding: 10px;
             border-radius: 10px;
             box-shadow: $shadow;
@@ -232,7 +232,7 @@ main {
             }
 
             button {
-              background-color: var(--bg-white-color);
+              background-color: var(--white-dark);
               border: none !important;
               box-shadow: $shadow;
               -webkit-transition: all 0.2s linear;
