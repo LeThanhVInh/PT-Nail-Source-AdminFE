@@ -62,12 +62,10 @@ export const ToggleButtonPayment = styled(ToggleButton)(({ theme }) => ({
   height: "70px",
   width: "80px",
   borderRadius: "10px !important",
-
   margin: "5px 10px 0 0 !important",
   border: "1px solid red !important",
   flexDirection: "column",
   color: "var(--grey-color-text)",
-
   ":hover": {
     backgroundColor: "var(--input-color) !important",
     color: "var(--primary-icon)",

@@ -202,3 +202,24 @@ body {
     }
   }
 }
+
+.MuiPaper-root {
+  &.MuiPickersPopper-paper {
+    background-color: var(--input-color);
+    color: var(--text-color);
+    svg,
+    button,
+    span {
+      color: var(--text-color);
+    }
+    button {
+      &.MuiPickersDay-today {
+        border: 1px solid var(--grey);
+      }
+      &.Mui-selected {
+        color: var(--white-color);
+        background-color: var(--btn-primary);
+      }
+    }
+  }
+}

@@ -69,14 +69,15 @@ export const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
     },
   },
 
-  "&.MuiPaper-root-MuiAutocomplete-paper": {
-    backgroundColor: "red",
+  "& + .MuiAutocomplete-popper .MuiPaper-root": {
+    backgroundColor: "var(--input-color)",
+    color: "var(--text-color)",
   },
 
   "& + .MuiAutocomplete-popper .MuiAutocomplete-option": {
     "&.Mui-focused": {
-      color: "var(--white-color)",
-      backgroundColor: "var(--btn-primary)",
+      color: "var(--text-color)",
+      backgroundColor: "var(--background-modal)",
     },
 
     '&[aria-selected="true"]': {

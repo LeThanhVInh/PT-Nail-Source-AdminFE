@@ -1,28 +1,26 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import Select from "react-select";
-import Box from "@mui/material/Box";
-// import ClearIcon from "@mui/icons-material/Clear";
 import { styled } from "@mui/system";
-import RadioGroup from "@mui/material/RadioGroup";
 
-// import Divider from "@mui/material/Divider";
-import { Typography } from "@mui/material";
-import Radio from "@mui/material/Radio";
-import FormControl from "@mui/material/FormControl";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
-import Checkbox from "@mui/material/Checkbox";
+import {
+  Box,
+  Radio,
+  RadioGroup,
+  FormControl,
+  FormGroup,
+  Checkbox,
+  FormControlLabel,
+  Typography,
+} from "@mui/material";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-import classNames from "classnames/bind";
-import styles from "./WrittenDetails.module.scss";
 import { StyledAutocomplete } from "../../../components/CustomMUI/SelectCustom";
 import { TextFieldProductEdit } from "../../../components/CustomMUI/ProductEdit/TextFieldProductEdit";
-
+import { DatePickerCustom } from "../../../components/CustomMUI/DatePickerCustom";
+import classNames from "classnames/bind";
+import styles from "./WrittenDetails.module.scss";
 const cx = classNames.bind(styles);
 
 //Dummy Data
@@ -45,14 +43,6 @@ const categoryList = [
 ];
 
 //Custom
-const theme = (theme) => ({
-  ...theme,
-  colors: {
-    ...theme.colors,
-    primary25: "#f3f3f3",
-    primary: "var(--primary-color)",
-  },
-});
 
 const TypographyCustom = styled(Typography)({
   color: "var(--text-color)",
@@ -70,90 +60,12 @@ const FormControlLabelCustom = styled(FormControlLabel)({
   },
 });
 
-const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
-  backgroundColor: "var(--input-color)",
-  margin: "10px 0",
-  borderRadius: "5px",
-  color: "var(--text-color)",
-
-  svg: {
-    color: "var(--text-color)",
-  },
-  span: {
-    color: "var(--text-color)",
-  },
-  label: {
-    color: "var(--text-color)",
-  },
-  input: {
-    padding: "7.5px 14px",
-  },
-  "& .MuiInputLabel-outlined:not(.MuiInputLabel-shrink)": {
-    transform: "translate(12px, 8px) scale(1);",
-  },
-
-  "&.Mui-focused .MuiInputLabel-outlined": {
-    color: "var(--text-color)",
-  },
-
-  "& .MuiInputBase-input": {
-    color: "var(--text-color)",
-    input: {
-      color: "var(--text-color)",
-    },
-  },
-
-  "& .MuiInputBase-root": {
-    "&:hover fieldset": {
-      borderColor: "var(--grey-border-input)",
-    },
-  },
-
-  "& .MuiAutocomplete-inputRoot": {
-    color: "var(--text-color)",
-    // height: "38px",
-    '&[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input:first-of-type': {
-      padding: "0 0 0 6px",
-    },
-    "& .MuiOutlinedInput-notchedOutline": {
-      borderColor: "var(--grey-color-input)",
-    },
-    "&:hover .MuiOutlinedInput-notchedOutline": {
-      borderColor: "var(--grey-color-input)",
-    },
-    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "var(--grey-border-input)",
-    },
-  },
-
-  "& .Mui-focused": {
-    color: "var(--text-color)",
-    fieldset: {
-      "&.MuiOutlinedInput-notchedOutline, &.css-1d3z3hw-MuiOutlinedInput-notchedOutline":
-        {
-          borderColor: "var(--grey-border-input)",
-        },
-      ":hover": {
-        borderColor: "var(--grey-border-input)",
-      },
-    },
-  },
-  "&.MuiPickersFadeTransitionGroup-root": {
-    backgroundColor: "#209214 !important",
-
-    "&.MuiButtonBase-root-MuiPickersDay-root, &.Mui-selected": {
-      backgroundColor: "#209214 !important",
-    },
-  },
-}));
-
 function WrittenDetails(props) {
   const {
     handleSubmit,
     formState: {},
   } = useForm();
 
-  const [isClearable, setIsClearable] = useState(true);
   const [value, setValue] = useState("male");
 
   const handleChange = (event) => {
