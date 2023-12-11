@@ -57,6 +57,11 @@ function Header() {
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
+      sx={{
+        "& .MuiPaper-root .MuiPopover-paper .MuiMenu-paper": {
+          backgroundColor: "red",
+        },
+      }}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
@@ -82,12 +87,13 @@ function Header() {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails">
-          <Badge badgeContent={4}>
-            <MailIcon />
+          <Badge badgeContent={4} color="error">
+            <MailIcon sx={{ color: "var(--btn-edit)" }} />
           </Badge>
         </IconButton>
         <p>Messages</p>
       </MenuItem>
+
       <MenuItem>
         <IconButton
           size="large"
@@ -95,7 +101,7 @@ function Header() {
           color="inherit"
         >
           <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
+            <NotificationsIcon sx={{ color: "var(--btn-edit)" }} />
           </Badge>
         </IconButton>
         <p>Notifications</p>

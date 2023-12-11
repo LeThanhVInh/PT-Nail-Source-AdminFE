@@ -13,12 +13,12 @@ export const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
   },
   [theme.breakpoints.up("md")]: {
     "& .MuiAutocomplete-inputRoot": {
-      height: "38px",
+      minHeight: "38px",
     },
   },
   [theme.breakpoints.up("lg")]: {
     "& .MuiAutocomplete-inputRoot": {
-      height: "38px",
+      minHeight: "38px",
     },
   },
 
@@ -63,9 +63,10 @@ export const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
   },
 
   "& .MuiChip-root": {
-    color: "var(--text-color)",
+    backgroundColor: "var(--btn-primary)",
+    color: "var(--white-color)",
     svg: {
-      color: "var(--text-color)",
+      color: "var(--white-color)",
     },
   },
 

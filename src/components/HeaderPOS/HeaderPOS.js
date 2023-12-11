@@ -28,7 +28,6 @@ import {
   ArrowDropDown as ArrowDropDownIcon,
 } from "@mui/icons-material";
 
-import { TextFieldNoneBorder } from "../CustomMUI/TextFieldCustom";
 import SwitchMode from "../Switch/SwitchMode";
 
 //#region const
@@ -41,12 +40,10 @@ const options = [
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
-
   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "60%",
   flexGrow: "1",
-
   "& .MuiBox-root": {
     maxWidth: "60%",
   },
@@ -70,13 +67,11 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "var(--btn-edit)",
-
   "& .MuiInputBase-input": {
     backgroundColor: "var(--input-color)",
     borderRadius: "999px",
     padding: theme.spacing(1, 1, 1, 0),
     maxWidth: "50%",
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",

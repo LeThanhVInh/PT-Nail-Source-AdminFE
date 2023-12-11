@@ -95,7 +95,7 @@ export const ToggleButtonSelectSize = styled(ToggleButton)(({ theme }) => ({
   margin: "5px 10px !important",
   flexDirection: "column",
   flexWrap: "wrap",
-  color: "var(--grey-color)",
+  color: "var(--grey)",
   backgroundColor: "var(--bg-white-color)",
   border: "1px solid transparent !important",
   ":hover": {

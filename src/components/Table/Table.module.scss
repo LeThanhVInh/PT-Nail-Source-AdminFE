@@ -24,6 +24,9 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    .action-search {
+      margin-right: 8px;
+    }
   }
   .images-table {
     object-fit: cover;

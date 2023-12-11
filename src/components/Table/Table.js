@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-
+import ModalEdit from "../Modal/ModalEdit";
 import { styled } from "@mui/material/styles";
 import {
   Table,
@@ -8,16 +8,13 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@mui/material";
-import {
   Button,
   IconButton,
   Stack,
-  InputBase,
   Checkbox,
   Chip,
 } from "@mui/material";
-import { tableCellClasses } from "@mui/material/TableCell";
+
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
@@ -26,52 +23,19 @@ import {
   TaskAlt as TaskAltIcon,
 } from "@mui/icons-material";
 
+import { tableCellClasses } from "@mui/material/TableCell";
 import classNames from "classnames/bind";
 import styles from "./Table.module.scss";
-import ModalEdit from "../Modal/ModalEdit";
+
+import {
+  SearchIconWrapperCustom,
+  SearchMediumCustom,
+  StyledInputBaseCustom,
+} from "../CustomMUI/SearchMedium";
 
 const cx = classNames.bind(styles);
 
 //#region const variable
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: "var(--bg-white-color)",
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  color: "var(--btn-edit)",
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  zIndex: 1,
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "var(--btn-edit)",
-  "& .MuiInputBase-input": {
-    backgroundColor: "var(--bg-white-item)",
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   color: "var(--text-color)",
@@ -227,18 +191,23 @@ export default function Tables() {
                 </Stack>
               </div>
               <div className={cx("action-search", "pt-10")}>
-                <Search sx={{ boxShadow: "var(--box-shadow)", margin: 0 }}>
-                  <SearchIconWrapper>
+                <SearchMediumCustom
+                  sx={{
+                    boxShadow: "0px 0px 5px var(--grey-shadow)",
+                    margin: 0,
+                  }}
+                >
+                  <SearchIconWrapperCustom>
                     <SearchIcon />
-                  </SearchIconWrapper>
-                  <StyledInputBase
+                  </SearchIconWrapperCustom>
+                  <StyledInputBaseCustom
                     placeholder="Search…"
                     inputProps={{ "aria-label": "search" }}
                     onChange={(e) => {
                       console.log(e.target.value);
                     }}
                   />
-                </Search>
+                </SearchMediumCustom>
               </div>
             </div>
           </div>

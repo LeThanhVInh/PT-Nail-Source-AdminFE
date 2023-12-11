@@ -76,10 +76,6 @@ body {
   max-height: 100vh;
 }
 
-.dark_mode {
-  background-color: #000 !important;
-}
-
 //Scrollbar CSS
 html *::-webkit-scrollbar {
   border-radius: 0;
@@ -204,6 +200,11 @@ body {
 }
 
 .MuiPaper-root {
+  &.MuiPopover-paper {
+    background-color: var(--input-color);
+    color: var(--text-color);
+  }
+
   &.MuiPickersPopper-paper {
     background-color: var(--input-color);
     color: var(--text-color);

@@ -79,7 +79,7 @@
 
       &::after {
         content: "";
-        // background: rgb(78, 112, 226);
+        pointer-events: none;
         content: "";
         height: 2em;
         width: 6em;
@@ -91,7 +91,7 @@
       }
 
       &::before {
-        // background: rgb(78, 112, 226);
+        pointer-events: none;
         content: "";
         height: 2em;
         width: 6em;

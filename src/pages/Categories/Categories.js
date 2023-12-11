@@ -13,6 +13,11 @@ import {
 import classNames from "classnames/bind";
 import styles from "./Categories.module.scss";
 import { dataTablePadWidth } from "../../providers/constants";
+import {
+  SearchIconWrapperCustom,
+  SearchMediumCustom,
+  StyledInputBaseCustom,
+} from "../../components/CustomMUI/SearchMedium";
 
 const cx = classNames.bind(styles);
 
@@ -21,7 +26,6 @@ const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: "var(--bg-white-color)",
-
   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
@@ -147,18 +151,20 @@ function Categories() {
               </Stack>
             </div>
             <div className={cx("action-search", "pt-10")}>
-              <Search sx={{ boxShadow: "var(--box-shadow)", margin: 0 }}>
-                <SearchIconWrapper>
+              <SearchMediumCustom
+                sx={{ boxShadow: "0px 0px 5px var(--grey-shadow)", margin: 0 }}
+              >
+                <SearchIconWrapperCustom>
                   <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
+                </SearchIconWrapperCustom>
+                <StyledInputBaseCustom
                   placeholder="Search…"
                   inputProps={{ "aria-label": "search" }}
                   onChange={(e) => {
                     console.log(e.target.value);
                   }}
                 />
-              </Search>
+              </SearchMediumCustom>
             </div>
           </div>
         </div>
