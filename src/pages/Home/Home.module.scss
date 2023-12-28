@@ -1,25 +1,166 @@
+@import '../../components/GlobalStyles/responsive.scss';
+
 .home-wrapper {
-  padding: 10px;
+  padding: 20px;
   // height: 80dvh;
-  .item-wrapper {
-    overflow: hidden;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    .item {
-      flex-grow: 1;
-      width: 300px;
-      height: 170px;
-      margin: 10px;
+  .transactions-wrap,
+  .general-wrapper,
+  .sales-report-wrap {
+    .title {
+      margin-bottom: 10px;
       display: flex;
-      align-items: center;
-      flex-direction: column;
-      justify-content: center;
-      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-      border-radius: 10px;
-      &:hover {
-        scale: 1.05;
-        transition: all ease-in 0.2s;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      color: var(--text-color);
+      padding-left: 10px;
+      h3 {
+        font-weight: 500;
+        align-self: center;
+      }
+    }
+  }
+  .general-wrapper {
+    .item-wrapper {
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      .item {
+        width: calc((100% / 4 - 20px));
+        @include x-tablet {
+          width: calc((100% / 2 - 20px));
+        }
+
+        margin: 10px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.08);
+        border-radius: 10px;
+        transition: all 0.3s ease-out 0s;
+        background-color: var(--white-color-outline);
+        &:hover {
+          scale: 1.05;
+        }
+        .info {
+          display: flex;
+          justify-content: space-between;
+          .parameter {
+            span {
+              display: flex;
+              align-items: center;
+              font-size: 12px;
+              background-color: var(--success-color);
+              padding: 3px 10px;
+              border-radius: 999px;
+              color: var(--white-color);
+            }
+          }
+          .parameter {
+            &.down {
+              span {
+                background-color: var(--red-color);
+              }
+            }
+          }
+        }
+        .count {
+          margin-top: 20px;
+          font-size: 32px;
+          color: var(--text-color);
+        }
+        .desc {
+          color: var(--grey-color-text);
+        }
+      }
+    }
+  }
+
+  .chart-wrapper {
+    .sales-report-wrap {
+      .container {
+        background-color: var(--white-color-outline);
+        border-radius: 10px;
+        padding: 10px;
+        min-height: 45vh;
+        height: 420px;
+        @include x-tablet {
+          height: unset;
+        }
+        .info {
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          .info-wrap {
+            display: flex;
+            .total-wrap {
+              display: flex;
+              flex-direction: column;
+              padding: 3px 20px;
+              font-size: 20px;
+              &:first-child {
+                border-right: 2px dashed var(--grey-border-item);
+              }
+              .total {
+                color: var(--grey-color-text);
+                &.current {
+                  color: var(--primary-check);
+                }
+              }
+              .month {
+                font-size: 14px;
+                color: var(--grey-color-text);
+              }
+            }
+          }
+        }
+        .chart-container {
+          height: 100%;
+          max-width: 100%;
+          .chart-content {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            flex-direction: column;
+            // .chart-wrap {
+            //   width: 200px;
+            // }
+            .chart-desc {
+              margin-top: 20px;
+              .desc-wrap {
+                .desc-item {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  padding: 5px 30px;
+                  .dot {
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    margin-right: 10px;
+                    &.color_1 {
+                      background-color: var(--blue-color);
+                      content: '';
+                    }
+                    &.color_2 {
+                      background-color: var(--success-color);
+                    }
+                    &.color_3 {
+                      background-color: var(--red-color);
+                    }
+                  }
+                }
+
+                .desc-text,
+                .percent {
+                  color: var(--text-color);
+                }
+                .percent {
+                  margin-left: auto;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

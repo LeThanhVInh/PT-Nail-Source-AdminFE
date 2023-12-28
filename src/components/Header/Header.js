@@ -1,25 +1,28 @@
-import * as React from "react";
+import React, { useState } from "react";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Badge,
+  MenuItem,
+  Menu,
+  Divider,
+} from "@mui/material";
 
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
+import {
+  AccountCircle,
+  Mail as MailIcon,
+  Notifications as NotificationsIcon,
+  MoreVert as MoreIcon,
+} from "@mui/icons-material";
 
-import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import Divider from "@mui/material/Divider";
 import SwitchMode from "../Switch/SwitchMode";
 
 function Header() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);

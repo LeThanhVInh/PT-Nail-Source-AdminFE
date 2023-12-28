@@ -8,18 +8,23 @@ import {
   ToggleButtonGroup,
   Button,
 } from "@mui/material";
-import { Clear as ClearIcon } from "@mui/icons-material";
-import { Remove as RemoveIcon, Add as AddIcon } from "@mui/icons-material";
+
+import {
+  Clear as ClearIcon,
+  Remove as RemoveIcon,
+  Add as AddIcon,
+} from "@mui/icons-material";
+
 import Grid from "@mui/material/Unstable_Grid2";
 
-import classNames from "classnames/bind";
-import styles from "./ModalItem.module.scss";
 import { ToggleButtonSelectSize } from "../../CustomMUI/ButtonCustom";
 import constants, {
   modalSizes,
   getSizeOfModal,
 } from "../../../providers/constants";
 
+import classNames from "classnames/bind";
+import styles from "./ModalItem.module.scss";
 const cx = classNames.bind(styles);
 
 function ModalItem(props, ref) {

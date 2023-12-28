@@ -1,5 +1,4 @@
-import Button from "@mui/material/Button";
-import { ToggleButton } from "@mui/material";
+import { ToggleButton, Button } from "@mui/material";
 import { styled } from "@mui/system";
 
 export const DefaultButton = styled(Button)(({ theme }) => ({

@@ -1,61 +1,52 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { styled } from "@mui/system";
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { styled } from '@mui/system';
 
-import {
-  Box,
-  Radio,
-  RadioGroup,
-  FormControl,
-  FormGroup,
-  Checkbox,
-  FormControlLabel,
-  Typography,
-} from "@mui/material";
+import { Box, Radio, RadioGroup, FormControl, FormGroup, Checkbox, FormControlLabel, Typography } from '@mui/material';
 
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-import { StyledAutocomplete } from "../../../components/CustomMUI/SelectCustom";
-import { TextFieldProductEdit } from "../../../components/CustomMUI/ProductEdit/TextFieldProductEdit";
-import { DatePickerCustom } from "../../../components/CustomMUI/DatePickerCustom";
-import classNames from "classnames/bind";
-import styles from "./WrittenDetails.module.scss";
+import { StyledAutocomplete } from '../../../components/CustomMUI/SelectCustom';
+import { TextFieldProductEdit } from '../../../components/CustomMUI/ProductEdit/TextFieldProductEdit';
+import { DatePickerCustom } from '../../../components/CustomMUI/DatePickerCustom';
+import classNames from 'classnames/bind';
+import styles from './WrittenDetails.module.scss';
 const cx = classNames.bind(styles);
 
 //Dummy Data
 const categoryList = [
   {
     id: 1,
-    value: "PC-Laptop",
-    label: "Pê Cê & Láp Tóp",
+    value: 'PC-Laptop',
+    label: 'Pê Cê & Láp Tóp',
   },
   {
     id: 2,
-    value: "Electronic",
-    label: "Ê Lếc Trô Níc",
+    value: 'Electronic',
+    label: 'Ê Lếc Trô Níc',
   },
   {
     id: 3,
-    value: "Fashion-Make-Up",
-    label: "Phát sành & Mếch Úp",
+    value: 'Fashion-Make-Up',
+    label: 'Phát sành & Mếch Úp',
   },
 ];
 
 //Custom
 
 const TypographyCustom = styled(Typography)({
-  color: "var(--text-color)",
-  margin: "10px 0",
-  fontSize: "14px",
+  color: 'var(--text-color)',
+  margin: '10px 0',
+  fontSize: '14px',
 });
 
 const FormControlLabelCustom = styled(FormControlLabel)({
-  color: "var(--text-color)",
+  color: 'var(--text-color)',
 
   span: {
-    "&.Mui-checked": {
-      color: "var(--primary-check)",
+    '&.Mui-checked': {
+      color: 'var(--primary-check)',
     },
   },
 });
@@ -66,7 +57,7 @@ function WrittenDetails(props) {
     formState: {},
   } = useForm();
 
-  const [value, setValue] = useState("male");
+  const [value, setValue] = useState('male');
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -78,29 +69,21 @@ function WrittenDetails(props) {
 
   return (
     <>
-      <Box sx={{ overflow: "auto", height: "100%" }}>
-        <div className={cx("wrapper")}>
+      <Box sx={{ overflow: 'auto', height: '100%' }}>
+        <div className={cx('wrapper')}>
           <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-            <div className={cx("add-new-container")}>
-              <div className={cx("content-items")}>
-                <div className={cx("item")}>
-                  <div className={cx("item-title-content")}>
+            <div className={cx('add-new-container')}>
+              <div className={cx('content-items')}>
+                <div className={cx('item')}>
+                  <div className={cx('item-title-content')}>
                     <Box>
                       <TypographyCustom>Written By</TypographyCustom>
-                      <FormControl
-                        sx={{ minWidth: 120 }}
-                        size="small"
-                        fullWidth
-                      >
+                      <FormControl sx={{ minWidth: 120 }} size="small" fullWidth>
                         <StyledAutocomplete
                           disablePortal
                           options={categoryList}
                           renderInput={(params) => (
-                            <TextFieldProductEdit
-                              {...params}
-                              placeholder="Written By"
-                              fullWidth
-                            />
+                            <TextFieldProductEdit {...params} placeholder="Written By" fullWidth />
                           )}
                         />
                       </FormControl>
@@ -109,26 +92,18 @@ function WrittenDetails(props) {
                     <Box>
                       <TypographyCustom>Post Date</TypographyCustom>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePickerCustom className={cx("date-time-picker")} />
+                        <DatePickerCustom className={cx('date-time-picker')} />
                       </LocalizationProvider>
                     </Box>
 
                     <Box>
                       <TypographyCustom>Categories</TypographyCustom>
-                      <FormControl
-                        sx={{ minWidth: 120 }}
-                        size="small"
-                        fullWidth
-                      >
+                      <FormControl sx={{ minWidth: 120 }} size="small" fullWidth>
                         <StyledAutocomplete
                           disablePortal
                           options={categoryList}
                           renderInput={(params) => (
-                            <TextFieldProductEdit
-                              {...params}
-                              placeholder="Categories"
-                              fullWidth
-                            />
+                            <TextFieldProductEdit {...params} placeholder="Categories" fullWidth />
                           )}
                         />
                       </FormControl>
@@ -136,23 +111,13 @@ function WrittenDetails(props) {
 
                     <Box>
                       <TypographyCustom>Tags</TypographyCustom>
-                      <FormControl
-                        sx={{ minWidth: 120 }}
-                        size="small"
-                        fullWidth
-                      >
+                      <FormControl sx={{ minWidth: 120 }} size="small" fullWidth>
                         <StyledAutocomplete
                           disablePortal
                           multiple
                           filterSelectedOptions
                           options={categoryList}
-                          renderInput={(params) => (
-                            <TextFieldProductEdit
-                              {...params}
-                              placeholder="Tags"
-                              fullWidth
-                            />
-                          )}
+                          renderInput={(params) => <TextFieldProductEdit {...params} placeholder="Tags" fullWidth />}
                           size="small"
                         />
                       </FormControl>
@@ -162,24 +127,15 @@ function WrittenDetails(props) {
                       <FormControl>
                         <TypographyCustom>Radio</TypographyCustom>
 
-                        <RadioGroup
-                          row
-                          name="controlled-radio-buttons-group"
-                          value={value}
-                          onChange={handleChange}
-                        >
+                        <RadioGroup row name="controlled-radio-buttons-group" value={value} onChange={handleChange}>
                           <FormControlLabelCustom
                             value="male"
-                            control={
-                              <Radio sx={{ color: "var(--primary-check)" }} />
-                            }
+                            control={<Radio sx={{ color: 'var(--primary-check)' }} />}
                             label="Male"
                           />
                           <FormControlLabelCustom
                             value="female"
-                            control={
-                              <Radio sx={{ color: "var(--primary-check)" }} />
-                            }
+                            control={<Radio sx={{ color: 'var(--primary-check)' }} />}
                             label="Female"
                           />
                         </RadioGroup>
@@ -196,9 +152,9 @@ function WrittenDetails(props) {
                               defaultChecked
                               size="small"
                               sx={{
-                                color: "var(--primary-check)",
-                                "&.Mui-checked": {
-                                  color: "var(--primary-check)",
+                                color: 'var(--primary-check)',
+                                '&.Mui-checked': {
+                                  color: 'var(--primary-check)',
                                 },
                               }}
                             />
@@ -206,11 +162,11 @@ function WrittenDetails(props) {
                           label={
                             <span
                               style={{
-                                fontSize: "14px",
-                                color: "var(--text-color)",
+                                fontSize: '14px',
+                                color: 'var(--text-color)',
                               }}
                             >
-                              {"Remember me"}
+                              {'Remember me'}
                             </span>
                           }
                           fontSize="14px"

@@ -95,11 +95,10 @@
 
             .img-item {
               position: relative;
+              transition: all 0.3s ease-out 0s;
               &:hover {
                 scale: 1.05;
-                transition: all ease-in 0.2s;
               }
-
               .img-item-icon {
                 position: absolute;
                 top: 0;

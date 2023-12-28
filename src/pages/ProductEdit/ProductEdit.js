@@ -1,43 +1,38 @@
-import { useState } from "react";
-import ScrollIntoView from "react-scroll-into-view";
+import { useState } from 'react';
+import ScrollIntoView from 'react-scroll-into-view';
 
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Unstable_Grid2";
-import { styled } from "@mui/system";
-import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Button from "@mui/material/Button";
-import { Stack } from "@mui/material";
+import { styled } from '@mui/system';
+import Grid from '@mui/material/Unstable_Grid2';
+import { Stack, Box, List, ListItemButton, ListItemText, Button } from '@mui/material';
 
-import ProductInformation from "./ProductInformation";
-import ProductDetail from "./ProductDetail";
-import UploadProduct from "./UploadProduct";
-import ProductManagement from "./ProductManagement";
-import classNames from "classnames/bind";
-import styles from "./ProductEdit.module.scss";
+import ProductInformation from './ProductInformation';
+import ProductDetail from './ProductDetail';
+import UploadProduct from './UploadProduct';
+import ProductManagement from './ProductManagement';
+import classNames from 'classnames/bind';
+import styles from './ProductEdit.module.scss';
 
 const cx = classNames.bind(styles);
 
 const StackCustom = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(1),
-  [theme.breakpoints.down("md")]: {
-    justifyContent: "center",
+  [theme.breakpoints.down('md')]: {
+    justifyContent: 'center',
   },
-  [theme.breakpoints.up("md")]: {
-    justifyContent: "center",
+  [theme.breakpoints.up('md')]: {
+    justifyContent: 'center',
   },
-  [theme.breakpoints.up("lg")]: {
-    justifyContent: "flex-end",
+  [theme.breakpoints.up('lg')]: {
+    justifyContent: 'flex-end',
   },
 }));
 
 const ListItemButtonCustom = styled(ListItemButton)({
-  minWidth: "35px",
-  borderLeft: "2px solid #64748b5c",
-  "&.Mui-selected": {
-    color: "var(--primary-color)",
-    borderLeft: "2px solid var(--primary-check)",
+  minWidth: '35px',
+  borderLeft: '2px solid #64748b5c',
+  '&.Mui-selected': {
+    color: 'var(--primary-color)',
+    borderLeft: '2px solid var(--primary-check)',
   },
   // "&.Mui-focusVisible": {
   //   // backgroundColor: "#2e8b57",
@@ -46,33 +41,33 @@ const ListItemButtonCustom = styled(ListItemButton)({
 });
 
 const ListItemTextCustom = styled(ListItemText)({
-  color: "var(--grey-color-text)",
+  color: 'var(--grey-color-text)',
   span: {
-    fontSize: "14px",
-    lineHeight: "14px",
+    fontSize: '14px',
+    lineHeight: '14px',
   },
 });
 
 const ButtonCustom = styled(Button)(({ theme }) => ({
-  marginBottom: "20px",
-  color: "var(--primary-check)",
-  width: "208px",
-  height: "46px",
-  fontSize: "14px",
-  textTransform: "capitalize",
-  borderColor: "var(--gray-color)",
+  marginBottom: '20px',
+  color: 'var(--primary-check)',
+  width: '208px',
+  height: '46px',
+  fontSize: '14px',
+  textTransform: 'capitalize',
+  borderColor: 'var(--gray-color)',
   // flexGrow: 1,
-  marginLeft: "20px",
-  ":hover": {
-    borderColor: "var(--primary-check)",
+  marginLeft: '20px',
+  ':hover': {
+    borderColor: 'var(--primary-check)',
   },
-  [theme.breakpoints.down("md")]: {
+  [theme.breakpoints.down('md')]: {
     flexGrow: 1,
   },
-  [theme.breakpoints.up("md")]: {
+  [theme.breakpoints.up('md')]: {
     flexGrow: 1,
   },
-  [theme.breakpoints.up("lg")]: {
+  [theme.breakpoints.up('lg')]: {
     flexGrow: 0,
   },
 }));
@@ -87,71 +82,60 @@ function ProductEdit() {
   };
 
   return (
-    <div
-      className={cx(
-        "products-edit-wrapper",
-        "animate__animated animate__fadeInRight animate__fast"
-      )}
-    >
-      <div className={cx("title")}>
+    <div className={cx('products-edit-wrapper', 'animate__animated animate__fadeInRight animate__fast')}>
+      <div className={cx('title')}>
         <h3>Product Edit</h3>
       </div>
-      <div className={cx("upload-product")}>
+      <div className={cx('upload-product')}>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={1}>
             <Grid
               xs={10}
               sx={{
                 width: {
-                  xs: "100%",
-                  md: "100%",
-                  lg: "100%",
-                  xl: "calc(100% * 10 / var(--Grid-columns))",
+                  xs: '100%',
+                  md: '100%',
+                  lg: '100%',
+                  xl: 'calc(100% * 10 / var(--Grid-columns))',
                 },
               }}
             >
-              <div id="section-1" style={{ boxShadow: "var(--box-shadow)" }}>
+              <div id="section-1" style={{ boxShadow: 'var(--box-shadow)' }}>
                 <UploadProduct />
               </div>
-              <div id="section-2" style={{ boxShadow: "var(--box-shadow)" }}>
+              <div id="section-2" style={{ boxShadow: 'var(--box-shadow)' }}>
                 <ProductInformation />
               </div>
-              <div id="section-3" style={{ boxShadow: "var(--box-shadow)" }}>
+              <div id="section-3" style={{ boxShadow: 'var(--box-shadow)' }}>
                 <ProductDetail />
               </div>
-              <div id="section-4" style={{ boxShadow: "var(--box-shadow)" }}>
+              <div id="section-4" style={{ boxShadow: 'var(--box-shadow)' }}>
                 <ProductManagement />
               </div>
 
               <StackCustom
                 direction="row"
                 sx={{
-                  marginTop: "10px",
-                  display: "flex",
-                  flexWrap: "wrap",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
+                  marginTop: '10px',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  justifyContent: 'flex-end',
+                  alignItems: 'center',
                 }}
               >
-                <ButtonCustom
-                  variant="outlined"
-                  sx={{ borderColor: "var(--primary-check)" }}
-                >
+                <ButtonCustom variant="outlined" sx={{ borderColor: 'var(--primary-check)' }}>
                   Cancel
                 </ButtonCustom>
-                <ButtonCustom
-                  variant="outlined"
-                  sx={{ borderColor: "var(--primary-check)" }}
-                >
+                <ButtonCustom variant="outlined" sx={{ borderColor: 'var(--primary-check)' }}>
                   Save & Add New Product
                 </ButtonCustom>
                 <ButtonCustom
                   variant="contained"
                   sx={{
-                    backgroundColor: "var(--btn-primary)",
-                    color: "var(--white-color)",
-                    ":hover": {
-                      backgroundColor: "var(--btn-primary)",
+                    backgroundColor: 'var(--btn-primary)',
+                    color: 'var(--white-color)',
+                    ':hover': {
+                      backgroundColor: 'var(--btn-primary)',
                     },
                   }}
                 >
@@ -163,19 +147,19 @@ function ProductEdit() {
               xs={2}
               sx={{
                 display: {
-                  xs: "none",
-                  md: "none",
-                  lg: "none",
-                  xl: "block",
+                  xs: 'none',
+                  md: 'none',
+                  lg: 'none',
+                  xl: 'block',
                 },
               }}
             >
               <Box
                 sx={{
-                  width: "100%",
-                  maxWidth: "310px",
+                  width: '100%',
+                  maxWidth: '310px',
                   // bgcolor: "background.paper",
-                  position: "sticky",
+                  position: 'sticky',
 
                   top: 0,
                 }}

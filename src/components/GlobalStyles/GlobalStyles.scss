@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap');
+@import './responsive.scss';
 
 :root {
   --primary-color: rgba(49, 46, 129, 1);
@@ -15,6 +16,10 @@
 
   --red-color: #d32f2f;
   --green-color: #2e7d32;
+  --blue-color: #1e40af;
+  --pending-color: rgb(249, 115, 22);
+  --warning-color-2: rgb(250, 204, 21);
+  --success-color: rgb(132, 204, 22);
 
   --black-color: #000;
   --text-color: #1e293b;
@@ -44,9 +49,7 @@
   --scroll-bar-color: #312e8179;
   --box-shadow: 1px 1px 10px #0000000b !important;
   --box-shadow-item: 1px 1px 20px rgba(0, 0, 0, 0.1) !important;
-  --font-family: "Lexend", sans-serif;
-
-  // background-color: var(--primary-color);
+  --font-family: 'Lexend', sans-serif;
 
   --hue: 223;
   --primary: hsl(var(--hue), 90%, 50%);
@@ -108,7 +111,7 @@ body {
     padding: 8px 9px;
   }
 
-  .tippy-box[data-placment^="bottom"] > .tippy-arrow::before {
+  .tippy-box[data-placment^='bottom'] > .tippy-arrow::before {
     top: -8px;
   }
 }

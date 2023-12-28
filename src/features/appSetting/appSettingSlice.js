@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isDarkModeOn: false,
-  value: 0,
+  isDarkModeOn: localStorage.getItem("DarkMode")
+    ? JSON.parse(localStorage.getItem("DarkMode"))
+    : false,
 };
 
 export const appSetting = createSlice({
@@ -18,10 +19,16 @@ export const appSetting = createSlice({
     incrementByAmount: (state, action) => {
       state.value += action.payload;
     },
+    switchDarkMode: (state) => {
+      state.isDarkModeOn = !state.isDarkModeOn;
+      // console.log(state.isDarkModeOn);
+      localStorage.setItem("DarkMode", JSON.stringify(state.isDarkModeOn));
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = appSetting.actions;
+export const { increment, decrement, incrementByAmount, switchDarkMode } =
+  appSetting.actions;
 
 export default appSetting.reducer;
