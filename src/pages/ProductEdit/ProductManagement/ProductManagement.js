@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { FormControlLabel, FormGroup, Typography } from '@mui/material';
 
+import { FormControlLabel, FormGroup, Typography } from '@mui/material';
 import { Accordion, AccordionSummary, AccordionDetails } from '../../../components/CustomMUI/Accordion';
 import { TextFieldProductEdit } from '../../../components/CustomMUI/ProductEdit/TextFieldProductEdit';
 import { IOSSwitch } from '../../../components/CustomMUI/IOSSwitch';

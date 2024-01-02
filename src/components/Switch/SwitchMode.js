@@ -25,6 +25,7 @@ export default function SwitchMode() {
       root.style.setProperty('--primary-light2', '#202528');
       root.style.setProperty('--primary-dark', '#24282a');
       root.style.setProperty('--primary-white', '#fff');
+      root.style.setProperty('--primary-bold', '#042248');
       root.style.setProperty('--divider-primary', 'rgba(255, 255, 255, 0.3)');
       root.style.setProperty('--black-color', '#18191a');
       root.style.setProperty('--bg-white-color', 'rgb(32, 37, 41)');
@@ -62,6 +63,8 @@ export default function SwitchMode() {
       root.style.setProperty('--primary-light2', 'rgba(129, 127, 199, 0.5)');
       root.style.setProperty('--primary-dark', 'rgba(44, 41, 116)');
       root.style.setProperty('--primary-white', 'rgba(49, 46, 129, 1)');
+      root.style.setProperty(' --primary-bold', 'rgb(44, 41, 116)');
+
       root.style.setProperty('--black-color', '#000');
       root.style.setProperty('--text-color', '#1e293b');
       root.style.setProperty('--bg-white-color', '#f6f6f6');

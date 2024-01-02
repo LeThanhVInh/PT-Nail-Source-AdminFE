@@ -1,0 +1,101 @@
+.wrapper {
+  padding: 10px;
+  .action-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+
+    .title {
+      color: var(--text-color);
+      h3 {
+        font-weight: 500;
+      }
+    }
+    .btn-add-new {
+      color: var(--white-color);
+      background-color: var(--btn-primary);
+      text-transform: capitalize;
+    }
+  }
+  .calendar-wrap {
+    .add-new-schedule {
+      background-color: var(--white-color-outline);
+      padding: 20px;
+      border-radius: 10px;
+
+      .btn-add-new {
+        color: var(--white-color);
+        background-color: var(--btn-primary);
+        text-transform: capitalize;
+      }
+      .calendar-events {
+        margin: 20px 0;
+        border: 1px var(--grey-border-item);
+        border-style: solid none;
+        padding: 10px 0;
+        .ce-item {
+          padding: 12px;
+          display: flex;
+          align-items: center;
+          border-radius: 10px;
+          &:hover {
+            background-color: var(--grey-border-item);
+          }
+          &:nth-child(odd) {
+            .desc {
+              .status {
+                background-color: var(--pending-color);
+              }
+            }
+          }
+          .desc {
+            display: flex;
+            align-items: center;
+            .status {
+              content: '';
+              height: 10px;
+              width: 10px;
+              border-radius: 50%;
+              margin-right: 12px;
+              background-color: var(--warning-color-2);
+            }
+            .title {
+              p {
+                font-size: 14px;
+                color: var(--text-color);
+              }
+              .date-time {
+                font-size: 12px;
+                color: var(--grey-color);
+                display: flex;
+                align-items: center;
+                .date {
+                }
+                .spacing {
+                  padding: 0 5px;
+                }
+                .time {
+                }
+              }
+            }
+          }
+          .action {
+            margin-left: auto;
+          }
+        }
+      }
+    }
+    .calendar-date-wrap {
+      background-color: var(--white-color-outline);
+      padding: 20px;
+      border-radius: 10px;
+    }
+  }
+  .full-calendar {
+    padding: 20px;
+    background-color: var(--white-color-outline);
+    border-radius: 10px;
+  }
+}

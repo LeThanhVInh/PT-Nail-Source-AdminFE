@@ -6,6 +6,7 @@
   --primary-light: rgba(129, 127, 199, 0.3);
   --primary-light2: rgba(129, 127, 199, 0.5);
   --primary-dark: rgb(44, 41, 116);
+  --primary-bold: rgb(44, 41, 116);
 
   --primary-icon: rgba(49, 46, 129, 1);
   --primary-check: rgba(49, 46, 129, 1);
@@ -39,12 +40,13 @@
 
   --warning-color: #e65100;
   --required-bg: rgb(226, 232, 240);
+
+  --input-color: #fff;
   --btn-edit: #1e293b;
   --btn-delete: #b91c1c;
   --btn-active: #059669;
   --btn-primary: #44418c;
   --btn-black: #1e293b;
-  --input-color: #fff;
 
   --scroll-bar-color: #312e8179;
   --box-shadow: 1px 1px 10px #0000000b !important;
@@ -56,11 +58,91 @@
   --trans-dur: 0.6s;
   --trans-timing: cubic-bezier(0.65, 0, 0.35, 1);
 
+  //fullcalendar
+
+  --fc-button-active-bg-color: var(--btn-primary);
+  --fc-border-color: var(--grey-border-item);
+  --fc-daygrid-event-dot-width: var(--grey-border-item);
+  --fc-button-bg-color: transparent;
+  --fc-list-event-hover-bg-color: var(--white-dark);
+  --fc-event-border-color: var(--btn-primary);
+  --fc-button-border-color: var(--grey-border-item);
+  --fc-button-active-border-color: var(--grey-border-item);
+  --fc-button-text-color: var(--text-color);
   strong,
   b {
     font-weight: 600;
   }
 }
+
+/// start fullcalendar
+.fc {
+  .fc-col-header-cell-cushion,
+  .fc-timegrid-axis-cushion,
+  .fc-daygrid-day-number,
+  .fc-timegrid-slot-label-cushion,
+  .fc-list-table td {
+    color: var(--text-color);
+  }
+
+  .fc-toolbar-title {
+    font-size: 20px;
+    color: var(--text-color);
+  }
+
+  .fc-event {
+    &:hover {
+      background-color: var(--primary-bold);
+      cursor: pointer;
+      b,
+      i {
+        color: var(--white-color);
+      }
+    }
+    .fc-event-main {
+      background-color: var(--btn-primary);
+      b,
+      i {
+        color: var(--white-color);
+      }
+    }
+    b,
+    i {
+      color: var(--text-color);
+    }
+  }
+  .fc-button-primary {
+    &:hover {
+      background-color: var(--primary-bold);
+      color: var(--white-color);
+    }
+    &:not(:disabled).fc-button-active {
+      color: var(--white-color);
+
+      &:hover {
+        background-color: var(--primary-bold);
+      }
+    }
+    &:not(:disabled) {
+      &:active {
+        color: var(--white-color);
+        &:hover {
+          background-color: var(--primary-bold);
+        }
+      }
+    }
+  }
+}
+
+.fc-theme-standard .fc-list-day-cushion {
+  background-color: var(--white-dark);
+  .fc-list-day-text,
+  .fc-list-day-side-text {
+    color: var(--text-color);
+  }
+}
+
+/// end fullcalendar
 
 .animate {
   -webkit-transition: all 0.3s ease-out 0s;

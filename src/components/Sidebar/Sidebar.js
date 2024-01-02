@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { styled } from "@mui/system";
+import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { styled } from '@mui/system';
+import config from '../../router/config';
 
 import {
   Box,
@@ -12,7 +13,7 @@ import {
   Collapse,
   Divider,
   ListItem,
-} from "@mui/material";
+} from '@mui/material';
 
 import {
   MoveToInbox as InboxIcon,
@@ -22,16 +23,18 @@ import {
   ExpandLess,
   ExpandMore,
   StarBorder,
-} from "@mui/icons-material";
+  CalendarMonthOutlined as CalendarMonthOutlinedIcon,
+  LockOutlined as LockOutlinedIcon,
+  PaymentOutlined as PaymentOutlinedIcon,
+} from '@mui/icons-material';
 
-import config from "../../router/config";
-import "./Sidebar.scss";
+import './Sidebar.scss';
 
 const ListItemIconCustom = styled(ListItemIcon)({
-  minWidth: "35px",
-  color: "var(--white-color)",
-  ":hover": {
-    backgroundColor: "rgba(0, 0, 0, 0.04)",
+  minWidth: '35px',
+  color: 'var(--white-color)',
+  ':hover': {
+    backgroundColor: 'rgba(0, 0, 0, 0.04)',
   },
 });
 
@@ -39,7 +42,7 @@ function Sidebar() {
   const [open, setOpen] = useState(true);
 
   const [isListChildActive, setIsListChildActive] = useState(false);
-  const [isListParentActive, setIsListParentActive] = useState("");
+  const [isListParentActive, setIsListParentActive] = useState('');
 
   const handleClick = () => {
     setOpen(!open);
@@ -47,9 +50,9 @@ function Sidebar() {
 
   useEffect(() => {
     if (isListChildActive === true) {
-      setIsListParentActive("active");
+      setIsListParentActive('active');
     } else {
-      setIsListParentActive("");
+      setIsListParentActive('');
     }
   }, [isListChildActive]);
 
@@ -57,10 +60,10 @@ function Sidebar() {
     <>
       <Box
         sx={{
-          width: "100%",
+          width: '100%',
           maxWidth: 360,
-          bgcolor: "var(--primary-color)",
-          mt: "15px",
+          bgcolor: 'var(--primary-color)',
+          mt: '15px',
         }}
       >
         <List
@@ -68,21 +71,17 @@ function Sidebar() {
             <ListSubheader
               component="div"
               id="nested-list-subheader"
-              sx={{ background: "transparent", color: "var(--white-color)" }}
+              sx={{ background: 'transparent', color: 'var(--white-color)' }}
             >
               Logo
             </ListSubheader>
           }
         >
           <div className="divider">
-            <Divider sx={{ borderColor: "var(--divider-primary)" }} />
+            <Divider sx={{ borderColor: 'var(--divider-primary)' }} />
           </div>
 
-          <NavLink
-            to={config.routes.home}
-            className="category-list-item"
-            onClick={() => setIsListChildActive(false)}
-          >
+          <NavLink to={config.routes.home} className="category-list-item" onClick={() => setIsListChildActive(false)}>
             <ListItem disablePadding>
               <ListItemButton
                 disableRipple
@@ -143,8 +142,8 @@ function Sidebar() {
             disableRipple
             disableTouchRipple
             sx={{
-              color: "var(--white-color)",
-              borderRadius: "999px",
+              color: 'var(--white-color)',
+              borderRadius: '999px',
             }}
           >
             <ListItemIconCustom>
@@ -159,8 +158,8 @@ function Sidebar() {
               component="div"
               disablePadding
               sx={{
-                backgroundColor: "var(--primary-dark)",
-                borderRadius: "10px",
+                backgroundColor: 'var(--primary-dark)',
+                borderRadius: '10px',
               }}
               className={`category-list-parent ${isListParentActive}`}
             >
@@ -179,11 +178,7 @@ function Sidebar() {
                 </ListItem>
               </NavLink>
 
-              <NavLink
-                to="/5"
-                className="category-list-item-child"
-                onClick={() => setIsListChildActive(true)}
-              >
+              <NavLink to="/5" className="category-list-item-child" onClick={() => setIsListChildActive(true)}>
                 <ListItem disablePadding>
                   <ListItemButton sx={{ pl: 4 }}>
                     <ListItemIconCustom>
@@ -196,11 +191,7 @@ function Sidebar() {
             </List>
           </Collapse>
 
-          <NavLink
-            to={config.routes.post}
-            className="category-list-item"
-            onClick={() => setIsListChildActive(false)}
-          >
+          <NavLink to={config.routes.post} className="category-list-item" onClick={() => setIsListChildActive(false)}>
             <ListItem disablePadding>
               <ListItemButton
                 disableRipple
@@ -215,11 +206,7 @@ function Sidebar() {
             </ListItem>
           </NavLink>
 
-          <NavLink
-            to={config.routes.pos}
-            className="category-list-item"
-            onClick={() => setIsListChildActive(false)}
-          >
+          <NavLink to={config.routes.pos} className="category-list-item" onClick={() => setIsListChildActive(false)}>
             <ListItem disablePadding>
               <ListItemButton
                 disableRipple
@@ -227,7 +214,7 @@ function Sidebar() {
                 sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
               >
                 <ListItemIconCustom>
-                  <DraftsIcon />
+                  <PaymentOutlinedIcon />
                 </ListItemIconCustom>
                 <ListItemText primary="Point Of Sale" />
               </ListItemButton>
@@ -235,9 +222,9 @@ function Sidebar() {
           </NavLink>
 
           <NavLink
-            to={config.routes.lock}
+            to={config.routes.calendar}
             className="category-list-item"
-            onClick={() => setIsListChildActive(false)}
+            // onClick={() => setIsListChildActive(false)}
           >
             <ListItem disablePadding>
               <ListItemButton
@@ -246,7 +233,22 @@ function Sidebar() {
                 sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
               >
                 <ListItemIconCustom>
-                  <DraftsIcon />
+                  <CalendarMonthOutlinedIcon />
+                </ListItemIconCustom>
+                <ListItemText primary="Calendar" />
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
+
+          <NavLink to={config.routes.lock} className="category-list-item" onClick={() => setIsListChildActive(false)}>
+            <ListItem disablePadding>
+              <ListItemButton
+                disableRipple
+                disableTouchRipple
+                sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
+              >
+                <ListItemIconCustom>
+                  <LockOutlinedIcon />
                 </ListItemIconCustom>
                 <ListItemText primary="Lock" />
               </ListItemButton>
