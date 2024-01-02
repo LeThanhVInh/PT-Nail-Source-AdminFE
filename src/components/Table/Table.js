@@ -55,6 +55,8 @@ const TableCellItem = styled(TableCell)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  backgroundColor: 'var(--white-color-outline)',
+
   '&:nth-of-type(odd)': {
     border: 0,
   },
@@ -229,6 +231,7 @@ export default function Tables() {
               <TableBody>
                 {rows.map((row) => (
                   <StyledTableRow
+                    hover
                     key={row.id}
                     sx={{
                       backgroundColor: 'var(--bg-white-item)',

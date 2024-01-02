@@ -30,8 +30,12 @@
       flex-wrap: wrap;
       .item {
         width: calc((100% / 4 - 20px));
+
         @include x-tablet {
           width: calc((100% / 2 - 20px));
+        }
+        @include mobile {
+          width: calc((100% - 20px));
         }
 
         margin: 10px;
@@ -120,8 +124,13 @@
           }
         }
         .chart-container {
-          height: 100%;
-          max-width: 100%;
+          .chart-item {
+            position: relative;
+            margin: auto;
+            height: 300px;
+            max-width: 100%;
+          }
+
           .chart-content {
             display: flex;
             justify-content: center;

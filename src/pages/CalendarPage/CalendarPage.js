@@ -157,8 +157,8 @@ export default function CalendarPage() {
               </div>
 
               <div className={cx('calendar-date-wrap', 'mt-20')}>
-                <LocalizationProvider dateAdapter={AdapterDayjs} fullWidth>
-                  <DatePickerCustom defaultValue={dayjs('2024-1-1')} views={['year', 'month', 'day']} />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePickerCustom defaultValue={dayjs('2024-1-1')} views={['year', 'month', 'day']} fullWidth />
                 </LocalizationProvider>
               </div>
             </Grid>

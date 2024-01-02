@@ -93,7 +93,9 @@ export default function ChartDashboard() {
                   </div>
                 </div>
                 <div className={cx('chart-container')}>
-                  <SalesReportChart />
+                  <div className={cx('chart-item')}>
+                    <SalesReportChart />
+                  </div>
                 </div>
               </div>
             </div>

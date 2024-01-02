@@ -96,7 +96,7 @@
       cursor: pointer;
       b,
       i {
-        color: var(--white-color);
+        // color: red;
       }
     }
     .fc-event-main {
@@ -129,6 +129,15 @@
         &:hover {
           background-color: var(--primary-bold);
         }
+      }
+    }
+  }
+  .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 1.5em;
+    flex-wrap: wrap;
+    .fc-toolbar-chunk {
+      &:nth-child(2) {
+        margin: 10px 0;
       }
     }
   }

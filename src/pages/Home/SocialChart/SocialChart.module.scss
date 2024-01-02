@@ -17,6 +17,9 @@
       @include x-tablet {
         width: calc((100% / 2 - 20px));
       }
+      @include mobile {
+        width: calc((100% - 20px));
+      }
       &:hover {
         scale: 1.05;
       }

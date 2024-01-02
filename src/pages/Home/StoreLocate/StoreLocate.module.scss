@@ -1,3 +1,4 @@
+@import '../../../components//GlobalStyles/responsive.scss';
 .locate-wrapper {
   .store-locate-wrap,
   .weekly-best-seller {
@@ -27,6 +28,9 @@
       padding: 20px;
       border-radius: 10px;
       margin-left: 10px;
+      @include mobile {
+        margin-left: 0;
+      }
       .map-desc {
         color: var(--text-color);
         font-size: 14px;

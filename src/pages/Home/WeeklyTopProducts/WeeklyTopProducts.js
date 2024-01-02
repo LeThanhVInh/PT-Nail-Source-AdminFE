@@ -17,19 +17,7 @@ import {
   Chip,
 } from '@mui/material';
 
-import {
-  Delete as DeleteIcon,
-  Edit as EditIcon,
-  Add as AddIcon,
-  Search as SearchIcon,
-  TaskAlt as TaskAltIcon,
-} from '@mui/icons-material';
-
-import {
-  SearchIconWrapperCustom,
-  SearchMediumCustom,
-  StyledInputBaseCustom,
-} from '../../../components/CustomMUI/SearchMedium';
+import { Delete as DeleteIcon, Edit as EditIcon, Add as AddIcon, TaskAlt as TaskAltIcon } from '@mui/icons-material';
 
 import classNames from 'classnames/bind';
 import styles from './WeeklyTopProducts.module.scss';
@@ -50,7 +38,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14,
     borderSpacing: '0 20px',
     border: 0,
-    backgroundColor: 'var(--white-color-outline)',
   },
 }));
 
@@ -194,7 +181,14 @@ export default function WeeklyTopProducts() {
               </TableHead>
               <TableBody>
                 {rows.map((row) => (
-                  <StyledTableRow key={row.id} sx={{ boxShadow: 'var(--box-shadow)' }}>
+                  <StyledTableRow
+                    hover
+                    key={row.id}
+                    sx={{
+                      boxShadow: 'var(--box-shadow)',
+                      backgroundColor: 'var(--white-color-outline)',
+                    }}
+                  >
                     <StyledTableCell align="left">
                       <CheckboxTable
                         sx={{ color: 'var(--grey-color)' }}

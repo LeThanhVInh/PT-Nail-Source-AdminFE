@@ -38,6 +38,12 @@ const ListItemIconCustom = styled(ListItemIcon)({
   },
 });
 
+const ListItemButtonCustom = styled(ListItemButton)({
+  ':hover': {
+    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+  },
+});
+
 function Sidebar() {
   const [open, setOpen] = useState(true);
 
@@ -83,7 +89,7 @@ function Sidebar() {
 
           <NavLink to={config.routes.home} className="category-list-item" onClick={() => setIsListChildActive(false)}>
             <ListItem disablePadding>
-              <ListItemButton
+              <ListItemButtonCustom
                 disableRipple
                 disableTouchRipple
                 sx={{
@@ -95,7 +101,7 @@ function Sidebar() {
                   <HomeIcon />
                 </ListItemIconCustom>
                 <ListItemText primary="Dashboard" />
-              </ListItemButton>
+              </ListItemButtonCustom>
             </ListItem>
           </NavLink>
 
@@ -105,7 +111,7 @@ function Sidebar() {
             onClick={() => setIsListChildActive(false)}
           >
             <ListItem disablePadding>
-              <ListItemButton
+              <ListItemButtonCustom
                 disableRipple
                 disableTouchRipple
                 sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
@@ -114,7 +120,7 @@ function Sidebar() {
                   <DraftsIcon />
                 </ListItemIconCustom>
                 <ListItemText primary="Products" />
-              </ListItemButton>
+              </ListItemButtonCustom>
             </ListItem>
           </NavLink>
 
@@ -124,7 +130,7 @@ function Sidebar() {
             onClick={() => setIsListChildActive(false)}
           >
             <ListItem disablePadding>
-              <ListItemButton
+              <ListItemButtonCustom
                 disableRipple
                 disableTouchRipple
                 sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
@@ -133,11 +139,11 @@ function Sidebar() {
                   <DraftsIcon />
                 </ListItemIconCustom>
                 <ListItemText primary="Categories" />
-              </ListItemButton>
+              </ListItemButtonCustom>
             </ListItem>
           </NavLink>
 
-          <ListItemButton
+          <ListItemButtonCustom
             onClick={handleClick}
             disableRipple
             disableTouchRipple
@@ -151,7 +157,7 @@ function Sidebar() {
             </ListItemIconCustom>
             <ListItemText primary="E-Commerce" />
             {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
+          </ListItemButtonCustom>
 
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List
@@ -169,23 +175,23 @@ function Sidebar() {
                 onClick={() => setIsListChildActive(true)}
               >
                 <ListItem disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemButtonCustom sx={{ pl: 4 }}>
                     <ListItemIconCustom>
                       <StarBorder />
                     </ListItemIconCustom>
                     <ListItemText primary="Product Edit" />
-                  </ListItemButton>
+                  </ListItemButtonCustom>
                 </ListItem>
               </NavLink>
 
               <NavLink to="/5" className="category-list-item-child" onClick={() => setIsListChildActive(true)}>
                 <ListItem disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemButtonCustom sx={{ pl: 4 }}>
                     <ListItemIconCustom>
                       <StarBorder />
                     </ListItemIconCustom>
                     <ListItemText primary="Starred 2" />
-                  </ListItemButton>
+                  </ListItemButtonCustom>
                 </ListItem>
               </NavLink>
             </List>
@@ -193,7 +199,7 @@ function Sidebar() {
 
           <NavLink to={config.routes.post} className="category-list-item" onClick={() => setIsListChildActive(false)}>
             <ListItem disablePadding>
-              <ListItemButton
+              <ListItemButtonCustom
                 disableRipple
                 disableTouchRipple
                 sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
@@ -202,13 +208,13 @@ function Sidebar() {
                   <DescriptionIcon />
                 </ListItemIconCustom>
                 <ListItemText primary="Post" />
-              </ListItemButton>
+              </ListItemButtonCustom>
             </ListItem>
           </NavLink>
 
           <NavLink to={config.routes.pos} className="category-list-item" onClick={() => setIsListChildActive(false)}>
             <ListItem disablePadding>
-              <ListItemButton
+              <ListItemButtonCustom
                 disableRipple
                 disableTouchRipple
                 sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
@@ -217,7 +223,7 @@ function Sidebar() {
                   <PaymentOutlinedIcon />
                 </ListItemIconCustom>
                 <ListItemText primary="Point Of Sale" />
-              </ListItemButton>
+              </ListItemButtonCustom>
             </ListItem>
           </NavLink>
 
@@ -227,7 +233,7 @@ function Sidebar() {
             // onClick={() => setIsListChildActive(false)}
           >
             <ListItem disablePadding>
-              <ListItemButton
+              <ListItemButtonCustom
                 disableRipple
                 disableTouchRipple
                 sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
@@ -236,13 +242,13 @@ function Sidebar() {
                   <CalendarMonthOutlinedIcon />
                 </ListItemIconCustom>
                 <ListItemText primary="Calendar" />
-              </ListItemButton>
+              </ListItemButtonCustom>
             </ListItem>
           </NavLink>
 
           <NavLink to={config.routes.lock} className="category-list-item" onClick={() => setIsListChildActive(false)}>
             <ListItem disablePadding>
-              <ListItemButton
+              <ListItemButtonCustom
                 disableRipple
                 disableTouchRipple
                 sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
@@ -251,7 +257,7 @@ function Sidebar() {
                   <LockOutlinedIcon />
                 </ListItemIconCustom>
                 <ListItemText primary="Lock" />
-              </ListItemButton>
+              </ListItemButtonCustom>
             </ListItem>
           </NavLink>
         </List>
