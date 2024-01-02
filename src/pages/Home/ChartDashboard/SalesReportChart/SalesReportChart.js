@@ -20,7 +20,7 @@ const data = {
   datasets: [
     {
       label: 'Last Month',
-      data: [3332, 5321, 8587, 4122, 4412, 6533],
+      data: [1332, 5321, 8587, 4122, 4412, 6533],
       backgroundColor: 'rgba(75,192,192,0.2)',
       borderColor: '#64748b',
       tension: 0.4,

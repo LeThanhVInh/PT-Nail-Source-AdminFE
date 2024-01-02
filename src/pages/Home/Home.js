@@ -11,9 +11,14 @@ import {
 } from '@mui/icons-material';
 
 import ChartDashboard from './ChartDashboard';
+import StoreLocate from './StoreLocate/StoreLocate';
+import SocialChart from './SocialChart';
+import WeeklyTopProducts from './WeeklyTopProducts/WeeklyTopProducts';
 
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
+import Transactions from './Transactions';
+import RecentActivities from './RecentActivities';
 const cx = classNames.bind(styles);
 
 function Home() {
@@ -90,6 +95,9 @@ function Home() {
               </div>
             </div>
             <ChartDashboard />
+            <StoreLocate />
+            <SocialChart />
+            <WeeklyTopProducts />
           </Grid>
           <Grid
             xs={3}
@@ -102,11 +110,8 @@ function Home() {
               },
             }}
           >
-            <div className={cx('transactions-wrap')}>
-              <div className={cx('title')}>
-                <h3>Transactions</h3>
-              </div>
-            </div>
+            <Transactions />
+            <RecentActivities />
           </Grid>
         </Grid>
       </Box>

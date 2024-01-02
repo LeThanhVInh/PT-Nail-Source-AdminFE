@@ -1,0 +1,70 @@
+@import '../../../components//GlobalStyles/responsive.scss';
+
+.social-chart-wrapper {
+  .sc-item-wrap {
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    .item {
+      width: calc((100% / 4 - 20px));
+      margin: 10px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      background-color: var(--white-color-outline);
+      @include x-tablet {
+        width: calc((100% / 2 - 20px));
+      }
+      &:hover {
+        scale: 1.05;
+      }
+      .info {
+        flex-direction: column;
+        .desc {
+          font-size: 18px;
+          color: var(--text-color);
+        }
+        .count {
+          color: var(--grey-color-text);
+        }
+      }
+      .chart-wrapper {
+        margin-left: auto;
+        position: relative;
+        .chart-percent {
+          position: absolute;
+          top: 50%;
+          right: 50%;
+          transform: translate(18px, -13px);
+          color: var(--text-color);
+        }
+      }
+    }
+    .item {
+      &._line-chart {
+        display: flex;
+        flex-direction: column;
+        .info {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          .count {
+            &.chip {
+              font-size: 14px;
+              background-color: var(--grey-border-item);
+              padding: 3px 10px;
+              border-radius: 999px;
+            }
+          }
+        }
+        .chart-wrapper {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

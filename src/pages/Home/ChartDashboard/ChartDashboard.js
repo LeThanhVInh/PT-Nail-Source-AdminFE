@@ -33,7 +33,7 @@ const categoryList = [
 export default function ChartDashboard() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <div className={cx('chart-wrapper')}>
+      <div className={cx('chart-wrapper', 'mt-20')}>
         <Grid container spacing={2} sx={{ display: 'flex', flexWrap: 'wrap' }}>
           <Grid
             xs={6}
@@ -50,7 +50,7 @@ export default function ChartDashboard() {
               <div className={cx('title')}>
                 <h3>Sales Report</h3>
               </div>
-              <div className={cx('container')}>
+              <div className={cx('container', 'ml-10')}>
                 <div className={cx('info')}>
                   <div className={cx('info-wrap')}>
                     <div className={cx('total-wrap')}>
@@ -180,7 +180,7 @@ export default function ChartDashboard() {
                         </div>
                         <div className={cx('desc-item')}>
                           <div className={cx('dot', 'color_3')}></div>
-                          <span className={cx('desc-text')}>>= 50 Years old</span>
+                          <span className={cx('desc-text')}>{'>'}= 50 Years old</span>
                           <span className={cx('percent')}>20%</span>
                         </div>
                       </div>

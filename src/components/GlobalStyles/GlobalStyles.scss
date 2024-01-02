@@ -16,7 +16,7 @@
 
   --red-color: #d32f2f;
   --green-color: #2e7d32;
-  --blue-color: #1e40af;
+  --blue-color: rgb(30, 64, 175);
   --pending-color: rgb(249, 115, 22);
   --warning-color-2: rgb(250, 204, 21);
   --success-color: rgb(132, 204, 22);
@@ -27,16 +27,16 @@
   --white-dark: #fff;
   --bg-white-color: #f6f6f6;
   --bg-white-item: #f6f6f6;
+  --white-color-outline: #f6f6f6;
+
   --grey-color: #64748b;
-  --grey-color-text: #64748b;
   --grey-border: #b3b3b3;
   --grey-border-item: rgba(226, 232, 240, 0.9);
-  --white-color-outline: #f6f6f6;
   --grey: #808080;
   --grey-shadow: #cdcdcd;
-
   --grey-border-half: #b3b3b33a;
   --grey-bg: #e2e8f0;
+
   --warning-color: #e65100;
   --required-bg: rgb(226, 232, 240);
   --btn-edit: #1e293b;
@@ -60,6 +60,17 @@
   b {
     font-weight: 600;
   }
+}
+
+.animate {
+  -webkit-transition: all 0.3s ease-out 0s;
+  -moz-transition: all 0.3s ease-out 0s;
+  -o-transition: all 0.3s ease-out 0s;
+  transition: all 0.3s ease-out 0s;
+}
+
+.mt-20 {
+  margin-top: 20px;
 }
 
 * {

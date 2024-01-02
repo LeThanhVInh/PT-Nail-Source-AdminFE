@@ -1,9 +1,13 @@
 @import '../../components/GlobalStyles/responsive.scss';
 
+.ml-10 {
+  margin-left: 10px;
+}
+
 .home-wrapper {
   padding: 20px;
   // height: 80dvh;
-  .transactions-wrap,
+
   .general-wrapper,
   .sales-report-wrap {
     .title {
@@ -38,6 +42,7 @@
         border-radius: 10px;
         transition: all 0.3s ease-out 0s;
         background-color: var(--white-color-outline);
+
         &:hover {
           scale: 1.05;
         }
@@ -80,12 +85,13 @@
       .container {
         background-color: var(--white-color-outline);
         border-radius: 10px;
-        padding: 10px;
+        padding: 20px;
         min-height: 45vh;
         height: 420px;
         @include x-tablet {
           height: unset;
         }
+
         .info {
           display: flex;
           justify-content: space-between;
