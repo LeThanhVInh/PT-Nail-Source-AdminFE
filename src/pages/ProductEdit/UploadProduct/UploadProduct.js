@@ -34,7 +34,7 @@ const ButtonCustom = styled(Button)(({ theme }) => ({
   textTransform: 'capitalize',
   borderColor: 'var(--gray-color)',
   // flexGrow: 1,
-  marginLeft: '20px',
+  // marginLeft: '20px',
   ':hover': {
     borderColor: 'var(--primary-color)',
   },

@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { styled, alpha } from "@mui/material/styles";
+import { useState, useRef } from 'react';
+import { styled, alpha } from '@mui/material/styles';
 import {
   AppBar,
   Box,
@@ -18,7 +18,7 @@ import {
   Popper,
   MenuList,
   InputBase,
-} from "@mui/material";
+} from '@mui/material';
 import {
   AccountCircle,
   Mail as MailIcon,
@@ -26,57 +26,54 @@ import {
   MoreVert as MoreIcon,
   Search as SearchIcon,
   ArrowDropDown as ArrowDropDownIcon,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 
-import SwitchMode from "../Switch/SwitchMode";
+import SwitchMode from '../Switch/SwitchMode';
 
 //#region const
 
-const options = [
-  "Create a merge commit",
-  "Squash and merge",
-  "Rebase and merge",
-];
+const options = ['Create a merge commit', 'Squash and merge', 'Rebase and merge'];
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
   marginRight: theme.spacing(2),
   marginLeft: 0,
-  width: "60%",
-  flexGrow: "1",
-  "& .MuiBox-root": {
-    maxWidth: "60%",
+  // width: '60%',
+  flexGrow: '1',
+  '& .MuiBox-root': {
+    maxWidth: '500px',
+    minWidth: '140px',
   },
-  [theme.breakpoints.up("sm")]: {
+  [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(3),
-    width: "auto",
+    width: 'auto',
   },
 }));
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  color: "var(--btn-edit)",
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  color: 'var(--btn-edit)',
   padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   zIndex: 1,
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "var(--btn-edit)",
-  "& .MuiInputBase-input": {
-    backgroundColor: "var(--input-color)",
-    borderRadius: "999px",
+  color: 'var(--btn-edit)',
+  '& .MuiInputBase-input': {
+    backgroundColor: 'var(--input-color)',
+    borderRadius: '999px',
     padding: theme.spacing(1, 1, 1, 0),
-    maxWidth: "50%",
+    maxWidth: '50%',
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      maxWidth: "50ch",
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '50ch',
     },
   },
 }));
@@ -120,19 +117,19 @@ function HeaderPOS() {
     handleMobileMenuClose();
   };
 
-  const menuId = "primary-search-account-menu";
+  const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
+        vertical: 'top',
+        horizontal: 'right',
       }}
       id={menuId}
       keepMounted
       transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
+        vertical: 'top',
+        horizontal: 'right',
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
@@ -142,20 +139,20 @@ function HeaderPOS() {
     </Menu>
   );
 
-  const mobileMenuId = "primary-search-account-menu-mobile";
+  const mobileMenuId = 'primary-search-account-menu-mobile';
 
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
+        vertical: 'top',
+        horizontal: 'right',
       }}
       id={mobileMenuId}
       keepMounted
       transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
+        vertical: 'top',
+        horizontal: 'right',
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
@@ -169,11 +166,7 @@ function HeaderPOS() {
         <p>Messages</p>
       </MenuItem>
       <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
+        <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
           <Badge badgeContent={17} color="error">
             <NotificationsIcon />
           </Badge>
@@ -197,12 +190,12 @@ function HeaderPOS() {
   //#endregion
 
   return (
-    <Box sx={{ paddingLeft: "15px", paddingRight: 0, height: 64 }}>
+    <Box sx={{ paddingLeft: '15px', paddingRight: 0, height: 64 }}>
       <AppBar
         position="static"
         elevation={0}
         color="inherit"
-        sx={{ backgroundColor: "var(--bg-white-item)", borderRadius: "10px" }}
+        sx={{ backgroundColor: 'var(--bg-white-item)', borderRadius: '10px' }}
       >
         <Toolbar>
           <Typography
@@ -210,8 +203,8 @@ function HeaderPOS() {
             noWrap
             component="div"
             sx={{
-              color: "var(--text-color)",
-              display: { xs: "none", sm: "block" },
+              color: 'var(--text-color)',
+              display: { xs: 'none', sm: 'block' },
             }}
           >
             PT Nail Source
@@ -220,13 +213,13 @@ function HeaderPOS() {
           <Search>
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
-                paddingLeft: "10px",
-                borderRadius: "30px",
-                overflow: "hidden",
-                boxShadow: "0px 0px 5px var(--grey-shadow)",
-                backgroundColor: "var(--input-color)",
+                display: 'flex',
+                alignItems: 'center',
+                paddingLeft: '10px',
+                borderRadius: '30px',
+                overflow: 'hidden',
+                boxShadow: '0px 0px 5px var(--grey-shadow)',
+                backgroundColor: 'var(--input-color)',
               }}
             >
               <SearchIconWrapper>
@@ -234,20 +227,20 @@ function HeaderPOS() {
               </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
+                inputProps={{ 'aria-label': 'search' }}
                 onChange={(e) => {
                   console.log(e.target.value);
                 }}
-                sx={{ width: "100%" }}
+                sx={{ width: '100%' }}
               />
             </Box>
           </Search>
 
-          <Box>
+          <Box sx={{ marginRight: '20px' }}>
             <SwitchMode />
           </Box>
 
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <ButtonGroup
               variant="contained"
               ref={anchorRef}
@@ -261,8 +254,8 @@ function HeaderPOS() {
               <Button
                 size="small"
                 color="warning"
-                aria-controls={openSelection ? "split-button-menu" : undefined}
-                aria-expanded={openSelection ? "true" : undefined}
+                aria-controls={openSelection ? 'split-button-menu' : undefined}
+                aria-expanded={openSelection ? 'true' : undefined}
                 aria-label="select merge strategy"
                 aria-haspopup="menu"
                 onClick={() => {}}
@@ -284,8 +277,7 @@ function HeaderPOS() {
                 <Grow
                   {...TransitionProps}
                   style={{
-                    transformOrigin:
-                      placement === "bottom" ? "center top" : "center bottom",
+                    transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
                   }}
                 >
                   <Paper>
@@ -296,9 +288,7 @@ function HeaderPOS() {
                             key={option}
                             disabled={index === 2}
                             selected={index === selectedIndex}
-                            onClick={(event) =>
-                              handleMenuItemClick(event, index)
-                            }
+                            onClick={(event) => handleMenuItemClick(event, index)}
                           >
                             {option}
                           </MenuItem>
@@ -310,7 +300,7 @@ function HeaderPOS() {
               )}
             </Popper>
           </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="show more"
@@ -326,7 +316,7 @@ function HeaderPOS() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-      <Divider sx={{ paddingX: "20px" }} />
+      <Divider sx={{ paddingX: '20px' }} />
     </Box>
   );
 }

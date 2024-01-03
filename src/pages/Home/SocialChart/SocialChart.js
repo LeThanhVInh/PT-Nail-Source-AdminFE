@@ -110,7 +110,9 @@ export default function SocialChart() {
             <div className={cx('count', 'chip')}>326 Followers</div>
           </div>
           <div className={cx('chart-wrapper')}>
-            <Line options={options} data={data} />
+            <div className={cx('line-chart-item')}>
+              <Line options={options} data={data} />
+            </div>
           </div>
         </div>
 
@@ -131,7 +133,9 @@ export default function SocialChart() {
             <div className={cx('count', 'chip')}>180 Campaign</div>
           </div>
           <div className={cx('chart-wrapper')}>
-            <Line options={options} data={data} />
+            <div className={cx('line-chart-item')}>
+              <Line options={options} data={data} />
+            </div>
           </div>
         </div>
       </div>

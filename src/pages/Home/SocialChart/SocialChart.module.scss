@@ -36,6 +36,12 @@
       .chart-wrapper {
         margin-left: auto;
         position: relative;
+        // max-width: 100%;
+        .line-chart-item {
+          height: 140px;
+          display: flex;
+          justify-content: center;
+        }
         .chart-percent {
           position: absolute;
           top: 50%;

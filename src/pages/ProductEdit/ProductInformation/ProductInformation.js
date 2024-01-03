@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import Select from 'react-select';
-import { styled } from '@mui/system';
 
-import { FormControl, TextField } from '@mui/material';
+import { FormControl } from '@mui/material';
 
 import { Accordion, AccordionSummary, AccordionDetails } from '../../../components/CustomMUI/Accordion';
 import { StyledAutocomplete } from '../../../components/CustomMUI/SelectCustom';
@@ -116,9 +114,10 @@ function ProductInformation() {
               <div className={cx('item-title-content-main')}>
                 <FormControl sx={{ minWidth: 120 }} size="small" fullWidth>
                   <StyledAutocomplete
-                    disablePortal
+                    disablePortal={true}
                     multiple
                     filterSelectedOptions
+                    disableCloseOnSelect
                     options={categoryList}
                     renderInput={(params) => <TextFieldProductEdit {...params} placeholder="Subcategory" fullWidth />}
                     size="small"

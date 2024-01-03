@@ -57,6 +57,8 @@ export default function FullDateCalendar() {
         selectable={true}
         eventClick={handleEventClick}
         select={handleDateSelect}
+        height="708px"
+        eventMinWidth="2000px"
       />
     </>
   );

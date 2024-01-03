@@ -3,17 +3,18 @@ import dayjs from 'dayjs';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+// import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Button, IconButton, Stack, FormControlLabel, FormGroup, Typography } from '@mui/material';
 import { Add as AddIcon, BorderColor as BorderColorIcon, EditNote as EditNoteIcon } from '@mui/icons-material';
 
+import { IOSSwitch } from '../../components/CustomMUI/IOSSwitch';
+import FullDateCalendar from './FullDateCalendar/FullDateCalendar';
+import { DatePickerCustom } from '../../components/CustomMUI/DateCalendarCustom';
+
 import classNames from 'classnames/bind';
 import styles from './CalendarPage.module.scss';
-import { IOSSwitch } from '../../components/CustomMUI/IOSSwitch';
-import FullDateCalendar from './FullDateCalendar/DateCalendar';
-import { DatePickerCustom } from '../../components/CustomMUI/DateCalendarCustom';
 const cx = classNames.bind(styles);
 
 export default function CalendarPage() {

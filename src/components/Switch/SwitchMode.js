@@ -9,9 +9,9 @@ const cx = classNames.bind(styles);
 export default function SwitchMode() {
   const dispatch = useDispatch();
   const switchMode = useSelector((state) => state.appSetting.isDarkModeOn);
-
   const root = document.documentElement;
-  const [darkMode, setDarkMode] = useState(false);
+
+  const [darkMode, setDarkMode] = useState(switchMode);
 
   useEffect(() => {
     setDarkMode(switchMode);

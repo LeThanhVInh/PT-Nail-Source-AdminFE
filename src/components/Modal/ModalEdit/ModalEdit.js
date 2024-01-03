@@ -27,7 +27,6 @@ import { DatePickerCustom } from '../../CustomMUI/DatePickerCustom';
 
 import classNames from 'classnames/bind';
 import styles from './ModalEdit.module.scss';
-
 const cx = classNames.bind(styles);
 
 //#region const varibale
@@ -117,6 +116,8 @@ function ModalEdit(props, ref) {
   const [value, setValue] = useState('male');
   const [isOpen, setOpenModal] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
+
+  const [openDatePicker, setOpenDatePicker] = useState(false);
 
   React.useImperativeHandle(ref, () => ({ openModal }));
 
@@ -264,6 +265,7 @@ function ModalEdit(props, ref) {
                       disablePortal
                       multiple
                       filterSelectedOptions
+                      disableCloseOnSelect
                       options={top100Films}
                       renderInput={(params) => <TextField {...params} label="Multi Select" fullWidth />}
                       size="small"
@@ -273,7 +275,18 @@ function ModalEdit(props, ref) {
 
                 <div className={cx('item-content')}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePickerCustom label="Date Picker" className={cx('date-time-picker')} />
+                    <DatePickerCustom
+                      open={openDatePicker}
+                      onOpen={() => setOpenDatePicker(true)}
+                      onClose={() => setOpenDatePicker(false)}
+                      slotProps={{
+                        textField: {
+                          onClick: () => setOpenDatePicker(true),
+                        },
+                      }}
+                      label="Date Picker"
+                      className={cx('date-time-picker')}
+                    />
                   </LocalizationProvider>
                 </div>
 
