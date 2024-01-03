@@ -40,7 +40,7 @@ const ListItemIconCustom = styled(ListItemIcon)({
 
 const ListItemButtonCustom = styled(ListItemButton)({
   ':hover': {
-    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+    backgroundColor: 'transparent',
   },
 });
 
