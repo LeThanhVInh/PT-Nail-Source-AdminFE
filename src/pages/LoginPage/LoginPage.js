@@ -128,6 +128,7 @@ function LoginPage() {
                   marginBottom: '20px',
                   fontSize: '30px',
                   fontWeight: '600',
+                  color: 'var(--black-color)',
                 }}
               >
                 Sign In
@@ -237,7 +238,7 @@ function LoginPage() {
                           }}
                         />
                       }
-                      label={<span style={{ fontSize: '14px' }}>{'Remember me'}</span>}
+                      label={<span style={{ fontSize: '14px', color: 'var(--black-color)' }}>{'Remember me'}</span>}
                       fontSize="14px"
                     />
                   </FormGroup>
@@ -261,6 +262,7 @@ function LoginPage() {
                   marginTop: '20px',
                   textAlign: 'center',
                   maxWidth: '100%',
+                  color: 'var(--black-color)',
                   width: {
                     xl: '425px',
                     lg: '425px',

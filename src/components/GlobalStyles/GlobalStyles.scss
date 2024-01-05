@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap');
 @import './responsive.scss';
+@import './theme.scss';
 
 :root {
   --primary-color: rgba(49, 46, 129, 1);
@@ -7,13 +8,13 @@
   --primary-light2: rgba(129, 127, 199, 0.5);
   --primary-dark: rgb(44, 41, 116);
   --primary-bold: rgb(44, 41, 116);
-
   --primary-icon: rgba(49, 46, 129, 1);
   --primary-check: rgba(49, 46, 129, 1);
   --primary-white: rgba(49, 46, 129, 1);
-  --divider-primary: rgba(49, 46, 129, 1);
-
+  --divider-primary: rgba(255, 255, 255, 0.3);
   --background-modal: #f6f6f6;
+  --btn-primary: #44418c;
+  --btn-primary-theme: #44418c;
 
   --red-color: #d32f2f;
   --green-color: #2e7d32;
@@ -28,7 +29,7 @@
   --white-dark: #fff;
   --bg-white-color: #f6f6f6;
   --bg-white-item: #f6f6f6;
-  --white-color-outline: #f6f6f6;
+  --white-color-outline: #fff;
 
   --grey-color: #64748b;
   --grey-border: #b3b3b3;
@@ -45,14 +46,12 @@
   --btn-edit: #1e293b;
   --btn-delete: #b91c1c;
   --btn-active: #059669;
-  --btn-primary: #44418c;
   --btn-black: #1e293b;
-
   --scroll-bar-color: #312e8179;
   --box-shadow: 1px 1px 10px #0000000b !important;
   --box-shadow-item: 1px 1px 20px rgba(0, 0, 0, 0.1) !important;
-  --font-family: 'Lexend', sans-serif;
 
+  --font-family: 'Lexend', sans-serif;
   --hue: 223;
   --primary: hsl(var(--hue), 90%, 50%);
   --trans-dur: 0.6s;
@@ -60,7 +59,7 @@
 
   //fullcalendar
 
-  --fc-button-active-bg-color: var(--btn-primary);
+  // --fc-button-active-bg-color: var(--btn-primary);
   --fc-border-color: var(--grey-border-item);
   --fc-daygrid-event-dot-width: var(--grey-border-item);
   --fc-button-bg-color: transparent;
@@ -68,7 +67,7 @@
   --fc-event-border-color: var(--btn-primary);
   --fc-button-border-color: var(--grey-border-item);
   --fc-button-active-border-color: var(--grey-border-item);
-  --fc-button-text-color: var(--text-color);
+  // --fc-button-text-color: var(--text-color);
   strong,
   b {
     font-weight: 600;
@@ -94,10 +93,6 @@
     &:hover {
       background-color: var(--primary-bold);
       cursor: pointer;
-      b,
-      i {
-        // color: red;
-      }
     }
     .fc-event-main {
       background-color: var(--btn-primary);
@@ -110,15 +105,23 @@
     i {
       color: var(--text-color);
     }
+    .fc-list-event-dot {
+      border-color: var(--btn-primary);
+    }
   }
   .fc-button-primary {
+    color: var(--text-color);
+    &:disabled {
+      color: var(--text-color);
+    }
     &:hover {
       background-color: var(--primary-bold);
       color: var(--white-color);
     }
     &:not(:disabled).fc-button-active {
-      color: var(--white-color);
+      background-color: var(--btn-primary);
 
+      color: var(--white-color);
       &:hover {
         background-color: var(--primary-bold);
       }
@@ -185,7 +188,6 @@
 }
 
 body {
-  background-color: var(--primary-color) !important;
   font-size: 16px;
   line-height: 1.5;
   text-rendering: optimizeSpeed;

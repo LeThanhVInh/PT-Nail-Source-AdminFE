@@ -1,34 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  isDarkModeOn: localStorage.getItem("DarkMode")
-    ? JSON.parse(localStorage.getItem("DarkMode"))
-    : false,
+  isDarkModeOn: localStorage.getItem('DarkMode') ? JSON.parse(localStorage.getItem('DarkMode')) : false,
+  mainTheme: localStorage.getItem('MainTheme') ? JSON.parse(localStorage.getItem('MainTheme')) : 'light-theme',
 };
 
 export const appSetting = createSlice({
-  name: "appSetting",
+  name: 'appSetting',
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
-    },
     switchDarkMode: (state) => {
       state.isDarkModeOn = !state.isDarkModeOn;
-      // console.log(state.isDarkModeOn);
-      localStorage.setItem("DarkMode", JSON.stringify(state.isDarkModeOn));
+      localStorage.setItem('DarkMode', JSON.stringify(state.isDarkModeOn));
+    },
+    changeMainTheme: (state, action) => {
+      state.isDarkModeOn = false;
+      state.mainTheme = action.payload;
+      localStorage.setItem('MainTheme', JSON.stringify(state.mainTheme));
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount, switchDarkMode } =
-  appSetting.actions;
+export const { switchDarkMode, changeMainTheme } = appSetting.actions;
 
 export default appSetting.reducer;

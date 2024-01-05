@@ -1,0 +1,109 @@
+html,
+body {
+  .dark-theme {
+    --primary-color: #2c3135;
+    --primary-icon: #f6f6f6;
+    --primary-light: #18191a;
+    --primary-light2: #202528;
+    --primary-dark: #24282a;
+    --primary-white: #fff;
+    --primary-bold: #042248;
+    --btn-primary: #203f65;
+    --background-modal: #252a2e;
+    --btn-primary-theme: #f6f6f6;
+
+    --black-color: #18191a;
+    --bg-white-color: rgb(32, 37, 41);
+    --text-color: white;
+    --white-color: #fff;
+    --white-dark: #202529;
+    --bg-white-item: #2c3135;
+    --btn-edit: #f6f6f6;
+
+    --red-color: #ff4428;
+    --green-color: #3aa240;
+    --blue-color: rgb(29, 78, 216);
+    --pending-color: rgb(249, 115, 22);
+    --warning-color-2: rgb(250, 204, 21);
+    --success-color: rgb(132, 204, 22);
+
+    --grey-color-text: #b2b2b2;
+    --grey-border: rgba(255, 255, 255, 0.3);
+    --grey-border-item: rgba(226, 232, 240, 0.1);
+    --grey-border-dash: rgba(179, 179, 179, 0.3);
+    --grey-border-input: rgba(226, 232, 240, 0.6);
+    --grey-bg: #202529;
+    --grey: #808080;
+    --primary-check: rgb(255, 255, 255);
+    --white-color-outline: #2c3135;
+    --required-bg: rgb(226, 232, 240);
+    --input-color: #181a1b;
+    --box-shadow-item: none;
+    --grey-shadow: none;
+  }
+  .red-theme {
+    --primary-color: rgb(229, 57, 53);
+    --primary-light: rgba(239, 83, 80, 0.3);
+    --primary-light2: rgba(239, 83, 80, 0.5);
+    --primary-dark: rgb(197, 38, 35);
+    --primary-bold: rgb(197, 38, 35);
+    --btn-primary-theme: rgb(229, 57, 53);
+
+    --primary-icon: rgb(229, 57, 53);
+    --primary-check: rgb(229, 57, 53);
+    --primary-white: rgb(229, 57, 53);
+    --btn-primary: rgb(229, 57, 53);
+  }
+  .blue-theme {
+    --primary-color: rgb(26, 115, 232);
+    --primary-light: rgba(73, 163, 241, 0.3);
+    --primary-light2: rgba(73, 163, 241, 0.5);
+    --primary-dark: #005dd6;
+    --primary-bold: #005dd6;
+    --btn-primary-theme: rgb(26, 115, 232);
+
+    --primary-icon: rgb(26, 115, 232);
+    --primary-check: rgb(26, 115, 232);
+    --primary-white: rgb(26, 115, 232);
+    --btn-primary: rgb(26, 115, 232);
+  }
+  .green-theme {
+    --primary-color: rgb(67, 160, 71);
+    --primary-light: rgba(102, 187, 106, 0.3);
+    --primary-light2: rgba(102, 187, 106, 0.5);
+    --primary-dark: rgb(31, 149, 36);
+    --primary-bold: rgb(31, 149, 36);
+    --btn-primary-theme: rgb(67, 160, 71);
+
+    --primary-icon: rgb(67, 160, 71);
+    --primary-check: rgb(67, 160, 71);
+    --primary-white: rgb(67, 160, 71);
+    --btn-primary: rgb(67, 160, 71);
+  }
+  .orange-theme {
+    --primary-color: rgb(251, 140, 0);
+    --primary-light: rgba(255, 167, 38, 0.3);
+    --primary-light2: rgba(255, 167, 38, 0.5);
+    --primary-dark: rgb(224, 125, 0);
+    --primary-bold: rgb(224, 125, 0);
+    --btn-primary-theme: rgb(251, 140, 0);
+
+    --primary-icon: rgb(251, 140, 0);
+    --primary-check: rgb(251, 140, 0);
+    --primary-white: rgb(251, 140, 0);
+    --btn-primary: rgb(251, 140, 0);
+  }
+  .pink-theme {
+    --primary-color: rgb(216, 27, 96);
+    --primary-light: rgba(236, 64, 122, 0.3);
+    --primary-light2: rgba(236, 64, 122, 0.5);
+    --primary-dark: rgb(204, 8, 79);
+    --primary-bold: rgb(204, 8, 79);
+    --btn-primary-theme: rgb(216, 27, 96);
+
+    --primary-icon: rgb(216, 27, 96);
+    --primary-check: rgb(216, 27, 96);
+    --primary-white: rgb(216, 27, 96);
+    --btn-primary: rgb(216, 27, 96);
+  }
+}

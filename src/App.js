@@ -1,12 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Fragment } from "react";
-import { publicRoutes, privateRoutes } from "./router/routes";
-import DefaultLayout from "./layout/DefaultLayout";
-import PrivateLayout from "./layout/PrivateLayout";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Fragment } from 'react';
+import { publicRoutes, privateRoutes } from './router/routes';
+import DefaultLayout from './layout/DefaultLayout';
+import PrivateLayout from './layout/PrivateLayout';
+
+import './App.scss';
 
 function App() {
   return (
-    <>
+    <div className="App">
       <Router>
         <Routes>
           {publicRoutes.map((route, index) => {
@@ -54,7 +56,7 @@ function App() {
           })}
         </Routes>
       </Router>
-    </>
+    </div>
   );
 }
 

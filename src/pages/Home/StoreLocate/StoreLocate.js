@@ -88,7 +88,7 @@ export default function StoreLocate() {
               </div>
               <div className={cx('wbs-wrap')}>
                 {WBSList.map((res) => (
-                  <div className={cx('wbs-item', 'animate')}>
+                  <div className={cx('wbs-item', 'animate')} key={res.id}>
                     <Avatar alt={res.name} src={res.avatar} />
                     <div className={cx('wbs-desc')}>
                       <span className={cx('wbs-name')}>{res.name}</span>
