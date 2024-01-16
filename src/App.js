@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import { publicRoutes, privateRoutes } from './router/routes';
 import DefaultLayout from './layout/DefaultLayout';
 import PrivateLayout from './layout/PrivateLayout';
+import ProtectedRoute from './components/ProtectedRoute';
 
 import './App.scss';
 
@@ -24,9 +25,11 @@ function App() {
                 key={index}
                 path={route.path}
                 element={
-                  <Layout>
-                    <Page />
-                  </Layout>
+                  <ProtectedRoute>
+                    <Layout>
+                      <Page />
+                    </Layout>
+                  </ProtectedRoute>
                 }
               />
             );

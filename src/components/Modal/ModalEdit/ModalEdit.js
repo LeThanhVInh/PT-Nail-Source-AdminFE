@@ -127,7 +127,7 @@ function ModalEdit(props, ref) {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const handleSave = (data) => {
     console.log(data);
   };
 
@@ -159,7 +159,7 @@ function ModalEdit(props, ref) {
         }}
       >
         <div className={cx('wrapper')}>
-          <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+          <form noValidate autoComplete="off" onSubmit={handleSubmit(handleSave)}>
             <div className={cx('modal-box')}>
               <div className={cx('header')}>
                 <p>Modal Edit</p>

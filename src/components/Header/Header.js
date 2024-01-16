@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Box, Toolbar, IconButton, Typography, Badge, MenuItem, Menu, Divider } from '@mui/material';
+import { auth } from '../../firebase';
+import { signOut } from 'firebase/auth';
 
+import { AppBar, Box, Toolbar, IconButton, Typography, Badge, MenuItem, Menu, Divider } from '@mui/material';
 import {
   AccountCircle,
   Mail as MailIcon,
@@ -103,6 +105,16 @@ function Header() {
     }
   }, [mainTheme]);
 
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
   const menuId = 'primary-search-account-menu';
   const menuThemeId = 'theme-menu';
 
@@ -124,6 +136,7 @@ function Header() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
     </Menu>
   );
 
@@ -191,19 +204,6 @@ function Header() {
         <p>Notifications</p>
       </MenuItem>
 
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-
       <MenuItem onClick={handleThemeMenuOpen}>
         <IconButton
           size="large"
@@ -216,6 +216,19 @@ function Header() {
           <ColorLensIcon sx={{ color: 'var(--btn-primary-theme)' }} />
         </IconButton>
         <p>Theme</p>
+      </MenuItem>
+
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
       </MenuItem>
     </Menu>
   );
@@ -259,6 +272,18 @@ function Header() {
             <IconButton
               size="large"
               edge="end"
+              aria-label="theme change"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleThemeMenuOpen}
+              color="inherit"
+            >
+              <ColorLensIcon sx={{ color: 'var(--btn-primary-theme)' }} />
+            </IconButton>
+
+            <IconButton
+              size="large"
+              edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
@@ -267,18 +292,6 @@ function Header() {
               sx={{ marginRight: 0 }}
             >
               <AccountCircle sx={{ color: 'var(--btn-edit)' }} />
-            </IconButton>
-
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="theme change"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleThemeMenuOpen}
-              color="inherit"
-            >
-              <ColorLensIcon sx={{ color: 'var(--btn-primary-theme)' }} />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

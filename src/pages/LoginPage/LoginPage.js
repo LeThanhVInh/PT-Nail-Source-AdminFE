@@ -1,10 +1,61 @@
+import { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Grid, Box, TextField, Button, Stack, FormGroup, FormControlLabel, Checkbox, Typography } from '@mui/material';
+import { auth } from '../../firebase';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { saveIdUserToken } from '../../features/appSetting/userSettingSlice';
+
+import LoadingButton from '@mui/lab/LoadingButton';
+import SaveIcon from '@mui/icons-material/Save';
+
 import loginImg from '../../assets/images/svg/login-img.svg';
 import classNames from 'classnames/bind';
 import styles from './LoginPage.module.scss';
 const cx = classNames.bind(styles);
 
 function LoginPage() {
+  const dispatch = useDispatch();
+  const [invalidEmail, setInvalidEmail] = useState('');
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({});
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const emailValue = watch('email');
+  const passWorkValue = watch('passWord');
+
+  const handleLogin = async (data) => {
+    setIsLoading(true);
+
+    await signInWithEmailAndPassword(auth, data.email, data.passWord)
+      .then(async (userCredential) => {
+        // console.log('userCredential', userCredential);
+        // const jwtToken = await userCredential.user?.getIdToken();
+        // dispatch(saveIdUserToken(jwtToken));
+        setIsLoading(false);
+        navigate('/');
+      })
+      .catch((error) => {
+        setInvalidEmail('Email or password is incorrect');
+        setIsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    setInvalidEmail('');
+  }, [emailValue, passWorkValue]);
+
+  const onError = (errors, e) => {
+    console.log('éc', errors, e);
+  };
+
   return (
     <>
       <div className={cx('wrapper')}>
@@ -133,6 +184,7 @@ function LoginPage() {
               >
                 Sign In
               </Typography>
+
               <Box
                 component="form"
                 sx={{
@@ -152,11 +204,16 @@ function LoginPage() {
                 noValidate
                 autoComplete="off"
                 className="animate__animated animate__fadeInRight animate__fast"
+                onSubmit={handleSubmit(handleLogin, onError)}
               >
                 <TextField
-                  // id="outlined-basic"
                   label="Email"
                   variant="outlined"
+                  error={errors.email && errors.email.type === 'required' ? true : false}
+                  helperText={
+                    (errors.email && errors.email.type === 'required' && 'Email is required') ||
+                    (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
+                  }
                   inputProps={{
                     style: {
                       padding: '11.5px 14px',
@@ -182,12 +239,19 @@ function LoginPage() {
                       },
                     },
                   }}
+                  {...register('email', {
+                    required: true,
+                    pattern: /\S+@\S+\.\S+/,
+                  })}
                 />
                 <TextField
                   // id="outlined-password-input"
+
+                  error={errors.passWord && errors.passWord.type === 'required' ? true : false}
                   label="Password"
                   type="password"
-                  // autoComplete="current-password"
+                  helperText={errors.passWord && errors.passWord.type === 'required' && 'Password is required'}
+                  autoComplete="off"
                   inputProps={{
                     style: {
                       padding: '11.5px 14px',
@@ -212,7 +276,12 @@ function LoginPage() {
                       },
                     },
                   }}
+                  {...register('passWord', {
+                    required: true,
+                  })}
                 />
+
+                {invalidEmail !== '' ? <Typography sx={{ color: 'var(--red-color)' }}>{invalidEmail}</Typography> : ''}
 
                 <Stack
                   direction="row"
@@ -247,9 +316,28 @@ function LoginPage() {
                 </Stack>
 
                 <Stack direction="row" spacing={2}>
-                  <Button variant="contained" sx={{ width: '128px', height: '46px' }} className={cx('btn-login')}>
-                    Login
-                  </Button>
+                  {!isLoading ? (
+                    <Button
+                      variant="contained"
+                      sx={{ width: '128px', height: '46px' }}
+                      className={cx('btn-login')}
+                      type="submit"
+                      disabled={isLoading}
+                    >
+                      Login
+                    </Button>
+                  ) : (
+                    <LoadingButton
+                      loading
+                      loadingPosition="start"
+                      startIcon={<SaveIcon />}
+                      variant="outlined"
+                      sx={{ width: '128px', height: '46px' }}
+                    >
+                      Login
+                    </LoadingButton>
+                  )}
+
                   <Button variant="outlined" sx={{ width: '128px', height: '46px' }} className={cx('btn-register')}>
                     Register
                   </Button>
