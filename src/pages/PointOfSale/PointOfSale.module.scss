@@ -127,26 +127,27 @@ main {
 
       .items-body {
         overflow: auto;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
         border-radius: 10px;
         box-shadow: $shadow;
         background-color: var(--white-dark);
         flex-grow: 1;
+        .items-body-wrap {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          .item-card {
+            display: block;
+            margin: 10px;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            background-color: var(--white-color-outline);
 
-        .item-card {
-          display: block;
-          margin: 10px;
-          box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-          background-color: var(--white-color-outline);
-
-          &:hover {
-            cursor: pointer;
-            background-color: var(--primary-light);
-            -webkit-transition: background-color 0.2s linear;
-            -ms-transition: background-color 0.2s linear;
-            transition: background-color 0.2s linear;
+            &:hover {
+              cursor: pointer;
+              background-color: var(--primary-light);
+              -webkit-transition: background-color 0.2s linear;
+              -ms-transition: background-color 0.2s linear;
+              transition: background-color 0.2s linear;
+            }
           }
         }
       }

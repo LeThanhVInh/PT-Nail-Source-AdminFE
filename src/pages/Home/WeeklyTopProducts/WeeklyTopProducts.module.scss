@@ -59,19 +59,20 @@
         height: 2rem;
         background-color: rgb(226 232 240);
         width: 1px;
-        margin: auto 0;
+        top: 50%;
+        transform: translateY(-18px);
+      }
+      .btn-edit {
+        color: var(--btn-edit);
+        text-transform: capitalize;
+        // margin-right: 10px;
+      }
+      .btn-delete {
+        text-transform: capitalize;
+        color: var(--btn-delete);
       }
     }
 
-    .btn-edit {
-      color: var(--btn-edit);
-      text-transform: capitalize;
-      margin-right: 10px;
-    }
-    .btn-delete {
-      text-transform: capitalize;
-      color: var(--btn-delete);
-    }
     .btn-is-active {
       text-transform: capitalize;
       color: var(--btn-active);

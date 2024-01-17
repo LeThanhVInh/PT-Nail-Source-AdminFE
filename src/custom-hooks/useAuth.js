@@ -14,7 +14,6 @@ export default function useAuth() {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         setCurrentUser(user);
-
         const jwtToken = await user.auth.currentUser.getIdToken();
         dispatch(saveIdUserToken(jwtToken));
       } else {

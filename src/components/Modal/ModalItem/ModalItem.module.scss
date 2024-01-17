@@ -9,15 +9,16 @@
   }
 
   .wrapper {
-    padding: 20px;
+    // padding: 20px;
+    margin-top: 20px;
   }
 
   .modal-box {
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     background-color: var(--bg-white-item);
     border-radius: 10px;
-    border: 1px solid #e2e8f099;
-    padding: 10px;
+    border: 1px solid var(--grey-shadow);
+    padding: 10px 10px 20px;
 
     .header {
       color: var(--text-color);

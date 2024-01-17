@@ -15,6 +15,8 @@ import SwitchMode from '../Switch/SwitchMode';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeMainTheme } from '../../features/appSetting/appSettingSlice';
 
+import useAuth from '../../custom-hooks/useAuth';
+
 const listThemeOverlay = [
   {
     id: 1,
@@ -62,6 +64,7 @@ function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [themeOverlay, setThemeOverlay] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const { currentUser } = useAuth();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMenuThemeOpen = Boolean(themeOverlay);
@@ -109,6 +112,8 @@ function Header() {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
+        bodyRoot.className = '';
+        dispatch(changeMainTheme(`${listThemeOverlay[0].classTitle}`));
       })
       .catch((error) => {
         // An error happened.
@@ -122,7 +127,7 @@ function Header() {
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: 'top',
+        vertical: 'bottom',
         horizontal: 'right',
       }}
       id={menuId}
@@ -253,16 +258,15 @@ function Header() {
           >
             PT Nail Source
           </Typography>
+
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex', alignItems: 'center' } }}>
             <SwitchMode />
-
             <IconButton size="large" aria-label="show 4 new mails">
               <Badge badgeContent={4} color="error">
                 <MailIcon sx={{ color: 'var(--btn-edit)' }} />
               </Badge>
             </IconButton>
-
             <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon sx={{ color: 'var(--btn-edit)' }} />
@@ -277,6 +281,7 @@ function Header() {
               aria-haspopup="true"
               onClick={handleThemeMenuOpen}
               color="inherit"
+              sx={{ marginRight: 0 }}
             >
               <ColorLensIcon sx={{ color: 'var(--btn-primary-theme)' }} />
             </IconButton>
@@ -289,7 +294,6 @@ function Header() {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
-              sx={{ marginRight: 0 }}
             >
               <AccountCircle sx={{ color: 'var(--btn-edit)' }} />
             </IconButton>

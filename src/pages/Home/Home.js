@@ -21,7 +21,7 @@ import Transactions from './Transactions';
 import RecentActivities from './RecentActivities';
 const cx = classNames.bind(styles);
 
-function Home() {
+export default function Home() {
   return (
     <div className={cx('home-wrapper', 'animate__animated', 'animate__fadeInRight', 'animate__fast')}>
       <Box sx={{ flexGrow: 1 }}>
@@ -118,5 +118,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;

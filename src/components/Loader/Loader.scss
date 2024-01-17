@@ -1,0 +1,12 @@
+.sweet-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.12), rgba(21, 21, 21, 0.88)), url(../../assets/images/lock-bg.jpg);
+  /*background: no-repeat center center fixed ;*/
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

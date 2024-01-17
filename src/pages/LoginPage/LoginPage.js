@@ -1,67 +1,91 @@
-import { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { Grid, Box, TextField, Button, Stack, FormGroup, FormControlLabel, Checkbox, Typography } from '@mui/material';
 import { auth } from '../../firebase';
-import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { saveIdUserToken } from '../../features/appSetting/userSettingSlice';
+import { useForm } from 'react-hook-form';
 
+import Swal from 'sweetalert2';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
+import config from '../../router/config';
 
 import loginImg from '../../assets/images/svg/login-img.svg';
 import classNames from 'classnames/bind';
 import styles from './LoginPage.module.scss';
+import Loader from '../../components/Loader';
+import useAuth from '../../custom-hooks/useAuth';
+
 const cx = classNames.bind(styles);
 
-function LoginPage() {
-  const dispatch = useDispatch();
-  const [invalidEmail, setInvalidEmail] = useState('');
+export default function LoginPage() {
+  const [inputAnimation, setInputAnimation] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoaderLoading, setIsLoaderLoading] = useState(false);
+  const [colorLoader, setColorLoader] = useState('#fff');
+  const { currentUser } = useAuth();
+
+  const emailRef = useRef();
+
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({});
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  const emailValue = watch('email');
-  const passWorkValue = watch('passWord');
-
   const handleLogin = async (data) => {
     setIsLoading(true);
-
     await signInWithEmailAndPassword(auth, data.email, data.passWord)
       .then(async (userCredential) => {
-        // console.log('userCredential', userCredential);
-        // const jwtToken = await userCredential.user?.getIdToken();
-        // dispatch(saveIdUserToken(jwtToken));
         setIsLoading(false);
         navigate('/');
       })
       .catch((error) => {
-        setInvalidEmail('Email or password is incorrect');
+        Swal.mixin({
+          toast: true,
+          position: 'top',
+          showConfirmButton: false,
+          showClass: { popup: 'animate__animated animate__fadeInDown' },
+          hideClass: { popup: 'animate__animated animate__fadeOutUp' },
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          },
+        }).fire('Email or password is incorrect !', '', 'error');
+        setInputAnimation(['animate__animated animate__shakeX', 'border-error']);
+        setTimeout(() => setInputAnimation([]), 3000);
+        emailRef.current.focus();
         setIsLoading(false);
       });
   };
 
   useEffect(() => {
-    setInvalidEmail('');
-  }, [emailValue, passWorkValue]);
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      setIsLoaderLoading(true);
+      if (user) {
+        user.getIdToken().then((token) => {
+          setIsLoaderLoading(false);
+          navigate(config.routes.home);
+        });
+      } else {
+        setIsLoaderLoading(false);
+        navigate(config.routes.login);
+      }
+    });
 
-  const onError = (errors, e) => {
-    console.log('éc', errors, e);
-  };
+    return () => unsubscribe();
+  }, []);
+
+  if (isLoaderLoading) return <Loader colorLoader={colorLoader} isLoading={isLoaderLoading} />;
 
   return (
     <>
       <div className={cx('wrapper')}>
         <Grid
           container
-          // spacing={2}
           sx={{
             position: 'relative',
             height: '100vh',
@@ -204,12 +228,18 @@ function LoginPage() {
                 noValidate
                 autoComplete="off"
                 className="animate__animated animate__fadeInRight animate__fast"
-                onSubmit={handleSubmit(handleLogin, onError)}
+                onSubmit={handleSubmit(handleLogin)}
               >
                 <TextField
                   label="Email"
                   variant="outlined"
-                  error={errors.email && errors.email.type === 'required' ? true : false}
+                  inputRef={emailRef}
+                  error={
+                    (errors.email && errors.email.type === 'required') ||
+                    (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
+                      ? true
+                      : false
+                  }
                   helperText={
                     (errors.email && errors.email.type === 'required' && 'Email is required') ||
                     (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
@@ -281,7 +311,7 @@ function LoginPage() {
                   })}
                 />
 
-                {invalidEmail !== '' ? <Typography sx={{ color: 'var(--red-color)' }}>{invalidEmail}</Typography> : ''}
+                {/* {invalidEmail !== '' ? <Typography sx={{ color: 'var(--red-color)' }}>{invalidEmail}</Typography> : ''} */}
 
                 <Stack
                   direction="row"
@@ -322,7 +352,7 @@ function LoginPage() {
                       sx={{ width: '128px', height: '46px' }}
                       className={cx('btn-login')}
                       type="submit"
-                      disabled={isLoading}
+                      disabled={isLoading || isLoaderLoading}
                     >
                       Login
                     </Button>
@@ -370,5 +400,3 @@ function LoginPage() {
     </>
   );
 }
-
-export default LoginPage;

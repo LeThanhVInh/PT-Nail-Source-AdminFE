@@ -131,15 +131,15 @@ export default function WeeklyTopProducts() {
 
   const checkOneRow = (isChecked, id) => {
     const index = isCheckedItem.indexOf(id);
-
     if (isChecked) return setIsCheckedItem((state) => [...state, id]);
-
     if (!isChecked && index > -1)
       return setIsCheckedItem((state) => {
         state.splice(index, 1);
+
         return JSON.parse(JSON.stringify(state));
       });
   };
+
   return (
     <div className={cx('weekly-top-products-wrapper', 'mt-20')}>
       <div className={cx('title')}>

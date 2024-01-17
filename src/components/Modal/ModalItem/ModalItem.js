@@ -1,30 +1,15 @@
-import React, { useState, useRef, useEffect, forwardRef } from "react";
-import {
-  Modal,
-  Box,
-  IconButton,
-  Divider,
-  Typography,
-  ToggleButtonGroup,
-  Button,
-} from "@mui/material";
+import React, { useState, useRef, useEffect, forwardRef } from 'react';
+import { Modal, Box, IconButton, Divider, Typography, ToggleButtonGroup, Button } from '@mui/material';
 
-import {
-  Clear as ClearIcon,
-  Remove as RemoveIcon,
-  Add as AddIcon,
-} from "@mui/icons-material";
+import { Clear as ClearIcon, Remove as RemoveIcon, Add as AddIcon } from '@mui/icons-material';
 
-import Grid from "@mui/material/Unstable_Grid2";
+import Grid from '@mui/material/Unstable_Grid2';
 
-import { ToggleButtonSelectSize } from "../../CustomMUI/ButtonCustom";
-import constants, {
-  modalSizes,
-  getSizeOfModal,
-} from "../../../providers/constants";
+import { ToggleButtonSelectSize } from '../../CustomMUI/ButtonCustom';
+import constants, { modalSizes, getSizeOfModal } from '../../../providers/constants';
 
-import classNames from "classnames/bind";
-import styles from "./ModalItem.module.scss";
+import classNames from 'classnames/bind';
+import styles from './ModalItem.module.scss';
 const cx = classNames.bind(styles);
 
 function ModalItem(props, ref) {
@@ -35,9 +20,9 @@ function ModalItem(props, ref) {
   const [quantity, setQuantity] = useState(0);
   const [totalItem, setTotalItem] = useState(0);
 
-  const [selectSize, setSelectSize] = useState("small");
-  const [selectVariation, setSelectVariation] = useState("red");
-  const [animationClass, setAnimationClass] = useState("");
+  const [selectSize, setSelectSize] = useState('small');
+  const [selectVariation, setSelectVariation] = useState('red');
+  const [animationClass, setAnimationClass] = useState('');
 
   React.useImperativeHandle(ref, () => ({ openModal }));
 
@@ -45,8 +30,8 @@ function ModalItem(props, ref) {
     if (isOpen === false) {
       setQuantity(0);
       setTotalItem(0);
-      setSelectSize("small");
-      setSelectVariation("red");
+      setSelectSize('small');
+      setSelectVariation('red');
     } else {
       setTimeout(() => focusFix.current.focus(), 100);
     }
@@ -61,43 +46,35 @@ function ModalItem(props, ref) {
   }, [quantity]);
 
   const closeModal = () => {
-    setAnimationClass([
-      "animate__animated",
-      "animate__zoomOut",
-      "animate__fast",
-    ]);
+    setAnimationClass(['animate__animated', 'animate__zoomOut', 'animate__fast']);
     setTimeout(() => setOpenModal(false), 250);
   };
   const openModal = () => {
-    setAnimationClass([
-      "animate__animated",
-      "animate__zoomIn",
-      "animate__fast",
-    ]);
+    setAnimationClass(['animate__animated', 'animate__zoomIn', 'animate__fast']);
     setTimeout(() => setOpenModal(true), 100);
   };
 
   return (
     <Modal open={isOpen} onClose={closeModal}>
       <Box
-        className={cx("modal-main-box", animationClass)}
+        className={cx('modal-main-box', animationClass)}
         sx={{
           width: getSizeOfModal(modalSize),
-          overflow: "auto",
-          margin: "auto",
+          overflow: 'auto',
+          margin: 'auto',
           //height: "100%",
         }}
       >
-        <div className={cx("wrapper")}>
-          <div className={cx("modal-box")}>
-            <div className={cx("header")}>
+        <div className={cx('wrapper')}>
+          <div className={cx('modal-box')}>
+            <div className={cx('header')}>
               <p>Modal Item</p>
               <IconButton
                 ref={focusFix}
                 sx={{
-                  color: "var(--primary-icon)",
-                  ":hover": {
-                    color: "var(--primary-icon)",
+                  color: 'var(--primary-icon)',
+                  ':hover': {
+                    color: 'var(--primary-icon)',
                   },
                 }}
                 onClick={closeModal}
@@ -105,59 +82,57 @@ function ModalItem(props, ref) {
                 <ClearIcon fontSize="inherit" />
               </IconButton>
             </div>
-            <Divider
-              sx={{ margin: "10px 0", borderColor: "var(--grey-border)" }}
-            />
-            <div className={cx("contents")}>
+            <Divider sx={{ margin: '10px 0', borderColor: 'var(--grey-border)' }} />
+            <div className={cx('contents')}>
               <Grid container spacing={2}>
                 <Grid
                   xs={6}
                   sx={{
                     width: {
-                      xs: "100%",
-                      md: "100%",
-                      lg: "calc(100% * 6 / var(--Grid-columns))",
-                      xl: "calc(100% * 6 / var(--Grid-columns))",
+                      xs: '100%',
+                      md: '100%',
+                      lg: 'calc(100% * 6 / var(--Grid-columns))',
+                      xl: 'calc(100% * 6 / var(--Grid-columns))',
                     },
                   }}
                 >
-                  <div className={cx("contents")}>
+                  <div className={cx('contents')}>
                     <img src={dataItem.img} alt={dataItem.name} />
-                    <div className={cx("info")}>
+                    <div className={cx('info')}>
                       <h3>{dataItem.name}</h3>
                       <h4>${dataItem.price}</h4>
                     </div>
-                    <div className={cx("description")}>
+                    <div className={cx('description')}>
                       <span>{dataItem.description}</span>
                     </div>
-                    <div className={cx("description")}>
+                    <div className={cx('description')}>
                       <Box
                         component="div"
                         sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          flexWrap: "wrap",
-                          justifyContent: "space-between",
+                          display: 'flex',
+                          alignItems: 'center',
+                          flexWrap: 'wrap',
+                          justifyContent: 'space-between',
                         }}
                       >
                         <Box
                           sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
                           }}
                         >
                           {quantity >= 1 ? (
                             <IconButton
                               sx={{
-                                margin: "0 5px",
-                                color: "var(--white-color)",
-                                backgroundColor: "var(--btn-primary)",
-                                borderRadius: "50%",
-                                border: "1px solid var(--btn-primary)",
-                                padding: "2px",
-                                ":hover": {
-                                  backgroundColor: "var(--btn-primary)",
+                                margin: '0 5px',
+                                color: 'var(--white-color)',
+                                backgroundColor: 'var(--btn-primary)',
+                                borderRadius: '50%',
+                                border: '1px solid var(--btn-primary)',
+                                padding: '2px',
+                                ':hover': {
+                                  backgroundColor: 'var(--btn-primary)',
                                 },
                               }}
                               onClick={() => setQuantity(quantity - 1)}
@@ -167,12 +142,12 @@ function ModalItem(props, ref) {
                           ) : (
                             <IconButton
                               sx={{
-                                margin: "0 5px",
-                                color: "var(--primary-color)",
-                                backgroundColor: "var(--white-color)",
-                                borderRadius: "50%",
-                                border: "1px solid transparent",
-                                padding: "2px",
+                                margin: '0 5px',
+                                color: 'var(--primary-color)',
+                                backgroundColor: 'var(--white-color)',
+                                borderRadius: '50%',
+                                border: '1px solid transparent',
+                                padding: '2px',
                               }}
                               disabled
                             >
@@ -180,23 +155,19 @@ function ModalItem(props, ref) {
                             </IconButton>
                           )}
 
-                          <Typography
-                            component="div"
-                            variant="h6"
-                            sx={{ margin: "10px", color: "var(--text-color)" }}
-                          >
+                          <Typography component="div" variant="h6" sx={{ margin: '10px', color: 'var(--text-color)' }}>
                             {quantity}
                           </Typography>
                           <IconButton
                             sx={{
-                              margin: "0 5px",
-                              color: "var(--white-color)",
-                              backgroundColor: "var(--btn-primary)",
-                              border: "1px solid var(--btn-primary)",
-                              borderRadius: "50%",
-                              padding: "2px",
-                              ":hover": {
-                                backgroundColor: "var(--btn-primary)",
+                              margin: '0 5px',
+                              color: 'var(--white-color)',
+                              backgroundColor: 'var(--btn-primary)',
+                              border: '1px solid var(--btn-primary)',
+                              borderRadius: '50%',
+                              padding: '2px',
+                              ':hover': {
+                                backgroundColor: 'var(--btn-primary)',
                               },
                             }}
                             onClick={() => setQuantity(quantity + 1)}
@@ -205,11 +176,7 @@ function ModalItem(props, ref) {
                           </IconButton>
                         </Box>
                         <Box>
-                          <Typography
-                            component="div"
-                            variant="h6"
-                            sx={{ color: "var(--text-color)" }}
-                          >
+                          <Typography component="div" variant="h6" sx={{ color: 'var(--text-color)' }}>
                             ${totalItem}
                           </Typography>
                         </Box>
@@ -221,18 +188,18 @@ function ModalItem(props, ref) {
                   xs={6}
                   sx={{
                     width: {
-                      xs: "100%",
-                      md: "100%",
-                      lg: "calc(100% * 6 / var(--Grid-columns))",
-                      xl: "calc(100% * 6 / var(--Grid-columns))",
+                      xs: '100%',
+                      md: '100%',
+                      lg: 'calc(100% * 6 / var(--Grid-columns))',
+                      xl: 'calc(100% * 6 / var(--Grid-columns))',
                     },
                   }}
                 >
-                  <div className={cx("title-aside")}>
+                  <div className={cx('title-aside')}>
                     <p>Select Option</p>
                   </div>
-                  <div className={cx("action")}>
-                    <div className={cx("select-btn-item")}>
+                  <div className={cx('action')}>
+                    <div className={cx('select-btn-item')}>
                       <p>Size</p>
                       <ToggleButtonGroup
                         color="primary"
@@ -241,9 +208,9 @@ function ModalItem(props, ref) {
                         onChange={(e, newValue) => setSelectSize(newValue)}
                         aria-label="Platform"
                         sx={{
-                          display: "flex",
-                          flexWrap: "wrap",
-                          justifyContent: "center",
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          justifyContent: 'center',
                         }}
                       >
                         <ToggleButtonSelectSize value="small" size="small">
@@ -259,7 +226,7 @@ function ModalItem(props, ref) {
                         </ToggleButtonSelectSize>
                       </ToggleButtonGroup>
                     </div>
-                    <div className={cx("select-btn-item")}>
+                    <div className={cx('select-btn-item')}>
                       <p>Variation</p>
                       <ToggleButtonGroup
                         color="primary"
@@ -268,8 +235,8 @@ function ModalItem(props, ref) {
                         onChange={(e, newValue) => setSelectVariation(newValue)}
                         aria-label="Platform"
                         sx={{
-                          display: "flex",
-                          flexWrap: "wrap",
+                          display: 'flex',
+                          flexWrap: 'wrap',
                         }}
                       >
                         <ToggleButtonSelectSize value="red">
@@ -277,9 +244,7 @@ function ModalItem(props, ref) {
                         </ToggleButtonSelectSize>
 
                         <ToggleButtonSelectSize value="green">
-                          <Typography variant="subtitle2">
-                            Greenssssssssss
-                          </Typography>
+                          <Typography variant="subtitle2">Greenssssssssss</Typography>
                         </ToggleButtonSelectSize>
 
                         <ToggleButtonSelectSize value="blue">
@@ -299,15 +264,15 @@ function ModalItem(props, ref) {
                       </ToggleButtonGroup>
                     </div>
                     {constants.Spacer}
-                    <div className={cx("confirm-btn")}>
+                    <div className={cx('confirm-btn')}>
                       <Button
                         variant="contained"
                         fullWidth
                         sx={{
-                          height: "50px",
-                          backgroundColor: "var(--btn-primary)",
-                          ":hover": {
-                            backgroundColor: "var(--btn-primary)",
+                          height: '50px',
+                          backgroundColor: 'var(--btn-primary)',
+                          ':hover': {
+                            backgroundColor: 'var(--btn-primary)',
                           },
                         }}
                       >
