@@ -14,11 +14,11 @@ import ChartDashboard from './ChartDashboard';
 import StoreLocate from './StoreLocate/StoreLocate';
 import SocialChart from './SocialChart';
 import WeeklyTopProducts from './WeeklyTopProducts/WeeklyTopProducts';
+import Transactions from './Transactions';
+import RecentActivities from './RecentActivities';
 
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
-import Transactions from './Transactions';
-import RecentActivities from './RecentActivities';
 const cx = classNames.bind(styles);
 
 export default function Home() {

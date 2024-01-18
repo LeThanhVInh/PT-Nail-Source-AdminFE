@@ -12,6 +12,7 @@ import Post from '../../pages/Post/Post';
 import PointOfSale from '../../pages/PointOfSale/PointOfSale';
 import Categories from '../../pages/Categories/Categories';
 import CalendarPage from '../../pages/CalendarPage';
+import AccountPage from '../../pages/AccountPage';
 
 //Public routes
 const publicRoutes = [
@@ -22,6 +23,7 @@ const publicRoutes = [
   { path: '/point-of-sale', component: PointOfSale },
   { path: '/categories', component: Categories },
   { path: '/calendar', component: CalendarPage },
+  { path: '/account', component: AccountPage },
 ];
 
 const privateRoutes = [

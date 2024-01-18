@@ -30,6 +30,7 @@ function App() {
 
       if (user) {
         user.getIdToken().then((token) => {
+          setLogin(token);
           setIsLoading(false);
         });
       } else {
@@ -44,6 +45,8 @@ function App() {
     // Cleanup the subscription when the component unmounts
     return () => unsubscribe();
   }, []);
+
+  console.log(isLogin);
 
   if (isLoading) return <Loader colorLoader={colorLoader} isLoading={isLoading} />;
 

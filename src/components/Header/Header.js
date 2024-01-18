@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { auth } from '../../firebase';
 import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 import { AppBar, Box, Toolbar, IconButton, Typography, Badge, MenuItem, Menu, Divider } from '@mui/material';
 import {
@@ -16,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeMainTheme } from '../../features/appSetting/appSettingSlice';
 
 import useAuth from '../../custom-hooks/useAuth';
+import config from '../../router/config';
 
 const listThemeOverlay = [
   {
@@ -71,6 +73,8 @@ function Header() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const bodyRoot = document.getElementById('body-root');
+
+  const navigate = useNavigate();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -140,7 +144,7 @@ function Header() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={() => navigate(config.routes.account)}>My Account</MenuItem>
       <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
     </Menu>
   );

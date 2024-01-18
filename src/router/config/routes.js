@@ -9,6 +9,7 @@ const routes = {
   pos: '/point-of-sale',
   categories: '/categories',
   calendar: '/calendar',
+  account: '/account',
 };
 
 export default routes;
