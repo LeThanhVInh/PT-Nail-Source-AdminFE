@@ -1,13 +1,29 @@
+import { useEffect, useState } from 'react';
+
 import { useForm } from 'react-hook-form';
 
 import Box from '@mui/material/Box';
-import { InputAdornment, MenuItem, Divider, Stack, Typography, Button } from '@mui/material';
+import {
+  InputAdornment,
+  MenuItem,
+  Divider,
+  Stack,
+  Typography,
+  Button,
+  Select,
+  FormControl,
+  InputLabel,
+} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 
 import { AccountTextField } from '../../components/CustomMUI/AccountPage/AccountTextField';
-import useAuth from '../../providers/custom-hooks/useAuth';
+
+import UserAPI from '../../api/Users';
+import GetOnlyAPI from '../../api/GetOnly';
+
 import classNames from 'classnames/bind';
 import styles from './AccountPage.module.scss';
+import { LoadOptDropdown } from '../../providers/constants';
 const cx = classNames.bind(styles);
 
 const currencies = [
@@ -30,13 +46,38 @@ const currencies = [
 ];
 
 export default function AccountPage() {
+  const [emailUser, setEmailUser] = useState('');
+  const [fullNameUser, setFullNameUser] = useState('');
+  const [currencyList, setCurrencyList] = useState([]);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const { currentUser } = useAuth();
+  useEffect(() => {
+    async function fetchData() {
+      const userResult = await UserAPI.GetById('VLEo54J2UyYAWGf9cWQqMWkeTYA3');
+      const currencyListResult = await GetOnlyAPI.GetCurrencyList();
+
+      if (userResult !== null) {
+        setEmailUser(userResult.Email);
+        setFullNameUser(userResult.Fullname);
+      }
+
+      if (currencyListResult !== null) {
+        // setCurrencyList(currencyListResult);
+
+        let res = LoadOptDropdown(currencyListResult, 'Name', 'Symbol', false, '', '');
+
+        if (res) {
+          setCurrencyList(res);
+        }
+      }
+    }
+    fetchData();
+  }, []);
 
   const handleSave = (data) => {
     console.log(data);
@@ -59,18 +100,22 @@ export default function AccountPage() {
             <div className={cx('form-wrap')}>
               <AccountTextField
                 id="standard-required"
-                label="Business Name"
-                defaultValue="PT Nail Source & Supply"
+                label="Name"
+                value={fullNameUser}
                 variant="standard"
                 fullWidth
                 inputProps={{ maxLength: 50 }}
-                {...register('businessName', { required: true, maxLength: 50 })}
+                {...register('fullName', {
+                  required: true,
+                  maxLength: 50,
+                  onChange: (e) => setFullNameUser(e.target.value),
+                })}
               />
               <AccountTextField
                 label="Email"
-                defaultValue={currentUser?.email}
                 variant="standard"
                 fullWidth
+                value={emailUser}
                 inputProps={{ maxLength: 50 }}
                 InputProps={{
                   endAdornment: (
@@ -90,7 +135,12 @@ export default function AccountPage() {
                   (errors.email && errors.email.type === 'maxLength' && 'Max length exceeded') ||
                   (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
                 }
-                {...register('email', { required: true, maxLength: 50, pattern: /\S+@\S+\.\S+/ })}
+                {...register('email', {
+                  required: true,
+                  maxLength: 50,
+                  pattern: /\S+@\S+\.\S+/,
+                  onChange: (e) => setEmailUser(e.target.value),
+                })}
               />
               <AccountTextField
                 label="Password"
@@ -118,13 +168,15 @@ export default function AccountPage() {
                 }}
                 {...register('passWord', { required: true, maxLength: 50 })}
               />
-              <AccountTextField select label="Currency" defaultValue="EUR" variant="standard">
-                {currencies.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
+
+              <AccountTextField select label="Currency" variant="standard">
+                {currencyList.map((option) => (
+                  <MenuItem key={option.label} value={option.value}>
+                    {option.label} {option.value}
                   </MenuItem>
                 ))}
               </AccountTextField>
+
               <AccountTextField select label="Timezone" defaultValue="EUR" variant="standard">
                 {currencies.map((option) => (
                   <MenuItem key={option.value} value={option.value}>

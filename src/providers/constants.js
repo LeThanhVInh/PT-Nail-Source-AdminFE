@@ -23,3 +23,22 @@ export const getSizeOfModal = (type) => {
   else if (type === modalSizes.large && window.innerWidth < 1080) return modalSizes.full;
   else return type.toString();
 };
+
+export function LoadOptDropdown(jsonList, nameField, valueField, hasNoOption, nameNoOption, valueNoOption) {
+  //
+  let arr = [];
+  if (jsonList != null) {
+    //
+    arr = jsonList.map((item) => ({
+      label: item[nameField],
+      value: item[valueField],
+    }));
+  }
+
+  if (hasNoOption)
+    arr.unshift({
+      label: nameNoOption,
+      value: valueNoOption,
+    });
+  return arr;
+}
