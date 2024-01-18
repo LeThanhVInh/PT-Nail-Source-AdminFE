@@ -1,10 +1,10 @@
-let apiUrl = "https://phanmemvas.vn:444";
+let apiUrl = "https://phanmemvas.vn:68";
 
 const exportedObject = {
     'apiUrl': apiUrl,
     'Spacer': <div style={{ flex: '1' }}></div>
 };
-export default exportedObject
+export default exportedObject;
 
 export const dataTablePadWidth = 25;
 

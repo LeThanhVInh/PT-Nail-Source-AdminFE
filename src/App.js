@@ -46,8 +46,6 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  console.log(isLogin);
-
   if (isLoading) return <Loader colorLoader={colorLoader} isLoading={isLoading} />;
 
   return (

@@ -19,9 +19,24 @@ import RecentActivities from './RecentActivities';
 
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
+import { useEffect } from 'react';
+import UserAPI from '../../api/Users';
 const cx = classNames.bind(styles);
 
 export default function Home() {
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await UserAPI.GetById("VLEo54J2UyYAWGf9cWQqMWkeTYA3");
+      if (result !== null) {
+        result.UserId;
+        result.Fullname;
+        //......
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
     <div className={cx('home-wrapper', 'animate__animated', 'animate__fadeInRight', 'animate__fast')}>
       <Box sx={{ flexGrow: 1 }}>
