@@ -37,7 +37,7 @@ import Categories from './Categories';
 import ProductsPos from './ProductsPos/ProductsPos';
 import CartPos from './CartPos';
 
-import { categoriesList, menuList } from '../../data/data';
+import { categoriesList, menuList } from '../../providers/data/data';
 
 import classNames from 'classnames/bind';
 import styles from './PointOfSale.module.scss';

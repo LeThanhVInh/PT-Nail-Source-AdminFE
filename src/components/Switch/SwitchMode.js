@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { switchDarkMode } from '../../features/appSetting/appSettingSlice';
+import { switchDarkMode } from '../../providers/features/appSetting/appSettingSlice';
 
 import classNames from 'classnames/bind';
 import styles from './Switch.module.scss';

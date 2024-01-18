@@ -5,7 +5,7 @@ import { InputAdornment, MenuItem, Divider, Stack, Typography, Button } from '@m
 import EditIcon from '@mui/icons-material/Edit';
 
 import { AccountTextField } from '../../components/CustomMUI/AccountPage/AccountTextField';
-import useAuth from '../../custom-hooks/useAuth';
+import useAuth from '../../providers/custom-hooks/useAuth';
 import classNames from 'classnames/bind';
 import styles from './AccountPage.module.scss';
 const cx = classNames.bind(styles);
