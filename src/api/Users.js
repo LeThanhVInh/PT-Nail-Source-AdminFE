@@ -8,8 +8,9 @@ class UserAPI {
   static async GetById(id) {
     try {
       let token = await auth.currentUser.getIdToken();
+      console.log(token)
 
-      const config = {
+      const configs = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -18,7 +19,7 @@ class UserAPI {
         },
       };
 
-      const response = await axios.get(`${constants.apiUrl}/${this.controllerName}/getById`, config);
+      const response = await axios.get(`${constants.apiUrl}/${this.controllerName}/getById`, configs);
       if (response.data != null && response.status === 200) {
         return response.data;
       }
@@ -33,7 +34,7 @@ class UserAPI {
     try {
       let token = await auth.currentUser.getIdToken();
 
-      const config = {
+      const configs = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -42,16 +43,22 @@ class UserAPI {
         },
       };
 
-      const data = {
-        Fullname: userData.fullName,
+      const requestBodyData = {
+        "UserId": userData.userId,
+        "Fullname": userData.fullName,
+        "Email": userData.email,
+        "Phone": userData.phone,
+        "CurrencyId": userData.currencyId,
+        "TimeZoneId": userData.timeZoneId,
+        "UilanguageId": userData.uilanguageId,
       };
 
-      const response = await axios.put(`${constants.apiUrl}/${this.controllerName}/UpdateProfile`, data, config);
+      const response = await axios.put(`${constants.apiUrl}/${this.controllerName}/UpdateProfile`, requestBodyData, configs);
       if (response.data != null && response.status === 200) {
         return response.data;
       }
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
     }
 
     return null;

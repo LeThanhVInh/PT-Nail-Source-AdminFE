@@ -88,30 +88,30 @@ export default function AccountPage() {
 
   // console.log('test list: ', idUser);
 
-  const handleSave = (data) => {
+  const handleSave = async (data) => {
     setData(data);
 
     if (data) {
-      console.log(data);
+      data.userId = 'VLEo54J2UyYAWGf9cWQqMWkeTYA3';
+      const response = await UserAPI.UpdateProfile(data);
+      console.log(response);
     }
   };
 
   return (
-    <div className={cx('account-wrap')}>
-      <div className={cx('body-wrap')}>
-        <div className={cx('container-wrap')}>
-          <div className={cx('title')}>
-            <h3>My Account</h3>
-            <Divider sx={{ borderColor: 'var(--grey-border-item)', width: '100%', marginTop: '20px' }} />
-          </div>
-
-          <Box
-            component="form"
-            sx={{ width: '100%', padding: '20px' }}
-            noValidate
-            autoComplete="off"
-            onSubmit={handleSubmit(handleSave)}
-          >
+    <div className={cx('account-wrap', 'animate__animated', 'animate__fadeInUp', 'animate__fast')}>
+      <div className={cx('container-wrap')}>
+        <div className={cx('title')}>
+          <h3>My Account</h3>
+        </div>
+        <Box
+          component="form"
+          sx={{ width: '100%', padding: '20px' }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit(handleSave)}
+        >
+          <div className={cx('body-wrap')}>
             <div className={cx('form-wrap')}>
               <AccountTextField
                 id="standard-required"
@@ -144,7 +144,7 @@ export default function AccountPage() {
                 }}
                 error={
                   (errors.email && errors.email.type === 'required') ||
-                  (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
+                    (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
                     ? true
                     : false
                 }
@@ -168,8 +168,8 @@ export default function AccountPage() {
                 type="text"
                 autoComplete="off"
                 error={
-                  (errors.phone && errors.phone.type === 'required') ||
-                  (errors.phone && errors.phone.type === 'maxLength')
+                  (errors.passWord && errors.passWord.type === 'required') ||
+                    (errors.passWord && errors.passWord.type === 'maxLength')
                     ? true
                     : false
                 }
@@ -202,8 +202,8 @@ export default function AccountPage() {
                       value={
                         value
                           ? currencyList.find((option) => {
-                              return value === option.value;
-                            }) ?? null
+                            return value === option.value;
+                          }) ?? null
                           : null
                       }
                       variant="standard"
@@ -239,8 +239,8 @@ export default function AccountPage() {
                       value={
                         value
                           ? timeZoneList.find((option) => {
-                              return value === option.value;
-                            }) ?? null
+                            return value === option.value;
+                          }) ?? null
                           : null
                       }
                       variant="standard"
@@ -276,8 +276,8 @@ export default function AccountPage() {
                       value={
                         value
                           ? languageUI.find((option) => {
-                              return value === option.value;
-                            }) ?? null
+                            return value === option.value;
+                          }) ?? null
                           : null
                       }
                       variant="standard"
@@ -351,8 +351,8 @@ export default function AccountPage() {
                 Save
               </Button>
             </Box>
-          </Box>
-        </div>
+          </div>
+        </Box>
       </div>
     </div>
   );

@@ -24,20 +24,18 @@ export const getSizeOfModal = (type) => {
   else return type.toString();
 };
 
-export function LoadOptDropdown(jsonList, nameField, valueField, hasNoOption, nameNoOption, valueNoOption) {
-  //
+export function LoadOptDropdown(jsonList, labelField, valueField, hasNoOption, labelNoOption, valueNoOption) {
   let arr = [];
   if (jsonList != null) {
-    //
     arr = jsonList.map((item) => ({
-      label: item[nameField],
+      label: item[labelField],
       value: item[valueField],
     }));
   }
 
   if (hasNoOption)
     arr.unshift({
-      label: nameNoOption,
+      label: labelNoOption,
       value: valueNoOption,
     });
   return arr;

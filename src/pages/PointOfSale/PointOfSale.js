@@ -84,7 +84,7 @@ function PointOfSale() {
 
   return (
     <>
-      <div className={cx('wrapper')}>
+      <div className={cx('wrapper', 'animate__animated', 'animate__fadeInRight', 'animate__fast')}>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
             <Grid
