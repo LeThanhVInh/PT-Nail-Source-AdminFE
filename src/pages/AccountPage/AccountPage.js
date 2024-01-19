@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import axios from 'axios';
+import constants from '../../providers/constants';
 
-import { useForm } from 'react-hook-form';
-
-import Box from '@mui/material/Box';
 import {
   InputAdornment,
   MenuItem,
@@ -10,9 +10,11 @@ import {
   Stack,
   Typography,
   Button,
+  TextField,
   Select,
   FormControl,
   InputLabel,
+  Box,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -24,79 +26,92 @@ import GetOnlyAPI from '../../api/GetOnly';
 import classNames from 'classnames/bind';
 import styles from './AccountPage.module.scss';
 import { LoadOptDropdown } from '../../providers/constants';
+import { StyledAutocomplete } from '../../components/CustomMUI/SelectCustom';
+
 const cx = classNames.bind(styles);
 
-const currencies = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-];
+const defaultValues = {};
 
 export default function AccountPage() {
   const [emailUser, setEmailUser] = useState('');
   const [fullNameUser, setFullNameUser] = useState('');
+  const [idUser, setIdUser] = useState('');
   const [currencyList, setCurrencyList] = useState([]);
+  const [timeZoneList, setTimeZoneList] = useState([]);
+  const [languageUI, setLanguageUI] = useState([]);
+
+  const [data, setData] = useState(null);
 
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues });
 
   useEffect(() => {
     async function fetchData() {
       const userResult = await UserAPI.GetById('VLEo54J2UyYAWGf9cWQqMWkeTYA3');
       const currencyListResult = await GetOnlyAPI.GetCurrencyList();
+      const timeZoneResult = await GetOnlyAPI.GetTimeZoneList();
+      const languageUIResult = await GetOnlyAPI.GetUILanguageList();
 
       if (userResult !== null) {
         setEmailUser(userResult.Email);
         setFullNameUser(userResult.Fullname);
+        setIdUser(userResult.UserId);
       }
 
       if (currencyListResult !== null) {
-        // setCurrencyList(currencyListResult);
-
-        let res = LoadOptDropdown(currencyListResult, 'Name', 'Symbol', false, '', '');
-
+        let res = LoadOptDropdown(currencyListResult, 'Name', 'Id', false, '', '');
         if (res) {
           setCurrencyList(res);
+        }
+      }
+
+      if (timeZoneResult !== null) {
+        let res = LoadOptDropdown(timeZoneResult, 'Label', 'Id', false, '', '');
+        if (res) {
+          setTimeZoneList(res);
+        }
+      }
+
+      if (languageUIResult !== null) {
+        let res = LoadOptDropdown(languageUIResult, 'Name', 'Id', false, '', '');
+        if (res) {
+          setLanguageUI(res);
         }
       }
     }
     fetchData();
   }, []);
 
+  // console.log('test list: ', idUser);
+
   const handleSave = (data) => {
-    console.log(data);
+    setData(data);
+
+    if (data) {
+      console.log(data);
+    }
   };
 
   return (
     <div className={cx('account-wrap')}>
-      <div className={cx('container-wrap')}>
-        <div className={cx('title')}>
-          <h3>My Account</h3>
-        </div>
-        <Box
-          component="form"
-          sx={{ width: '100%', padding: '20px' }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit(handleSave)}
-        >
-          <div className={cx('body-wrap')}>
+      <div className={cx('body-wrap')}>
+        <div className={cx('container-wrap')}>
+          <div className={cx('title')}>
+            <h3>My Account</h3>
+            <Divider sx={{ borderColor: 'var(--grey-border-item)', width: '100%', marginTop: '20px' }} />
+          </div>
+
+          <Box
+            component="form"
+            sx={{ width: '100%', padding: '20px' }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit(handleSave)}
+          >
             <div className={cx('form-wrap')}>
               <AccountTextField
                 id="standard-required"
@@ -105,12 +120,15 @@ export default function AccountPage() {
                 variant="standard"
                 fullWidth
                 inputProps={{ maxLength: 50 }}
+                // name="name"
+                control={control}
                 {...register('fullName', {
                   required: true,
                   maxLength: 50,
                   onChange: (e) => setFullNameUser(e.target.value),
                 })}
               />
+
               <AccountTextField
                 label="Email"
                 variant="standard"
@@ -142,21 +160,22 @@ export default function AccountPage() {
                   onChange: (e) => setEmailUser(e.target.value),
                 })}
               />
+
               <AccountTextField
-                label="Password"
+                label="Phone Number"
                 variant="standard"
                 fullWidth
-                type="password"
+                type="text"
                 autoComplete="off"
                 error={
-                  (errors.passWord && errors.passWord.type === 'required') ||
-                  (errors.passWord && errors.passWord.type === 'maxLength')
+                  (errors.phone && errors.phone.type === 'required') ||
+                  (errors.phone && errors.phone.type === 'maxLength')
                     ? true
                     : false
                 }
                 helperText={
-                  (errors.passWord && errors.passWord.type === 'required' && 'Password is required') ||
-                  (errors.passWord && errors.passWord.type === 'maxLength' && 'Max length exceeded')
+                  (errors.phone && errors.phone.type === 'required' && 'Phone Number is required') ||
+                  (errors.phone && errors.phone.type === 'maxLength' && 'Max length exceeded')
                 }
                 inputProps={{ maxLength: 50 }}
                 InputProps={{
@@ -166,32 +185,121 @@ export default function AccountPage() {
                     </InputAdornment>
                   ),
                 }}
-                {...register('passWord', { required: true, maxLength: 50 })}
+                {...register('phone', { required: true, maxLength: 50 })}
               />
 
-              <AccountTextField select label="Currency" variant="standard">
-                {currencyList.map((option) => (
-                  <MenuItem key={option.label} value={option.value}>
-                    {option.label} {option.value}
-                  </MenuItem>
-                ))}
-              </AccountTextField>
+              <FormControl sx={{ minWidth: 120, marginTop: '20px' }} size="small" fullWidth>
+                <Controller
+                  control={control}
+                  name="currencyId"
+                  rules={{ required: 'Currency is required' }}
+                  render={({ field: { onChange, value } }) => (
+                    <StyledAutocomplete
+                      onChange={(event, item) => {
+                        onChange(item.value);
+                      }}
+                      isOptionEqualToValue={(option, value) => option.value === value.value}
+                      value={
+                        value
+                          ? currencyList.find((option) => {
+                              return value === option.value;
+                            }) ?? null
+                          : null
+                      }
+                      variant="standard"
+                      disablePortal
+                      options={currencyList}
+                      sx={{ my: 0, backgroundColor: 'transparent' }}
+                      renderInput={(params) => (
+                        <AccountTextField
+                          {...params}
+                          label="Currency"
+                          fullWidth
+                          variant="standard"
+                          helperText={errors.currencyId?.message}
+                          error={!!errors.currencyId}
+                        />
+                      )}
+                    />
+                  )}
+                />
+              </FormControl>
 
-              <AccountTextField select label="Timezone" defaultValue="EUR" variant="standard">
-                {currencies.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </AccountTextField>
-              <AccountTextField select label="UI Language" defaultValue="EUR" variant="standard">
-                {currencies.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </AccountTextField>
-              <Divider sx={{ borderColor: 'var(--grey-border-item)', marginY: '15px', width: '120%' }} />
+              <FormControl sx={{ minWidth: 120, marginTop: '20px' }} size="small" fullWidth>
+                <Controller
+                  control={control}
+                  name="timeZoneId"
+                  rules={{ required: 'Timezone is required' }}
+                  render={({ field: { onChange, value } }) => (
+                    <StyledAutocomplete
+                      onChange={(event, item) => {
+                        onChange(item.value);
+                      }}
+                      isOptionEqualToValue={(option, value) => option.value === value.value}
+                      value={
+                        value
+                          ? timeZoneList.find((option) => {
+                              return value === option.value;
+                            }) ?? null
+                          : null
+                      }
+                      variant="standard"
+                      disablePortal
+                      options={timeZoneList}
+                      sx={{ my: 0, backgroundColor: 'transparent' }}
+                      renderInput={(params) => (
+                        <AccountTextField
+                          {...params}
+                          label="Timezone"
+                          fullWidth
+                          variant="standard"
+                          helperText={errors.timeZoneId?.message}
+                          error={!!errors.timeZoneId}
+                        />
+                      )}
+                    />
+                  )}
+                />
+              </FormControl>
+
+              <FormControl sx={{ minWidth: 120, marginTop: '20px' }} size="small" fullWidth>
+                <Controller
+                  control={control}
+                  name="uilanguageId"
+                  rules={{ required: 'UILanguage is required' }}
+                  render={({ field: { onChange, value } }) => (
+                    <StyledAutocomplete
+                      onChange={(event, item) => {
+                        onChange(item.value);
+                      }}
+                      isOptionEqualToValue={(option, value) => option.value === value.value}
+                      value={
+                        value
+                          ? languageUI.find((option) => {
+                              return value === option.value;
+                            }) ?? null
+                          : null
+                      }
+                      variant="standard"
+                      disablePortal
+                      options={languageUI}
+                      sx={{ my: 0, backgroundColor: 'transparent' }}
+                      renderInput={(params) => (
+                        <AccountTextField
+                          {...params}
+                          label="UI Language"
+                          fullWidth
+                          variant="standard"
+                          helperText={errors.uilanguageId?.message}
+                          error={!!errors.uilanguageId}
+                        />
+                      )}
+                    />
+                  )}
+                />
+              </FormControl>
+
+              <Divider sx={{ borderColor: 'var(--grey-border-item)', marginY: '20px', width: '100%' }} />
               <Box sx={{ width: '100%' }}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center">
                   <Typography gutterBottom variant="body2" component="div" sx={{ color: 'var(--text-color)' }}>
@@ -210,41 +318,41 @@ export default function AccountPage() {
                 </Typography>
               </Box>
             </div>
-          </div>
 
-          <Divider sx={{ borderColor: 'var(--grey-border-item)', marginY: '20px' }} />
+            <Divider sx={{ borderColor: 'var(--grey-border-item)', marginY: '20px' }} />
 
-          <Box justifyContent="end" direction="row" sx={{ display: 'flex' }}>
-            <Button
-              variant="contained"
-              sx={{
-                color: 'var(--text-color)',
-                backgroundColor: 'var(--white-color-outline)',
-                boxShadow: 'var(--box-shadow-item)',
-                ':hover': {
+            <Box justifyContent="end" direction="row" sx={{ display: 'flex' }}>
+              <Button
+                variant="contained"
+                sx={{
+                  color: 'var(--text-color)',
                   backgroundColor: 'var(--white-color-outline)',
-                },
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{
-                color: 'var(--white-color)',
-                backgroundColor: 'var(--btn-primary)',
-                marginLeft: '20px',
-                boxShadow: 'var(--box-shadow-item)',
-                ':hover': {
+                  boxShadow: 'var(--box-shadow-item)',
+                  ':hover': {
+                    backgroundColor: 'var(--white-color-outline)',
+                  },
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{
+                  color: 'var(--white-color)',
                   backgroundColor: 'var(--btn-primary)',
-                },
-              }}
-            >
-              Save
-            </Button>
+                  marginLeft: '20px',
+                  boxShadow: 'var(--box-shadow-item)',
+                  ':hover': {
+                    backgroundColor: 'var(--btn-primary)',
+                  },
+                }}
+              >
+                Save
+              </Button>
+            </Box>
           </Box>
-        </Box>
+        </div>
       </div>
     </div>
   );

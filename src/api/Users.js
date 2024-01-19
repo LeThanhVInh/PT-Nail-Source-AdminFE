@@ -28,5 +28,33 @@ class UserAPI {
 
     return null;
   }
+
+  static async UpdateProfile(userData) {
+    try {
+      let token = await auth.currentUser.getIdToken();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          id: userData.userId,
+        },
+      };
+
+      const data = {
+        Fullname: userData.fullName,
+      };
+
+      const response = await axios.put(`${constants.apiUrl}/${this.controllerName}/UpdateProfile`, data, config);
+      if (response.data != null && response.status === 200) {
+        return response.data;
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+
+    return null;
+  }
 }
 export default UserAPI;
