@@ -8,7 +8,6 @@ class UserAPI {
   static async GetById(id) {
     try {
       let token = await auth.currentUser.getIdToken();
-      console.log(token)
 
       const configs = {
         headers: {
@@ -44,16 +43,16 @@ class UserAPI {
       };
 
       const requestBodyData = {
-        "UserId": userData.userId,
-        "Fullname": userData.fullName,
-        "Email": userData.email,
-        "Phone": userData.phone,
-        "CurrencyId": userData.currencyId,
-        "TimeZoneId": userData.timeZoneId,
-        "UilanguageId": userData.uilanguageId,
+        "userId": userData.userId,
+        "fullname": userData.fullName,
+        "email": userData.email,
+        "phone": userData.phone,
+        "currencyId": userData.currencyId,
+        "timeZoneId": userData.timeZoneId,
+        "uilanguageId": userData.uilanguageId,
       };
 
-      const response = await axios.put(`${constants.apiUrl}/${this.controllerName}/UpdateProfile`, requestBodyData, configs);
+      const response = await axios.put( `${constants.apiUrl}/${this.controllerName}/UpdateProfile`, requestBodyData, configs );
       if (response.data != null && response.status === 200) {
         return response.data;
       }

@@ -24,6 +24,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { modalSizes, getSizeOfModal } from '../../../providers/constants';
 import { StyledAutocomplete } from '../../CustomMUI/SelectCustom';
 import { DatePickerCustom } from '../../CustomMUI/DatePickerCustom';
+import AndroidSwitch from '../../Switch/AndroidSwitch/AndroidSwitch';
 
 import classNames from 'classnames/bind';
 import styles from './ModalEdit.module.scss';
@@ -312,6 +313,9 @@ function ModalEdit(props, ref) {
                       />
                     </RadioGroup>
                   </FormControl>
+                </div>
+                <div className={cx('item-content')}>
+                  <AndroidSwitch label="Custom Label" />
                 </div>
 
                 <div className={cx('item-content')}>
