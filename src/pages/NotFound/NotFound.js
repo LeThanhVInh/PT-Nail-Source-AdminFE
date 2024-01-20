@@ -1,15 +1,13 @@
-import classNames from 'classnames/bind';
-import styles from './NotFound.module.scss';
 import { useEffect } from 'react';
 import { Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import config from '../../router/config';
+
+import classNames from 'classnames/bind';
+import styles from './NotFound.module.scss';
 const cx = classNames.bind(styles);
 
 function NotFound() {
-  // let innerWidth = "400px";
-  // let innerHeight = "400px";
-
   useEffect(() => {
     function drawVisor() {
       const canvas = document.getElementById('visor');

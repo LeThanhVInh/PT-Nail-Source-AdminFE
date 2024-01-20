@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Grid, Box, TextField, Button, Stack, FormGroup, FormControlLabel, Checkbox, Typography } from '@mui/material';
 import { auth } from '../../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -20,6 +20,9 @@ const cx = classNames.bind(styles);
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  console.log('location login', location);
 
   const [inputAnimation, setInputAnimation] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +45,7 @@ export default function LoginPage() {
     await signInWithEmailAndPassword(auth, data.email, data.passWord)
       .then(async (userCredential) => {
         setIsLoading(false);
-        navigate('/');
+        navigate(location?.state?.prevUrl ? location?.state?.prevUrl : '/');
       })
       .catch((error) => {
         Swal.mixin({
