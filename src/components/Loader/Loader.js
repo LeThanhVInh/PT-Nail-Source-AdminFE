@@ -3,6 +3,7 @@ import './Loader.scss';
 
 export default function Loader(props) {
   const { colorLoader, isLoading } = props;
+
   return (
     <div className="sweet-loading">
       <HashLoader

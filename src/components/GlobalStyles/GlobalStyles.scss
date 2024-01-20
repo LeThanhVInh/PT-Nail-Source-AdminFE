@@ -67,6 +67,7 @@
   --fc-event-border-color: var(--btn-primary);
   --fc-button-border-color: var(--grey-border-item);
   --fc-button-active-border-color: var(--grey-border-item);
+
   // --fc-button-text-color: var(--text-color);
   strong,
   b {
@@ -76,6 +77,7 @@
 
 /// start fullcalendar
 .fc {
+
   .fc-col-header-cell-cushion,
   .fc-timegrid-axis-cushion,
   .fc-daygrid-day-number,
@@ -94,50 +96,63 @@
       background-color: var(--primary-bold);
       cursor: pointer;
     }
+
     .fc-event-main {
       background-color: var(--btn-primary);
+
       b,
       i {
         color: var(--white-color);
       }
     }
+
     b,
     i {
       color: var(--text-color);
     }
+
     .fc-list-event-dot {
       border-color: var(--btn-primary);
     }
   }
+
   .fc-button-primary {
     color: var(--text-color);
+
     &:disabled {
       color: var(--text-color);
     }
+
     &:hover {
       background-color: var(--primary-bold);
       color: var(--white-color);
     }
+
     &:not(:disabled).fc-button-active {
       background-color: var(--btn-primary);
 
       color: var(--white-color);
+
       &:hover {
         background-color: var(--primary-bold);
       }
     }
+
     &:not(:disabled) {
       &:active {
         color: var(--white-color);
+
         &:hover {
           background-color: var(--primary-bold);
         }
       }
     }
   }
+
   .fc-toolbar.fc-header-toolbar {
     margin-bottom: 1.5em;
     flex-wrap: wrap;
+
     .fc-toolbar-chunk {
       &:nth-child(2) {
         margin: 10px 0;
@@ -148,18 +163,22 @@
 
 .fc-theme-standard .fc-list-day-cushion {
   background-color: var(--white-dark);
+
   .fc-list-day-text,
   .fc-list-day-side-text {
     color: var(--text-color);
   }
 }
+
 .fc-dayGridMonth-view {
   .fc-col-header {
     width: 100% !important;
   }
+
   .fc-daygrid-body {
     width: 100% !important;
     height: 100% !important;
+
     .fc-scrollgrid-sync-table {
       width: 100% !important;
       height: 100% !important;
@@ -228,7 +247,7 @@ body {
     padding: 8px 9px;
   }
 
-  .tippy-box[data-placment^='bottom'] > .tippy-arrow::before {
+  .tippy-box[data-placment^='bottom']>.tippy-arrow::before {
     top: -8px;
   }
 }
@@ -246,9 +265,11 @@ body {
 
     .MuiDataGrid-columnHeaders {
       background-color: var(--primary-light2);
+
       .MuiDataGrid-columnHeaderTitle {
         color: var(--text-color);
       }
+
       svg {
         color: var(--text-color);
       }
@@ -268,12 +289,15 @@ body {
       color: var(--text-color);
       background-color: var(--bg-white-item);
     }
+
     .MuiTablePagination-root {
       svg {
         color: var(--text-color);
       }
+
       color: var(--text-color);
     }
+
     .MuiCheckbox-root {
       color: var(--text-color);
     }
@@ -283,36 +307,46 @@ body {
 .sun-editor {
   border: 1px solid var(--grey-border-half) !important;
   background-color: var(--bg-white-color);
+
   button {
     color: var(--text-color);
   }
+
   input,
   select,
   textarea {
     border: 1px solid var(--grey-border-half) !important;
   }
+
   .se-container {
     background-color: var(--bg-white-color);
+
     .se-toolbar {
       background-color: var(--bg-white-color);
       outline: 1px solid var(--grey-border-half);
     }
+
     .se-btn-module-border {
       border: 1px solid var(--grey-border-half);
     }
   }
+
   .se-toolbar-cover {
     background-color: var(--bg-white-color);
   }
+
   .se-wrapper-inner {
     background-color: var(--bg-white-color);
+
     p {
       color: var(--text-color);
     }
   }
+
   .se-resizing-bar {
     background-color: var(--bg-white-item);
     border-top: var(--grey-border-half);
+
     .se-navigation {
       color: var(--text-color);
     }
@@ -324,6 +358,7 @@ body {
     background-color: var(--input-color);
     color: var(--text-color);
   }
+
   .MuiMenu-list {
     max-height: 200px;
   }
@@ -331,19 +366,26 @@ body {
   &.MuiPickersPopper-paper {
     background-color: var(--input-color);
     color: var(--text-color);
+
     svg,
     button,
     span {
       color: var(--text-color);
     }
+
     button {
       &.MuiPickersDay-today {
         border: 1px solid var(--grey);
       }
+
       &.Mui-selected {
         color: var(--white-color);
         background-color: var(--btn-primary);
       }
     }
   }
+}
+
+.swal2-container {
+  z-index: 10000;
 }

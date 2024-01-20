@@ -1,4 +1,5 @@
-let apiUrl = 'https://phanmemvas.vn:68';
+// let apiUrl = 'https://phanmemvas.vn:68';
+let apiUrl = 'http://localhost:5000';
 
 const exportedObject = {
   apiUrl: apiUrl,
@@ -23,6 +24,9 @@ export const getSizeOfModal = (type) => {
   else if (type === modalSizes.large && window.innerWidth < 1080) return modalSizes.full;
   else return type.toString();
 };
+export const delay = (delayInms) => {
+  return new Promise(resolve => setTimeout(resolve, delayInms));
+};
 
 export function LoadOptDropdown(jsonList, labelField, valueField, hasNoOption, labelNoOption, valueNoOption) {
   let arr = [];
@@ -40,3 +44,13 @@ export function LoadOptDropdown(jsonList, labelField, valueField, hasNoOption, l
     });
   return arr;
 }
+export function generateRandomUuid() {
+  const hexDigits = '0123456789abcdef';
+  const generateRandomDigit = () => hexDigits[Math.floor(Math.random() * 16)];
+
+  const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+    .replace(/x/g, generateRandomDigit)
+    .replace(/y/, () => ['8', '9', 'a', 'b'][Math.floor(Math.random() * 4)]);
+
+  return uuid;
+};
