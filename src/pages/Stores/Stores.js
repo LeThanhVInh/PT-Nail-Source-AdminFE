@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { styled } from '@mui/material/styles';
 import { DataGrid } from '@mui/x-data-grid';
-import { Button, IconButton, Stack, InputBase } from '@mui/material';
+import { Button, IconButton, Stack, } from '@mui/material';
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
   CheckCircle as CheckCircleIcon,
   Search as SearchIcon,
   Cancel as CancelIcon,
-  DeleteSweep as DeleteSweepIcon,
+  DeleteForever as DeleteForeverIcon,
 } from '@mui/icons-material';
 
 import { dataTablePadWidth } from '../../providers/constants';
@@ -24,7 +23,7 @@ import ModalEdit from '../../components/_pages/Stores/ModalEdit/ModalEdit';
 
 import Swal from 'sweetalert2';
 import Loader from '../../components/Loader';
-import { useDebounce, useDebouncedCallback } from 'use-debounce';
+import { useDebouncedCallback } from 'use-debounce';
 
 import classNames from 'classnames/bind';
 import styles from './Stores.module.scss';
@@ -36,6 +35,7 @@ function Stores() {
   const [rows, setRows] = useState([]);
   const [isTableLoading, setTableLoading] = useState(true);
   const [selectedRowsList, setSelectedRowsList] = React.useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
   const columns = [
     { field: 'RowNumber', headerName: 'No.', width: 70 + dataTablePadWidth },
@@ -61,15 +61,14 @@ function Stores() {
       type: 'boolean',
       align: 'center',
       width: 150 + dataTablePadWidth,
-      renderCell: (data) => (
+      renderCell: (data) =>
         <IconButton className={cx('btn-edit')}>
-          {data.value === true ? (
-            <CheckCircleIcon sx={{ color: '#43a047' }} />
-          ) : (
-            <CancelIcon sx={{ color: '#686868' }} />
-          )}
-        </IconButton>
-      ),
+          {
+            data.value === true
+              ? <CheckCircleIcon sx={{ color: '#43a047' }} />
+              : <CancelIcon sx={{ color: '#686868' }} />
+          }
+        </IconButton>,
     },
     {
       field: 'actions',
@@ -80,7 +79,7 @@ function Stores() {
       filterable: false,
       align: 'center',
       flex: 1,
-      renderCell: (data) => (
+      renderCell: (data) =>
         <>
           <IconButton className={cx('btn-edit')} color="blue" onClick={() => OpenModal(false, data.id)}>
             <EditIcon />
@@ -88,24 +87,26 @@ function Stores() {
           <IconButton className={cx('btn-delete')} color="red" onClick={() => DeleteItem(data.id)}>
             <DeleteIcon />
           </IconButton>
-        </>
-      ),
+        </>,
     },
   ];
 
-  const LoadDataTable = async () => {
+  const LoadDataTable = async (searchValue) => {
     setTableLoading(true);
-    const list = await StoreAPI.GetList();
-
+    const list = await StoreAPI.GetList(searchValue);
     if (list !== null) {
       setRows(list);
     }
     setTableLoading(false);
   };
 
+  useEffect(() => {
+    LoadDataTable(searchValue);
+  }, [searchValue]);
+
   const DeleteItem = (id) => {
     Swal.fire({
-      title: 'CONFIRM ?',
+      title: 'CONFIRM',
       text: 'Are you sure you want to delete this item?',
       icon: 'question', //question, success,error, warning, info
       showCancelButton: true,
@@ -118,10 +119,9 @@ function Stores() {
       allowEscapeKey: true,
     }).then(async (result) => {
       if (result.value) {
-        //
         const res = await StoreAPI.Delete(id);
         if (res === true) {
-          LoadDataTable();
+          LoadDataTable(searchValue);
 
           Swal.mixin({
             toast: true,
@@ -144,10 +144,9 @@ function Stores() {
   };
 
   const DeleteMultiple = (ids) => {
-    console.log('ids', ids);
     Swal.fire({
-      title: 'CONFIRM ?',
-      text: 'Are you sure you want to delete multiple items?',
+      title: 'CONFIRM',
+      text: 'Are you sure you want to delete selected items?',
       icon: 'question', //question, success,error, warning, info
       showCancelButton: true,
       confirmButtonColor: '#d33',
@@ -158,10 +157,11 @@ function Stores() {
       focusCancel: true,
       allowEscapeKey: true,
     }).then(async (result) => {
-      if (result) {
+      if (result.value) {
         const res = await StoreAPI.DeleteMultiple(ids);
         if (res === true) {
-          LoadDataTable();
+          LoadDataTable(searchValue);
+          setSelectedRowsList([]);
 
           Swal.mixin({
             toast: true,
@@ -203,21 +203,13 @@ function Stores() {
 
   const debounced = useDebouncedCallback((value) => {
     handleSearch(value);
-  }, 1000);
+  }, 500);
 
   const OpenModal = (isInsert, id) => {
     if (modalRef.current && modalRef.current.openModal) {
       modalRef.current.openModal(isInsert, id);
     }
   };
-
-  const onRowsSelectionHandler = (ids) => {
-    setSelectedRowsList(ids);
-  };
-
-  useEffect(() => {
-    LoadDataTable();
-  }, []);
 
   return (
     <div className={cx('table-wrapper', 'animate__animated', 'animate__fadeInRight', 'animate__fast')}>
@@ -232,13 +224,17 @@ function Stores() {
                 <Button variant="primary" className={cx('btn-add-new')} onClick={() => OpenModal(true, null)}>
                   Add New Store
                 </Button>
-                <IconButton
-                  aria-label="Delete rows"
-                  sx={{ color: 'var(--btn-primary)' }}
-                  onClick={() => DeleteMultiple(selectedRowsList)}
-                >
-                  <DeleteSweepIcon />
-                </IconButton>
+                {
+                  selectedRowsList.length <= 0
+                    ? <div></div>
+                    : (
+                      <IconButton aria-label="Delete rows"
+                        sx={{ color: 'var(--btn-delete)' }}
+                        onClick={() => DeleteMultiple(selectedRowsList)}
+                      >
+                        <DeleteForeverIcon />
+                      </IconButton>)
+                }
               </Stack>
             </div>
             <div className={cx('action-search', 'pt-10')}>
@@ -247,41 +243,44 @@ function Stores() {
                   <SearchIcon />
                 </SearchIconWrapperCustom>
                 <StyledInputBaseCustom
-                  placeholder="Search…"
+                  placeholder="Search..."
                   inputProps={{ 'aria-label': 'search' }}
                   onChange={(e) => debounced(e.target.value)}
+                  onBlur={e => setSearchValue(e.target.value)}
                 />
               </SearchMediumCustom>
             </div>
           </div>
         </div>
 
-        <ModalEdit ref={modalRef} LoadDataTable={LoadDataTable} />
+        <ModalEdit ref={modalRef} LoadDataTable={() => LoadDataTable(searchValue)} />
 
-        {isTableLoading ? (
-          <Loader colorLoader="#000" isLoading={isTableLoading} size={50} hasBackground={false} />
-        ) : (
-          <div className={cx('my-datatable-custom')}>
-            <DataGrid
-              getRowId={(row) => row.Id}
-              rows={rows}
-              columns={columns}
-              pageSizeOptions={[10, 20, 50, 100]}
-              checkboxSelection
-              density="standard" //standard, comfortable, compact
-              columnHeaderHeight={70}
-              loading={false}
-              rowSelection={true}
-              onRowDoubleClick={(data, event) => OpenModal(false, data.id)}
-              initialState={{
-                pagination: {
-                  paginationModel: { page: 0, pageSize: 10 },
-                },
-              }}
-              onRowSelectionModelChange={(ids) => onRowsSelectionHandler(ids)}
-            />
-          </div>
-        )}
+        {
+          isTableLoading
+            ? <Loader colorLoader="#000" isLoading={isTableLoading} size={50} hasBackground={false} />
+            : (
+              <div className={cx('my-datatable-custom')}>
+                <DataGrid
+                  getRowId={(row) => row.Id}
+                  rows={rows}
+                  columns={columns}
+                  pageSizeOptions={[10, 20, 50, 100]}
+                  checkboxSelection
+                  density="standard" //standard, comfortable, compact
+                  columnHeaderHeight={70}
+                  loading={false}
+                  rowSelection={true}
+                  onRowDoubleClick={(data, event) => OpenModal(false, data.id)}
+                  onRowSelectionModelChange={setSelectedRowsList}
+                  initialState={{
+                    pagination: {
+                      paginationModel: { page: 0, pageSize: 10 },
+                    },
+                  }}
+                />
+              </div>
+            )
+        }
       </div>
     </div>
   );

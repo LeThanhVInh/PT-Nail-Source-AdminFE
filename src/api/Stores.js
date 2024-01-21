@@ -38,7 +38,7 @@ class StoreAPI {
           Authorization: `Bearer ${token}`,
         },
         params: {
-          SearchValue: SearchValue,
+          SearchValue: SearchValue === "" ? null : SearchValue,
         },
       };
 

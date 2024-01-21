@@ -1,6 +1,5 @@
 import React, { useState, forwardRef, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import HashLoader from 'react-spinners/HashLoader';
 
 import LoadingButton from '@mui/lab/LoadingButton';
 import Swal from 'sweetalert2';
@@ -27,13 +26,12 @@ import {
   Grid,
   FormControlLabel,
   Button,
-  Switch,
 } from '@mui/material';
 
 import Loader from '../../../Loader';
 import { Android12Switch } from '../../../Switch/AndroidSwitch/AndroidSwitch';
 
-import { modalSizes, getSizeOfModal } from '../../../../providers/constants';
+import { modalSizes, getSizeOfModal, delay } from '../../../../providers/constants';
 import StoreAPI from '../../../../api/Stores';
 
 import classNames from 'classnames/bind';
@@ -49,12 +47,7 @@ function ModalEdit(props, ref) {
   const [isLoading, setLoading] = useState(true);
   const [isAPILoading, setAPILoading] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
   const [formData, setFormData] = useState({
     id: '',
@@ -75,9 +68,10 @@ function ModalEdit(props, ref) {
     }
   }, [isOpen]);
 
-  const closeModal = () => {
+  const closeModal = async () => {
     setAnimationClass('animate__animated animate__zoomOut animate__fast');
-    setTimeout(() => setOpenModal(false), 250);
+    await delay(250);
+    setOpenModal(false);
   };
 
   const openModal = async (isInsert, id) => {
@@ -133,12 +127,11 @@ function ModalEdit(props, ref) {
   };
 
   const handleSave = async (data) => {
-    // console.log(data);
     setAPILoading(true);
     if (isInsert) {
       const res = await StoreAPI.Insert(formData);
       if (res !== null) {
-        closeModal();
+        await closeModal();
         Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -161,7 +154,7 @@ function ModalEdit(props, ref) {
     else {
       const res = await StoreAPI.Update(formData);
       if (res !== null) {
-        closeModal();
+        await closeModal();
         Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -215,166 +208,166 @@ function ModalEdit(props, ref) {
 
               <Divider sx={{ margin: '10px 0', backgroundColor: 'var(--divider-primary)' }} />
 
-              {isLoading ? (
-                <Loader colorLoader="black" isLoading={true} size={50} hasBackground={false} />
-              ) : (
-                <div className={cx('contents')}>
-                  <Grid container spacing={0} sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-                    <Grid xl={6} lg={6} md={12} xs={12} item>
-                      <div className={cx('item-content')}>
-                        <TextFieldCustom
-                          label="Store name"
-                          value={formData.name}
-                          fullWidth
-                          inputProps={{ maxLength: 50 }}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <StoreIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                          error={
-                            (errors.name && errors.name.type === 'required') ||
-                            (errors.name && errors.name.type === 'maxLength')
-                              ? true
-                              : false
-                          }
-                          helperText={
-                            (errors.name && errors.name.type === 'required' && 'Store name is required') ||
-                            (errors.name && errors.name.type === 'maxLength' && 'Max length exceeded')
-                          }
-                          {...register('name', {
-                            required: true,
-                            maxLength: 50,
-                            onChange: (event) => setFormData((prev) => ({ ...prev, name: event.target.value })),
-                          })}
-                        />
-                      </div>
-                    </Grid>
-                    <Grid xl={6} lg={6} md={12} xs={12} item>
-                      <div className={cx('item-content')}>
-                        <FormControlLabel
-                          control={
-                            <Android12Switch
-                              checked={formData.isActive}
-                              onChange={(event, value) => setFormData((prev) => ({ ...prev, isActive: value }))}
-                            />
-                          }
-                          label="Active"
-                        />
-                      </div>
-                    </Grid>
+              {isLoading
+                ? <Loader colorLoader="black" isLoading={true} size={50} hasBackground={false} />
+                : (
+                  <div className={cx('contents')}>
+                    <Grid container spacing={0} sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+                      <Grid xl={6} lg={6} md={12} xs={12} item>
+                        <div className={cx('item-content')}>
+                          <TextFieldCustom
+                            label="Store name"
+                            value={formData.name}
+                            fullWidth
+                            inputProps={{ maxLength: 50 }}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  <StoreIcon />
+                                </InputAdornment>
+                              ),
+                            }}
+                            error={
+                              (errors.name && errors.name.type === 'required') ||
+                                (errors.name && errors.name.type === 'maxLength')
+                                ? true
+                                : false
+                            }
+                            helperText={
+                              (errors.name && errors.name.type === 'required' && 'Store name is required') ||
+                              (errors.name && errors.name.type === 'maxLength' && 'Max length exceeded')
+                            }
+                            {...register('name', {
+                              required: true,
+                              maxLength: 50,
+                              onChange: (event) => setFormData((prev) => ({ ...prev, name: event.target.value })),
+                            })}
+                          />
+                        </div>
+                      </Grid>
+                      <Grid xl={6} lg={6} md={12} xs={12} item>
+                        <div className={cx('item-content')}>
+                          <FormControlLabel
+                            control={
+                              <Android12Switch
+                                checked={formData.isActive}
+                                onChange={(event, value) => setFormData((prev) => ({ ...prev, isActive: value }))}
+                              />
+                            }
+                            label="Active"
+                          />
+                        </div>
+                      </Grid>
 
-                    <Grid xl={12} lg={12} md={12} xs={12} item>
-                      <div className={cx('item-content')}>
-                        <TextFieldCustom
-                          label="Address"
-                          value={formData.address}
-                          fullWidth
-                          inputProps={{ maxLength: 120 }}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <RoomIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                          error={errors.address && errors.address.type === 'maxLength' && 'Max length exceeded'}
-                          helperText={errors.address && errors.address.type === 'maxLength' && 'Max length exceeded'}
-                          {...register('address', {
-                            required: false,
-                            maxLength: 120,
-                            onChange: (event) => setFormData((prev) => ({ ...prev, address: event.target.value })),
-                          })}
-                        />
-                      </div>
-                    </Grid>
+                      <Grid xl={12} lg={12} md={12} xs={12} item>
+                        <div className={cx('item-content')}>
+                          <TextFieldCustom
+                            label="Address"
+                            value={formData.address}
+                            fullWidth
+                            inputProps={{ maxLength: 120 }}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  <RoomIcon />
+                                </InputAdornment>
+                              ),
+                            }}
+                            error={errors.address && errors.address.type === 'maxLength' && 'Max length exceeded'}
+                            helperText={errors.address && errors.address.type === 'maxLength' && 'Max length exceeded'}
+                            {...register('address', {
+                              required: false,
+                              maxLength: 120,
+                              onChange: (event) => setFormData((prev) => ({ ...prev, address: event.target.value })),
+                            })}
+                          />
+                        </div>
+                      </Grid>
 
-                    <Grid xl={6} lg={6} md={12} xs={12} item>
-                      <div className={cx('item-content')}>
-                        <TextFieldCustom
-                          label="Phone"
-                          value={formData.phone}
-                          fullWidth
-                          inputProps={{ maxLength: 30 }}
-                          error={errors.phone && errors.phone.type === 'maxLength' && 'Max length exceeded'}
-                          helperText={errors.phone && errors.phone.type === 'maxLength' && 'Max length exceeded'}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <RingVolumeIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                          {...register('phone', {
-                            required: false,
-                            maxLength: 30,
-                            onChange: (event) => setFormData((prev) => ({ ...prev, phone: event.target.value })),
-                          })}
-                        />
-                      </div>
-                    </Grid>
+                      <Grid xl={6} lg={6} md={12} xs={12} item>
+                        <div className={cx('item-content')}>
+                          <TextFieldCustom
+                            label="Phone"
+                            value={formData.phone}
+                            fullWidth
+                            inputProps={{ maxLength: 11 }}
+                            error={errors.phone && errors.phone.type === 'maxLength' && 'Max length exceeded'}
+                            helperText={errors.phone && errors.phone.type === 'maxLength' && 'Max length exceeded'}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  <RingVolumeIcon />
+                                </InputAdornment>
+                              ),
+                            }}
+                            {...register('phone', {
+                              required: false,
+                              maxLength: 11,
+                              onChange: (event) => setFormData((prev) => ({ ...prev, phone: event.target.value })),
+                            })}
+                          />
+                        </div>
+                      </Grid>
 
-                    <Grid xl={6} lg={6} md={12} xs={12} item>
-                      <div className={cx('item-content')}>
-                        <TextFieldCustom
-                          label="ZIP code/Postal code"
-                          value={formData.zipPostalCode}
-                          fullWidth
-                          inputProps={{ maxLength: 30 }}
-                          error={
-                            errors.zipPostalCode && errors.zipPostalCode.type === 'maxLength' && 'Max length exceeded'
-                          }
-                          helperText={
-                            errors.zipPostalCode && errors.zipPostalCode.type === 'maxLength' && 'Max length exceeded'
-                          }
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <MarkunreadMailboxIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                          {...register('zipPostalCode', {
-                            required: false,
-                            maxLength: 30,
-                            onChange: (event) =>
-                              setFormData((prev) => ({ ...prev, zipPostalCode: event.target.value })),
-                          })}
-                        />
-                      </div>
-                    </Grid>
+                      <Grid xl={6} lg={6} md={12} xs={12} item>
+                        <div className={cx('item-content')}>
+                          <TextFieldCustom
+                            label="ZIP code/Postal code"
+                            value={formData.zipPostalCode}
+                            fullWidth
+                            inputProps={{ maxLength: 30 }}
+                            error={
+                              errors.zipPostalCode && errors.zipPostalCode.type === 'maxLength' && 'Max length exceeded'
+                            }
+                            helperText={
+                              errors.zipPostalCode && errors.zipPostalCode.type === 'maxLength' && 'Max length exceeded'
+                            }
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  <MarkunreadMailboxIcon />
+                                </InputAdornment>
+                              ),
+                            }}
+                            {...register('zipPostalCode', {
+                              required: false,
+                              maxLength: 30,
+                              onChange: (event) =>
+                                setFormData((prev) => ({ ...prev, zipPostalCode: event.target.value })),
+                            })}
+                          />
+                        </div>
+                      </Grid>
 
-                    <Grid xl={12} lg={12} md={12} xs={12} item>
-                      <div className={cx('item-content')}>
-                        <TextFieldCustom
-                          label="Description"
-                          value={formData.description}
-                          fullWidth
-                          inputProps={{ maxLength: 120 }}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <DescriptionIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                          error={errors.description && errors.description.type === 'maxLength' && 'Max length exceeded'}
-                          helperText={
-                            errors.description && errors.description.type === 'maxLength' && 'Max length exceeded'
-                          }
-                          {...register('description', {
-                            required: false,
-                            maxLength: 120,
-                            onChange: (event) => setFormData((prev) => ({ ...prev, description: event.target.value })),
-                          })}
-                        />
-                      </div>
+                      <Grid xl={12} lg={12} md={12} xs={12} item>
+                        <div className={cx('item-content')}>
+                          <TextFieldCustom
+                            label="Description"
+                            value={formData.description}
+                            fullWidth
+                            inputProps={{ maxLength: 150 }}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  <DescriptionIcon />
+                                </InputAdornment>
+                              ),
+                            }}
+                            error={errors.description && errors.description.type === 'maxLength' && 'Max length exceeded'}
+                            helperText={
+                              errors.description && errors.description.type === 'maxLength' && 'Max length exceeded'
+                            }
+                            {...register('description', {
+                              required: false,
+                              maxLength: 150,
+                              onChange: (event) => setFormData((prev) => ({ ...prev, description: event.target.value })),
+                            })}
+                          />
+                        </div>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </div>
-              )}
+                  </div>
+                )}
 
               <Divider sx={{ m: '10px 0', backgroundColor: 'var(--divider-primary)' }} />
 
@@ -402,26 +395,28 @@ function ModalEdit(props, ref) {
                     Cancel
                   </ButtonCustom>
 
-                  {!isAPILoading ? (
-                    <ButtonCustom
-                      type="submit"
-                      variant="contained"
-                      startIcon={<CheckIcon />}
-                      sx={{
-                        backgroundColor: 'var(--btn-primary)',
-                        color: 'var(--white-color)',
-                        ':hover': {
-                          backgroundColor: 'var(--btn-primary)',
-                        },
-                      }}
-                    >
-                      Save
-                    </ButtonCustom>
-                  ) : (
-                    <ButtonLoadingCustom loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">
-                      Save
-                    </ButtonLoadingCustom>
-                  )}
+                  {
+                    !isAPILoading
+                      ? (
+                        <ButtonCustom
+                          type="submit"
+                          variant="contained"
+                          startIcon={<CheckIcon />}
+                          sx={{
+                            backgroundColor: 'var(--btn-primary)',
+                            color: 'var(--white-color)',
+                            ':hover': {
+                              backgroundColor: 'var(--btn-primary)',
+                            },
+                          }}
+                        >
+                          Save
+                        </ButtonCustom>)
+                      : (
+                        <ButtonLoadingCustom loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">
+                          Save
+                        </ButtonLoadingCustom>)
+                  }
                 </Grid>
               </div>
             </div>

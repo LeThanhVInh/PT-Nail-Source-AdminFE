@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useActionData, Outlet, useLocation, useBlocker } from 'react-router-dom';
+import { Outlet, useBlocker } from 'react-router-dom';
 
 import { useForm, Controller } from 'react-hook-form';
 import Swal from 'sweetalert2';
 
 import LoadingButton from '@mui/lab/LoadingButton';
 
-import { InputAdornment, Divider, Stack, Typography, Button, FormControl, Box } from '@mui/material';
+import { InputAdornment, Divider, Button, FormControl, Box } from '@mui/material';
 import { Edit as EditIcon, Save as SaveIcon } from '@mui/icons-material';
 
 import { AccountTextField } from '../../components/CustomMUI/AccountPage/AccountTextField';
@@ -14,7 +14,6 @@ import { LoadOptDropdown } from '../../providers/constants';
 import { StyledAutocomplete } from '../../components/CustomMUI/SelectCustom';
 
 import { auth } from '../../firebase';
-
 import UserAPI from '../../api/Users';
 import GetOnlyAPI from '../../api/GetOnly';
 import Loader from '../../components/Loader';
@@ -26,16 +25,12 @@ const cx = classNames.bind(styles);
 
 export default function AccountPage() {
   const [isAPILoading, setIsAPILoading] = useState(false);
-
   let [currencyList, setCurrencyList] = useState([]);
   let [timeZoneList, setTimeZoneList] = useState([]);
   let [languageUIList, setLanguageUIList] = useState([]);
-
-  const uidUser = auth.currentUser.uid;
-
   const [isLoading, setIsLoading] = useState(false);
-  const [inputAnimation, setInputAnimation] = useState([]);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const { register, handleSubmit, setValue, control, formState: { errors }, } = useForm({});
 
   const [formData, setFormData] = useState({
     idUser: '',
@@ -47,16 +42,11 @@ export default function AccountPage() {
     uiLanguageValue: null,
   });
   //////////////////////////////////////////////
-
   // Block navigating elsewhere when data has been entered into the input
   let blocker = useBlocker(
     ({ currentLocation, nextLocation }) => hasUnsavedChanges && currentLocation.pathname !== nextLocation.pathname,
   );
-
-  // console.log('blocker', blocker);
-
   /////////////////////////////////////////
-
   // useEffect(() => {
   //   const handleBeforeUnload = (event) => {
   //     event.preventDefault();
@@ -92,74 +82,67 @@ export default function AccountPage() {
     setHasUnsavedChanges(true);
   };
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    control,
-    formState: { errors },
-  } = useForm({});
-
-  useEffect(() => {
+  async function fetchData() {
     setIsAPILoading(true);
-    async function fetchData() {
-      const userResult = await UserAPI.GetProfile(uidUser);
-      const currencyListResult = await GetOnlyAPI.GetCurrencyList();
-      const timeZoneResult = await GetOnlyAPI.GetTimeZoneList();
-      const languageUIResult = await GetOnlyAPI.GetUILanguageList();
+    const userResult = await UserAPI.GetProfile(auth.currentUser.uid);
+    const currencyListResult = await GetOnlyAPI.GetCurrencyList();
+    const timeZoneResult = await GetOnlyAPI.GetTimeZoneList();
+    const languageUIResult = await GetOnlyAPI.GetUILanguageList();
 
-      if (currencyListResult !== null) {
-        let res = LoadOptDropdown(currencyListResult, 'Name', 'Id', false, '', '');
-        if (res) {
-          setCurrencyList(res);
-          currencyList = res;
-        }
-      }
-
-      if (timeZoneResult !== null) {
-        let res = LoadOptDropdown(timeZoneResult, 'Label', 'Id', false, '', '');
-        if (res) {
-          setTimeZoneList(res);
-          timeZoneList = res; //triock lo o day ne
-        }
-      }
-
-      if (languageUIResult !== null) {
-        let res = LoadOptDropdown(languageUIResult, 'Name', 'Id', false, '', '');
-        if (res) {
-          setLanguageUIList(res);
-          languageUIList = res;
-        }
-      }
-
-      if (userResult !== null) {
-        const tempCurrency = currencyList?.find((item) => item.value === userResult.CurrencyId);
-        const tempTimeZone = timeZoneList?.find((item) => item.value === userResult.TimeZoneId);
-        const tempUILanguage = languageUIList?.find((item) => item.value === userResult.UilanguageId);
-
-        setFormData({
-          ...formData,
-          idUser: userResult.UserId,
-          fullNameUser: userResult.Fullname,
-          emailUser: userResult.Email,
-          phoneNumUser: userResult.Phone,
-          currencyValue: tempCurrency,
-          timeZoneValue: tempTimeZone,
-          uiLanguageValue: tempUILanguage,
-        });
-
-        setValue('fullName', userResult.Fullname);
-        setValue('email', userResult.Email);
-        setValue('phone', userResult.Phone);
-        setValue('currencyId', tempCurrency.value);
-        setValue('timeZoneId', tempTimeZone.value);
-        setValue('uilanguageId', tempUILanguage.value);
-        setIsAPILoading(false);
-        if (!isAPILoading) {
-          blocker.state = 'unblocked';
-        }
+    if (currencyListResult !== null) {
+      let res = LoadOptDropdown(currencyListResult, 'Name', 'Id', false, '', '');
+      if (res) {
+        setCurrencyList(res);
+        currencyList = res;
       }
     }
+
+    if (timeZoneResult !== null) {
+      let res = LoadOptDropdown(timeZoneResult, 'Label', 'Id', false, '', '');
+      if (res) {
+        setTimeZoneList(res);
+        timeZoneList = res;
+      }
+    }
+
+    if (languageUIResult !== null) {
+      let res = LoadOptDropdown(languageUIResult, 'Name', 'Id', false, '', '');
+      if (res) {
+        setLanguageUIList(res);
+        languageUIList = res;
+      }
+    }
+
+    if (userResult !== null) {
+      const tempCurrency = currencyList?.find((item) => item.value === userResult.CurrencyId);
+      const tempTimeZone = timeZoneList?.find((item) => item.value === userResult.TimeZoneId);
+      const tempUILanguage = languageUIList?.find((item) => item.value === userResult.UilanguageId);
+
+      setFormData({
+        ...formData,
+        idUser: userResult.UserId,
+        fullNameUser: userResult.Fullname,
+        emailUser: userResult.Email,
+        phoneNumUser: userResult.Phone,
+        currencyValue: tempCurrency,
+        timeZoneValue: tempTimeZone,
+        uiLanguageValue: tempUILanguage,
+      });
+
+      setValue('fullName', userResult.Fullname);
+      setValue('email', userResult.Email);
+      setValue('phone', userResult.Phone);
+      setValue('currencyId', tempCurrency.value);
+      setValue('timeZoneId', tempTimeZone.value);
+      setValue('uilanguageId', tempUILanguage.value);
+      setIsAPILoading(false);
+      if (!isAPILoading) {
+        blocker.state = 'unblocked';
+      }
+    }
+  }
+
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -173,12 +156,14 @@ export default function AccountPage() {
       data.timeZoneId = formData.timeZoneValue.value;
       data.currencyId = formData.currencyValue.value;
       data.uilanguageId = formData.uiLanguageValue.value;
+
       const response = await UserAPI.UpdateProfile(data);
-      // console.log(response);
       if (response) {
+        setIsLoading(false);
+
         Swal.mixin({
           toast: true,
-          position: 'top',
+          position: 'top-end',
           showConfirmButton: false,
           showClass: { popup: 'animate__animated animate__fadeInDown' },
           hideClass: { popup: 'animate__animated animate__fadeOutUp' },
@@ -188,16 +173,14 @@ export default function AccountPage() {
             toast.addEventListener('mouseenter', Swal.stopTimer);
             toast.addEventListener('mouseleave', Swal.resumeTimer);
           },
-        }).fire('Your account has been updated !', '', 'success');
-        setInputAnimation(['animate__animated animate__shakeX', 'border-error']);
-        setTimeout(() => setInputAnimation([]), 3000);
-        setTimeout(() => setIsLoading(false), 3000);
+        }).fire('Your information has been updated !', '', 'success');
       }
     }
     setHasUnsavedChanges(false);
   };
 
-  if (isAPILoading) return <Loader colorLoader="black" isLoading={isAPILoading} hasBackground={false} />;
+  if (isAPILoading)
+    return <Loader colorLoader="black" isLoading={isAPILoading} hasBackground={false} />;
   else
     return (
       <div className={cx('account-wrap', 'animate__animated', 'animate__fadeInUp', 'animate__fast')}>
@@ -249,7 +232,7 @@ export default function AccountPage() {
                   }}
                   error={
                     (errors.email && errors.email.type === 'required') ||
-                    (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
+                      (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
                       ? true
                       : false
                   }
@@ -275,7 +258,7 @@ export default function AccountPage() {
                   value={formData.phoneNumUser}
                   error={
                     (errors.phone && errors.phone.type === 'required') ||
-                    (errors.phone && errors.phone.type === 'maxLength')
+                      (errors.phone && errors.phone.type === 'maxLength')
                       ? true
                       : false
                   }
@@ -283,7 +266,7 @@ export default function AccountPage() {
                     (errors.phone && errors.phone.type === 'required' && 'Phone is required') ||
                     (errors.phone && errors.phone.type === 'maxLength' && 'Max length exceeded')
                   }
-                  inputProps={{ maxLength: 50 }}
+                  inputProps={{ maxLength: 11 }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -293,7 +276,7 @@ export default function AccountPage() {
                   }}
                   {...register('phone', {
                     required: true,
-                    maxLength: 50,
+                    maxLength: 11,
                     onChange: (event) => formFieldOnchange(event, 'phoneNumUser'),
                   })}
                 />
@@ -393,8 +376,7 @@ export default function AccountPage() {
                     )}
                   />
                 </FormControl>
-
-                <Divider sx={{ borderColor: 'var(--grey-border-item)', marginY: '20px', width: '100%' }} />
+                {/* <Divider sx={{ borderColor: 'var(--grey-border-item)', marginY: '20px', width: '100%' }} />
                 <Box sx={{ width: '100%' }}>
                   <Stack direction="row" justifyContent="space-between" alignItems="center">
                     <Typography gutterBottom variant="body2" component="div" sx={{ color: 'var(--text-color)' }}>
@@ -411,7 +393,7 @@ export default function AccountPage() {
                   >
                     You can permanently delete your Email account add all its data
                   </Typography>
-                </Box>
+                </Box> */}
               </div>
 
               <Divider sx={{ borderColor: 'var(--grey-border-item)', marginY: '20px' }} />
@@ -424,7 +406,6 @@ export default function AccountPage() {
                     sx={{
                       color: 'var(--white-color)',
                       backgroundColor: 'var(--btn-primary)',
-                      // marginLeft: '20px',
                       boxShadow: 'var(--box-shadow-item)',
                       width: '128px',
                       ':hover': {
@@ -455,16 +436,15 @@ export default function AccountPage() {
 }
 
 function ConfirmNavigation({ blocker }) {
-  console.log('blocker: c ', blocker);
   Swal.fire({
-    title: 'CONFIRM ?',
-    text: 'UNSAVED DATA, Are you sure you want to direct?',
+    title: 'Unsaved changes',
+    text: 'Are you sure you want to leave this page and discard changes?',
     icon: 'question', //question, success,error, warning, info
     showCancelButton: true,
     confirmButtonColor: '#d33',
-    confirmButtonText: 'Let me through',
+    confirmButtonText: 'DISCARD CHANGES',
     cancelButtonColor: '#3085d6',
-    cancelButtonText: 'Keep me here',
+    cancelButtonText: 'CONTINUE EDITING',
     focusConfirm: false,
     focusCancel: true,
     allowEscapeKey: true,
