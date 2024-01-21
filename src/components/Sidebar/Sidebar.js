@@ -26,6 +26,9 @@ import {
   CalendarMonthOutlined as CalendarMonthOutlinedIcon,
   LockOutlined as LockOutlinedIcon,
   PaymentOutlined as PaymentOutlinedIcon,
+  Store as StoreIcon,
+  Archive as ArchiveIcon,
+  Category as CategoryIcon,
 } from '@mui/icons-material';
 
 import './Sidebar.scss';
@@ -117,9 +120,24 @@ function Sidebar() {
                 sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
               >
                 <ListItemIconCustom>
-                  <DraftsIcon />
+                  <ArchiveIcon />
                 </ListItemIconCustom>
                 <ListItemText primary="Products" />
+              </ListItemButtonCustom>
+            </ListItem>
+          </NavLink>
+
+          <NavLink to={config.routes.stores} className="category-list-item" onClick={() => setIsListChildActive(false)}>
+            <ListItem disablePadding>
+              <ListItemButtonCustom
+                disableRipple
+                disableTouchRipple
+                sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
+              >
+                <ListItemIconCustom>
+                  <StoreIcon />
+                </ListItemIconCustom>
+                <ListItemText primary="Store" />
               </ListItemButtonCustom>
             </ListItem>
           </NavLink>
@@ -136,7 +154,7 @@ function Sidebar() {
                 sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
               >
                 <ListItemIconCustom>
-                  <DraftsIcon />
+                  <CategoryIcon />
                 </ListItemIconCustom>
                 <ListItemText primary="Categories" />
               </ListItemButtonCustom>

@@ -10,6 +10,7 @@ const routes = {
   categories: '/categories',
   calendar: '/calendar',
   account: '/account',
+  stores: '/stores',
 };
 
 export default routes;

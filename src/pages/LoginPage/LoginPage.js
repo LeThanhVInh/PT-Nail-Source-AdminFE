@@ -22,8 +22,6 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log('location login', location);
-
   const [inputAnimation, setInputAnimation] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoaderLoading, setIsLoaderLoading] = useState(true);

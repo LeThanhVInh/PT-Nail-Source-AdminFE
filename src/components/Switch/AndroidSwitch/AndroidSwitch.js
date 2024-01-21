@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 
-const Android12Switch = styled(Switch)(({ theme }) => ({
+export const Android12Switch = styled(Switch)(({ theme }) => ({
   padding: 8,
 
   '& .MuiSwitch-switchBase': {
@@ -54,12 +54,12 @@ const Android12Switch = styled(Switch)(({ theme }) => ({
 }));
 
 export default function AndroidSwitch(props) {
-  const [checked, setChecked] = React.useState(true);
+  const { checked } = props;
+  // const [checked, setChecked] = React.useState(true);
 
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
+  // setChecked(event.target.checked);
+  console.log(checked);
 
   const { label = '' } = props;
-  return <FormControlLabel control={<Android12Switch checked={checked} onChange={handleChange} />} label={label} />;
+  return <FormControlLabel control={<Android12Switch checked={checked} />} label={label} />;
 }

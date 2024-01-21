@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useActionData, Outlet, useLocation, useBlocker } from 'react-router-dom';
+
 import { useForm, Controller } from 'react-hook-form';
 import Swal from 'sweetalert2';
 
@@ -11,6 +13,8 @@ import { AccountTextField } from '../../components/CustomMUI/AccountPage/Account
 import { LoadOptDropdown } from '../../providers/constants';
 import { StyledAutocomplete } from '../../components/CustomMUI/SelectCustom';
 
+import { auth } from '../../firebase';
+
 import UserAPI from '../../api/Users';
 import GetOnlyAPI from '../../api/GetOnly';
 import Loader from '../../components/Loader';
@@ -22,14 +26,17 @@ const cx = classNames.bind(styles);
 
 export default function AccountPage() {
   const [isAPILoading, setIsAPILoading] = useState(false);
+
   let [currencyList, setCurrencyList] = useState([]);
   let [timeZoneList, setTimeZoneList] = useState([]);
   let [languageUIList, setLanguageUIList] = useState([]);
 
+  const uidUser = auth.currentUser.uid;
+
   const [isLoading, setIsLoading] = useState(false);
   const [inputAnimation, setInputAnimation] = useState([]);
-
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+
   const [formData, setFormData] = useState({
     idUser: '',
     fullNameUser: '',
@@ -39,24 +46,34 @@ export default function AccountPage() {
     timeZoneValue: null,
     uiLanguageValue: null,
   });
+  //////////////////////////////////////////////
 
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      event.preventDefault();
-      event.returnValue = '';
+  // Block navigating elsewhere when data has been entered into the input
+  let blocker = useBlocker(
+    ({ currentLocation, nextLocation }) => hasUnsavedChanges && currentLocation.pathname !== nextLocation.pathname,
+  );
 
-      if (hasUnsavedChanges) {
-        const message = 'Unsaved changes. Are you sure you want to leave this page and discard changes?';
-        console.log(message);
-      }
-    };
+  // console.log('blocker', blocker);
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+  /////////////////////////////////////////
 
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [hasUnsavedChanges]);
+  // useEffect(() => {
+  //   const handleBeforeUnload = (event) => {
+  //     event.preventDefault();
+  //     event.returnValue = '';
+
+  //     if (hasUnsavedChanges) {
+  //       const message = 'Unsaved changes. Are you sure you want to leave this page and discard changes?';
+  //       console.log(message);
+  //     }
+  //   };
+
+  //   window.addEventListener('beforeunload', handleBeforeUnload);
+
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleBeforeUnload);
+  //   };
+  // }, [hasUnsavedChanges]);
 
   const formFieldOnchange = (event, stateName) => {
     setFormData({
@@ -64,6 +81,7 @@ export default function AccountPage() {
       [stateName]: event.target.value,
     });
     setHasUnsavedChanges(true);
+    blocker.state = 'blocked';
   };
 
   const formSelectFieldOnchange = (event, stateName) => {
@@ -85,7 +103,7 @@ export default function AccountPage() {
   useEffect(() => {
     setIsAPILoading(true);
     async function fetchData() {
-      const userResult = await UserAPI.GetById('VLEo54J2UyYAWGf9cWQqMWkeTYA3');
+      const userResult = await UserAPI.GetProfile(uidUser);
       const currencyListResult = await GetOnlyAPI.GetCurrencyList();
       const timeZoneResult = await GetOnlyAPI.GetTimeZoneList();
       const languageUIResult = await GetOnlyAPI.GetUILanguageList();
@@ -137,6 +155,9 @@ export default function AccountPage() {
         setValue('timeZoneId', tempTimeZone.value);
         setValue('uilanguageId', tempUILanguage.value);
         setIsAPILoading(false);
+        if (!isAPILoading) {
+          blocker.state = 'unblocked';
+        }
       }
     }
     fetchData();
@@ -170,17 +191,19 @@ export default function AccountPage() {
         }).fire('Your account has been updated !', '', 'success');
         setInputAnimation(['animate__animated animate__shakeX', 'border-error']);
         setTimeout(() => setInputAnimation([]), 3000);
+        setTimeout(() => setIsLoading(false), 3000);
       }
-      setIsLoading(false);
     }
     setHasUnsavedChanges(false);
   };
 
-  if (isAPILoading) return <Loader isLoading={isAPILoading} hasBackground={false} />;
+  if (isAPILoading) return <Loader colorLoader="black" isLoading={isAPILoading} hasBackground={false} />;
   else
     return (
       <div className={cx('account-wrap', 'animate__animated', 'animate__fadeInUp', 'animate__fast')}>
         <div className={cx('container-wrap')}>
+          {blocker?.location?.pathname ? <ConfirmNavigation blocker={blocker} /> : null}
+
           <div className={cx('title')}>
             <h3>My Account</h3>
           </div>
@@ -394,20 +417,6 @@ export default function AccountPage() {
               <Divider sx={{ borderColor: 'var(--grey-border-item)', marginY: '20px' }} />
 
               <Box justifyContent="end" direction="row" sx={{ display: 'flex' }}>
-                {/* <Button
-                variant="contained"
-                sx={{
-                  color: 'var(--text-color)',
-                  backgroundColor: 'var(--white-color-outline)',
-                  boxShadow: 'var(--box-shadow-item)',
-                  ':hover': {
-                    backgroundColor: 'var(--white-color-outline)',
-                  },
-                }}
-              >
-                Cancel
-              </Button> */}
-
                 {!isLoading ? (
                   <Button
                     type="submit"
@@ -440,6 +449,31 @@ export default function AccountPage() {
             </div>
           </Box>
         </div>
+        <Outlet />
       </div>
     );
+}
+
+function ConfirmNavigation({ blocker }) {
+  console.log('blocker: c ', blocker);
+  Swal.fire({
+    title: 'CONFIRM ?',
+    text: 'UNSAVED DATA, Are you sure you want to direct?',
+    icon: 'question', //question, success,error, warning, info
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    confirmButtonText: 'Let me through',
+    cancelButtonColor: '#3085d6',
+    cancelButtonText: 'Keep me here',
+    focusConfirm: false,
+    focusCancel: true,
+    allowEscapeKey: true,
+  }).then(async (result) => {
+    if (result.value) {
+      blocker.proceed?.();
+      blocker.state = 'unblocked';
+    } else {
+      blocker.reset?.();
+    }
+  });
 }

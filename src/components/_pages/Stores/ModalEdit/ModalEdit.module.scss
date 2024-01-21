@@ -1,5 +1,4 @@
 .modal-main-box {
-
   //Scrollbar CSS
   &::-webkit-scrollbar {
     width: 0px !important;
@@ -36,14 +35,15 @@
 
       .contents {
         flex: 1;
-
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         flex-direction: column;
         width: 100%;
-
         .item-content {
+          display: flex;
+          align-items: center;
+          justify-content: center;
           padding: 5px 3px;
 
           .validation-text {
@@ -52,7 +52,8 @@
         }
       }
 
-      .footer {}
+      .footer {
+      }
     }
   }
 }

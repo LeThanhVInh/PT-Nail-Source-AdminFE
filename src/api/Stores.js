@@ -29,13 +29,16 @@ class StoreAPI {
     return null;
   }
 
-  static async GetList() {
+  static async GetList(SearchValue) {
     try {
       let token = await auth.currentUser.getIdToken();
 
       const configs = {
         headers: {
           Authorization: `Bearer ${token}`,
+        },
+        params: {
+          SearchValue: SearchValue,
         },
       };
 
@@ -61,13 +64,13 @@ class StoreAPI {
       };
 
       const requestBodyData = {
-        "id": generateRandomUuid(),
-        "name": itemData.name,
-        "isActive": itemData.isActive,
-        "phone": itemData.phone === "" ? null : itemData.phone,
-        "address": itemData.address === "" ? null : itemData.address,
-        "zipPostalCode": itemData.zipPostalCode === "" ? null : itemData.zipPostalCode,
-        "description": itemData.description === "" ? null : itemData.description,
+        id: generateRandomUuid(),
+        name: itemData.name,
+        isActive: itemData.isActive,
+        phone: itemData.phone === '' ? null : itemData.phone,
+        address: itemData.address === '' ? null : itemData.address,
+        zipPostalCode: itemData.zipPostalCode === '' ? null : itemData.zipPostalCode,
+        description: itemData.description === '' ? null : itemData.description,
       };
 
       const response = await axios.post(`${constants.apiUrl}/${this.controllerName}/Insert`, requestBodyData, configs);
@@ -95,18 +98,18 @@ class StoreAPI {
       };
 
       const requestBodyData = {
-        "id": itemData.id,
-        "name": itemData.name,
-        "isActive": itemData.isActive,
-        "phone": itemData.phone === "" ? null : itemData.phone,
-        "address": itemData.address === "" ? null : itemData.address,
-        "zipPostalCode": itemData.zipPostalCode === "" ? null : itemData.zipPostalCode,
-        "description": itemData.description === "" ? null : itemData.description,
+        id: itemData.id,
+        name: itemData.name,
+        isActive: itemData.isActive,
+        phone: itemData.phone === '' ? null : itemData.phone,
+        address: itemData.address === '' ? null : itemData.address,
+        zipPostalCode: itemData.zipPostalCode === '' ? null : itemData.zipPostalCode,
+        description: itemData.description === '' ? null : itemData.description,
       };
-      console.log("requestBodyData", requestBodyData)
 
       const response = await axios.put(`${constants.apiUrl}/${this.controllerName}/Update`, requestBodyData, configs);
       if (response.data != null && response.status === 200) {
+        console.log(response);
         return response.data;
       }
     } catch (err) {
@@ -135,6 +138,28 @@ class StoreAPI {
       }
     } catch (err) {
       console.log(err.message);
+    }
+
+    return false;
+  }
+
+  static async DeleteMultiple(ids) {
+    try {
+      let token = await auth.currentUser.getIdToken();
+
+      const configs = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: ids,
+      };
+
+      const response = await axios.delete(`${constants.apiUrl}/${this.controllerName}/DeleteMultiple`, configs);
+      if (response.data != null && response.status === 200) {
+        return true;
+      }
+    } catch (err) {
+      console.log(err);
     }
 
     return false;
