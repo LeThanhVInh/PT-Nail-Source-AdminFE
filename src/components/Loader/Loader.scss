@@ -11,7 +11,7 @@
   background-size: cover;
 
   &.no-bg {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.01), rgba(21, 21, 21, 0.03));
+    background-image: none;
     height: 100%;
     min-height: 300px;
   }

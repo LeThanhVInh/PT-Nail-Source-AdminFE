@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import { DataGrid } from '@mui/x-data-grid';
-import { Button, IconButton, Stack, } from '@mui/material';
+import { Button, IconButton, Stack, InputAdornment } from '@mui/material';
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
@@ -9,6 +9,7 @@ import {
   Search as SearchIcon,
   Cancel as CancelIcon,
   DeleteForever as DeleteForeverIcon,
+  Clear as ClearIcon,
 } from '@mui/icons-material';
 
 import { dataTablePadWidth } from '../../providers/constants';
@@ -32,9 +33,10 @@ const cx = classNames.bind(styles);
 
 function Stores() {
   const modalRef = useRef();
+  const searchRef = useRef();
   const [rows, setRows] = useState([]);
   const [isTableLoading, setTableLoading] = useState(true);
-  const [selectedRowsList, setSelectedRowsList] = React.useState([]);
+  const [selectedRowsId, setSelectedRowsId] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
   const columns = [
@@ -61,14 +63,15 @@ function Stores() {
       type: 'boolean',
       align: 'center',
       width: 150 + dataTablePadWidth,
-      renderCell: (data) =>
+      renderCell: (data) => (
         <IconButton className={cx('btn-edit')}>
-          {
-            data.value === true
-              ? <CheckCircleIcon sx={{ color: '#43a047' }} />
-              : <CancelIcon sx={{ color: '#686868' }} />
-          }
-        </IconButton>,
+          {data.value === true ? (
+            <CheckCircleIcon sx={{ color: '#43a047' }} />
+          ) : (
+            <CancelIcon sx={{ color: '#686868' }} />
+          )}
+        </IconButton>
+      ),
     },
     {
       field: 'actions',
@@ -79,7 +82,7 @@ function Stores() {
       filterable: false,
       align: 'center',
       flex: 1,
-      renderCell: (data) =>
+      renderCell: (data) => (
         <>
           <IconButton className={cx('btn-edit')} color="blue" onClick={() => OpenModal(false, data.id)}>
             <EditIcon />
@@ -87,7 +90,8 @@ function Stores() {
           <IconButton className={cx('btn-delete')} color="red" onClick={() => DeleteItem(data.id)}>
             <DeleteIcon />
           </IconButton>
-        </>,
+        </>
+      ),
     },
   ];
 
@@ -96,7 +100,10 @@ function Stores() {
     const list = await StoreAPI.GetList(searchValue);
     if (list !== null) {
       setRows(list);
+    } else {
+      setRows([]);
     }
+    setSelectedRowsId([]);
     setTableLoading(false);
   };
 
@@ -161,7 +168,7 @@ function Stores() {
         const res = await StoreAPI.DeleteMultiple(ids);
         if (res === true) {
           LoadDataTable(searchValue);
-          setSelectedRowsList([]);
+          setSelectedRowsId([]);
 
           Swal.mixin({
             toast: true,
@@ -183,7 +190,12 @@ function Stores() {
     });
   };
 
+  const debounced = useDebouncedCallback((value) => {
+    handleSearch(value);
+  }, 500);
+
   const handleSearch = async (value) => {
+    setSearchValue(value);
     setTableLoading(true);
     if (value.trim() !== '') {
       const list = await StoreAPI.GetList(value);
@@ -201,9 +213,11 @@ function Stores() {
     }
   };
 
-  const debounced = useDebouncedCallback((value) => {
-    handleSearch(value);
-  }, 500);
+  const handleClear = () => {
+    setSearchValue('');
+
+    searchRef.current.value = '';
+  };
 
   const OpenModal = (isInsert, id) => {
     if (modalRef.current && modalRef.current.openModal) {
@@ -224,21 +238,23 @@ function Stores() {
                 <Button variant="primary" className={cx('btn-add-new')} onClick={() => OpenModal(true, null)}>
                   Add New Store
                 </Button>
-                {
-                  selectedRowsList.length <= 0
-                    ? <div></div>
-                    : (
-                      <IconButton aria-label="Delete rows"
-                        sx={{ color: 'var(--btn-delete)' }}
-                        onClick={() => DeleteMultiple(selectedRowsList)}
-                      >
-                        <DeleteForeverIcon />
-                      </IconButton>)
-                }
+                {selectedRowsId.length <= 0 ? (
+                  <div></div>
+                ) : (
+                  <IconButton
+                    aria-label="Delete rows"
+                    sx={{ color: 'var(--btn-delete)' }}
+                    onClick={() => DeleteMultiple(selectedRowsId)}
+                  >
+                    <DeleteForeverIcon />
+                  </IconButton>
+                )}
               </Stack>
             </div>
             <div className={cx('action-search', 'pt-10')}>
-              <SearchMediumCustom sx={{ boxShadow: '0px 0px 5px var(--grey-shadow)', margin: 0 }}>
+              <SearchMediumCustom
+                sx={{ boxShadow: '0px 0px 5px var(--grey-shadow)', margin: 0, backgroundColor: 'var(--input-color)' }}
+              >
                 <SearchIconWrapperCustom>
                   <SearchIcon />
                 </SearchIconWrapperCustom>
@@ -246,8 +262,19 @@ function Stores() {
                   placeholder="Search..."
                   inputProps={{ 'aria-label': 'search' }}
                   onChange={(e) => debounced(e.target.value)}
-                  onBlur={e => setSearchValue(e.target.value)}
+                  onBlur={(e) => setSearchValue(e.target.value)}
+                  inputRef={searchRef}
+                  sx={{ paddingRight: '35px' }}
                 />
+                {searchValue === '' ? null : (
+                  <IconButton
+                    aria-label="clear"
+                    onClick={handleClear}
+                    sx={{ position: 'absolute', right: 0, color: 'var(--text-color)' }}
+                  >
+                    <ClearIcon />
+                  </IconButton>
+                )}
               </SearchMediumCustom>
             </div>
           </div>
@@ -255,32 +282,30 @@ function Stores() {
 
         <ModalEdit ref={modalRef} LoadDataTable={() => LoadDataTable(searchValue)} />
 
-        {
-          isTableLoading
-            ? <Loader colorLoader="#000" isLoading={isTableLoading} size={50} hasBackground={false} />
-            : (
-              <div className={cx('my-datatable-custom')}>
-                <DataGrid
-                  getRowId={(row) => row.Id}
-                  rows={rows}
-                  columns={columns}
-                  pageSizeOptions={[10, 20, 50, 100]}
-                  checkboxSelection
-                  density="standard" //standard, comfortable, compact
-                  columnHeaderHeight={70}
-                  loading={false}
-                  rowSelection={true}
-                  onRowDoubleClick={(data, event) => OpenModal(false, data.id)}
-                  onRowSelectionModelChange={setSelectedRowsList}
-                  initialState={{
-                    pagination: {
-                      paginationModel: { page: 0, pageSize: 10 },
-                    },
-                  }}
-                />
-              </div>
-            )
-        }
+        {isTableLoading ? (
+          <Loader colorLoader="#000" isLoading={isTableLoading} size={50} hasBackground={false} />
+        ) : (
+          <div className={cx('my-datatable-custom')}>
+            <DataGrid
+              getRowId={(row) => row.Id}
+              rows={rows}
+              columns={columns}
+              pageSizeOptions={[10, 20, 50, 100]}
+              checkboxSelection
+              density="standard" //standard, comfortable, compact
+              columnHeaderHeight={70}
+              loading={false}
+              rowSelection={true}
+              onRowDoubleClick={(data, event) => OpenModal(false, data.id)}
+              onRowSelectionModelChange={setSelectedRowsId}
+              initialState={{
+                pagination: {
+                  paginationModel: { page: 0, pageSize: 10 },
+                },
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

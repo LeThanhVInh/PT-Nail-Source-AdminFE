@@ -324,8 +324,9 @@ body {
     background-color: var(--input-color);
     color: var(--text-color);
   }
-  .MuiMenu-list {
-    max-height: 200px;
+
+  .MuiAutocomplete-listbox {
+    max-height: 250px;
   }
 
   &.MuiPickersPopper-paper {
