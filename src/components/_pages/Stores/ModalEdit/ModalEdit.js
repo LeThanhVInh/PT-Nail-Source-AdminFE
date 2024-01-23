@@ -19,7 +19,6 @@ import {
   InputAdornment,
   IconButton,
   TextField,
-  Typography,
   Box,
   Modal,
   Divider,
@@ -234,7 +233,7 @@ function ModalEdit(props, ref) {
                           }}
                           error={
                             (errors.name && errors.name.type === 'required') ||
-                            (errors.name && errors.name.type === 'maxLength')
+                              (errors.name && errors.name.type === 'maxLength')
                               ? true
                               : false
                           }
@@ -304,7 +303,7 @@ function ModalEdit(props, ref) {
                           helperText={
                             (errors.phone && errors.phone.type === 'maxLength' && 'Max length exceeded') ||
                             (errors.phone && errors.phone.type === 'minLength' && 'Min length is 11') ||
-                            (errors.phone && errors.phone.type === 'pattern' && 'Invalid Number phone')
+                            (errors.phone && errors.phone.type === 'pattern' && 'Invalid number')
                           }
                           InputProps={{
                             endAdornment: (
@@ -474,25 +473,6 @@ const TextFieldCustom = styled(TextField)({
     '&.Mui-focused fieldset': {
       borderColor: 'var(--primary-color)',
       border: 'none',
-    },
-  },
-});
-
-const TypographyCustom = styled(Typography)({
-  color: 'var(--text-color)',
-});
-
-const TypographyError = styled(Typography)({
-  color: 'var(--red-color)',
-  fontSize: '14px',
-  marginTop: '10px',
-});
-
-const FormControlLabelCustom = styled(FormControlLabel)({
-  color: 'var(--text-color)',
-  span: {
-    '&.Mui-checked': {
-      color: 'var(--primary-check)',
     },
   },
 });

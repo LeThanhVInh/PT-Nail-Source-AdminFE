@@ -17,7 +17,6 @@ import {
 
 import {
   MoveToInbox as InboxIcon,
-  Drafts as DraftsIcon,
   Home as HomeIcon,
   Description as DescriptionIcon,
   ExpandLess,
@@ -137,7 +136,7 @@ function Sidebar() {
                 <ListItemIconCustom>
                   <StoreIcon />
                 </ListItemIconCustom>
-                <ListItemText primary="Store" />
+                <ListItemText primary="Stores" />
               </ListItemButtonCustom>
             </ListItem>
           </NavLink>
@@ -248,7 +247,7 @@ function Sidebar() {
           <NavLink
             to={config.routes.calendar}
             className="category-list-item"
-            // onClick={() => setIsListChildActive(false)}
+          // onClick={() => setIsListChildActive(false)}
           >
             <ListItem disablePadding>
               <ListItemButtonCustom

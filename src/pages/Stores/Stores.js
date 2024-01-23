@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import { DataGrid } from '@mui/x-data-grid';
-import { Button, IconButton, Stack, InputAdornment } from '@mui/material';
+import { Button, IconButton, Stack } from '@mui/material';
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
@@ -238,17 +238,17 @@ function Stores() {
                 <Button variant="primary" className={cx('btn-add-new')} onClick={() => OpenModal(true, null)}>
                   Add New Store
                 </Button>
-                {selectedRowsId.length <= 0 ? (
-                  <div></div>
-                ) : (
-                  <IconButton
-                    aria-label="Delete rows"
-                    sx={{ color: 'var(--btn-delete)' }}
-                    onClick={() => DeleteMultiple(selectedRowsId)}
-                  >
-                    <DeleteForeverIcon />
-                  </IconButton>
-                )}
+                {
+                  selectedRowsId.length <= 0
+                    ? <div></div>
+                    : (
+                      <IconButton aria-label="Delete rows"
+                        sx={{ color: 'var(--btn-delete)' }}
+                        onClick={() => DeleteMultiple(selectedRowsId)}
+                      >
+                        <DeleteForeverIcon />
+                      </IconButton>)
+                }
               </Stack>
             </div>
             <div className={cx('action-search', 'pt-10')}>
@@ -282,30 +282,32 @@ function Stores() {
 
         <ModalEdit ref={modalRef} LoadDataTable={() => LoadDataTable(searchValue)} />
 
-        {isTableLoading ? (
-          <Loader colorLoader="#000" isLoading={isTableLoading} size={50} hasBackground={false} />
-        ) : (
-          <div className={cx('my-datatable-custom')}>
-            <DataGrid
-              getRowId={(row) => row.Id}
-              rows={rows}
-              columns={columns}
-              pageSizeOptions={[10, 20, 50, 100]}
-              checkboxSelection
-              density="standard" //standard, comfortable, compact
-              columnHeaderHeight={70}
-              loading={false}
-              rowSelection={true}
-              onRowDoubleClick={(data, event) => OpenModal(false, data.id)}
-              onRowSelectionModelChange={setSelectedRowsId}
-              initialState={{
-                pagination: {
-                  paginationModel: { page: 0, pageSize: 10 },
-                },
-              }}
-            />
-          </div>
-        )}
+        {
+          isTableLoading
+            ? <Loader colorLoader="#000" isLoading={isTableLoading} size={50} hasBackground={false} />
+            : (
+              <div className={cx('my-datatable-custom')}>
+                <DataGrid
+                  getRowId={(row) => row.Id}
+                  rows={rows}
+                  columns={columns}
+                  pageSizeOptions={[10, 20, 50, 100]}
+                  checkboxSelection
+                  density="standard" //standard, comfortable, compact
+                  columnHeaderHeight={70}
+                  loading={false}
+                  rowSelection={true}
+                  onRowDoubleClick={(data, event) => OpenModal(false, data.id)}
+                  onRowSelectionModelChange={setSelectedRowsId}
+                  initialState={{
+                    pagination: {
+                      paginationModel: { page: 0, pageSize: 10 },
+                    },
+                  }}
+                />
+              </div>
+            )
+        }
       </div>
     </div>
   );

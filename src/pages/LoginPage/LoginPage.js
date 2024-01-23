@@ -14,7 +14,6 @@ import loginImg from '../../assets/images/svg/login-img.svg';
 import classNames from 'classnames/bind';
 import styles from './LoginPage.module.scss';
 import Loader from '../../components/Loader';
-import useAuth from '../../providers/custom-hooks/useAuth';
 
 const cx = classNames.bind(styles);
 
@@ -22,13 +21,9 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [inputAnimation, setInputAnimation] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoaderLoading, setIsLoaderLoading] = useState(true);
-  const [colorLoader, setColorLoader] = useState('#fff');
   const [isLogin, setLogin] = useState(false);
-
-  const { currentUser } = useAuth();
 
   const emailRef = useRef();
 
@@ -59,8 +54,6 @@ export default function LoginPage() {
             toast.addEventListener('mouseleave', Swal.resumeTimer);
           },
         }).fire('Email or password is incorrect !', '', 'error');
-        setInputAnimation(['animate__animated animate__shakeX', 'border-error']);
-        setTimeout(() => setInputAnimation([]), 3000);
         emailRef.current.focus();
         setIsLoading(false);
       });
@@ -74,6 +67,7 @@ export default function LoginPage() {
             setIsLoaderLoading(true);
             setLogin(true);
             navigate(config.routes.home);
+
           } else {
             setIsLoaderLoading(false);
             setLogin(false);
@@ -83,15 +77,14 @@ export default function LoginPage() {
         setIsLoaderLoading(false);
         setLogin(false);
       }
-      // Update the user state
-      // setLogin(user);
     });
 
     // Cleanup the subscription when the component unmounts
     return () => unsubscribe();
-  }, [isLogin]);
+  }, [isLogin, navigate]);
 
-  if (isLogin && isLoaderLoading) return <Loader colorLoader={colorLoader} isLoading={isLoaderLoading} />;
+  if (isLogin && isLoaderLoading)
+    return <Loader colorLoader='#fff' isLoading={isLoaderLoading} />;
   else if (!isLogin && !isLoaderLoading)
     return (
       <>
@@ -120,7 +113,6 @@ export default function LoginPage() {
               item
               xs={6}
               sx={{
-                // position: "relative",
                 display: {
                   xl: 'flex',
                   lg: 'none',
@@ -248,7 +240,7 @@ export default function LoginPage() {
                     inputRef={emailRef}
                     error={
                       (errors.email && errors.email.type === 'required') ||
-                      (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
+                        (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
                         ? true
                         : false
                     }
@@ -265,7 +257,6 @@ export default function LoginPage() {
                       '& label': {
                         top: '-4px',
                       },
-                      // height: "46px",
                       '& label.Mui-focused': {
                         color: 'var(--primary-color)',
                       },
@@ -287,8 +278,6 @@ export default function LoginPage() {
                     })}
                   />
                   <TextField
-                    // id="outlined-password-input"
-
                     error={errors.passWord && errors.passWord.type === 'required' ? true : false}
                     label="Password"
                     type="password"
@@ -322,8 +311,6 @@ export default function LoginPage() {
                       required: true,
                     })}
                   />
-
-                  {/* {invalidEmail !== '' ? <Typography sx={{ color: 'var(--red-color)' }}>{invalidEmail}</Typography> : ''} */}
 
                   <Stack
                     direction="row"

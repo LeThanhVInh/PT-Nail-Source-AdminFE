@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useActionData } from 'react-router-dom';
+import { } from 'react-router-dom';
 import { Outlet, useBlocker, useLocation } from 'react-router-dom';
 
 import { useForm, Controller } from 'react-hook-form';
@@ -18,6 +18,7 @@ import { StyledAutocomplete } from '../../components/CustomMUI/SelectCustom';
 import { auth } from '../../firebase';
 import UserAPI from '../../api/Users';
 import GetOnlyAPI from '../../api/GetOnly';
+import UILanguageAPI from '../../api/UILanguages';
 import Loader from '../../components/Loader';
 
 import classNames from 'classnames/bind';
@@ -26,7 +27,6 @@ import styles from './AccountPage.module.scss';
 const cx = classNames.bind(styles);
 
 export default function AccountPage() {
-  const location = useLocation();
   const [isAPILoading, setIsAPILoading] = useState(false);
   let [currencyList, setCurrencyList] = useState([]);
   let [timeZoneList, setTimeZoneList] = useState([]);
@@ -145,66 +145,67 @@ export default function AccountPage() {
     setHasUnsavedChanges(true);
   };
 
-  async function fetchData() {
-    setIsAPILoading(true);
-    const userResult = await UserAPI.GetProfile(auth.currentUser.uid);
-    const currencyListResult = await GetOnlyAPI.GetCurrencyList();
-    const timeZoneResult = await GetOnlyAPI.GetTimeZoneList();
-    const languageUIResult = await GetOnlyAPI.GetUILanguageList();
-
-    if (currencyListResult !== null) {
-      let res = LoadOptDropdown(currencyListResult, 'Name', 'Id', false, '', '');
-      if (res) {
-        setCurrencyList(res);
-        currencyList = res;
-      }
-    }
-
-    if (timeZoneResult !== null) {
-      let res = LoadOptDropdown(timeZoneResult, 'Label', 'Id', false, '', '');
-      if (res) {
-        setTimeZoneList(res);
-        timeZoneList = res;
-      }
-    }
-
-    if (languageUIResult !== null) {
-      let res = LoadOptDropdown(languageUIResult, 'Name', 'Id', false, '', '');
-      if (res) {
-        setLanguageUIList(res);
-        languageUIList = res;
-      }
-    }
-
-    if (userResult !== null) {
-      const tempCurrency = currencyList?.find((item) => item.value === userResult.CurrencyId);
-      const tempTimeZone = timeZoneList?.find((item) => item.value === userResult.TimeZoneId);
-      const tempUILanguage = languageUIList?.find((item) => item.value === userResult.UilanguageId);
-
-      setFormData({
-        ...formData,
-        idUser: userResult.UserId,
-        fullNameUser: userResult.Fullname,
-        emailUser: userResult.Email,
-        phoneNumUser: userResult.Phone,
-        currencyValue: tempCurrency,
-        timeZoneValue: tempTimeZone,
-        uiLanguageValue: tempUILanguage,
-      });
-
-      setValue('fullName', userResult.Fullname);
-      setValue('email', userResult.Email);
-      setValue('phone', userResult.Phone);
-      setValue('currencyId', tempCurrency.value);
-      setValue('timeZoneId', tempTimeZone.value);
-      setValue('uilanguageId', tempUILanguage.value);
-      setIsAPILoading(false);
-    }
-  }
-
-  console.log('blocker.state', blocker.state);
-
   useEffect(() => {
+    async function fetchData() {
+      setIsAPILoading(true);
+      const userResult = await UserAPI.GetProfile(auth.currentUser.uid);
+      const currencyListResult = await GetOnlyAPI.GetCurrencyList();
+      const timeZoneResult = await GetOnlyAPI.GetTimeZoneList();
+      const languageUIResult = await UILanguageAPI.GetList();
+
+      if (currencyListResult !== null) {
+        let res = LoadOptDropdown(currencyListResult, 'Name', 'Id', false, '', '');
+        if (res) {
+          setCurrencyList(res);
+          currencyList = res;// eslint-disable-line react-hooks/exhaustive-deps
+        }
+      }
+
+      if (timeZoneResult !== null) {
+        let res = LoadOptDropdown(timeZoneResult, 'Label', 'Id', false, '', '');
+        if (res) {
+          setTimeZoneList(res);
+          timeZoneList = res;// eslint-disable-line react-hooks/exhaustive-deps
+        }
+      }
+
+      if (languageUIResult !== null) {
+        let res = LoadOptDropdown(languageUIResult, 'Name', 'Id', false, '', '');
+        if (res) {
+          setLanguageUIList(res);
+          languageUIList = res;// eslint-disable-line react-hooks/exhaustive-deps
+        }
+      }
+
+      if (userResult !== null) {
+        const tempCurrency = currencyList?.find((item) => item.value === userResult.CurrencyId);
+        const tempTimeZone = timeZoneList?.find((item) => item.value === userResult.TimeZoneId);
+        const tempUILanguage = languageUIList?.find((item) => item.value === userResult.UilanguageId);
+
+        setFormData({
+          ...formData,
+          idUser: userResult.UserId,
+          fullNameUser: userResult.Fullname,
+          emailUser: userResult.Email,
+          phoneNumUser: userResult.Phone,
+          currencyValue: tempCurrency,
+          timeZoneValue: tempTimeZone,
+          uiLanguageValue: tempUILanguage,
+        });
+
+        setValue('fullName', userResult.Fullname);
+        setValue('email', userResult.Email);
+        setValue('phone', userResult.Phone);
+        setValue('currencyId', tempCurrency.value);
+        setValue('timeZoneId', tempTimeZone.value);
+        setValue('uilanguageId', tempUILanguage.value);
+        setIsAPILoading(false);
+        if (!isAPILoading) {
+          blocker.state = 'unblocked';
+        }
+      }
+    }
+
     fetchData();
     blocker.state = 'unblocked';
   }, []);
@@ -294,7 +295,7 @@ export default function AccountPage() {
                   }}
                   error={
                     (errors.email && errors.email.type === 'required') ||
-                    (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
+                      (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
                       ? true
                       : false
                   }
@@ -320,7 +321,7 @@ export default function AccountPage() {
                   value={formData.phoneNumUser}
                   error={
                     (errors.phone && errors.phone.type === 'required') ||
-                    (errors.phone && errors.phone.type === 'maxLength')
+                      (errors.phone && errors.phone.type === 'maxLength')
                       ? true
                       : false
                   }
