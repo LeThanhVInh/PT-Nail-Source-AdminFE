@@ -1,10 +1,8 @@
-import { useEffect, useState, useCallback } from 'react';
-import { useActionData } from 'react-router-dom';
-import { Outlet, useBlocker, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Outlet, useBlocker } from 'react-router-dom';
 
 import { useForm, Controller } from 'react-hook-form';
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 
 import LoadingButton from '@mui/lab/LoadingButton';
 
@@ -18,6 +16,7 @@ import { StyledAutocomplete } from '../../components/CustomMUI/SelectCustom';
 import { auth } from '../../firebase';
 import UserAPI from '../../api/Users';
 import GetOnlyAPI from '../../api/GetOnly';
+import UILanguagesAPI from '../../api/UILanguagesAPI';
 import Loader from '../../components/Loader';
 
 import classNames from 'classnames/bind';
@@ -26,7 +25,6 @@ import styles from './AccountPage.module.scss';
 const cx = classNames.bind(styles);
 
 export default function AccountPage() {
-  const location = useLocation();
   const [isAPILoading, setIsAPILoading] = useState(false);
   let [currencyList, setCurrencyList] = useState([]);
   let [timeZoneList, setTimeZoneList] = useState([]);
@@ -52,57 +50,10 @@ export default function AccountPage() {
   });
   //////////////////////////////////////////////
   // Block navigating elsewhere when data has been entered into the input
-  // const blocker = useBlocker(
-  //   ({ currentLocation, nextLocation }) => hasUnsavedChanges && currentLocation.pathname !== nextLocation.pathname,
-  // );
-  // let actionData = useActionData() | undefined;
-
-  // Allow the submission navigation to the same route to go through
-  let shouldBlock = useCallback(
+  let blocker = useBlocker(
     ({ currentLocation, nextLocation }) => hasUnsavedChanges && currentLocation.pathname !== nextLocation.pathname,
-    [hasUnsavedChanges],
   );
-  let blocker = useBlocker(shouldBlock);
-
-  // console.log('blocker 1:', blocker);
-
-  // useEffect(() => {
-  //   if (actionData?.ok) {
-  //     setHasUnsavedChanges(false);
-  //   }
-  // }, [actionData]);
-
-  // Reset the blocker if the user cleans the form
-  // useEffect(() => {
-  //   if (blocker.state === 'blocked' && !hasUnsavedChanges) {
-  //     blocker.reset();
-  //   }
-  // }, [blocker, hasUnsavedChanges]);
-
-  const ConfirmNavigation = ({ blocker }) => {
-    withReactContent(Swal).fire({
-      title: 'Unsaved changes',
-      text: 'Are you sure you want to leave this page and discard changes?',
-      icon: 'question', //question, success,error, warning, info
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      confirmButtonText: 'DISCARD CHANGES',
-      cancelButtonColor: '#3085d6',
-      cancelButtonText: 'CONTINUE EDITING',
-      focusConfirm: false,
-      focusCancel: true,
-      allowEscapeKey: true,
-      preConfirm: () => {
-        blocker.proceed?.();
-        blocker.state = 'unblocked';
-      },
-      preDeny: () => {
-        blocker.reset?.();
-      },
-    });
-  };
-
-  // /////////////////////////////////////////
+  /////////////////////////////////////////
   // useEffect(() => {
   //   const handleBeforeUnload = (event) => {
   //     event.preventDefault();
@@ -121,11 +72,10 @@ export default function AccountPage() {
   //   };
   // }, [hasUnsavedChanges]);
 
-  // useEffect(() => {
-  //   if (hasUnsavedChanges) {
-  //     blocker.state = 'blocked';
-  //   }
-  // }, [formData]);
+  useEffect(() => {
+    console.log('blocker', blocker);
+    console.log('blocker state', blocker.state);
+  }, [blocker]);
 
   const formFieldOnchange = (event, stateName) => {
     setFormData({
@@ -141,7 +91,6 @@ export default function AccountPage() {
       ...formData,
       [stateName]: event,
     });
-    blocker.state = 'blocked';
     setHasUnsavedChanges(true);
   };
 
@@ -150,7 +99,7 @@ export default function AccountPage() {
     const userResult = await UserAPI.GetProfile(auth.currentUser.uid);
     const currencyListResult = await GetOnlyAPI.GetCurrencyList();
     const timeZoneResult = await GetOnlyAPI.GetTimeZoneList();
-    const languageUIResult = await GetOnlyAPI.GetUILanguageList();
+    const languageUIResult = await UILanguagesAPI.GetList();
 
     if (currencyListResult !== null) {
       let res = LoadOptDropdown(currencyListResult, 'Name', 'Id', false, '', '');
@@ -199,14 +148,14 @@ export default function AccountPage() {
       setValue('timeZoneId', tempTimeZone.value);
       setValue('uilanguageId', tempUILanguage.value);
       setIsAPILoading(false);
+      if (!isAPILoading) {
+        blocker.state = 'unblocked';
+      }
     }
   }
 
-  console.log('blocker.state', blocker.state);
-
   useEffect(() => {
     fetchData();
-    blocker.state = 'unblocked';
   }, []);
 
   const handleSave = async (data) => {
@@ -411,7 +360,7 @@ export default function AccountPage() {
                   <Controller
                     control={control}
                     name="uilanguageId"
-                    rules={{ required: 'Language is required' }}
+                    rules={{ required: 'Timezone is required' }}
                     render={({ field: { onChange, value } }) => (
                       <StyledAutocomplete
                         onChange={(event, item) => {
@@ -495,4 +444,27 @@ export default function AccountPage() {
         <Outlet />
       </div>
     );
+}
+
+function ConfirmNavigation({ blocker }) {
+  Swal.fire({
+    title: 'Unsaved changes',
+    text: 'Are you sure you want to leave this page and discard changes?',
+    icon: 'question', //question, success,error, warning, info
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    confirmButtonText: 'DISCARD CHANGES',
+    cancelButtonColor: '#3085d6',
+    cancelButtonText: 'CONTINUE EDITING',
+    focusConfirm: false,
+    focusCancel: true,
+    allowEscapeKey: true,
+  }).then((result) => {
+    if (result.value) {
+      blocker.proceed?.();
+      blocker.state = 'unblocked';
+    } else {
+      blocker.reset?.();
+    }
+  });
 }
