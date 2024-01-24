@@ -93,7 +93,6 @@ export default class POSDevicesAPI {
           id: itemData.id,
         },
       };
-      console.log('itemData', itemData);
 
       const requestBodyData = {
         id: itemData.id,

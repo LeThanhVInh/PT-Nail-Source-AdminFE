@@ -44,17 +44,6 @@ export default function POSDevices() {
       headerName: 'Name',
       flex: 1,
     },
-    // {
-    //   field: 'Address',
-    //   headerName: 'Address',
-    //   width: 260 + dataTablePadWidth,
-    // },
-    // {
-    //   field: 'POSAmount',
-    //   headerName: 'Number of POS',
-    //   type: 'number',
-    //   width: 200 + dataTablePadWidth,
-    // },
     {
       field: 'IsActive',
       headerName: 'Active status',
@@ -235,7 +224,7 @@ export default function POSDevices() {
             <div className={cx('action-add', 'pt-10')}>
               <Stack direction="row" spacing={1}>
                 <Button variant="primary" className={cx('btn-add-new')} onClick={() => OpenModal(true, null)}>
-                  Add New Store
+                  Add New POS Device
                 </Button>
                 {selectedRowsId.length <= 0 ? (
                   <div></div>

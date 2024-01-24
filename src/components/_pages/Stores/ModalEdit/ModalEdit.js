@@ -91,8 +91,6 @@ function ModalEdit(props, ref) {
     setOpenModal(false);
   };
 
-  console.log('formData', formData);
-
   const openModal = async (isInsert, id) => {
     setAnimationClass('animate__animated animate__zoomIn animate__fast');
     setLoading(true);
@@ -274,7 +272,7 @@ function ModalEdit(props, ref) {
                           }}
                           error={
                             (errors.name && errors.name.type === 'required') ||
-                            (errors.name && errors.name.type === 'maxLength')
+                              (errors.name && errors.name.type === 'maxLength')
                               ? true
                               : false
                           }
@@ -338,8 +336,8 @@ function ModalEdit(props, ref) {
                           inputProps={{ maxLength: 15 }}
                           error={
                             (errors.phone && errors.phone.type === 'maxLength') ||
-                            (errors.phone && errors.phone.type === 'pattern') ||
-                            (errors.phone && errors.phone.type === 'minLength')
+                              (errors.phone && errors.phone.type === 'pattern') ||
+                              (errors.phone && errors.phone.type === 'minLength')
                               ? true
                               : false
                           }
@@ -359,7 +357,7 @@ function ModalEdit(props, ref) {
                             required: false,
                             maxLength: 15,
                             minLength: 11,
-                            pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+                            pattern: /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im,
                             onChange: (event) => setFormData((prev) => ({ ...prev, phone: event.target.value })),
                           })}
                         />

@@ -242,7 +242,7 @@ export default function AccountPage() {
                   }}
                   error={
                     (errors.email && errors.email.type === 'required') ||
-                    (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
+                      (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
                       ? true
                       : false
                   }
@@ -268,9 +268,9 @@ export default function AccountPage() {
                   value={formData.phoneNumUser}
                   error={
                     (errors.phone && errors.phone.type === 'required') ||
-                    (errors.phone && errors.phone.type === 'maxLength') ||
-                    (errors.phone && errors.phone.type === 'pattern') ||
-                    (errors.phone && errors.phone.type === 'minLength')
+                      (errors.phone && errors.phone.type === 'maxLength') ||
+                      (errors.phone && errors.phone.type === 'pattern') ||
+                      (errors.phone && errors.phone.type === 'minLength')
                       ? true
                       : false
                   }
@@ -292,7 +292,7 @@ export default function AccountPage() {
                     required: true,
                     maxLength: 15,
                     minLength: 11,
-                    pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+                    pattern: /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im,
                     onChange: (event) => formFieldOnchange(event, 'phoneNumUser'),
                   })}
                 />
