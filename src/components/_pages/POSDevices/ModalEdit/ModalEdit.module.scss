@@ -1,0 +1,63 @@
+.modal-main-box {
+  //Scrollbar CSS
+  &::-webkit-scrollbar {
+    width: 0px !important;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px !important;
+  }
+
+  .wrapper {
+    padding: 20px;
+
+    .modal-box {
+      margin-bottom: 20px;
+      background-color: var(--background-modal);
+      border-radius: 10px;
+      border: 1px solid #e2e8f099;
+      padding: 10px;
+
+      .header {
+        padding: 0 10px;
+        border-radius: 999px;
+        // background-color: var(--bg-white-item);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 18px;
+        font-weight: 600;
+
+        p {
+          color: var(--text-color);
+        }
+      }
+
+      .contents {
+        flex: 1;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        .item-content {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 5px 3px;
+
+          .validation-text {
+            margin-top: 0;
+          }
+        }
+      }
+
+      .footer {
+      }
+    }
+  }
+}
+
+.MuiPickersPopper-paper {
+  background-color: red;
+}

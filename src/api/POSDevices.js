@@ -2,8 +2,8 @@ import axios from 'axios';
 import constants, { generateRandomUuid } from '../providers/constants';
 import { auth } from '../firebase';
 
-export default class StoreAPI {
-  static controllerName = 'Stores';
+export default class POSDevicesAPI {
+  static controllerName = 'POSDevices';
 
   static async GetById(id) {
     try {
@@ -67,10 +67,7 @@ export default class StoreAPI {
         id: generateRandomUuid(),
         name: itemData.name,
         isActive: itemData.isActive,
-        phone: itemData.phone === '' ? null : itemData.phone,
-        address: itemData.address === '' ? null : itemData.address,
-        zipPostalCode: itemData.zipPostalCode === '' ? null : itemData.zipPostalCode,
-        description: itemData.description === '' ? null : itemData.description,
+        storeId: itemData.storeValue.value,
       };
 
       const response = await axios.post(`${constants.apiUrl}/${this.controllerName}/Insert`, requestBodyData, configs);
@@ -96,15 +93,13 @@ export default class StoreAPI {
           id: itemData.id,
         },
       };
+      console.log('itemData', itemData);
 
       const requestBodyData = {
         id: itemData.id,
         name: itemData.name,
         isActive: itemData.isActive,
-        phone: itemData.phone === '' ? null : itemData.phone,
-        address: itemData.address === '' ? null : itemData.address,
-        zipPostalCode: itemData.zipPostalCode === '' ? null : itemData.zipPostalCode,
-        description: itemData.description === '' ? null : itemData.description,
+        StoreId: itemData.storeValue.value,
       };
 
       const response = await axios.put(`${constants.apiUrl}/${this.controllerName}/Update`, requestBodyData, configs);

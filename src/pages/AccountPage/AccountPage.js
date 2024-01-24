@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import { Outlet, useBlocker } from 'react-router-dom';
 
 import { useForm, Controller } from 'react-hook-form';
@@ -16,7 +17,7 @@ import { StyledAutocomplete } from '../../components/CustomMUI/SelectCustom';
 import { auth } from '../../firebase';
 import UserAPI from '../../api/Users';
 import GetOnlyAPI from '../../api/GetOnly';
-import UILanguagesAPI from '../../api/UILanguagesAPI';
+import UILanguageAPI from '../../api/UILanguages';
 import Loader from '../../components/Loader';
 
 import classNames from 'classnames/bind';
@@ -48,12 +49,15 @@ export default function AccountPage() {
     timeZoneValue: null,
     uiLanguageValue: null,
   });
+
+  console.log('formData', formData);
   //////////////////////////////////////////////
   // Block navigating elsewhere when data has been entered into the input
   let blocker = useBlocker(
     ({ currentLocation, nextLocation }) => hasUnsavedChanges && currentLocation.pathname !== nextLocation.pathname,
   );
   /////////////////////////////////////////
+  ////Reload
   // useEffect(() => {
   //   const handleBeforeUnload = (event) => {
   //     event.preventDefault();
@@ -72,11 +76,6 @@ export default function AccountPage() {
   //   };
   // }, [hasUnsavedChanges]);
 
-  useEffect(() => {
-    console.log('blocker', blocker);
-    console.log('blocker state', blocker.state);
-  }, [blocker]);
-
   const formFieldOnchange = (event, stateName) => {
     setFormData({
       ...formData,
@@ -94,67 +93,67 @@ export default function AccountPage() {
     setHasUnsavedChanges(true);
   };
 
-  async function fetchData() {
-    setIsAPILoading(true);
-    const userResult = await UserAPI.GetProfile(auth.currentUser.uid);
-    const currencyListResult = await GetOnlyAPI.GetCurrencyList();
-    const timeZoneResult = await GetOnlyAPI.GetTimeZoneList();
-    const languageUIResult = await UILanguagesAPI.GetList();
-
-    if (currencyListResult !== null) {
-      let res = LoadOptDropdown(currencyListResult, 'Name', 'Id', false, '', '');
-      if (res) {
-        setCurrencyList(res);
-        currencyList = res;
-      }
-    }
-
-    if (timeZoneResult !== null) {
-      let res = LoadOptDropdown(timeZoneResult, 'Label', 'Id', false, '', '');
-      if (res) {
-        setTimeZoneList(res);
-        timeZoneList = res;
-      }
-    }
-
-    if (languageUIResult !== null) {
-      let res = LoadOptDropdown(languageUIResult, 'Name', 'Id', false, '', '');
-      if (res) {
-        setLanguageUIList(res);
-        languageUIList = res;
-      }
-    }
-
-    if (userResult !== null) {
-      const tempCurrency = currencyList?.find((item) => item.value === userResult.CurrencyId);
-      const tempTimeZone = timeZoneList?.find((item) => item.value === userResult.TimeZoneId);
-      const tempUILanguage = languageUIList?.find((item) => item.value === userResult.UilanguageId);
-
-      setFormData({
-        ...formData,
-        idUser: userResult.UserId,
-        fullNameUser: userResult.Fullname,
-        emailUser: userResult.Email,
-        phoneNumUser: userResult.Phone,
-        currencyValue: tempCurrency,
-        timeZoneValue: tempTimeZone,
-        uiLanguageValue: tempUILanguage,
-      });
-
-      setValue('fullName', userResult.Fullname);
-      setValue('email', userResult.Email);
-      setValue('phone', userResult.Phone);
-      setValue('currencyId', tempCurrency.value);
-      setValue('timeZoneId', tempTimeZone.value);
-      setValue('uilanguageId', tempUILanguage.value);
-      setIsAPILoading(false);
-      if (!isAPILoading) {
-        blocker.state = 'unblocked';
-      }
-    }
-  }
-
   useEffect(() => {
+    async function fetchData() {
+      setIsAPILoading(true);
+      const userResult = await UserAPI.GetProfile(auth.currentUser.uid);
+      const currencyListResult = await GetOnlyAPI.GetCurrencyList();
+      const timeZoneResult = await GetOnlyAPI.GetTimeZoneList();
+      const languageUIResult = await UILanguageAPI.GetList();
+
+      if (currencyListResult !== null) {
+        let res = LoadOptDropdown(currencyListResult, 'Name', 'Id', false, '', '');
+        if (res) {
+          setCurrencyList(res);
+          currencyList = res; // eslint-disable-line react-hooks/exhaustive-deps
+        }
+      }
+
+      if (timeZoneResult !== null) {
+        let res = LoadOptDropdown(timeZoneResult, 'Label', 'Id', false, '', '');
+        if (res) {
+          setTimeZoneList(res);
+          timeZoneList = res; // eslint-disable-line react-hooks/exhaustive-deps
+        }
+      }
+
+      if (languageUIResult !== null) {
+        let res = LoadOptDropdown(languageUIResult, 'Name', 'Id', false, '', '');
+        if (res) {
+          setLanguageUIList(res);
+          languageUIList = res; // eslint-disable-line react-hooks/exhaustive-deps
+        }
+      }
+
+      if (userResult !== null) {
+        const tempCurrency = currencyList?.find((item) => item.value === userResult.CurrencyId);
+        const tempTimeZone = timeZoneList?.find((item) => item.value === userResult.TimeZoneId);
+        const tempUILanguage = languageUIList?.find((item) => item.value === userResult.UilanguageId);
+
+        setFormData({
+          ...formData,
+          idUser: userResult.UserId,
+          fullNameUser: userResult.Fullname,
+          emailUser: userResult.Email,
+          phoneNumUser: userResult.Phone,
+          currencyValue: tempCurrency,
+          timeZoneValue: tempTimeZone,
+          uiLanguageValue: tempUILanguage,
+        });
+
+        setValue('fullName', userResult.Fullname);
+        setValue('email', userResult.Email);
+        setValue('phone', userResult.Phone);
+        setValue('currencyId', tempCurrency.value);
+        setValue('timeZoneId', tempTimeZone.value);
+        setValue('uilanguageId', tempUILanguage.value);
+        setIsAPILoading(false);
+        if (!isAPILoading) {
+          blocker.state = 'unblocked';
+        }
+      }
+    }
+
     fetchData();
   }, []);
 
@@ -269,13 +268,17 @@ export default function AccountPage() {
                   value={formData.phoneNumUser}
                   error={
                     (errors.phone && errors.phone.type === 'required') ||
-                    (errors.phone && errors.phone.type === 'maxLength')
+                    (errors.phone && errors.phone.type === 'maxLength') ||
+                    (errors.phone && errors.phone.type === 'pattern') ||
+                    (errors.phone && errors.phone.type === 'minLength')
                       ? true
                       : false
                   }
                   helperText={
                     (errors.phone && errors.phone.type === 'required' && 'Phone is required') ||
-                    (errors.phone && errors.phone.type === 'maxLength' && 'Max length exceeded')
+                    (errors.phone && errors.phone.type === 'maxLength' && 'Max length exceeded') ||
+                    (errors.phone && errors.phone.type === 'minLength' && 'Min length is 11') ||
+                    (errors.phone && errors.phone.type === 'pattern' && 'Invalid phone')
                   }
                   inputProps={{ maxLength: 11 }}
                   InputProps={{
@@ -287,7 +290,9 @@ export default function AccountPage() {
                   }}
                   {...register('phone', {
                     required: true,
-                    maxLength: 11,
+                    maxLength: 15,
+                    minLength: 11,
+                    pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
                     onChange: (event) => formFieldOnchange(event, 'phoneNumUser'),
                   })}
                 />
@@ -462,7 +467,7 @@ function ConfirmNavigation({ blocker }) {
   }).then((result) => {
     if (result.value) {
       blocker.proceed?.();
-      blocker.state = 'unblocked';
+      // blocker.state = 'unblocked';
     } else {
       blocker.reset?.();
     }

@@ -55,11 +55,6 @@ export const Android12Switch = styled(Switch)(({ theme }) => ({
 
 export default function AndroidSwitch(props) {
   const { checked } = props;
-  // const [checked, setChecked] = React.useState(true);
-
-  // setChecked(event.target.checked);
-  console.log(checked);
-
   const { label = '' } = props;
   return <FormControlLabel control={<Android12Switch checked={checked} />} label={label} />;
 }

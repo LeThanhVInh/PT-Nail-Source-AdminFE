@@ -5,9 +5,7 @@ import { Button, IconButton, Stack, FormControlLabel } from '@mui/material';
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
-  CheckCircle as CheckCircleIcon,
   Search as SearchIcon,
-  Cancel as CancelIcon,
   DeleteForever as DeleteForeverIcon,
   Clear as ClearIcon,
 } from '@mui/icons-material';
@@ -19,8 +17,8 @@ import {
   StyledInputBaseCustom,
 } from '../../components/CustomMUI/SearchMedium';
 
-import StoreAPI from '../../api/Stores';
-import ModalEdit from '../../components/_pages/Stores/ModalEdit/ModalEdit';
+import POSDevicesAPI from '../../api/POSDevices';
+import ModalEdit from '../../components/_pages/POSDevices/ModalEdit/ModalEdit';
 
 import Swal from 'sweetalert2';
 import Loader from '../../components/Loader';
@@ -28,10 +26,10 @@ import { useDebouncedCallback } from 'use-debounce';
 import { Android12Switch } from '../../components/Switch/AndroidSwitch/AndroidSwitch';
 
 import classNames from 'classnames/bind';
-import styles from './Stores.module.scss';
+import styles from './POSDevices.module.scss';
 const cx = classNames.bind(styles);
 
-function Stores() {
+export default function POSDevices() {
   const modalRef = useRef();
   const searchRef = useRef();
   const [rows, setRows] = useState([]);
@@ -46,17 +44,17 @@ function Stores() {
       headerName: 'Name',
       flex: 1,
     },
-    {
-      field: 'Address',
-      headerName: 'Address',
-      width: 260 + dataTablePadWidth,
-    },
-    {
-      field: 'POSAmount',
-      headerName: 'Number of POS',
-      type: 'number',
-      width: 200 + dataTablePadWidth,
-    },
+    // {
+    //   field: 'Address',
+    //   headerName: 'Address',
+    //   width: 260 + dataTablePadWidth,
+    // },
+    // {
+    //   field: 'POSAmount',
+    //   headerName: 'Number of POS',
+    //   type: 'number',
+    //   width: 200 + dataTablePadWidth,
+    // },
     {
       field: 'IsActive',
       headerName: 'Active status',
@@ -68,7 +66,7 @@ function Stores() {
           control={
             <Android12Switch
               defaultChecked={data.value}
-              onChange={async (event, isChecked) => await StoreAPI.UpdateActiveStatus(data.id, isChecked)}
+              onChange={async (event, isChecked) => await POSDevicesAPI.UpdateActiveStatus(data.id, isChecked)}
             />
           }
           label="Active"
@@ -99,7 +97,7 @@ function Stores() {
 
   const LoadDataTable = async (searchValue) => {
     setTableLoading(true);
-    const list = await StoreAPI.GetList(searchValue);
+    const list = await POSDevicesAPI.GetList(searchValue);
     if (list !== null) {
       setRows(list);
     } else {
@@ -128,7 +126,7 @@ function Stores() {
       allowEscapeKey: true,
     }).then(async (result) => {
       if (result.value) {
-        const res = await StoreAPI.Delete(id);
+        const res = await POSDevicesAPI.Delete(id);
         if (res === true) {
           LoadDataTable(searchValue);
 
@@ -167,7 +165,7 @@ function Stores() {
       allowEscapeKey: true,
     }).then(async (result) => {
       if (result.value) {
-        const res = await StoreAPI.DeleteMultiple(ids);
+        const res = await POSDevicesAPI.DeleteMultiple(ids);
         if (res === true) {
           LoadDataTable(searchValue);
           setSelectedRowsId([]);
@@ -200,7 +198,7 @@ function Stores() {
     setSearchValue(value);
     setTableLoading(true);
     if (value.trim() !== '') {
-      const list = await StoreAPI.GetList(value);
+      const list = await POSDevicesAPI.GetList(value);
       if (list !== null) {
         setRows(list);
         setTableLoading(false);
@@ -209,7 +207,7 @@ function Stores() {
         setTableLoading(false);
       }
     } else {
-      const res = await StoreAPI.GetList(null);
+      const res = await POSDevicesAPI.GetList(null);
       setRows(res);
       setTableLoading(false);
     }
@@ -231,7 +229,7 @@ function Stores() {
       <div style={{ padding: '10px', width: 'auto' }}>
         <div className={cx('action-container')}>
           <div className={cx('title')}>
-            <h3>Stores</h3>
+            <h3>POS Devices</h3>
           </div>
           <div className={cx('action-wrapper')}>
             <div className={cx('action-add', 'pt-10')}>
@@ -311,5 +309,3 @@ function Stores() {
     </div>
   );
 }
-
-export default Stores;

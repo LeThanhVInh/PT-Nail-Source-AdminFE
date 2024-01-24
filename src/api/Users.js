@@ -2,7 +2,7 @@ import axios from 'axios';
 import constants from '../providers/constants';
 import { auth } from '../firebase';
 
-class UserAPI {
+export default class UserAPI {
   static controllerName = 'Users';
 
   static async GetById(id) {
@@ -24,7 +24,7 @@ class UserAPI {
         return response.data;
       }
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
     }
 
     return null;
@@ -48,7 +48,7 @@ class UserAPI {
         return response.data;
       }
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
     }
 
     return null;
@@ -77,11 +77,7 @@ class UserAPI {
         uilanguageId: userData.uilanguageId,
       };
 
-      const response = await axios.put(
-        `${constants.apiUrl}/${this.controllerName}/UpdateProfile`,
-        requestBodyData,
-        configs,
-      );
+      const response = await axios.put(`${constants.apiUrl}/${this.controllerName}/UpdateProfile`, requestBodyData, configs);
       if (response.data != null && response.status === 200) {
         return response.data;
       }
@@ -91,5 +87,4 @@ class UserAPI {
 
     return null;
   }
-}
-export default UserAPI;
+} 

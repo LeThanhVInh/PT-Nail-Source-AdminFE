@@ -2,7 +2,7 @@ import axios from 'axios';
 import constants from '../providers/constants';
 import { auth } from '../firebase';
 
-class GetOnlyAPI {
+export default class GetOnlyAPI {
   static controllerName = 'GetOnly';
 
   static async GetCurrencyList() {
@@ -19,7 +19,7 @@ class GetOnlyAPI {
         return response.data;
       }
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
     }
 
     return null;
@@ -39,30 +39,9 @@ class GetOnlyAPI {
         return response.data;
       }
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
     }
 
     return null;
   }
-
-  static async GetUILanguageList() {
-    try {
-      let token = await auth.currentUser.getIdToken();
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
-      const response = await axios.get(`${constants.apiUrl}/${this.controllerName}/GetUILanguageList`, config);
-      if (response.data != null && response.status === 200) {
-        return response.data;
-      }
-    } catch (err) {
-      console.log(err.message);
-    }
-
-    return null;
-  }
-}
-export default GetOnlyAPI;
+} 

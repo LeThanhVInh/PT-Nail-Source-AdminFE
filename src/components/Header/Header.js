@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { changeMainTheme } from '../../providers/features/appSetting/appSettingSlice';
 
-import useAuth from '../../providers/custom-hooks/useAuth';
 import config from '../../router/config';
 
 const listThemeOverlay = [
@@ -67,7 +66,6 @@ function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [themeOverlay, setThemeOverlay] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const { currentUser } = useAuth();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMenuThemeOpen = Boolean(themeOverlay);
@@ -145,7 +143,14 @@ function Header() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={() => navigate(config.routes.account)}>My Account</MenuItem>
+      <MenuItem
+        onClick={() => {
+          navigate(config.routes.account);
+          handleMenuClose();
+        }}
+      >
+        My Account
+      </MenuItem>
       <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
     </Menu>
   );

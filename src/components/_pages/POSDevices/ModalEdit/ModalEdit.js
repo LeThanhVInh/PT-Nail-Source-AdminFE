@@ -1,5 +1,5 @@
 import React, { useState, forwardRef, useRef, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 import LoadingButton from '@mui/lab/LoadingButton';
 import Swal from 'sweetalert2';
@@ -7,10 +7,10 @@ import { styled } from '@mui/system';
 import {
   Clear as ClearIcon,
   Check as CheckIcon,
-  Room as RoomIcon,
-  RingVolume as RingVolumeIcon,
+  // Room as RoomIcon,
+  // RingVolume as RingVolumeIcon,
   Store as StoreIcon,
-  MarkunreadMailbox as MarkunreadMailboxIcon,
+  // MarkunreadMailbox as MarkunreadMailboxIcon,
   Description as DescriptionIcon,
   Save as SaveIcon,
 } from '@mui/icons-material';
@@ -25,16 +25,21 @@ import {
   Grid,
   FormControlLabel,
   Button,
+  FormControl,
 } from '@mui/material';
 
 import Loader from '../../../Loader';
 import { Android12Switch } from '../../../Switch/AndroidSwitch/AndroidSwitch';
 
-import { modalSizes, getSizeOfModal, delay } from '../../../../providers/constants';
-import StoreAPI from '../../../../api/Stores';
+import { modalSizes, getSizeOfModal, delay, LoadOptDropdown } from '../../../../providers/constants';
+
+import POSDevicesAPI from '../../../../api/POSDevices';
 
 import classNames from 'classnames/bind';
 import styles from './ModalEdit.module.scss';
+import StoreAPI from '../../../../api/Stores';
+import { StyledAutocomplete } from '../../../CustomMUI/SelectCustom';
+import { AccountTextField } from '../../../CustomMUI/AccountPage/AccountTextField';
 
 const cx = classNames.bind(styles);
 
@@ -46,12 +51,15 @@ function ModalEdit(props, ref) {
   const [isLoading, setLoading] = useState(true);
   const [isAPILoading, setAPILoading] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
+  let [storeList, setStoreList] = useState([]);
+
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const {
     register,
     handleSubmit,
     setValue,
+    control,
     watch,
     formState: { errors },
   } = useForm();
@@ -60,11 +68,10 @@ function ModalEdit(props, ref) {
     id: '',
     name: '',
     isActive: false,
-    address: '',
-    phone: '',
-    zipPostalCode: '',
-    description: '',
+    storeValue: null,
   });
+
+  // console.log('formData model', formData);
 
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
@@ -91,7 +98,19 @@ function ModalEdit(props, ref) {
     setOpenModal(false);
   };
 
-  console.log('formData', formData);
+  useEffect(() => {
+    async function fetchData() {
+      const storeListResult = await StoreAPI.GetList();
+      if (storeListResult !== null) {
+        let res = LoadOptDropdown(storeListResult, 'Name', 'Id', false, '', '');
+        if (res) {
+          setStoreList(res);
+          storeList = res; // eslint-disable-line react-hooks/exhaustive-deps
+        }
+      }
+    }
+    fetchData();
+  }, []);
 
   const openModal = async (isInsert, id) => {
     setAnimationClass('animate__animated animate__zoomIn animate__fast');
@@ -100,45 +119,31 @@ function ModalEdit(props, ref) {
 
     if (isInsert) {
       setTypeIsInsert(true);
+
       setFormData({
         id: '',
         name: '',
         isActive: false,
-        address: '',
-        phone: '',
-        zipPostalCode: '',
-        description: '',
+        storeValue: storeList ?? null,
       });
-
       setValue('name', '');
-      setValue('address', '');
-      setValue('phone', '');
-      setValue('zipPostalCode', '');
-      setValue('description', '');
 
       setLoading(false);
     } // //
     else {
       setTypeIsInsert(false);
-      const res = await StoreAPI.GetById(id);
+      const res = await POSDevicesAPI.GetById(id);
+
       if (res !== null) {
+        const tempStoreList = storeList?.find((item) => item.value === res.StoreId);
         setFormData({
           id: res.Id ?? '',
           name: res.Name ?? '',
           isActive: res.IsActive ?? false,
-          address: res.Address ?? '',
-          phone: res.Phone ?? '',
-          zipPostalCode: res.ZipPostalCode ?? '',
-          description: res.Description ?? '',
+          storeValue: tempStoreList ?? null,
         });
-
         setValue('name', res.Name ?? '');
-        setValue('address', res.Address ?? '');
-        setValue('phone', res.Phone ?? '');
-        setValue('zipPostalCode', res.ZipPostalCode ?? '');
-        setValue('description', res.Description ?? '');
-      } //
-      else {
+      } else {
         Swal.fire({ icon: 'error', title: 'Error', text: 'Data got error !' });
       }
       setLoading(false);
@@ -148,7 +153,7 @@ function ModalEdit(props, ref) {
   const handleSave = async (data) => {
     setAPILoading(true);
     if (isInsert) {
-      const res = await StoreAPI.Insert(formData);
+      const res = await POSDevicesAPI.Insert(formData);
       if (res !== null) {
         await closeModal();
         Swal.mixin({
@@ -171,7 +176,7 @@ function ModalEdit(props, ref) {
       }
     } //
     else {
-      const res = await StoreAPI.Update(formData);
+      const res = await POSDevicesAPI.Update(formData);
       if (res !== null) {
         await closeModal();
         Swal.mixin({
@@ -222,6 +227,14 @@ function ModalEdit(props, ref) {
     }
   };
 
+  const formSelectFieldOnchange = (event, stateName) => {
+    setFormData({
+      ...formData,
+      [stateName]: event,
+    });
+    setHasUnsavedChanges(true);
+  };
+
   return (
     <Modal open={isOpen} onClose={handleCloseModal}>
       <Box
@@ -261,7 +274,7 @@ function ModalEdit(props, ref) {
                     <Grid xl={6} lg={6} md={12} xs={12} item>
                       <div className={cx('item-content')}>
                         <TextFieldCustom
-                          label="Store name"
+                          label="POS Devices Name"
                           value={formData.name}
                           fullWidth
                           inputProps={{ maxLength: 50 }}
@@ -306,120 +319,38 @@ function ModalEdit(props, ref) {
 
                     <Grid xl={12} lg={12} md={12} xs={12} item>
                       <div className={cx('item-content')}>
-                        <TextFieldCustom
-                          label="Address"
-                          value={formData.address}
-                          fullWidth
-                          inputProps={{ maxLength: 120 }}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <RoomIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                          error={errors.address && errors.address.type === 'maxLength'}
-                          helperText={errors.address && errors.address.type === 'maxLength' && 'Max length exceeded'}
-                          {...register('address', {
-                            required: false,
-                            maxLength: 120,
-                            onChange: (event) => setFormData((prev) => ({ ...prev, address: event.target.value })),
-                          })}
-                        />
-                      </div>
-                    </Grid>
-
-                    <Grid xl={6} lg={6} md={12} xs={12} item>
-                      <div className={cx('item-content')}>
-                        <TextFieldCustom
-                          label="Phone"
-                          value={formData.phone}
-                          fullWidth
-                          inputProps={{ maxLength: 15 }}
-                          error={
-                            (errors.phone && errors.phone.type === 'maxLength') ||
-                            (errors.phone && errors.phone.type === 'pattern') ||
-                            (errors.phone && errors.phone.type === 'minLength')
-                              ? true
-                              : false
-                          }
-                          helperText={
-                            (errors.phone && errors.phone.type === 'maxLength' && 'Max length exceeded') ||
-                            (errors.phone && errors.phone.type === 'minLength' && 'Min length is 11') ||
-                            (errors.phone && errors.phone.type === 'pattern' && 'Invalid number')
-                          }
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <RingVolumeIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                          {...register('phone', {
-                            required: false,
-                            maxLength: 15,
-                            minLength: 11,
-                            pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
-                            onChange: (event) => setFormData((prev) => ({ ...prev, phone: event.target.value })),
-                          })}
-                        />
-                      </div>
-                    </Grid>
-
-                    <Grid xl={6} lg={6} md={12} xs={12} item>
-                      <div className={cx('item-content')}>
-                        <TextFieldCustom
-                          label="ZIP code/Postal code"
-                          value={formData.zipPostalCode}
-                          fullWidth
-                          inputProps={{ maxLength: 30 }}
-                          error={
-                            errors.zipPostalCode && errors.zipPostalCode.type === 'maxLength' && 'Max length exceeded'
-                          }
-                          helperText={
-                            errors.zipPostalCode && errors.zipPostalCode.type === 'maxLength' && 'Max length exceeded'
-                          }
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <MarkunreadMailboxIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                          {...register('zipPostalCode', {
-                            required: false,
-                            maxLength: 30,
-                            onChange: (event) =>
-                              setFormData((prev) => ({ ...prev, zipPostalCode: event.target.value })),
-                          })}
-                        />
-                      </div>
-                    </Grid>
-
-                    <Grid xl={12} lg={12} md={12} xs={12} item>
-                      <div className={cx('item-content')}>
-                        <TextFieldCustom
-                          label="Description"
-                          value={formData.description}
-                          fullWidth
-                          inputProps={{ maxLength: 150 }}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <DescriptionIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                          error={errors.description && errors.description.type === 'maxLength' && 'Max length exceeded'}
-                          helperText={
-                            errors.description && errors.description.type === 'maxLength' && 'Max length exceeded'
-                          }
-                          {...register('description', {
-                            required: false,
-                            maxLength: 150,
-                            onChange: (event) => setFormData((prev) => ({ ...prev, description: event.target.value })),
-                          })}
-                        />
+                        <FormControl sx={{ minWidth: 120, marginTop: '20px' }} size="small" fullWidth>
+                          <Controller
+                            control={control}
+                            name="storeId"
+                            rules={{ required: 'Currency is required' }}
+                            render={({ field: { onChange, value } }) => (
+                              <StyledAutocomplete
+                                onChange={(event, item) => {
+                                  onChange(item === null ? '' : item.value);
+                                  formSelectFieldOnchange(item, 'storeValue');
+                                }}
+                                isOptionEqualToValue={(option, value) => option.value === value.value}
+                                getOptionLabel={(option) => option.label || ''}
+                                value={!isInsert ? formData.storeValue : formData.storeValue[0]}
+                                variant="standard"
+                                disablePortal
+                                options={storeList}
+                                sx={{ my: 0, backgroundColor: 'transparent' }}
+                                renderInput={(params) => (
+                                  <AccountTextField
+                                    {...params}
+                                    label="Store"
+                                    fullWidth
+                                    variant="standard"
+                                    helperText={errors.storeId?.message}
+                                    error={!!errors.storeId}
+                                  />
+                                )}
+                              />
+                            )}
+                          />
+                        </FormControl>
                       </div>
                     </Grid>
                   </Grid>

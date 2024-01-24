@@ -14,6 +14,7 @@ import Categories from '../../pages/Categories/Categories';
 import CalendarPage from '../../pages/CalendarPage';
 import AccountPage from '../../pages/AccountPage';
 import Stores from '../../pages/Stores';
+import POSDevices from '../../pages/POSDevices/POSDevices';
 
 //Public routes
 const publicRoutes = [
@@ -26,6 +27,7 @@ const publicRoutes = [
   { path: '/calendar', component: CalendarPage },
   { path: '/account', component: AccountPage },
   { path: '/stores', component: Stores },
+  { path: '/pos-devices', component: POSDevices },
 ];
 
 const privateRoutes = [

@@ -11,6 +11,7 @@ const routes = {
   calendar: '/calendar',
   account: '/account',
   stores: '/stores',
+  posDevices: '/pos-devices',
 };
 
 export default routes;

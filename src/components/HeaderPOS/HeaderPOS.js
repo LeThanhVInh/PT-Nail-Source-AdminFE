@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import {
   AppBar,
   Box,
@@ -248,7 +248,7 @@ function HeaderPOS() {
               color="warning"
               onClick={() => setOpenSelection((prevOpen) => !prevOpen)}
             >
-              <Button color="warning" onClick={() => {}}>
+              <Button color="warning" onClick={() => { }}>
                 {options[selectedIndex]}
               </Button>
               <Button
@@ -258,7 +258,7 @@ function HeaderPOS() {
                 aria-expanded={openSelection ? 'true' : undefined}
                 aria-label="select merge strategy"
                 aria-haspopup="menu"
-                onClick={() => {}}
+                onClick={() => { }}
               >
                 <ArrowDropDownIcon />
               </Button>

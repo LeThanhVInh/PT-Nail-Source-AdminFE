@@ -2,8 +2,8 @@ import axios from 'axios';
 import constants, { generateRandomUuid } from '../providers/constants';
 import { auth } from '../firebase';
 
-export default class StoreAPI {
-  static controllerName = 'Stores';
+export default class UILanguageAPI {
+  static controllerName = 'UILanguages';
 
   static async GetById(id) {
     try {
@@ -29,16 +29,13 @@ export default class StoreAPI {
     return null;
   }
 
-  static async GetList(SearchValue) {
+  static async GetList() {
     try {
       let token = await auth.currentUser.getIdToken();
 
       const configs = {
         headers: {
           Authorization: `Bearer ${token}`,
-        },
-        params: {
-          SearchValue: SearchValue === '' ? null : SearchValue,
         },
       };
 
@@ -65,12 +62,8 @@ export default class StoreAPI {
 
       const requestBodyData = {
         id: generateRandomUuid(),
-        name: itemData.name,
-        isActive: itemData.isActive,
-        phone: itemData.phone === '' ? null : itemData.phone,
-        address: itemData.address === '' ? null : itemData.address,
-        zipPostalCode: itemData.zipPostalCode === '' ? null : itemData.zipPostalCode,
-        description: itemData.description === '' ? null : itemData.description,
+        name: itemData.name === '' ? null : itemData.name,
+        jsonData: itemData.jsonData === '' ? null : itemData.jsonData,
       };
 
       const response = await axios.post(`${constants.apiUrl}/${this.controllerName}/Insert`, requestBodyData, configs);
@@ -99,12 +92,8 @@ export default class StoreAPI {
 
       const requestBodyData = {
         id: itemData.id,
-        name: itemData.name,
-        isActive: itemData.isActive,
-        phone: itemData.phone === '' ? null : itemData.phone,
-        address: itemData.address === '' ? null : itemData.address,
-        zipPostalCode: itemData.zipPostalCode === '' ? null : itemData.zipPostalCode,
-        description: itemData.description === '' ? null : itemData.description,
+        name: itemData.name === '' ? null : itemData.name,
+        jsonData: itemData.jsonData === '' ? null : itemData.jsonData,
       };
 
       const response = await axios.put(`${constants.apiUrl}/${this.controllerName}/Update`, requestBodyData, configs);
@@ -163,29 +152,4 @@ export default class StoreAPI {
 
     return false;
   }
-
-  static async UpdateActiveStatus(id, checkedValue) {
-    try {
-      let token = await auth.currentUser.getIdToken();
-
-      const configs = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: {
-          id: id,
-          activeValue: checkedValue,
-        },
-      };
-
-      const response = await axios.put(`${constants.apiUrl}/${this.controllerName}/UpdateActiveStatus`, null, configs);
-      if (response.data != null && response.status === 200) {
-        return response.data;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-
-    return null;
-  }
-}
+} 
