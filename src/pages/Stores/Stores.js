@@ -5,9 +5,7 @@ import { Button, IconButton, Stack, FormControlLabel } from '@mui/material';
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
-  CheckCircle as CheckCircleIcon,
   Search as SearchIcon,
-  Cancel as CancelIcon,
   DeleteForever as DeleteForeverIcon,
   Clear as ClearIcon,
 } from '@mui/icons-material';

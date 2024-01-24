@@ -7,11 +7,7 @@ import { styled } from '@mui/system';
 import {
   Clear as ClearIcon,
   Check as CheckIcon,
-  // Room as RoomIcon,
-  // RingVolume as RingVolumeIcon,
   Store as StoreIcon,
-  // MarkunreadMailbox as MarkunreadMailboxIcon,
-  Description as DescriptionIcon,
   Save as SaveIcon,
 } from '@mui/icons-material';
 
@@ -34,10 +30,10 @@ import { Android12Switch } from '../../../Switch/AndroidSwitch/AndroidSwitch';
 import { modalSizes, getSizeOfModal, delay, LoadOptDropdown } from '../../../../providers/constants';
 
 import POSDevicesAPI from '../../../../api/POSDevices';
+import StoreAPI from '../../../../api/Stores';
 
 import classNames from 'classnames/bind';
 import styles from './ModalEdit.module.scss';
-import StoreAPI from '../../../../api/Stores';
 import { StyledAutocomplete } from '../../../CustomMUI/SelectCustom';
 import { AccountTextField } from '../../../CustomMUI/AccountPage/AccountTextField';
 
@@ -70,8 +66,6 @@ function ModalEdit(props, ref) {
     isActive: false,
     storeValue: null,
   });
-
-  // console.log('formData model', formData);
 
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
@@ -129,7 +123,7 @@ function ModalEdit(props, ref) {
       setValue('name', '');
 
       setLoading(false);
-    } // //
+    }
     else {
       setTypeIsInsert(false);
       const res = await POSDevicesAPI.GetById(id);
@@ -250,7 +244,7 @@ function ModalEdit(props, ref) {
           <form noValidate autoComplete="off" onSubmit={handleSubmit(handleSave)}>
             <div className={cx('modal-box')}>
               <div className={cx('header')}>
-                <p>{isInsert ? 'ADD NEW STORE' : 'EDIT STORE'}</p>
+                <p>{isInsert ? 'ADD NEW DEVICE' : 'EDIT DEVICE'}</p>
                 <IconButton
                   ref={focusFix}
                   sx={{
@@ -287,12 +281,12 @@ function ModalEdit(props, ref) {
                           }}
                           error={
                             (errors.name && errors.name.type === 'required') ||
-                            (errors.name && errors.name.type === 'maxLength')
+                              (errors.name && errors.name.type === 'maxLength')
                               ? true
                               : false
                           }
                           helperText={
-                            (errors.name && errors.name.type === 'required' && 'Store name is required') ||
+                            (errors.name && errors.name.type === 'required' && 'Device name is required') ||
                             (errors.name && errors.name.type === 'maxLength' && 'Max length exceeded')
                           }
                           {...register('name', {
@@ -323,7 +317,7 @@ function ModalEdit(props, ref) {
                           <Controller
                             control={control}
                             name="storeId"
-                            rules={{ required: 'Currency is required' }}
+                            rules={{ required: 'Store is required' }}
                             render={({ field: { onChange, value } }) => (
                               <StyledAutocomplete
                                 onChange={(event, item) => {
