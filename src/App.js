@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Route } from 'react-router-dom';
-import { publicRoutes, privateRoutes } from './router/routes';
+import { publicRoutes, privateRoutes, routePublicOptions } from './router/routes';
 import { createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import DefaultLayout from './layout/DefaultLayout';
 import PrivateLayout from './layout/PrivateLayout';
@@ -10,7 +10,7 @@ import './App.scss';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      {publicRoutes.map((route, index) => {
+      {routePublicOptions.map((route) => {
         const Page = route.component;
         let Layout = DefaultLayout;
         if (route.layout) {
@@ -20,7 +20,7 @@ const router = createBrowserRouter(
         }
         return (
           <Route
-            key={index}
+            key={route.key}
             path={route.path}
             element={
               <ProtectedRoute>

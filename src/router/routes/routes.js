@@ -17,18 +17,38 @@ import Stores from '../../pages/Stores';
 import POSDevices from '../../pages/POSDevices/POSDevices';
 
 //Public routes
-const publicRoutes = [
-  { path: '/', component: Home },
-  { path: '/products', component: Products },
-  { path: '/products-edit', component: ProductEdit },
-  { path: '/post', component: Post },
-  { path: '/point-of-sale', component: PointOfSale },
-  { path: '/categories', component: Categories },
-  { path: '/calendar', component: CalendarPage },
-  { path: '/account', component: AccountPage },
-  { path: '/stores', component: Stores },
-  { path: '/pos-devices', component: POSDevices },
-];
+// const publicRoutes = [
+//   { path: '/', component: Home },
+//   { path: '/products', component: Products },
+//   { path: '/products-edit', component: ProductEdit },
+//   { path: '/post', component: Post },
+//   { path: '/point-of-sale', component: PointOfSale },
+//   { path: '/categories', component: Categories },
+//   { path: '/calendar', component: CalendarPage },
+//   { path: '/account', component: AccountPage },
+//   { path: '/stores', component: Stores },
+//   { path: '/pos-devices', component: POSDevices },
+// ];
+
+//
+
+const publicRoutes = {
+  Home: { name: 'Home', key: 'Home', path: '/', component: Home },
+  Products: { name: 'Products', key: 'Products', path: '/products', component: Products },
+  ProductEdit: { name: 'ProductEdit', key: 'ProductEdit', path: '/products-edit', component: ProductEdit },
+  Post: { name: 'Post', key: 'Post', path: '/post', component: Post },
+  PointOfSale: { name: 'PointOfSale', key: 'PointOfSale', path: '/point-of-sale', component: PointOfSale },
+  Categories: { name: 'Categories', key: 'Categories', path: '/categories', component: Categories },
+  CalendarPage: { name: 'CalendarPage', key: 'CalendarPage', path: '/calendar', component: CalendarPage },
+  AccountPage: { name: 'AccountPage', key: 'AccountPage', path: '/account', component: AccountPage },
+  Stores: { name: 'Stores', key: 'Stores', path: '/stores', component: Stores },
+  POSDevices: { name: 'POSDevices', key: 'POSDevices', path: '/pos-devices', component: POSDevices },
+};
+
+let routePublicOptions = [];
+Object.keys(publicRoutes).forEach(function (key) {
+  routePublicOptions.push(publicRoutes[key]);
+});
 
 const privateRoutes = [
   { path: '*', component: NotFound, layout: PrivateLayout },
@@ -36,4 +56,4 @@ const privateRoutes = [
   { path: '/lock', component: LockPage, layout: PrivateLayout },
 ];
 
-export { publicRoutes, privateRoutes };
+export { publicRoutes, privateRoutes, routePublicOptions };
