@@ -2,7 +2,7 @@ import { Autocomplete } from '@mui/material';
 import { styled } from '@mui/system';
 
 export const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
-  backgroundColor: 'var(--input-color)',
+  // backgroundColor: 'var(--input-color)',
   color: 'var(--text-color)',
   margin: '10px 0',
   borderRadius: '5px',

@@ -15,7 +15,8 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import classNames from 'classnames/bind';
 import styles from './DefaultLayout.module.scss';
 import 'animate.css';
-import config from '../../router/config';
+
+import { publicRoutes } from '../../router/routes';
 
 const cx = classNames.bind(styles);
 
@@ -126,7 +127,7 @@ function DefaultLayout({ children }) {
         </Drawer>
 
         <Main open={isOpen} className={cx('main-wrap')}>
-          {config.routes.pos === location.pathname ? '' : <Header />}
+          {publicRoutes.PointOfSale.path === location.pathname ? '' : <Header />}
           {children}
           {isShowBackdrop ? (
             isOpen ? (

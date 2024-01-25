@@ -44,4 +44,44 @@ export default class GetOnlyAPI {
 
     return null;
   }
-} 
+
+  static async GetDiscountTypeList() {
+    try {
+      let token = await auth.currentUser.getIdToken();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await axios.get(`${constants.apiUrl}/${this.controllerName}/GetDiscountTypeList`, config);
+      if (response.data != null && response.status === 200) {
+        return response.data;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    return null;
+  }
+
+  static async GetTaxTypeList() {
+    try {
+      let token = await auth.currentUser.getIdToken();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await axios.get(`${constants.apiUrl}/${this.controllerName}/GetTaxTypeList`, config);
+      if (response.data != null && response.status === 200) {
+        return response.data;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    return null;
+  }
+}

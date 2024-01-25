@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import { DataGrid } from '@mui/x-data-grid';
-import { Button, IconButton, Stack, FormControlLabel } from '@mui/material';
+import { Button, IconButton, Stack } from '@mui/material';
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
@@ -17,25 +17,29 @@ import {
   StyledInputBaseCustom,
 } from '../../components/CustomMUI/SearchMedium';
 
-import POSDevicesAPI from '../../api/POSDevices';
-import ModalEdit from '../../components/_pages/POSDevices/ModalEdit/ModalEdit';
+import TaxesAPI from '../../api/Taxes';
+import ModalEdit from '../../components/_pages/Taxes/ModalEdit';
+import GetOnlyAPI from '../../api/GetOnly';
 
 import Swal from 'sweetalert2';
 import Loader from '../../components/Loader';
 import { useDebouncedCallback } from 'use-debounce';
-import { Android12Switch } from '../../components/Switch/AndroidSwitch/AndroidSwitch';
 
 import classNames from 'classnames/bind';
-import styles from './POSDevices.module.scss';
+import styles from './Taxes.module.scss';
 const cx = classNames.bind(styles);
 
-export default function POSDevices() {
+export default function Taxes() {
   const modalRef = useRef();
   const searchRef = useRef();
   const [rows, setRows] = useState([]);
   const [isTableLoading, setTableLoading] = useState(true);
   const [selectedRowsId, setSelectedRowsId] = useState([]);
+  const [taxTypeList, setTaxTypeList] = useState([]);
   const [searchValue, setSearchValue] = useState('');
+
+  console.log('rows:', rows);
+  console.log('taxTypeList', taxTypeList);
 
   const columns = [
     { field: 'RowNumber', headerName: 'No.', width: 70 + dataTablePadWidth },
@@ -45,23 +49,15 @@ export default function POSDevices() {
       flex: 1,
     },
     {
-      field: 'IsActive',
-      headerName: 'Active status',
-      type: 'boolean',
-      align: 'center',
-      width: 150 + dataTablePadWidth,
-      renderCell: (data) => (
-        <FormControlLabel
-          control={
-            <Android12Switch
-              defaultChecked={data.value}
-              onChange={async (event, isChecked) => await POSDevicesAPI.UpdateActiveStatus(data.id, isChecked)}
-            />
-          }
-          label="Active"
-          sx={{ color: 'var(--text-color)' }}
-        />
-      ),
+      field: 'Rate',
+      headerName: 'Rate ',
+      type: 'number',
+      width: 100 + dataTablePadWidth,
+    },
+    {
+      field: 'TaxTypeId',
+      headerName: 'Tax Type Id',
+      width: 100 + dataTablePadWidth,
     },
     {
       field: 'actions',
@@ -87,11 +83,14 @@ export default function POSDevices() {
 
   const LoadDataTable = async (searchValue) => {
     setTableLoading(true);
-    const list = await POSDevicesAPI.GetList(searchValue);
-    if (list !== null) {
-      setRows(list);
+    const listTaxes = await TaxesAPI.GetList(searchValue);
+    const listTaxesType = await GetOnlyAPI.GetTaxTypeList();
+    if (listTaxes && listTaxesType !== null) {
+      setRows(listTaxes);
+      setTaxTypeList(listTaxesType);
     } else {
       setRows([]);
+      setTaxTypeList([]);
     }
     setSelectedRowsId([]);
     setTableLoading(false);
@@ -116,10 +115,9 @@ export default function POSDevices() {
       allowEscapeKey: true,
     }).then(async (result) => {
       if (result.value) {
-        const res = await POSDevicesAPI.Delete(id);
+        const res = await TaxesAPI.Delete(id);
         if (res === true) {
           LoadDataTable(searchValue);
-
           Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -155,7 +153,7 @@ export default function POSDevices() {
       allowEscapeKey: true,
     }).then(async (result) => {
       if (result.value) {
-        const res = await POSDevicesAPI.DeleteMultiple(ids);
+        const res = await TaxesAPI.DeleteMultiple(ids);
         if (res === true) {
           LoadDataTable(searchValue);
           setSelectedRowsId([]);
@@ -188,7 +186,7 @@ export default function POSDevices() {
     setSearchValue(value);
     setTableLoading(true);
     if (value.trim() !== '') {
-      const list = await POSDevicesAPI.GetList(value);
+      const list = await TaxesAPI.GetList(value);
       if (list !== null) {
         setRows(list);
         setTableLoading(false);
@@ -197,7 +195,7 @@ export default function POSDevices() {
         setTableLoading(false);
       }
     } else {
-      const res = await POSDevicesAPI.GetList(null);
+      const res = await TaxesAPI.GetList(null);
       setRows(res);
       setTableLoading(false);
     }
@@ -219,13 +217,13 @@ export default function POSDevices() {
       <div style={{ padding: '10px', width: 'auto' }}>
         <div className={cx('action-container')}>
           <div className={cx('title')}>
-            <h3>POS Devices</h3>
+            <h3>Taxes</h3>
           </div>
           <div className={cx('action-wrapper')}>
             <div className={cx('action-add', 'pt-10')}>
               <Stack direction="row" spacing={1}>
                 <Button variant="primary" className={cx('btn-add-new')} onClick={() => OpenModal(true, null)}>
-                  Add New POS Device
+                  Add New Taxes
                 </Button>
                 {selectedRowsId.length <= 0 ? (
                   <div></div>

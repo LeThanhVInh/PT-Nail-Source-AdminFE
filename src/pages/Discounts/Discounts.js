@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import { DataGrid } from '@mui/x-data-grid';
-import { Button, IconButton, Stack, FormControlLabel } from '@mui/material';
+import { Button, IconButton, Stack } from '@mui/material';
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
@@ -17,19 +17,19 @@ import {
   StyledInputBaseCustom,
 } from '../../components/CustomMUI/SearchMedium';
 
-import POSDevicesAPI from '../../api/POSDevices';
-import ModalEdit from '../../components/_pages/POSDevices/ModalEdit/ModalEdit';
+import DiscountsAPI from '../../api/Discounts';
+
+import ModalEdit from '../../components/_pages/Discounts/ModalEdit';
 
 import Swal from 'sweetalert2';
 import Loader from '../../components/Loader';
 import { useDebouncedCallback } from 'use-debounce';
-import { Android12Switch } from '../../components/Switch/AndroidSwitch/AndroidSwitch';
 
 import classNames from 'classnames/bind';
-import styles from './POSDevices.module.scss';
+import styles from './Discounts.module.scss';
 const cx = classNames.bind(styles);
 
-export default function POSDevices() {
+export default function Discounts() {
   const modalRef = useRef();
   const searchRef = useRef();
   const [rows, setRows] = useState([]);
@@ -45,23 +45,25 @@ export default function POSDevices() {
       flex: 1,
     },
     {
-      field: 'IsActive',
-      headerName: 'Active status',
-      type: 'boolean',
-      align: 'center',
-      width: 150 + dataTablePadWidth,
-      renderCell: (data) => (
-        <FormControlLabel
-          control={
-            <Android12Switch
-              defaultChecked={data.value}
-              onChange={async (event, isChecked) => await POSDevicesAPI.UpdateActiveStatus(data.id, isChecked)}
-            />
-          }
-          label="Active"
-          sx={{ color: 'var(--text-color)' }}
-        />
-      ),
+      field: 'Value',
+      headerName: 'Value',
+      width: 100 + dataTablePadWidth,
+    },
+    {
+      field: 'DiscountTypeId',
+      headerName: 'Discount Type ',
+      type: 'number',
+      width: 100 + dataTablePadWidth,
+    },
+    {
+      field: 'StartDate',
+      headerName: 'Start Date',
+      width: 100 + dataTablePadWidth,
+    },
+    {
+      field: 'EndDate',
+      headerName: 'End Date',
+      width: 100 + dataTablePadWidth,
     },
     {
       field: 'actions',
@@ -87,7 +89,8 @@ export default function POSDevices() {
 
   const LoadDataTable = async (searchValue) => {
     setTableLoading(true);
-    const list = await POSDevicesAPI.GetList(searchValue);
+    const list = await DiscountsAPI.GetList(searchValue);
+
     if (list !== null) {
       setRows(list);
     } else {
@@ -116,10 +119,9 @@ export default function POSDevices() {
       allowEscapeKey: true,
     }).then(async (result) => {
       if (result.value) {
-        const res = await POSDevicesAPI.Delete(id);
+        const res = await DiscountsAPI.Delete(id);
         if (res === true) {
           LoadDataTable(searchValue);
-
           Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -155,7 +157,7 @@ export default function POSDevices() {
       allowEscapeKey: true,
     }).then(async (result) => {
       if (result.value) {
-        const res = await POSDevicesAPI.DeleteMultiple(ids);
+        const res = await DiscountsAPI.DeleteMultiple(ids);
         if (res === true) {
           LoadDataTable(searchValue);
           setSelectedRowsId([]);
@@ -188,7 +190,7 @@ export default function POSDevices() {
     setSearchValue(value);
     setTableLoading(true);
     if (value.trim() !== '') {
-      const list = await POSDevicesAPI.GetList(value);
+      const list = await DiscountsAPI.GetList(value);
       if (list !== null) {
         setRows(list);
         setTableLoading(false);
@@ -197,7 +199,7 @@ export default function POSDevices() {
         setTableLoading(false);
       }
     } else {
-      const res = await POSDevicesAPI.GetList(null);
+      const res = await DiscountsAPI.GetList(null);
       setRows(res);
       setTableLoading(false);
     }
@@ -219,13 +221,13 @@ export default function POSDevices() {
       <div style={{ padding: '10px', width: 'auto' }}>
         <div className={cx('action-container')}>
           <div className={cx('title')}>
-            <h3>POS Devices</h3>
+            <h3>Discount </h3>
           </div>
           <div className={cx('action-wrapper')}>
             <div className={cx('action-add', 'pt-10')}>
               <Stack direction="row" spacing={1}>
                 <Button variant="primary" className={cx('btn-add-new')} onClick={() => OpenModal(true, null)}>
-                  Add New POS Device
+                  Add New Discount
                 </Button>
                 {selectedRowsId.length <= 0 ? (
                   <div></div>

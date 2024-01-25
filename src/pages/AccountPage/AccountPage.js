@@ -50,7 +50,7 @@ export default function AccountPage() {
     uiLanguageValue: null,
   });
 
-  console.log('formData', formData);
+  // console.log('formData', formData);
   //////////////////////////////////////////////
   // Block navigating elsewhere when data has been entered into the input
   let blocker = useBlocker(
@@ -242,7 +242,7 @@ export default function AccountPage() {
                   }}
                   error={
                     (errors.email && errors.email.type === 'required') ||
-                      (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
+                    (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
                       ? true
                       : false
                   }
@@ -268,9 +268,9 @@ export default function AccountPage() {
                   value={formData.phoneNumUser}
                   error={
                     (errors.phone && errors.phone.type === 'required') ||
-                      (errors.phone && errors.phone.type === 'maxLength') ||
-                      (errors.phone && errors.phone.type === 'pattern') ||
-                      (errors.phone && errors.phone.type === 'minLength')
+                    (errors.phone && errors.phone.type === 'maxLength') ||
+                    (errors.phone && errors.phone.type === 'pattern') ||
+                    (errors.phone && errors.phone.type === 'minLength')
                       ? true
                       : false
                   }

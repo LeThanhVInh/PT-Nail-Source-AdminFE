@@ -70,6 +70,7 @@ function Stores() {
             />
           }
           label="Active"
+          sx={{ color: 'var(--text-color)' }}
         />
       ),
     },

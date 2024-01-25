@@ -29,7 +29,7 @@ export default function Home() {
       const result = await UserAPI.GetById('VLEo54J2UyYAWGf9cWQqMWkeTYA3');
 
       if (result !== null) {
-        console.log(result);
+        // console.log(result);
         // result.UserId;
         // result.Fullname;
       }

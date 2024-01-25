@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { styled } from '@mui/system';
-import config from '../../router/config';
+
+import { privateRoutes, publicRoutes } from '../../router/routes';
 
 import {
   Box,
@@ -89,7 +90,11 @@ function Sidebar() {
             <Divider sx={{ borderColor: 'var(--divider-primary)' }} />
           </div>
 
-          <NavLink to={config.routes.home} className="category-list-item" onClick={() => setIsListChildActive(false)}>
+          <NavLink
+            to={publicRoutes.Home.path}
+            className="category-list-item"
+            onClick={() => setIsListChildActive(false)}
+          >
             <ListItem disablePadding>
               <ListItemButtonCustom
                 disableRipple
@@ -108,7 +113,7 @@ function Sidebar() {
           </NavLink>
 
           <NavLink
-            to={config.routes.products}
+            to={publicRoutes.Products.path}
             className="category-list-item"
             onClick={() => setIsListChildActive(false)}
           >
@@ -126,7 +131,11 @@ function Sidebar() {
             </ListItem>
           </NavLink>
 
-          <NavLink to={config.routes.stores} className="category-list-item" onClick={() => setIsListChildActive(false)}>
+          <NavLink
+            to={publicRoutes.Stores.path}
+            className="category-list-item"
+            onClick={() => setIsListChildActive(false)}
+          >
             <ListItem disablePadding>
               <ListItemButtonCustom
                 disableRipple
@@ -142,7 +151,7 @@ function Sidebar() {
           </NavLink>
 
           <NavLink
-            to={config.routes.categories}
+            to={publicRoutes.Categories.path}
             className="category-list-item"
             onClick={() => setIsListChildActive(false)}
           >
@@ -156,6 +165,44 @@ function Sidebar() {
                   <CategoryIcon />
                 </ListItemIconCustom>
                 <ListItemText primary="Categories" />
+              </ListItemButtonCustom>
+            </ListItem>
+          </NavLink>
+
+          <NavLink
+            to={publicRoutes.POSDevices.path}
+            className="category-list-item"
+            onClick={() => setIsListChildActive(false)}
+          >
+            <ListItem disablePadding>
+              <ListItemButtonCustom
+                disableRipple
+                disableTouchRipple
+                sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
+              >
+                <ListItemIconCustom>
+                  <CategoryIcon />
+                </ListItemIconCustom>
+                <ListItemText primary="POS Devices" />
+              </ListItemButtonCustom>
+            </ListItem>
+          </NavLink>
+
+          <NavLink
+            to={publicRoutes.Discounts.path}
+            className="category-list-item"
+            onClick={() => setIsListChildActive(false)}
+          >
+            <ListItem disablePadding>
+              <ListItemButtonCustom
+                disableRipple
+                disableTouchRipple
+                sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
+              >
+                <ListItemIconCustom>
+                  <CategoryIcon />
+                </ListItemIconCustom>
+                <ListItemText primary="Discounts" />
               </ListItemButtonCustom>
             </ListItem>
           </NavLink>
@@ -187,7 +234,7 @@ function Sidebar() {
               className={`category-list-parent ${isListParentActive}`}
             >
               <NavLink
-                to={config.routes.productsEdit}
+                to={publicRoutes.ProductEdit.path}
                 className="category-list-item-child"
                 onClick={() => setIsListChildActive(true)}
               >
@@ -214,7 +261,11 @@ function Sidebar() {
             </List>
           </Collapse>
 
-          <NavLink to={config.routes.post} className="category-list-item" onClick={() => setIsListChildActive(false)}>
+          <NavLink
+            to={publicRoutes.Post.path}
+            className="category-list-item"
+            onClick={() => setIsListChildActive(false)}
+          >
             <ListItem disablePadding>
               <ListItemButtonCustom
                 disableRipple
@@ -229,7 +280,11 @@ function Sidebar() {
             </ListItem>
           </NavLink>
 
-          <NavLink to={config.routes.pos} className="category-list-item" onClick={() => setIsListChildActive(false)}>
+          <NavLink
+            to={publicRoutes.PointOfSale.path}
+            className="category-list-item"
+            onClick={() => setIsListChildActive(false)}
+          >
             <ListItem disablePadding>
               <ListItemButtonCustom
                 disableRipple
@@ -245,9 +300,9 @@ function Sidebar() {
           </NavLink>
 
           <NavLink
-            to={config.routes.calendar}
+            to={publicRoutes.Calendar.path}
             className="category-list-item"
-          // onClick={() => setIsListChildActive(false)}
+            // onClick={() => setIsListChildActive(false)}
           >
             <ListItem disablePadding>
               <ListItemButtonCustom
@@ -263,7 +318,11 @@ function Sidebar() {
             </ListItem>
           </NavLink>
 
-          <NavLink to={config.routes.lock} className="category-list-item" onClick={() => setIsListChildActive(false)}>
+          <NavLink
+            to={privateRoutes.Lock.path}
+            className="category-list-item"
+            onClick={() => setIsListChildActive(false)}
+          >
             <ListItem disablePadding>
               <ListItemButtonCustom
                 disableRipple

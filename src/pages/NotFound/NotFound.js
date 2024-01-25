@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Box } from '@mui/material';
 import { Link } from 'react-router-dom';
-import config from '../../router/config';
+
+import { publicRoutes } from '../../router/routes';
 
 import classNames from 'classnames/bind';
 import styles from './NotFound.module.scss';
@@ -114,7 +115,7 @@ function NotFound() {
               <div className={cx('error__title')}>404</div>
               <div className={cx('error__subtitle')}>Hmmm...</div>
               <div className={cx('error__description')}>It looks like one of the developers fell asleep</div>
-              <Link to={config.routes.home}>
+              <Link to={publicRoutes.Home.path}>
                 <button className={cx('error__button', 'error__button--active')}>BACK</button>
               </Link>
               <button className={cx('error__button')}>CONTACT</button>

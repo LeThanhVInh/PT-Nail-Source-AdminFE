@@ -244,18 +244,7 @@ function ModalEdit(props, ref) {
                     <StyledAutocomplete
                       disablePortal
                       options={top100Films}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label="Select"
-                          fullWidth
-                          sx={{
-                            '&. MuiPaper-root': {
-                              backgroundColor: 'blue',
-                            },
-                          }}
-                        />
-                      )}
+                      renderInput={(params) => <TextField {...params} label="Select" fullWidth />}
                     />
                   </FormControl>
                 </div>

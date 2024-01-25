@@ -77,7 +77,11 @@ export default class UserAPI {
         uilanguageId: userData.uilanguageId,
       };
 
-      const response = await axios.put(`${constants.apiUrl}/${this.controllerName}/UpdateProfile`, requestBodyData, configs);
+      const response = await axios.put(
+        `${constants.apiUrl}/${this.controllerName}/UpdateProfile`,
+        requestBodyData,
+        configs,
+      );
       if (response.data != null && response.status === 200) {
         return response.data;
       }
@@ -87,4 +91,4 @@ export default class UserAPI {
 
     return null;
   }
-} 
+}

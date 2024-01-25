@@ -14,8 +14,9 @@ import Categories from '../../pages/Categories/Categories';
 import CalendarPage from '../../pages/CalendarPage';
 import AccountPage from '../../pages/AccountPage';
 import Stores from '../../pages/Stores';
-import POSDevices from '../../pages/POSDevices/POSDevices';
-
+import POSDevices from '../../pages/POSDevices';
+import Discounts from '../../pages/Discounts';
+import Taxes from '../../pages/Taxes';
 //Public routes
 // const publicRoutes = [
 //   { path: '/', component: Home },
@@ -39,21 +40,18 @@ const publicRoutes = {
   Post: { name: 'Post', key: 'Post', path: '/post', component: Post },
   PointOfSale: { name: 'PointOfSale', key: 'PointOfSale', path: '/point-of-sale', component: PointOfSale },
   Categories: { name: 'Categories', key: 'Categories', path: '/categories', component: Categories },
-  CalendarPage: { name: 'CalendarPage', key: 'CalendarPage', path: '/calendar', component: CalendarPage },
-  AccountPage: { name: 'AccountPage', key: 'AccountPage', path: '/account', component: AccountPage },
+  Calendar: { name: 'CalendarPage', key: 'CalendarPage', path: '/calendar', component: CalendarPage },
+  Account: { name: 'AccountPage', key: 'AccountPage', path: '/account', component: AccountPage },
   Stores: { name: 'Stores', key: 'Stores', path: '/stores', component: Stores },
   POSDevices: { name: 'POSDevices', key: 'POSDevices', path: '/pos-devices', component: POSDevices },
+  Discounts: { name: 'Discounts', key: 'Discounts', path: '/discounts', component: Discounts },
+  Taxes: { name: 'Taxes', key: 'Taxes', path: '/taxes', component: Taxes },
 };
 
-let routePublicOptions = [];
-Object.keys(publicRoutes).forEach(function (key) {
-  routePublicOptions.push(publicRoutes[key]);
-});
+const privateRoutes = {
+  NotFound: { name: 'NotFound', key: 'NotFound', path: '*', component: NotFound, layout: PrivateLayout },
+  Login: { name: 'Login', key: 'Login', path: '/login', component: LoginPage, layout: PrivateLayout },
+  Lock: { name: 'Lock', key: 'Lock', path: '/lock', component: LockPage, layout: PrivateLayout },
+};
 
-const privateRoutes = [
-  { path: '*', component: NotFound, layout: PrivateLayout },
-  { path: '/login', component: LoginPage, layout: PrivateLayout },
-  { path: '/lock', component: LockPage, layout: PrivateLayout },
-];
-
-export { publicRoutes, privateRoutes, routePublicOptions };
+export { publicRoutes, privateRoutes };

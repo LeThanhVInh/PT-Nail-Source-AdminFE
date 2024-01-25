@@ -8,7 +8,8 @@ import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
-import config from '../../router/config';
+
+import { publicRoutes } from '../../router/routes';
 
 import loginImg from '../../assets/images/svg/login-img.svg';
 import classNames from 'classnames/bind';
@@ -66,8 +67,7 @@ export default function LoginPage() {
           if (token !== '') {
             setIsLoaderLoading(true);
             setLogin(true);
-            navigate(config.routes.home);
-
+            navigate(publicRoutes.Home.path);
           } else {
             setIsLoaderLoading(false);
             setLogin(false);
@@ -83,8 +83,7 @@ export default function LoginPage() {
     return () => unsubscribe();
   }, [isLogin, navigate]);
 
-  if (isLogin && isLoaderLoading)
-    return <Loader colorLoader='#fff' isLoading={isLoaderLoading} />;
+  if (isLogin && isLoaderLoading) return <Loader colorLoader="#fff" isLoading={isLoaderLoading} />;
   else if (!isLogin && !isLoaderLoading)
     return (
       <>
@@ -240,7 +239,7 @@ export default function LoginPage() {
                     inputRef={emailRef}
                     error={
                       (errors.email && errors.email.type === 'required') ||
-                        (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
+                      (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
                         ? true
                         : false
                     }

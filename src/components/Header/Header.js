@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { changeMainTheme } from '../../providers/features/appSetting/appSettingSlice';
 
-import config from '../../router/config';
+import { publicRoutes } from '../../router/routes';
 
 const listThemeOverlay = [
   {
@@ -145,7 +145,7 @@ function Header() {
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem
         onClick={() => {
-          navigate(config.routes.account);
+          navigate(publicRoutes.Account.path);
           handleMenuClose();
         }}
       >

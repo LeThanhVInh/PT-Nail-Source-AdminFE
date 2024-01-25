@@ -265,14 +265,14 @@ function ModalEdit(props, ref) {
                           inputProps={{ maxLength: 50 }}
                           InputProps={{
                             endAdornment: (
-                              <InputAdornment position="end">
+                              <InputAdornment position="end" sx={{ color: 'var(--grey)' }}>
                                 <StoreIcon />
                               </InputAdornment>
                             ),
                           }}
                           error={
                             (errors.name && errors.name.type === 'required') ||
-                              (errors.name && errors.name.type === 'maxLength')
+                            (errors.name && errors.name.type === 'maxLength')
                               ? true
                               : false
                           }
@@ -298,6 +298,7 @@ function ModalEdit(props, ref) {
                             />
                           }
                           label="Active"
+                          sx={{ color: 'var(--text-color)' }}
                         />
                       </div>
                     </Grid>
@@ -311,7 +312,7 @@ function ModalEdit(props, ref) {
                           inputProps={{ maxLength: 120 }}
                           InputProps={{
                             endAdornment: (
-                              <InputAdornment position="end">
+                              <InputAdornment position="end" sx={{ color: 'var(--grey)' }}>
                                 <RoomIcon />
                               </InputAdornment>
                             ),
@@ -336,8 +337,8 @@ function ModalEdit(props, ref) {
                           inputProps={{ maxLength: 15 }}
                           error={
                             (errors.phone && errors.phone.type === 'maxLength') ||
-                              (errors.phone && errors.phone.type === 'pattern') ||
-                              (errors.phone && errors.phone.type === 'minLength')
+                            (errors.phone && errors.phone.type === 'pattern') ||
+                            (errors.phone && errors.phone.type === 'minLength')
                               ? true
                               : false
                           }
@@ -348,7 +349,7 @@ function ModalEdit(props, ref) {
                           }
                           InputProps={{
                             endAdornment: (
-                              <InputAdornment position="end">
+                              <InputAdornment position="end" sx={{ color: 'var(--grey)' }}>
                                 <RingVolumeIcon />
                               </InputAdornment>
                             ),
@@ -379,7 +380,7 @@ function ModalEdit(props, ref) {
                           }
                           InputProps={{
                             endAdornment: (
-                              <InputAdornment position="end">
+                              <InputAdornment position="end" sx={{ color: 'var(--grey)' }}>
                                 <MarkunreadMailboxIcon />
                               </InputAdornment>
                             ),
@@ -403,7 +404,7 @@ function ModalEdit(props, ref) {
                           inputProps={{ maxLength: 150 }}
                           InputProps={{
                             endAdornment: (
-                              <InputAdornment position="end">
+                              <InputAdornment position="end" sx={{ color: 'var(--grey)' }}>
                                 <DescriptionIcon />
                               </InputAdornment>
                             ),
