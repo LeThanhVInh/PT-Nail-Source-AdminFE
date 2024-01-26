@@ -29,7 +29,7 @@ import classNames from 'classnames/bind';
 import styles from './Stores.module.scss';
 const cx = classNames.bind(styles);
 
-function Stores() {
+export default function Stores() {
   const modalRef = useRef();
   const searchRef = useRef();
   const [rows, setRows] = useState([]);
@@ -310,5 +310,3 @@ function Stores() {
     </div>
   );
 }
-
-export default Stores;

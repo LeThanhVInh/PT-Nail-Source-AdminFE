@@ -17,21 +17,6 @@ import Stores from '../../pages/Stores';
 import POSDevices from '../../pages/POSDevices';
 import Discounts from '../../pages/Discounts';
 import Taxes from '../../pages/Taxes';
-//Public routes
-// const publicRoutes = [
-//   { path: '/', component: Home },
-//   { path: '/products', component: Products },
-//   { path: '/products-edit', component: ProductEdit },
-//   { path: '/post', component: Post },
-//   { path: '/point-of-sale', component: PointOfSale },
-//   { path: '/categories', component: Categories },
-//   { path: '/calendar', component: CalendarPage },
-//   { path: '/account', component: AccountPage },
-//   { path: '/stores', component: Stores },
-//   { path: '/pos-devices', component: POSDevices },
-// ];
-
-//
 
 const publicRoutes = {
   Home: { name: 'Home', key: 'Home', path: '/', component: Home },
@@ -39,11 +24,11 @@ const publicRoutes = {
   ProductEdit: { name: 'ProductEdit', key: 'ProductEdit', path: '/products-edit', component: ProductEdit },
   Post: { name: 'Post', key: 'Post', path: '/post', component: Post },
   PointOfSale: { name: 'PointOfSale', key: 'PointOfSale', path: '/point-of-sale', component: PointOfSale },
-  Categories: { name: 'Categories', key: 'Categories', path: '/categories', component: Categories },
   Calendar: { name: 'CalendarPage', key: 'CalendarPage', path: '/calendar', component: CalendarPage },
   Account: { name: 'AccountPage', key: 'AccountPage', path: '/account', component: AccountPage },
   Stores: { name: 'Stores', key: 'Stores', path: '/stores', component: Stores },
   POSDevices: { name: 'POSDevices', key: 'POSDevices', path: '/pos-devices', component: POSDevices },
+  Categories: { name: 'Categories', key: 'Categories', path: '/categories', component: Categories },
   Discounts: { name: 'Discounts', key: 'Discounts', path: '/discounts', component: Discounts },
   Taxes: { name: 'Taxes', key: 'Taxes', path: '/taxes', component: Taxes },
 };
