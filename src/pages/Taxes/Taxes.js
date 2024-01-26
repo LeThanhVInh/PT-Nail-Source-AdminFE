@@ -85,9 +85,25 @@ export default function Taxes() {
     setTableLoading(true);
     const listTaxes = await TaxesAPI.GetList(searchValue);
     const listTaxesType = await GetOnlyAPI.GetTaxTypeList();
+
     if (listTaxes && listTaxesType !== null) {
+      // let listMerged = [];
+
+      // for (let i = 0; i < listTaxesType.length; i++) {
+      //   for (let j = 0; j < listTaxes.length; j++) {
+      //     if (listTaxesType[i].id === listTaxes[j].TaxTypeId) {
+      //       let obj = { ...listTaxesType[i], ...listTaxes[j] };
+      //       obj.IDMerged = obj.id;
+      //       delete obj.id;
+      //       obj.IDMerged = obj.TaxTypeId;
+      //       delete obj.TaxTypeId;
+      //       listMerged.push(obj);
+      //     }
+      //   }
+      // }
+
       setRows(listTaxes);
-      setTaxTypeList(listTaxesType);
+      // setTaxTypeList(listTaxesType);
     } else {
       setRows([]);
       setTaxTypeList([]);
