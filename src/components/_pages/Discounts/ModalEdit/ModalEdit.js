@@ -35,15 +35,17 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePickerCustom } from '../../../CustomMUI/DatePickerCustom';
 
-import Loader from '../../../Loader';
-import { modalSizes, getSizeOfModal, delay, LoadOptDropdown } from '../../../../providers/constants';
 import StoreAPI from '../../../../api/Stores';
 import GetOnlyAPI from '../../../../api/GetOnly';
+import DiscountsAPI from '../../../../api/Discounts';
+
+import { modalSizes, getSizeOfModal, delay, LoadOptDropdown } from '../../../../providers/constants';
+import { StyledAutocomplete } from '../../../CustomMUI/SelectCustom';
+import { Android12Switch } from '../../../Switch/AndroidSwitch/AndroidSwitch';
+import Loader from '../../../Loader';
 
 import classNames from 'classnames/bind';
 import styles from './ModalEdit.module.scss';
-import DiscountsAPI from '../../../../api/Discounts';
-import { StyledAutocomplete } from '../../../CustomMUI/SelectCustom';
 
 const cx = classNames.bind(styles);
 
@@ -53,10 +55,13 @@ function ModalEdit(props, ref) {
   const modalSize = modalSizes.medium;
   const [isOpen, setOpenModal] = useState(false);
   const [isInsert, setTypeIsInsert] = useState(true);
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(false);
   const [isAPILoading, setAPILoading] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+
+  const [openEndDatePicker, setOpenEndDatePicker] = useState(false);
+  const [openStartDatePicker, setOpenStartDatePicker] = useState(false);
 
   let [discountTypeList, setDiscountTypeList] = useState([]);
   let [storeList, setStoreList] = useState([]);
@@ -73,9 +78,10 @@ function ModalEdit(props, ref) {
   const [formData, setFormData] = useState({
     id: '',
     name: '',
-    discountTypeId: null,
+    discountTypeId: '',
     value: '',
     startDate: '',
+    isActive: false,
     endDate: '',
     storeIdList: null,
   });
@@ -101,12 +107,14 @@ function ModalEdit(props, ref) {
   }, [watch]);
 
   useEffect(() => {
+    setLoading(true);
     async function fetchData() {
       const discountTypeListResult = await GetOnlyAPI.GetDiscountTypeList();
       const storeListResult = await StoreAPI.GetList();
 
       if (discountTypeListResult !== null) {
         setDiscountTypeList(discountTypeListResult);
+        setLoading(false);
       }
 
       if (storeListResult !== null) {
@@ -136,7 +144,7 @@ function ModalEdit(props, ref) {
 
   const openModal = async (isInsert, id) => {
     setAnimationClass('animate__animated animate__zoomIn animate__fast');
-    setLoading(true);
+
     setTimeout(() => setOpenModal(true), 100);
 
     if (isInsert) {
@@ -145,6 +153,7 @@ function ModalEdit(props, ref) {
         id: '',
         name: '',
         value: '',
+        isActive: false,
         discountTypeId: discountTypeList?.[0]?.Id ?? '',
         startDate: null,
         endDate: null,
@@ -157,13 +166,10 @@ function ModalEdit(props, ref) {
       setValue('startDate', '');
       setValue('endDate', '');
       setValue('storeIdList', null);
-
-      setLoading(false);
     } // //
     else {
       setTypeIsInsert(false);
       const res = await DiscountsAPI.GetById(id);
-
       if (res !== null) {
         console.log('res', res);
         const tempStoreList = storeList?.filter((obj) => res?.StoreIdList?.includes(obj.value.toUpperCase()));
@@ -173,6 +179,7 @@ function ModalEdit(props, ref) {
           name: res.Name ?? '',
           discountTypeId: res.DiscountTypeId ?? '',
           value: res.Value ?? '',
+          isActive: res.IsActive ?? false,
           endDate: dayjs(res.EndDate) ?? '',
           startDate: dayjs(res.StartDate) ?? '',
           storeIdList: tempStoreList.length === 0 ? [] : tempStoreList,
@@ -269,10 +276,6 @@ function ModalEdit(props, ref) {
     }
   };
 
-  const onErrors = (error) => {
-    console.log(error);
-  };
-
   return (
     <Modal open={isOpen} onClose={handleCloseModal}>
       <Box
@@ -285,7 +288,7 @@ function ModalEdit(props, ref) {
         }}
       >
         <div className={cx('wrapper')}>
-          <form noValidate autoComplete="off" onSubmit={handleSubmit(handleSave, onErrors)}>
+          <form noValidate autoComplete="off" onSubmit={handleSubmit(handleSave)}>
             <div className={cx('modal-box')}>
               <div className={cx('header')}>
                 <p>{isInsert ? 'ADD NEW DISCOUNT' : 'EDIT DISCOUNT'}</p>
@@ -309,127 +312,163 @@ function ModalEdit(props, ref) {
               ) : (
                 <div className={cx('contents')}>
                   <Grid container spacing={0} sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-                    <Grid xl={6} lg={6} md={12} xs={12} item>
-                      <div className={cx('item-content')}>
-                        <TextFieldCustom
-                          label="Store name"
-                          value={formData.name}
-                          fullWidth
-                          inputProps={{ maxLength: 50 }}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end" sx={{ color: 'var(--grey)' }}>
-                                <StoreIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                          error={
-                            (errors.name && errors.name.type === 'required') ||
-                            (errors.name && errors.name.type === 'maxLength')
-                              ? true
-                              : false
-                          }
-                          helperText={
-                            (errors.name && errors.name.type === 'required' && 'Store name is required') ||
-                            (errors.name && errors.name.type === 'maxLength' && 'Max length exceeded')
-                          }
-                          {...register('name', {
-                            required: true,
-                            maxLength: 50,
-                            onChange: (event) => setFormData((prev) => ({ ...prev, name: event.target.value })),
-                          })}
-                        />
-                      </div>
-                    </Grid>
-                    <Grid xl={6} lg={6} md={12} xs={12} item>
-                      <div className={cx('item-content')}>
-                        <FormControl sx={{ position: 'relative' }}>
-                          <TypographyCustom
-                            sx={{
-                              fontSize: '14px',
-                              marginRight: ' 20px',
-                              color: 'var(--text-color)',
-                              position: 'absolute',
-                              top: '-12px',
-                              left: 0,
+                    <Grid container spacing={1} alignItems={'center'}>
+                      <Grid xl={6} lg={6} md={12} xs={12} item>
+                        <div className={cx('item-content')}>
+                          <TextFieldCustom
+                            label="Store name"
+                            value={formData.name}
+                            fullWidth
+                            inputProps={{ maxLength: 50 }}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end" sx={{ color: 'var(--grey)' }}>
+                                  <StoreIcon />
+                                </InputAdornment>
+                              ),
                             }}
-                          >
-                            Discount Type
-                          </TypographyCustom>
-                          <RadioGroup
-                            row
-                            name="controlled-radio-buttons-group"
-                            value={formData.discountTypeId || discountTypeList?.[0]?.Id}
-                            onChange={(event) =>
-                              setFormData((prev) => ({ ...prev, discountTypeId: event.target.value }))
+                            error={
+                              (errors.name && errors.name.type === 'required') ||
+                              (errors.name && errors.name.type === 'maxLength')
+                                ? true
+                                : false
                             }
-                          >
-                            {discountTypeList.map((list) => (
-                              <FormControlLabelCustom
-                                key={list.Id}
-                                value={list.Id}
-                                control={<Radio sx={{ color: 'var(--primary-check)' }} />}
-                                label={list.Name}
+                            helperText={
+                              (errors.name && errors.name.type === 'required' && 'Store name is required') ||
+                              (errors.name && errors.name.type === 'maxLength' && 'Max length exceeded')
+                            }
+                            {...register('name', {
+                              required: true,
+                              maxLength: 50,
+                              onChange: (event) => setFormData((prev) => ({ ...prev, name: event.target.value })),
+                            })}
+                          />
+                        </div>
+                      </Grid>
+
+                      <Grid xl={6} lg={6} md={12} xs={12} item>
+                        <div className={cx('item-content')}>
+                          <FormControlLabel
+                            control={
+                              <Android12Switch
+                                checked={formData.isActive}
+                                onChange={(event, value) => setFormData((prev) => ({ ...prev, isActive: value }))}
                               />
-                            ))}
-                          </RadioGroup>
-                        </FormControl>
-                      </div>
+                            }
+                            label="Active"
+                            sx={{ color: 'var(--text-color)' }}
+                          />
+                        </div>
+                      </Grid>
                     </Grid>
 
-                    <Grid xl={12} lg={12} md={12} xs={12} item>
-                      <div className={cx('item-content')}>
-                        <TextFieldCustom
-                          label="Value"
-                          value={formData.value}
-                          fullWidth
-                          inputProps={{ maxLength: 120 }}
-                          // InputProps={{
-                          //   endAdornment: (
-                          //     <InputAdornment position="end" sx={{ color: 'var(--grey)' }}>
-                          //       <RoomIcon />
-                          //     </InputAdornment>
-                          //   ),
-                          // }}
-                          error={
-                            (errors.value && errors.value.type === 'maxLength') ||
-                            (errors.rate && errors.rate.type === 'pattern')
-                          }
-                          helperText={
-                            (errors.value && errors.value.type === 'maxLength' && 'Max length exceeded') ||
-                            errors.rate?.message
-                          }
-                          {...register('value', {
-                            required: false,
-                            pattern: {
-                              value: /^[0-9]+$/,
-                              message: 'Please enter a number',
-                            },
-                            maxLength: 120,
-                            onChange: (event) => setFormData((prev) => ({ ...prev, value: event.target.value })),
-                          })}
-                        />
-                      </div>
+                    <Grid container spacing={1} alignItems={'center'}>
+                      <Grid xl={6} lg={6} md={12} xs={12} item>
+                        <div className={cx('item-content')}>
+                          <FormControl sx={{ position: 'relative' }}>
+                            <TypographyCustom
+                              sx={{
+                                fontSize: '12px',
+                                marginRight: ' 20px',
+                                color: 'var(--text-color)',
+                                position: 'absolute',
+                                top: '-12px',
+                                left: 0,
+                              }}
+                            >
+                              Discount Type
+                            </TypographyCustom>
+                            <RadioGroup
+                              row
+                              name="controlled-radio-buttons-group"
+                              value={formData.discountTypeId || discountTypeList?.[0]?.Id}
+                              onChange={(event) =>
+                                setFormData((prev) => ({ ...prev, discountTypeId: event.target.value }))
+                              }
+                            >
+                              {discountTypeList.map((list) => (
+                                <FormControlLabelCustom
+                                  key={list.Id}
+                                  value={list.Id}
+                                  control={<Radio sx={{ color: 'var(--primary-check)' }} />}
+                                  label={list.Name}
+                                />
+                              ))}
+                            </RadioGroup>
+                          </FormControl>
+                        </div>
+                      </Grid>
+                      <Grid xl={6} lg={6} md={12} xs={12} item>
+                        <div className={cx('item-content')}>
+                          <TextFieldCustom
+                            label="Value"
+                            value={formData.value}
+                            fullWidth
+                            inputProps={{ maxLength: 120 }}
+                            error={
+                              (errors.value && errors.value.type === 'maxLength') ||
+                              (errors.rate && errors.rate.type === 'pattern')
+                            }
+                            helperText={
+                              (errors.value && errors.value.type === 'maxLength' && 'Max length exceeded') ||
+                              errors.rate?.message
+                            }
+                            {...register('value', {
+                              required: false,
+                              pattern: {
+                                value: /^[0-9]+$/,
+                                message: 'Please enter a number',
+                              },
+                              maxLength: 120,
+                              onChange: (event) => setFormData((prev) => ({ ...prev, value: event.target.value })),
+                            })}
+                          />
+                        </div>
+                      </Grid>
                     </Grid>
 
-                    <Grid xl={6} lg={6} md={6} xs={6} item>
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DateTimePickerCustom
-                          label="Start Date"
-                          value={formData.startDate}
-                          onChange={(newValue) => setFormData((prev) => ({ ...prev, startDate: newValue.$d }))}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
+                    <Grid container spacing={1} alignItems={'center'}>
+                      <Grid xl={6} lg={6} md={6} xs={6} item>
+                        <div className={cx('item-content')}>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DateTimePickerCustom
+                              label="Start Date"
+                              value={formData.startDate}
+                              onChange={(newValue) => setFormData((prev) => ({ ...prev, startDate: newValue.$d }))}
+                              open={openStartDatePicker}
+                              onOpen={() => setOpenStartDatePicker(true)}
+                              onClose={() => setOpenStartDatePicker(false)}
+                              sx={{ width: '100%' }}
+                              slotProps={{
+                                textField: {
+                                  onClick: () => setOpenStartDatePicker(true),
+                                },
+                              }}
+                            />
+                          </LocalizationProvider>
+                        </div>
+                      </Grid>
 
-                    <Grid xl={6} lg={6} md={6} xs={6} item>
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DateTimePickerCustom
-                          label="End Date"
-                          value={formData.endDate}
-                          onChange={(newValue) => setFormData((prev) => ({ ...prev, endDate: newValue.$d }))}
-                        />
-                      </LocalizationProvider>
+                      <Grid xl={6} lg={6} md={6} xs={6} item>
+                        <div className={cx('item-content')}>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DateTimePickerCustom
+                              label="End Date"
+                              value={formData.endDate}
+                              onChange={(newValue) => setFormData((prev) => ({ ...prev, endDate: newValue.$d }))}
+                              sx={{ width: '100%' }}
+                              open={openEndDatePicker}
+                              onOpen={() => setOpenEndDatePicker(true)}
+                              onClose={() => setOpenEndDatePicker(false)}
+                              slotProps={{
+                                textField: {
+                                  onClick: () => setOpenEndDatePicker(true),
+                                },
+                              }}
+                            />
+                          </LocalizationProvider>
+                        </div>
+                      </Grid>
                     </Grid>
 
                     <Grid xl={12} lg={12} md={12} xs={12} item>

@@ -2,7 +2,6 @@ import { Autocomplete } from '@mui/material';
 import { styled } from '@mui/system';
 
 export const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
-  // backgroundColor: 'var(--input-color)',
   color: 'var(--text-color)',
   margin: '10px 0',
   borderRadius: '5px',
@@ -40,6 +39,7 @@ export const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
   },
 
   '& .MuiAutocomplete-inputRoot': {
+    backgroundColor: 'var(--input-color)',
     '&[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input:first-of-type': {
       padding: '0 0 0 6px',
       color: 'var(--text-color)',

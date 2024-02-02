@@ -85,6 +85,7 @@ export const DatePickerCustom = styled(DatePicker)(({ theme }) => ({
 export const DateTimePickerCustom = styled(DateTimePicker)(({ theme }) => ({
   backgroundColor: 'var(--input-color)',
   margin: '10px 0',
+
   color: 'var(--text-color)',
   borderRadius: '5px',
   svg: {

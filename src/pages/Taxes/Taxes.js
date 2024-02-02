@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import { DataGrid } from '@mui/x-data-grid';
-import { Button, IconButton, Stack } from '@mui/material';
+import { Button, IconButton, Stack, FormControlLabel } from '@mui/material';
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
@@ -16,6 +16,7 @@ import {
   SearchMediumCustom,
   StyledInputBaseCustom,
 } from '../../components/CustomMUI/SearchMedium';
+import { Android12Switch } from '../../components/Switch/AndroidSwitch/AndroidSwitch';
 
 import TaxesAPI from '../../api/Taxes';
 import ModalEdit from '../../components/_pages/Taxes/ModalEdit';
@@ -38,9 +39,6 @@ export default function Taxes() {
   const [taxTypeList, setTaxTypeList] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
-  console.log('rows:', rows);
-  console.log('taxTypeList', taxTypeList);
-
   const columns = [
     { field: 'RowNumber', headerName: 'No.', width: 70 + dataTablePadWidth },
     {
@@ -58,6 +56,25 @@ export default function Taxes() {
       field: 'TaxTypeId',
       headerName: 'Tax Type Id',
       width: 100 + dataTablePadWidth,
+    },
+    {
+      field: 'IsActive',
+      headerName: 'Active status',
+      type: 'boolean',
+      align: 'center',
+      width: 150 + dataTablePadWidth,
+      renderCell: (data) => (
+        <FormControlLabel
+          control={
+            <Android12Switch
+              defaultChecked={data.value}
+              onChange={async (event, isChecked) => await TaxesAPI.UpdateActiveStatus(data.id, isChecked)}
+            />
+          }
+          label="Active"
+          sx={{ color: 'var(--text-color)' }}
+        />
+      ),
     },
     {
       field: 'actions',
@@ -84,6 +101,7 @@ export default function Taxes() {
   const LoadDataTable = async (searchValue) => {
     setTableLoading(true);
     const listTaxes = await TaxesAPI.GetList(searchValue);
+
     const listTaxesType = await GetOnlyAPI.GetTaxTypeList();
 
     if (listTaxes && listTaxesType !== null) {

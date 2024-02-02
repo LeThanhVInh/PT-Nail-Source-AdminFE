@@ -4,6 +4,7 @@ import { Grid, Box, TextField, Button, Stack, FormGroup, FormControlLabel, Check
 import { auth } from '../../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
 import Swal from 'sweetalert2';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -12,10 +13,10 @@ import SaveIcon from '@mui/icons-material/Save';
 import { publicRoutes } from '../../router/routes';
 
 import loginImg from '../../assets/images/svg/login-img.svg';
-import classNames from 'classnames/bind';
-import styles from './LoginPage.module.scss';
 import Loader from '../../components/Loader';
 
+import classNames from 'classnames/bind';
+import styles from './LoginPage.module.scss';
 const cx = classNames.bind(styles);
 
 export default function LoginPage() {
@@ -25,6 +26,9 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoaderLoading, setIsLoaderLoading] = useState(true);
   const [isLogin, setLogin] = useState(false);
+
+  const [route, setRoute] = useState([]);
+  const userData = useSelector((state) => state.userSetting.authUserData);
 
   const emailRef = useRef();
 
@@ -39,7 +43,7 @@ export default function LoginPage() {
     await signInWithEmailAndPassword(auth, data.email, data.passWord)
       .then(async (userCredential) => {
         setIsLoading(false);
-        navigate(location?.state?.prevUrl ? location?.state?.prevUrl : '/');
+        navigate(location?.state?.prevUrl ? location?.state?.prevUrl : route?.[1] ? route?.[1] : '/account');
       })
       .catch((error) => {
         Swal.mixin({
@@ -61,13 +65,20 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
+    if (userData) {
+      const checkRoute = userData?.AllowedScreens?.map((item) => item.RouteLink);
+      setRoute(checkRoute);
+    }
+  }, []);
+
+  useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         await user.getIdToken().then((token) => {
           if (token !== '') {
             setIsLoaderLoading(true);
             setLogin(true);
-            navigate(publicRoutes.Home.path);
+            navigate(route?.[1] ? route?.[1] : '/account');
           } else {
             setIsLoaderLoading(false);
             setLogin(false);

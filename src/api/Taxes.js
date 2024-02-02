@@ -69,6 +69,7 @@ export default class TaxesAPI {
         id: generateRandomUuid(),
         name: itemData.name,
         taxTypeId: itemData.taxTypeId,
+        isActive: itemData.isActive,
         rate: itemData.rate,
         storeIdList: itemData.storeIdList.map((i) => i.value),
       };
@@ -101,6 +102,7 @@ export default class TaxesAPI {
         id: itemData.id,
         name: itemData.name,
         taxTypeId: itemData.taxTypeId,
+        isActive: itemData.isActive,
         rate: itemData.rate,
         storeIdList: itemData.storeIdList.map((i) => i.value),
       };
@@ -160,5 +162,30 @@ export default class TaxesAPI {
     }
 
     return false;
+  }
+
+  static async UpdateActiveStatus(id, checkedValue) {
+    try {
+      let token = await auth.currentUser.getIdToken();
+
+      const configs = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          id: id,
+          activeValue: checkedValue,
+        },
+      };
+
+      const response = await axios.put(`${constants.apiUrl}/${this.controllerName}/UpdateActiveStatus`, null, configs);
+      if (response.data != null && response.status === 200) {
+        return response.data;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    return null;
   }
 }

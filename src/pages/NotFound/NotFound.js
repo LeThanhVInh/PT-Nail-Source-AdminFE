@@ -1,14 +1,23 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { Link } from 'react-router-dom';
-
-import { publicRoutes } from '../../router/routes';
+import { useSelector } from 'react-redux';
 
 import classNames from 'classnames/bind';
 import styles from './NotFound.module.scss';
 const cx = classNames.bind(styles);
 
 function NotFound() {
+  const [route, setRoute] = useState([]);
+  const userData = useSelector((state) => state.userSetting.authUserData);
+
+  useEffect(() => {
+    if (userData) {
+      const checkRoute = userData?.AllowedScreens?.map((item) => item.RouteLink);
+      setRoute(checkRoute);
+    }
+  }, []);
+
   useEffect(() => {
     function drawVisor() {
       const canvas = document.getElementById('visor');
@@ -115,7 +124,7 @@ function NotFound() {
               <div className={cx('error__title')}>404</div>
               <div className={cx('error__subtitle')}>Hmmm...</div>
               <div className={cx('error__description')}>It looks like one of the developers fell asleep</div>
-              <Link to={publicRoutes.Home.path}>
+              <Link to={route?.[1] ? route?.[1] : '/account'}>
                 <button className={cx('error__button', 'error__button--active')}>BACK</button>
               </Link>
               <button className={cx('error__button')}>CONTACT</button>

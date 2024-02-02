@@ -30,7 +30,7 @@ import {
   Paper,
   Checkbox,
 } from '@mui/material';
-
+import { Android12Switch } from '../../../Switch/AndroidSwitch/AndroidSwitch';
 import Loader from '../../../Loader';
 import { modalSizes, getSizeOfModal, delay, LoadOptDropdown } from '../../../../providers/constants';
 import StoreAPI from '../../../../api/Stores';
@@ -69,6 +69,7 @@ function ModalEdit(props, ref) {
   const [formData, setFormData] = useState({
     id: '',
     name: '',
+    isActive: false,
     taxTypeId: '',
     rate: '',
     storeIdList: null,
@@ -83,8 +84,6 @@ function ModalEdit(props, ref) {
       return !prev;
     });
   };
-
-  console.log('formData', formData);
 
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
@@ -140,6 +139,7 @@ function ModalEdit(props, ref) {
       setFormData({
         id: '',
         name: '',
+        isActive: false,
         rate: '',
         taxTypeId: taxesTypeList?.[0]?.Id ?? '',
         storeIdList: [],
@@ -165,6 +165,7 @@ function ModalEdit(props, ref) {
           name: res.Name ?? '',
           taxTypeId: res.TaxTypeId ?? '',
           rate: res.Rate ?? '',
+          isActive: res.IsActive ?? false,
           storeIdList: tempStoreList.length === 0 ? [] : tempStoreList,
         });
         setValue('name', res.Name ?? '');
@@ -297,39 +298,56 @@ function ModalEdit(props, ref) {
               ) : (
                 <div className={cx('contents')}>
                   <Grid container spacing={0} sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-                    <Grid xl={6} lg={6} md={12} xs={12} item>
-                      <div className={cx('item-content')}>
-                        <TextFieldCustom
-                          label="Taxes Name"
-                          value={formData.name}
-                          fullWidth
-                          inputProps={{ maxLength: 50 }}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end" sx={{ color: 'var(--grey)' }}>
-                                <StoreIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                          error={
-                            (errors.name && errors.name.type === 'required') ||
-                            (errors.name && errors.name.type === 'maxLength')
-                              ? true
-                              : false
-                          }
-                          helperText={
-                            (errors.name && errors.name.type === 'required' && 'Store name is required') ||
-                            (errors.name && errors.name.type === 'maxLength' && 'Max length exceeded')
-                          }
-                          {...register('name', {
-                            required: true,
-                            maxLength: 50,
-                            onChange: (event) => setFormData((prev) => ({ ...prev, name: event.target.value })),
-                          })}
-                        />
-                      </div>
+                    <Grid container spacing={1} alignItems={'center'}>
+                      <Grid xl={6} lg={6} md={12} xs={12} item>
+                        <div className={cx('item-content')}>
+                          <TextFieldCustom
+                            label="Taxes Name"
+                            value={formData.name}
+                            fullWidth
+                            inputProps={{ maxLength: 50 }}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end" sx={{ color: 'var(--grey)' }}>
+                                  <StoreIcon />
+                                </InputAdornment>
+                              ),
+                            }}
+                            error={
+                              (errors.name && errors.name.type === 'required') ||
+                              (errors.name && errors.name.type === 'maxLength')
+                                ? true
+                                : false
+                            }
+                            helperText={
+                              (errors.name && errors.name.type === 'required' && 'Store name is required') ||
+                              (errors.name && errors.name.type === 'maxLength' && 'Max length exceeded')
+                            }
+                            {...register('name', {
+                              required: true,
+                              maxLength: 50,
+                              onChange: (event) => setFormData((prev) => ({ ...prev, name: event.target.value })),
+                            })}
+                          />
+                        </div>
+                      </Grid>
+                      <Grid xl={6} lg={6} md={12} xs={12} item>
+                        <div className={cx('item-content')}>
+                          <FormControlLabel
+                            control={
+                              <Android12Switch
+                                checked={formData.isActive}
+                                onChange={(event, value) => setFormData((prev) => ({ ...prev, isActive: value }))}
+                              />
+                            }
+                            label="Active"
+                            sx={{ color: 'var(--text-color)' }}
+                          />
+                        </div>
+                      </Grid>
                     </Grid>
-                    <Grid xl={6} lg={6} md={12} xs={12} item>
+
+                    <Grid xl={12} lg={12} md={12} xs={12} item>
                       <div className={cx('item-content')}>
                         <FormControl sx={{ position: 'relative' }}>
                           <TypographyCustom
@@ -370,13 +388,6 @@ function ModalEdit(props, ref) {
                           value={formData.rate}
                           fullWidth
                           inputProps={{ maxLength: 120 }}
-                          // InputProps={{
-                          //   endAdornment: (
-                          //     <InputAdornment position="end" sx={{ color: 'var(--grey)' }}>
-                          //       <RoomIcon />
-                          //     </InputAdornment>
-                          //   ),
-                          // }}
                           error={
                             (errors.rate && errors.rate.type === 'maxLength') ||
                             (errors.rate && errors.rate.type === 'pattern')

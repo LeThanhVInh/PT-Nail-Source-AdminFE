@@ -67,6 +67,8 @@
   --fc-event-border-color: var(--btn-primary);
   --fc-button-border-color: var(--grey-border-item);
   --fc-button-active-border-color: var(--grey-border-item);
+
+  --json-view-bg: #fff;
   // --fc-button-text-color: var(--text-color);
   strong,
   b {
@@ -351,4 +353,10 @@ body {
 
 .swal2-container {
   z-index: 100000;
+}
+
+.json-view {
+  background-color: var(--json-view-bg) !important;
+  padding: 20px;
+  border-radius: 10px;
 }

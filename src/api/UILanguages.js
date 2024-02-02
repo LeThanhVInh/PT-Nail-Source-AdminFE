@@ -90,10 +90,10 @@ export default class UILanguageAPI {
         },
       };
 
-      const requestBodyData = {
+      let requestBodyData = {
         id: itemData.id,
         name: itemData.name === '' ? null : itemData.name,
-        jsonData: itemData.jsonData === '' ? null : itemData.jsonData,
+        jsonData: itemData.jsonData.toString() === '' ? null : JSON.stringify(itemData.jsonData),
       };
 
       const response = await axios.put(`${constants.apiUrl}/${this.controllerName}/Update`, requestBodyData, configs);
@@ -152,4 +152,4 @@ export default class UILanguageAPI {
 
     return false;
   }
-} 
+}

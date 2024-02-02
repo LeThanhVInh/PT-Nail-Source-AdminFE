@@ -68,6 +68,7 @@ export default class DiscountsAPI {
       const requestBodyData = {
         id: generateRandomUuid(),
         name: itemData.name,
+        isActive: itemData.isActive,
         discountTypeId: itemData.discountTypeId,
         value: itemData.value,
         startDate: itemData.startDate,
@@ -104,6 +105,7 @@ export default class DiscountsAPI {
       const requestBodyData = {
         id: itemData.id,
         name: itemData.name,
+        isActive: itemData.isActive,
         discountTypeId: itemData.discountTypeId,
         value: itemData.value,
         startDate: itemData.startDate,

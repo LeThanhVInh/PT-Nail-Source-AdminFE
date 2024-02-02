@@ -1,18 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  idUserToken: null,
+  authUserData: null,
 };
 
 export const userSetting = createSlice({
   name: 'userSetting',
   initialState,
   reducers: {
-    saveIdUserToken: (state, action) => {
-      state.idUserToken = action.payload;
+    saveAuthUserData: (state, action) => {
+      state.authUserData = action.payload;
     },
   },
 });
 
-export const { saveIdUserToken } = userSetting.actions;
+export const { saveAuthUserData } = userSetting.actions;
 export default userSetting.reducer;

@@ -17,6 +17,7 @@ import Stores from '../../pages/Stores';
 import POSDevices from '../../pages/POSDevices';
 import Discounts from '../../pages/Discounts';
 import Taxes from '../../pages/Taxes';
+import CustomTranslation from '../../pages/CustomTranslation/CustomTranslation';
 
 const publicRoutes = {
   Home: { name: 'Home', key: 'Home', path: '/', component: Home },
@@ -27,10 +28,16 @@ const publicRoutes = {
   Calendar: { name: 'CalendarPage', key: 'CalendarPage', path: '/calendar', component: CalendarPage },
   Account: { name: 'AccountPage', key: 'AccountPage', path: '/account', component: AccountPage },
   Stores: { name: 'Stores', key: 'Stores', path: '/stores', component: Stores },
-  POSDevices: { name: 'POSDevices', key: 'POSDevices', path: '/pos-devices', component: POSDevices },
-  Categories: { name: 'Categories', key: 'Categories', path: '/categories', component: Categories },
+  POSDevices: { name: 'POSDevices', key: 'POSDevices', path: '/posdevices', component: POSDevices },
+  Categories: { name: 'Categories', key: 'Categories', path: '/categories-product', component: Categories },
   Discounts: { name: 'Discounts', key: 'Discounts', path: '/discounts', component: Discounts },
   Taxes: { name: 'Taxes', key: 'Taxes', path: '/taxes', component: Taxes },
+  CustomTranslation: {
+    name: 'CustomTranslation',
+    key: 'CustomTranslation',
+    path: '/uilanguages',
+    component: CustomTranslation,
+  },
 };
 
 const privateRoutes = {

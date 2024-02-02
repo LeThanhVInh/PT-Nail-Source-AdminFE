@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { styled } from '@mui/system';
 
-import { privateRoutes, publicRoutes } from '../../router/routes';
-
 import {
   Box,
   ListSubheader,
@@ -16,20 +14,11 @@ import {
   ListItem,
 } from '@mui/material';
 
-import {
-  MoveToInbox as InboxIcon,
-  Home as HomeIcon,
-  Description as DescriptionIcon,
-  ExpandLess,
-  ExpandMore,
-  StarBorder,
-  CalendarMonthOutlined as CalendarMonthOutlinedIcon,
-  LockOutlined as LockOutlinedIcon,
-  PaymentOutlined as PaymentOutlinedIcon,
-  Store as StoreIcon,
-  Archive as ArchiveIcon,
-  Category as CategoryIcon,
-} from '@mui/icons-material';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
+
+import * as MuiIcon from '@mui/icons-material';
+
+import { useSelector } from 'react-redux';
 
 import './Sidebar.scss';
 
@@ -48,14 +37,21 @@ const ListItemButtonCustom = styled(ListItemButton)({
 });
 
 function Sidebar() {
-  const [open, setOpen] = useState(true);
-
+  let initialState = {};
+  const [open, setOpen] = useState(initialState);
   const [isListChildActive, setIsListChildActive] = useState(false);
   const [isListParentActive, setIsListParentActive] = useState('');
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
+  const [route, setRoute] = useState([]);
+  const userData = useSelector((state) => state.userSetting.authUserData);
+  let renderMenu = {};
+
+  useEffect(() => {
+    if (userData) {
+      const checkRoute = userData?.AllowedScreens;
+      setRoute(checkRoute);
+    }
+  }, []);
 
   useEffect(() => {
     if (isListChildActive === true) {
@@ -64,6 +60,37 @@ function Sidebar() {
       setIsListParentActive('');
     }
   }, [isListChildActive]);
+
+  const handleClick = (itemName) => {
+    setOpen((o) => ({ ...initialState, [itemName]: !o[itemName] }));
+  };
+
+  if (route) {
+    renderMenu = route
+      .filter((item) => item.ScreenCategoryName !== 'Hidden' && item.ScreenCategoryName !== 'Separation') // loại bỏ các đối tượng có ScreenCategoryName là 'Hidden'
+      .reduce((acc, cur) => {
+        let found = acc.find((item) => item.name === cur.ScreenCategoryName);
+
+        if (found) {
+          found.subMenu.push(cur);
+        } else {
+          acc.push({
+            name: cur.ScreenCategoryName,
+            IconName: cur.ScreenCategoryIconName,
+            subMenu: [cur],
+          });
+        }
+        return acc;
+      }, []);
+
+    let separationItems = route.filter((item) => item.ScreenCategoryName === 'Separation');
+
+    if (separationItems.length > 0 && renderMenu) {
+      renderMenu = [...renderMenu, ...separationItems];
+    }
+
+    initialState = Object.fromEntries(renderMenu.map((i) => [i.name, false]));
+  }
 
   return (
     <>
@@ -80,7 +107,7 @@ function Sidebar() {
             <ListSubheader
               component="div"
               id="nested-list-subheader"
-              sx={{ background: 'transparent', color: 'var(--white-color)' }}
+              sx={{ background: 'var(--primary-color)', color: 'var(--white-color)' }}
             >
               Logo
             </ListSubheader>
@@ -90,252 +117,88 @@ function Sidebar() {
             <Divider sx={{ borderColor: 'var(--divider-primary)' }} />
           </div>
 
-          <NavLink
-            to={publicRoutes.Home.path}
-            className="category-list-item"
-            onClick={() => setIsListChildActive(false)}
-          >
-            <ListItem disablePadding>
-              <ListItemButtonCustom
-                disableRipple
-                disableTouchRipple
-                sx={{
-                  borderBottomLeftRadius: 999,
-                  borderTopLeftRadius: 999,
-                }}
-              >
-                <ListItemIconCustom>
-                  <HomeIcon />
-                </ListItemIconCustom>
-                <ListItemText primary="Dashboard" />
-              </ListItemButtonCustom>
-            </ListItem>
-          </NavLink>
+          {/* https://codesandbox.io/p/devbox/react18-2-typescript-derived-nested-state-1mh49t?file=%2Fsrc%2FApp.tsx%3A60%2C13-70%2C28 */}
 
-          <NavLink
-            to={publicRoutes.Products.path}
-            className="category-list-item"
-            onClick={() => setIsListChildActive(false)}
-          >
-            <ListItem disablePadding>
-              <ListItemButtonCustom
-                disableRipple
-                disableTouchRipple
-                sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
-              >
-                <ListItemIconCustom>
-                  <ArchiveIcon />
-                </ListItemIconCustom>
-                <ListItemText primary="Products" />
-              </ListItemButtonCustom>
-            </ListItem>
-          </NavLink>
-
-          <NavLink
-            to={publicRoutes.Stores.path}
-            className="category-list-item"
-            onClick={() => setIsListChildActive(false)}
-          >
-            <ListItem disablePadding>
-              <ListItemButtonCustom
-                disableRipple
-                disableTouchRipple
-                sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
-              >
-                <ListItemIconCustom>
-                  <StoreIcon />
-                </ListItemIconCustom>
-                <ListItemText primary="Stores" />
-              </ListItemButtonCustom>
-            </ListItem>
-          </NavLink>
-
-          <NavLink
-            to={publicRoutes.Categories.path}
-            className="category-list-item"
-            onClick={() => setIsListChildActive(false)}
-          >
-            <ListItem disablePadding>
-              <ListItemButtonCustom
-                disableRipple
-                disableTouchRipple
-                sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
-              >
-                <ListItemIconCustom>
-                  <CategoryIcon />
-                </ListItemIconCustom>
-                <ListItemText primary="Categories" />
-              </ListItemButtonCustom>
-            </ListItem>
-          </NavLink>
-
-          <NavLink
-            to={publicRoutes.POSDevices.path}
-            className="category-list-item"
-            onClick={() => setIsListChildActive(false)}
-          >
-            <ListItem disablePadding>
-              <ListItemButtonCustom
-                disableRipple
-                disableTouchRipple
-                sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
-              >
-                <ListItemIconCustom>
-                  <CategoryIcon />
-                </ListItemIconCustom>
-                <ListItemText primary="POS Devices" />
-              </ListItemButtonCustom>
-            </ListItem>
-          </NavLink>
-
-          <NavLink
-            to={publicRoutes.Discounts.path}
-            className="category-list-item"
-            onClick={() => setIsListChildActive(false)}
-          >
-            <ListItem disablePadding>
-              <ListItemButtonCustom
-                disableRipple
-                disableTouchRipple
-                sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
-              >
-                <ListItemIconCustom>
-                  <CategoryIcon />
-                </ListItemIconCustom>
-                <ListItemText primary="Discounts" />
-              </ListItemButtonCustom>
-            </ListItem>
-          </NavLink>
-
-          <ListItemButtonCustom
-            onClick={handleClick}
-            disableRipple
-            disableTouchRipple
-            sx={{
-              color: 'var(--white-color)',
-              borderRadius: '999px',
-            }}
-          >
-            <ListItemIconCustom>
-              <InboxIcon />
-            </ListItemIconCustom>
-            <ListItemText primary="E-Commerce" />
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButtonCustom>
-
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <List
-              component="div"
-              disablePadding
-              sx={{
-                backgroundColor: 'var(--primary-dark)',
-                borderRadius: '10px',
-              }}
-              className={`category-list-parent ${isListParentActive}`}
-            >
-              <NavLink
-                to={publicRoutes.ProductEdit.path}
-                className="category-list-item-child"
-                onClick={() => setIsListChildActive(true)}
-              >
-                <ListItem disablePadding>
-                  <ListItemButtonCustom sx={{ pl: 4 }}>
+          {renderMenu.map((item) => {
+            const IconHeader = MuiIcon[item.IconName ?? 'Store'];
+            if (item.subMenu) {
+              return (
+                <div key={'sidebar ' + item.name}>
+                  <ListItemButtonCustom
+                    onClick={() => handleClick(item.name)}
+                    disableRipple
+                    disableTouchRipple
+                    sx={{
+                      color: 'var(--white-color)',
+                      borderRadius: '999px',
+                      padding: '8px 8px',
+                    }}
+                  >
                     <ListItemIconCustom>
-                      <StarBorder />
+                      <IconHeader sx={{ fontSize: '25px' }} />
                     </ListItemIconCustom>
-                    <ListItemText primary="Product Edit" />
+                    <ListItemText primary={item.name} primaryTypographyProps={{ fontSize: '14px' }} />
+                    {open[item.name] ? <ExpandLess /> : <ExpandMore />}
                   </ListItemButtonCustom>
-                </ListItem>
-              </NavLink>
 
-              <NavLink to="/5" className="category-list-item-child" onClick={() => setIsListChildActive(true)}>
-                <ListItem disablePadding>
-                  <ListItemButtonCustom sx={{ pl: 4 }}>
-                    <ListItemIconCustom>
-                      <StarBorder />
-                    </ListItemIconCustom>
-                    <ListItemText primary="Starred 2" />
-                  </ListItemButtonCustom>
-                </ListItem>
-              </NavLink>
-            </List>
-          </Collapse>
-
-          <NavLink
-            to={publicRoutes.Post.path}
-            className="category-list-item"
-            onClick={() => setIsListChildActive(false)}
-          >
-            <ListItem disablePadding>
-              <ListItemButtonCustom
-                disableRipple
-                disableTouchRipple
-                sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
-              >
-                <ListItemIconCustom>
-                  <DescriptionIcon />
-                </ListItemIconCustom>
-                <ListItemText primary="Post" />
-              </ListItemButtonCustom>
-            </ListItem>
-          </NavLink>
-
-          <NavLink
-            to={publicRoutes.PointOfSale.path}
-            className="category-list-item"
-            onClick={() => setIsListChildActive(false)}
-          >
-            <ListItem disablePadding>
-              <ListItemButtonCustom
-                disableRipple
-                disableTouchRipple
-                sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
-              >
-                <ListItemIconCustom>
-                  <PaymentOutlinedIcon />
-                </ListItemIconCustom>
-                <ListItemText primary="Point Of Sale" />
-              </ListItemButtonCustom>
-            </ListItem>
-          </NavLink>
-
-          <NavLink
-            to={publicRoutes.Calendar.path}
-            className="category-list-item"
-            // onClick={() => setIsListChildActive(false)}
-          >
-            <ListItem disablePadding>
-              <ListItemButtonCustom
-                disableRipple
-                disableTouchRipple
-                sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
-              >
-                <ListItemIconCustom>
-                  <CalendarMonthOutlinedIcon />
-                </ListItemIconCustom>
-                <ListItemText primary="Calendar" />
-              </ListItemButtonCustom>
-            </ListItem>
-          </NavLink>
-
-          <NavLink
-            to={privateRoutes.Lock.path}
-            className="category-list-item"
-            onClick={() => setIsListChildActive(false)}
-          >
-            <ListItem disablePadding>
-              <ListItemButtonCustom
-                disableRipple
-                disableTouchRipple
-                sx={{ borderBottomLeftRadius: 999, borderTopLeftRadius: 999 }}
-              >
-                <ListItemIconCustom>
-                  <LockOutlinedIcon />
-                </ListItemIconCustom>
-                <ListItemText primary="Lock" />
-              </ListItemButtonCustom>
-            </ListItem>
-          </NavLink>
+                  <Collapse in={open[item.name]} timeout="auto" unmountOnExit>
+                    <List
+                      component="div"
+                      disablePadding
+                      sx={{
+                        backgroundColor: 'var(--primary-dark)',
+                        borderRadius: '10px',
+                      }}
+                      className={`category-list-parent ${isListParentActive}`}
+                    >
+                      {item.subMenu.map((item, index) => {
+                        const ChildIcon = MuiIcon[item.IconName];
+                        return (
+                          <div key={item.Id}>
+                            <NavLink to={item.RouteLink} className="category-list-item-child">
+                              <ListItem disablePadding>
+                                <ListItemButtonCustom sx={{ pl: 4 }} disableRipple disableTouchRipple>
+                                  <ListItemIconCustom>
+                                    <ChildIcon />
+                                  </ListItemIconCustom>
+                                  <ListItemText primary={item.Name} />
+                                </ListItemButtonCustom>
+                              </ListItem>
+                            </NavLink>
+                          </div>
+                        );
+                      })}
+                    </List>
+                  </Collapse>
+                </div>
+              );
+              // list items without a submenu
+            } else {
+              return (
+                <>
+                  <div key={'Separation' + item.Id}>
+                    <NavLink to={item.RouteLink} className="category-list-item">
+                      <ListItem disablePadding>
+                        <ListItemButtonCustom
+                          disableRipple
+                          disableTouchRipple
+                          sx={{
+                            borderBottomLeftRadius: 999,
+                            borderTopLeftRadius: 999,
+                          }}
+                        >
+                          <ListItemIconCustom>
+                            <IconHeader />
+                          </ListItemIconCustom>
+                          <ListItemText primary={item.Name} />
+                        </ListItemButtonCustom>
+                      </ListItem>
+                    </NavLink>
+                  </div>
+                </>
+              );
+            }
+          })}
         </List>
       </Box>
     </>

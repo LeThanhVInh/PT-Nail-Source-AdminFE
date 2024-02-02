@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import { DataGrid } from '@mui/x-data-grid';
-import { Button, IconButton, Stack } from '@mui/material';
+import { Button, IconButton, Stack, FormControlLabel } from '@mui/material';
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
@@ -16,6 +16,7 @@ import {
   SearchMediumCustom,
   StyledInputBaseCustom,
 } from '../../components/CustomMUI/SearchMedium';
+import { Android12Switch } from '../../components/Switch/AndroidSwitch/AndroidSwitch';
 
 import DiscountsAPI from '../../api/Discounts';
 
@@ -65,6 +66,26 @@ export default function Discounts() {
       headerName: 'End Date',
       width: 100 + dataTablePadWidth,
     },
+    {
+      field: 'IsActive',
+      headerName: 'Active status',
+      type: 'boolean',
+      align: 'center',
+      width: 150 + dataTablePadWidth,
+      renderCell: (data) => (
+        <FormControlLabel
+          control={
+            <Android12Switch
+              defaultChecked={data.value}
+              onChange={async (event, isChecked) => await DiscountsAPI.UpdateActiveStatus(data.id, isChecked)}
+            />
+          }
+          label="Active"
+          sx={{ color: 'var(--text-color)' }}
+        />
+      ),
+    },
+
     {
       field: 'actions',
       headerName: '',

@@ -62,8 +62,6 @@ function ModalEdit(props, ref) {
     storeValue: null,
   });
 
-  console.log('formData', formData);
-
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
       if (type === 'change') {
@@ -107,7 +105,6 @@ function ModalEdit(props, ref) {
     setAnimationClass('animate__animated animate__zoomIn animate__fast');
     setLoading(true);
     setTimeout(() => setOpenModal(true), 100);
-
     if (isInsert) {
       setTypeIsInsert(true);
       setFormData({
@@ -123,12 +120,8 @@ function ModalEdit(props, ref) {
     } else {
       setTypeIsInsert(false);
       const res = await POSDevicesAPI.GetById(id);
-
-      console.log('res', res);
       if (res !== null) {
         const tempStoreList = storeList?.find((item) => item.value === res.StoreId);
-        console.log('tempStoreList', tempStoreList);
-
         setFormData({
           id: res.Id ?? '',
           name: res.Name ?? '',
@@ -296,6 +289,7 @@ function ModalEdit(props, ref) {
                         />
                       </div>
                     </Grid>
+
                     <Grid xl={6} lg={6} md={12} xs={12} item>
                       <div className={cx('item-content')}>
                         <FormControlLabel

@@ -40,6 +40,17 @@ body {
     --input-color: #181a1b;
     --box-shadow-item: none;
     --grey-shadow: none;
+    --json-view-bg: #2b2b2b;
+
+    .json-view_a11y {
+      color: #d1d1d1;
+      --json-property: #ffd700;
+      --json-index: #00e0e0;
+      --json-number: #00e0e0;
+      --json-string: #abe338;
+      --json-boolean: #ffa07a;
+      --json-null: #ffa07a;
+    }
   }
   .red-theme {
     --primary-color: rgb(229, 57, 53);
