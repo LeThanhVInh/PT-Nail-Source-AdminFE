@@ -20,6 +20,7 @@ export default function SwitchMode() {
       bodyRoot.classList.remove('dark-theme');
       bodyRoot.classList.add(`${mainTheme}`);
     }
+    // eslint-disable-next-line
   }, [switchMode]);
 
   const toggleDarkMode = (event) => {

@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
-import Swal from 'sweetalert2';
-
-import { privateRoutes, publicRoutes } from '../../router/routes';
+import { privateRoutes } from '../../router/routes';
 import { auth } from '../../firebase';
 import AuthAPI from '../../api/Auth';
 
@@ -26,7 +23,6 @@ export default function ProtectedRoute({ children }) {
   const currentURL = location.pathname;
 
   function checkUrl(url, allowedRoute) {
-    // console.log('check');
 
     let validRoutes = [];
     if (allowedRoute === null || allowedRoute.length === 0) {
@@ -51,17 +47,16 @@ export default function ProtectedRoute({ children }) {
   }
 
   useEffect(() => {
-    // console.log('Route', new Date().getTime());
     setAllow(false);
     if (checkRoute !== null) {
       checkUrl(currentURL, null); //check khi url thay doi tu browser
     }
+    // eslint-disable-next-line
   }, [location]);
 
   async function checkToken() {
     const tokenResult = await AuthAPI.CheckToken();
     if (tokenResult !== null) {
-      // console.log(tokenResult);
       dispatch(saveAuthUserData(tokenResult));
       checkUrl(currentURL, tokenResult);
     }
@@ -72,7 +67,6 @@ export default function ProtectedRoute({ children }) {
       if (user) {
         await user.getIdToken().then((token) => {
           if (token.trim() !== '') {
-            console.log(token);
             checkToken();
           } else {
             setIsLoading(false);
@@ -87,14 +81,9 @@ export default function ProtectedRoute({ children }) {
       }
     });
 
-    // Cleanup the subscription when the component unmounts
     return () => unsubscribe();
+    // eslint-disable-next-line
   }, []);
-
-  // console.log('-----------------------------------');
-  // console.log('isLoading', isLoading);
-  // console.log('isLogin', isLogin);
-  // console.log('isAllowed', isAllowed);
 
   if (isLoading) {
     return <Loader colorLoader="#fff" isLoading={isLoading} />;

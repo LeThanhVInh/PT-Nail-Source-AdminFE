@@ -8,7 +8,6 @@ import { styled } from '@mui/system';
 import {
   Clear as ClearIcon,
   Check as CheckIcon,
-  Room as RoomIcon,
   Store as StoreIcon,
   Save as SaveIcon,
 } from '@mui/icons-material';
@@ -329,7 +328,7 @@ function ModalEdit(props, ref) {
                             }}
                             error={
                               (errors.name && errors.name.type === 'required') ||
-                              (errors.name && errors.name.type === 'maxLength')
+                                (errors.name && errors.name.type === 'maxLength')
                                 ? true
                                 : false
                             }

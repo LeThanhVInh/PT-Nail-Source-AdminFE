@@ -1,28 +1,19 @@
 import { useState, useEffect, useRef } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import {
-  Card,
-  CardContent,
-  CardMedia,
   Button,
   Typography,
-  IconButton,
   Divider,
   ToggleButtonGroup,
 } from '@mui/material';
 
 import {
-  Remove as RemoveIcon,
   Payments as PaymentsIcon,
   Payment as PaymentIcon,
   QrCodeScanner as QrCodeScannerIcon,
-  Add as AddIcon,
-  Delete as DeleteIcon,
 } from '@mui/icons-material';
 
 import HeaderPOS from '../../components/HeaderPOS';
@@ -48,7 +39,6 @@ function PointOfSale() {
   const [alignment, setAlignment] = useState('All');
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const [dataItem, setDataItem] = useState({});
-  // const [productListColumnAmount, setProductListColumnAmount] = useState(4);
   const [newData, setNewData] = useState([]);
 
   const dataSort = () => {
@@ -66,6 +56,7 @@ function PointOfSale() {
   useEffect(() => {
     setNewData([...newData]);
     dataSort();
+    // eslint-disable-next-line
   }, [alignment]);
 
   const handleLearnMore = (item) => {
@@ -78,9 +69,6 @@ function PointOfSale() {
       modalRef.current.openModal();
     }
   };
-
-  const count = useSelector((state) => state.appSetting.value);
-  const dispatch = useDispatch();
 
   return (
     <>

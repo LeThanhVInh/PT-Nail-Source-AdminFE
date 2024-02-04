@@ -36,7 +36,6 @@ export default function Taxes() {
   const [rows, setRows] = useState([]);
   const [isTableLoading, setTableLoading] = useState(true);
   const [selectedRowsId, setSelectedRowsId] = useState([]);
-  const [taxTypeList, setTaxTypeList] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
   const columns = [
@@ -105,26 +104,9 @@ export default function Taxes() {
     const listTaxesType = await GetOnlyAPI.GetTaxTypeList();
 
     if (listTaxes && listTaxesType !== null) {
-      // let listMerged = [];
-
-      // for (let i = 0; i < listTaxesType.length; i++) {
-      //   for (let j = 0; j < listTaxes.length; j++) {
-      //     if (listTaxesType[i].id === listTaxes[j].TaxTypeId) {
-      //       let obj = { ...listTaxesType[i], ...listTaxes[j] };
-      //       obj.IDMerged = obj.id;
-      //       delete obj.id;
-      //       obj.IDMerged = obj.TaxTypeId;
-      //       delete obj.TaxTypeId;
-      //       listMerged.push(obj);
-      //     }
-      //   }
-      // }
-
       setRows(listTaxes);
-      // setTaxTypeList(listTaxesType);
     } else {
       setRows([]);
-      setTaxTypeList([]);
     }
     setSelectedRowsId([]);
     setTableLoading(false);
@@ -259,17 +241,19 @@ export default function Taxes() {
                 <Button variant="primary" className={cx('btn-add-new')} onClick={() => OpenModal(true, null)}>
                   Add New Taxes
                 </Button>
-                {selectedRowsId.length <= 0 ? (
-                  <div></div>
-                ) : (
-                  <IconButton
-                    aria-label="Delete rows"
-                    sx={{ color: 'var(--btn-delete)' }}
-                    onClick={() => DeleteMultiple(selectedRowsId)}
-                  >
-                    <DeleteForeverIcon />
-                  </IconButton>
-                )}
+                {
+                  selectedRowsId.length <= 0
+                    ? <div></div>
+                    : (
+                      <IconButton
+                        aria-label="Delete rows"
+                        sx={{ color: 'var(--btn-delete)' }}
+                        onClick={() => DeleteMultiple(selectedRowsId)}
+                      >
+                        <DeleteForeverIcon />
+                      </IconButton>
+                    )
+                }
               </Stack>
             </div>
             <div className={cx('action-search', 'pt-10')}>
@@ -303,30 +287,33 @@ export default function Taxes() {
 
         <ModalEdit ref={modalRef} LoadDataTable={() => LoadDataTable(searchValue)} />
 
-        {isTableLoading ? (
-          <Loader colorLoader="#000" isLoading={isTableLoading} size={50} hasBackground={false} />
-        ) : (
-          <div className={cx('my-datatable-custom')}>
-            <DataGrid
-              getRowId={(row) => row.Id}
-              rows={rows}
-              columns={columns}
-              pageSizeOptions={[10, 20, 50, 100]}
-              checkboxSelection
-              density="standard" //standard, comfortable, compact
-              columnHeaderHeight={70}
-              loading={false}
-              rowSelection={true}
-              onRowDoubleClick={(data, event) => OpenModal(false, data.id)}
-              onRowSelectionModelChange={setSelectedRowsId}
-              initialState={{
-                pagination: {
-                  paginationModel: { page: 0, pageSize: 10 },
-                },
-              }}
-            />
-          </div>
-        )}
+        {
+          isTableLoading
+            ?
+            <Loader colorLoader="#000" isLoading={isTableLoading} size={50} hasBackground={false} />
+            : (
+              <div className={cx('my-datatable-custom')}>
+                <DataGrid
+                  getRowId={(row) => row.Id}
+                  rows={rows}
+                  columns={columns}
+                  pageSizeOptions={[10, 20, 50, 100]}
+                  checkboxSelection
+                  density="standard" //standard, comfortable, compact
+                  columnHeaderHeight={70}
+                  loading={false}
+                  rowSelection={true}
+                  onRowDoubleClick={(data, event) => OpenModal(false, data.id)}
+                  onRowSelectionModelChange={setSelectedRowsId}
+                  initialState={{
+                    pagination: {
+                      paginationModel: { page: 0, pageSize: 10 },
+                    },
+                  }}
+                />
+              </div>
+            )
+        }
       </div>
     </div>
   );

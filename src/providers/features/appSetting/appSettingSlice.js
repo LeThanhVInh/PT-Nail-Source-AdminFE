@@ -21,7 +21,6 @@ export const appSetting = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { switchDarkMode, changeMainTheme } = appSetting.actions;
 
 export default appSetting.reducer;

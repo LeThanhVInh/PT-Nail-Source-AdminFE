@@ -49,7 +49,6 @@ export default function AccountPage() {
     uiLanguageValue: null,
   });
 
-  // console.log('formData', formData);
   //////////////////////////////////////////////
   // Block navigating elsewhere when data has been entered into the input
   let blocker = useBlocker(
@@ -189,7 +188,9 @@ export default function AccountPage() {
     setHasUnsavedChanges(false);
   };
 
-  if (isAPILoading) return <Loader colorLoader="black" isLoading={isAPILoading} hasBackground={false} />;
+  if (isAPILoading) {
+    return <Loader colorLoader="black" isLoading={isAPILoading} hasBackground={false} />;
+  }
   else
     return (
       <div className={cx('account-wrap', 'animate__animated', 'animate__fadeInUp', 'animate__fast')}>
@@ -241,7 +242,7 @@ export default function AccountPage() {
                   }}
                   error={
                     (errors.email && errors.email.type === 'required') ||
-                    (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
+                      (errors.email && errors.email.type === 'pattern' && 'Enter a valid email')
                       ? true
                       : false
                   }
@@ -267,9 +268,9 @@ export default function AccountPage() {
                   value={formData.phoneNumUser}
                   error={
                     (errors.phone && errors.phone.type === 'required') ||
-                    (errors.phone && errors.phone.type === 'maxLength') ||
-                    (errors.phone && errors.phone.type === 'pattern') ||
-                    (errors.phone && errors.phone.type === 'minLength')
+                      (errors.phone && errors.phone.type === 'maxLength') ||
+                      (errors.phone && errors.phone.type === 'pattern') ||
+                      (errors.phone && errors.phone.type === 'minLength')
                       ? true
                       : false
                   }
@@ -391,56 +392,41 @@ export default function AccountPage() {
                     )}
                   />
                 </FormControl>
-                {/* <Divider sx={{ borderColor: 'var(--grey-border-item)', marginY: '20px', width: '100%' }} />
-                <Box sx={{ width: '100%' }}>
-                  <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <Typography gutterBottom variant="body2" component="div" sx={{ color: 'var(--text-color)' }}>
-                      Delete account
-                    </Typography>
-                    <Button variant="text" sx={{ color: 'var(--primary-white)' }}>
-                      Delete
-                    </Button>
-                  </Stack>
-                  <Typography
-                    color="text.secondary"
-                    variant="body2"
-                    sx={{ maxWidth: '80%', color: 'var(--grey-color-text)' }}
-                  >
-                    You can permanently delete your Email account add all its data
-                  </Typography>
-                </Box> */}
               </div>
 
               <Divider sx={{ borderColor: 'var(--grey-border-item)', marginY: '20px' }} />
 
               <Box justifyContent="end" direction="row" sx={{ display: 'flex' }}>
-                {!isLoading ? (
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    sx={{
-                      color: 'var(--white-color)',
-                      backgroundColor: 'var(--btn-primary)',
-                      boxShadow: 'var(--box-shadow-item)',
-                      width: '128px',
-                      ':hover': {
-                        backgroundColor: 'var(--btn-primary)',
-                      },
-                    }}
-                  >
-                    Save
-                  </Button>
-                ) : (
-                  <LoadingButton
-                    loading
-                    loadingPosition="start"
-                    startIcon={<SaveIcon />}
-                    variant="outlined"
-                    sx={{ width: '128px' }}
-                  >
-                    Save
-                  </LoadingButton>
-                )}
+                {
+                  !isLoading
+                    ? (
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        sx={{
+                          color: 'var(--white-color)',
+                          backgroundColor: 'var(--btn-primary)',
+                          boxShadow: 'var(--box-shadow-item)',
+                          width: '128px',
+                          ':hover': {
+                            backgroundColor: 'var(--btn-primary)',
+                          },
+                        }}
+                      >
+                        Save
+                      </Button>
+                    )
+                    : (
+                      <LoadingButton
+                        loading
+                        loadingPosition="start"
+                        startIcon={<SaveIcon />}
+                        variant="outlined"
+                        sx={{ width: '128px' }}
+                      >
+                        Save
+                      </LoadingButton>
+                    )}
               </Box>
             </div>
           </Box>

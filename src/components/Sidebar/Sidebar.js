@@ -36,11 +36,11 @@ const ListItemButtonCustom = styled(ListItemButton)({
   },
 });
 
-function Sidebar() {
+export default function Sidebar() {
   let initialState = {};
-  const [open, setOpen] = useState(initialState);
-  const [isListChildActive, setIsListChildActive] = useState(false);
+  const [open, setOpen] = useState(initialState);;
   const [isListParentActive, setIsListParentActive] = useState('');
+  const isListChildActive = false
 
   const [route, setRoute] = useState([]);
   const userData = useSelector((state) => state.userSetting.authUserData);
@@ -51,6 +51,7 @@ function Sidebar() {
       const checkRoute = userData?.AllowedScreens;
       setRoute(checkRoute);
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -93,33 +94,31 @@ function Sidebar() {
   }
 
   return (
-    <>
-      <Box
-        sx={{
-          width: '100%',
-          maxWidth: 360,
-          bgcolor: 'var(--primary-color)',
-          mt: '15px',
-        }}
+    <Box
+      sx={{
+        width: '100%',
+        maxWidth: 360,
+        bgcolor: 'var(--primary-color)',
+        mt: '15px',
+      }}
+    >
+      <List
+        subheader={
+          <ListSubheader
+            component="div"
+            id="nested-list-subheader"
+            sx={{ background: 'var(--primary-color)', color: 'var(--white-color)' }}
+          >
+            Logo
+          </ListSubheader>
+        }
       >
-        <List
-          subheader={
-            <ListSubheader
-              component="div"
-              id="nested-list-subheader"
-              sx={{ background: 'var(--primary-color)', color: 'var(--white-color)' }}
-            >
-              Logo
-            </ListSubheader>
-          }
-        >
-          <div className="divider">
-            <Divider sx={{ borderColor: 'var(--divider-primary)' }} />
-          </div>
+        <div className="divider">
+          <Divider sx={{ borderColor: 'var(--divider-primary)' }} />
+        </div>
 
-          {/* https://codesandbox.io/p/devbox/react18-2-typescript-derived-nested-state-1mh49t?file=%2Fsrc%2FApp.tsx%3A60%2C13-70%2C28 */}
-
-          {renderMenu.map((item) => {
+        {
+          renderMenu.map((item) => {
             const IconHeader = MuiIcon[item.IconName ?? 'Store'];
             if (item.subMenu) {
               return (
@@ -199,10 +198,7 @@ function Sidebar() {
               );
             }
           })}
-        </List>
-      </Box>
-    </>
+      </List>
+    </Box>
   );
 }
-
-export default Sidebar;

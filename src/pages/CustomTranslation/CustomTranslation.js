@@ -27,11 +27,9 @@ export default function CustomTranslation() {
   const [isJSONLoading, setIsJSONLoading] = useState(false);
   const [isListLoading, setListLoading] = useState(false);
 
-  // let [selectedLanguage, setSelectedLanguage] = useState({});
   let [languageUIList, setLanguageUIList] = useState([]);
 
   const {
-    register,
     handleSubmit,
     setValue,
     control,
@@ -51,7 +49,6 @@ export default function CustomTranslation() {
       async function fetchUILanguageByID() {
         const res = await UILanguageAPI.GetById(item.value);
         if (res !== null) {
-          console.log('Res', res);
           setFormData({
             id: res.Id ?? '',
             name: res.Name ?? '',
@@ -155,21 +152,20 @@ export default function CustomTranslation() {
             </FormControl>
           </Box>
           <Box sx={{ maxHeight: '60vh' }}>
-            {isJSONLoading ? (
-              <Loader colorLoader="black" isLoading={true} size={50} hasBackground={false} />
-            ) : (
-              <>
-                {/* https://jv.yysuni.com/ */}
-                <JsonView
-                  src={formData.jsonData}
-                  editable
-                  onAdd={(params) => handleChangeJSONLanguage(params)}
-                  onEdit={(params) => handleChangeJSONLanguage(params)}
-                  onDelete={(params) => handleChangeJSONLanguage(params)}
-                  theme="a11y"
-                />
-              </>
-            )}
+            {
+              isJSONLoading
+                ? <Loader colorLoader="black" isLoading={true} size={50} hasBackground={false} />
+                : (
+                  <JsonView
+                    src={formData.jsonData}
+                    editable
+                    onAdd={(params) => handleChangeJSONLanguage(params)}
+                    onEdit={(params) => handleChangeJSONLanguage(params)}
+                    onDelete={(params) => handleChangeJSONLanguage(params)}
+                    theme="a11y"
+                  />
+                )
+            }
           </Box>
         </div>
         <div className={cx('footer-content')}>
@@ -182,26 +178,30 @@ export default function CustomTranslation() {
             }
             sx={{ marginTop: '20px' }}
           >
-            {!isAPILoading && !isJSONLoading ? (
-              <SaveButtonCustom
-                type="submit"
-                variant="contained"
-                startIcon={<CheckIcon />}
-                sx={{
-                  backgroundColor: 'var(--btn-primary)',
-                  color: 'var(--white-color)',
-                  ':hover': {
-                    backgroundColor: 'var(--btn-primary)',
-                  },
-                }}
-              >
-                Save
-              </SaveButtonCustom>
-            ) : (
-              <SaveLoadingCustom loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">
-                Save
-              </SaveLoadingCustom>
-            )}
+            {
+              !isAPILoading && !isJSONLoading
+                ? (
+                  <SaveButtonCustom
+                    type="submit"
+                    variant="contained"
+                    startIcon={<CheckIcon />}
+                    sx={{
+                      backgroundColor: 'var(--btn-primary)',
+                      color: 'var(--white-color)',
+                      ':hover': {
+                        backgroundColor: 'var(--btn-primary)',
+                      },
+                    }}
+                  >
+                    Save
+                  </SaveButtonCustom>
+                )
+                : (
+                  <SaveLoadingCustom loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">
+                    Save
+                  </SaveLoadingCustom>
+                )
+            }
           </Grid>
         </div>
       </form>

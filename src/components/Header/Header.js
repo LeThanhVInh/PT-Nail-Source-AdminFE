@@ -109,17 +109,16 @@ function Header() {
     } else {
       bodyRoot.classList.add(`${mainTheme}`);
     }
+    // eslint-disable-next-line
   }, [mainTheme]);
 
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        // Sign-out successful.
         bodyRoot.className = '';
         dispatch(changeMainTheme(`${listThemeOverlay[0].classTitle}`));
       })
       .catch((error) => {
-        // An error happened.
       });
   };
 
@@ -266,7 +265,7 @@ function Header() {
               display: { xs: 'none', sm: 'block' },
             }}
           >
-            PT Nail Source
+            VAS Nail Source
           </Typography>
 
           <Box sx={{ flexGrow: 1 }} />

@@ -12,9 +12,9 @@ import { TextFieldProductEdit } from '../../../components/CustomMUI/ProductEdit/
 import { DatePickerCustom } from '../../../components/CustomMUI/DatePickerCustom';
 import classNames from 'classnames/bind';
 import styles from './WrittenDetails.module.scss';
+
 const cx = classNames.bind(styles);
 
-//Dummy Data
 const categoryList = [
   {
     id: 1,
@@ -33,8 +33,6 @@ const categoryList = [
   },
 ];
 
-//Custom
-
 const TypographyCustom = styled(Typography)({
   color: 'var(--text-color)',
   margin: '10px 0',
@@ -51,12 +49,9 @@ const FormControlLabelCustom = styled(FormControlLabel)({
   },
 });
 
-function WrittenDetails(props) {
-  const {
-    handleSubmit,
-    formState: {},
-  } = useForm();
-
+export default function WrittenDetails(props) {
+  // eslint-disable-next-line
+  const { handleSubmit, formState: { errors } } = useForm();
   const [value, setValue] = useState('male');
 
   const handleChange = (event) => {
@@ -68,120 +63,116 @@ function WrittenDetails(props) {
   };
 
   return (
-    <>
-      <Box sx={{ overflow: 'auto', height: '100%' }}>
-        <div className={cx('wrapper')}>
-          <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-            <div className={cx('add-new-container')}>
-              <div className={cx('content-items')}>
-                <div className={cx('item')}>
-                  <div className={cx('item-title-content')}>
-                    <Box>
-                      <TypographyCustom>Written By</TypographyCustom>
-                      <FormControl sx={{ minWidth: 120 }} size="small" fullWidth>
-                        <StyledAutocomplete
-                          disablePortal
-                          options={categoryList}
-                          renderInput={(params) => (
-                            <TextFieldProductEdit {...params} placeholder="Written By" fullWidth />
-                          )}
+    <Box sx={{ overflow: 'auto', height: '100%' }}>
+      <div className={cx('wrapper')}>
+        <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+          <div className={cx('add-new-container')}>
+            <div className={cx('content-items')}>
+              <div className={cx('item')}>
+                <div className={cx('item-title-content')}>
+                  <Box>
+                    <TypographyCustom>Written By</TypographyCustom>
+                    <FormControl sx={{ minWidth: 120 }} size="small" fullWidth>
+                      <StyledAutocomplete
+                        disablePortal
+                        options={categoryList}
+                        renderInput={(params) => (
+                          <TextFieldProductEdit {...params} placeholder="Written By" fullWidth />
+                        )}
+                      />
+                    </FormControl>
+                  </Box>
+
+                  <Box>
+                    <TypographyCustom>Post Date</TypographyCustom>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePickerCustom className={cx('date-time-picker')} />
+                    </LocalizationProvider>
+                  </Box>
+
+                  <Box>
+                    <TypographyCustom>Categories</TypographyCustom>
+                    <FormControl sx={{ minWidth: 120 }} size="small" fullWidth>
+                      <StyledAutocomplete
+                        disablePortal
+                        options={categoryList}
+                        renderInput={(params) => (
+                          <TextFieldProductEdit {...params} placeholder="Categories" fullWidth />
+                        )}
+                      />
+                    </FormControl>
+                  </Box>
+
+                  <Box>
+                    <TypographyCustom>Tags</TypographyCustom>
+                    <FormControl sx={{ minWidth: 120 }} size="small" fullWidth>
+                      <StyledAutocomplete
+                        disablePortal
+                        multiple
+                        filterSelectedOptions
+                        options={categoryList}
+                        renderInput={(params) => <TextFieldProductEdit {...params} placeholder="Tags" fullWidth />}
+                        size="small"
+                      />
+                    </FormControl>
+                  </Box>
+
+                  <Box>
+                    <FormControl>
+                      <TypographyCustom>Radio</TypographyCustom>
+
+                      <RadioGroup row name="controlled-radio-buttons-group" value={value} onChange={handleChange}>
+                        <FormControlLabelCustom
+                          value="male"
+                          control={<Radio sx={{ color: 'var(--primary-check)' }} />}
+                          label="Male"
                         />
-                      </FormControl>
-                    </Box>
-
-                    <Box>
-                      <TypographyCustom>Post Date</TypographyCustom>
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePickerCustom className={cx('date-time-picker')} />
-                      </LocalizationProvider>
-                    </Box>
-
-                    <Box>
-                      <TypographyCustom>Categories</TypographyCustom>
-                      <FormControl sx={{ minWidth: 120 }} size="small" fullWidth>
-                        <StyledAutocomplete
-                          disablePortal
-                          options={categoryList}
-                          renderInput={(params) => (
-                            <TextFieldProductEdit {...params} placeholder="Categories" fullWidth />
-                          )}
+                        <FormControlLabelCustom
+                          value="female"
+                          control={<Radio sx={{ color: 'var(--primary-check)' }} />}
+                          label="Female"
                         />
-                      </FormControl>
-                    </Box>
+                      </RadioGroup>
+                    </FormControl>
+                  </Box>
 
-                    <Box>
-                      <TypographyCustom>Tags</TypographyCustom>
-                      <FormControl sx={{ minWidth: 120 }} size="small" fullWidth>
-                        <StyledAutocomplete
-                          disablePortal
-                          multiple
-                          filterSelectedOptions
-                          options={categoryList}
-                          renderInput={(params) => <TextFieldProductEdit {...params} placeholder="Tags" fullWidth />}
-                          size="small"
-                        />
-                      </FormControl>
-                    </Box>
+                  <Box>
+                    <FormGroup>
+                      <TypographyCustom>Check Box</TypographyCustom>
 
-                    <Box>
-                      <FormControl>
-                        <TypographyCustom>Radio</TypographyCustom>
-
-                        <RadioGroup row name="controlled-radio-buttons-group" value={value} onChange={handleChange}>
-                          <FormControlLabelCustom
-                            value="male"
-                            control={<Radio sx={{ color: 'var(--primary-check)' }} />}
-                            label="Male"
-                          />
-                          <FormControlLabelCustom
-                            value="female"
-                            control={<Radio sx={{ color: 'var(--primary-check)' }} />}
-                            label="Female"
-                          />
-                        </RadioGroup>
-                      </FormControl>
-                    </Box>
-
-                    <Box>
-                      <FormGroup>
-                        <TypographyCustom>Check Box</TypographyCustom>
-
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              defaultChecked
-                              size="small"
-                              sx={{
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            defaultChecked
+                            size="small"
+                            sx={{
+                              color: 'var(--primary-check)',
+                              '&.Mui-checked': {
                                 color: 'var(--primary-check)',
-                                '&.Mui-checked': {
-                                  color: 'var(--primary-check)',
-                                },
-                              }}
-                            />
-                          }
-                          label={
-                            <span
-                              style={{
-                                fontSize: '14px',
-                                color: 'var(--text-color)',
-                              }}
-                            >
-                              {'Remember me'}
-                            </span>
-                          }
-                          fontSize="14px"
-                        />
-                      </FormGroup>
-                    </Box>
-                  </div>
+                              },
+                            }}
+                          />
+                        }
+                        label={
+                          <span
+                            style={{
+                              fontSize: '14px',
+                              color: 'var(--text-color)',
+                            }}
+                          >
+                            Remember me
+                          </span>
+                        }
+                        fontSize="14px"
+                      />
+                    </FormGroup>
+                  </Box>
                 </div>
               </div>
             </div>
-          </form>
-        </div>
-      </Box>
-    </>
+          </div>
+        </form>
+      </div>
+    </Box>
   );
 }
-
-export default WrittenDetails;

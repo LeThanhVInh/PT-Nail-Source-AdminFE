@@ -1,5 +1,4 @@
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
-
+import { ToggleButtonGroup } from '@mui/material';
 import { ToggleButtonCategories } from '../../../components/CustomMUI/ButtonCustom';
 import classNames from 'classnames/bind';
 import styles from '../PointOfSale.module.scss';

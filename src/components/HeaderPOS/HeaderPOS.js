@@ -30,56 +30,7 @@ import {
 
 import SwitchMode from '../Switch/SwitchMode';
 
-//#region const
-
-const options = ['Create a merge commit', 'Squash and merge', 'Rebase and merge'];
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  // width: '60%',
-  flexGrow: '1',
-  '& .MuiBox-root': {
-    maxWidth: '500px',
-    minWidth: '140px',
-  },
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  color: 'var(--btn-edit)',
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  zIndex: 1,
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'var(--btn-edit)',
-  '& .MuiInputBase-input': {
-    backgroundColor: 'var(--input-color)',
-    borderRadius: '999px',
-    padding: theme.spacing(1, 1, 1, 0),
-    maxWidth: '50%',
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      maxWidth: '50ch',
-    },
-  },
-}));
-//#endregion
-
-function HeaderPOS() {
+export default function HeaderPOS() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -207,7 +158,7 @@ function HeaderPOS() {
               display: { xs: 'none', sm: 'block' },
             }}
           >
-            PT Nail Source
+            VAS Nail Source
           </Typography>
 
           <Search>
@@ -321,4 +272,50 @@ function HeaderPOS() {
   );
 }
 
-export default HeaderPOS;
+//#region const
+const options = ['Create a merge commit', 'Squash and merge', 'Rebase and merge'];
+
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  flexGrow: '1',
+  '& .MuiBox-root': {
+    maxWidth: '500px',
+    minWidth: '140px',
+  },
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(3),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  color: 'var(--btn-edit)',
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  zIndex: 1,
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'var(--btn-edit)',
+  '& .MuiInputBase-input': {
+    backgroundColor: 'var(--input-color)',
+    borderRadius: '999px',
+    padding: theme.spacing(1, 1, 1, 0),
+    maxWidth: '50%',
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '50ch',
+    },
+  },
+}));
+//#endregion
+

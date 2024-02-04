@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, CardMedia, Typography, IconButton, Divider } from '@mui/material';
 
-import { Remove as RemoveIcon, Add as AddIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { Add as AddIcon, Delete as DeleteIcon } from '@mui/icons-material';
 
 import classNames from 'classnames/bind';
 import styles from '../PointOfSale.module.scss';

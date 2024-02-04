@@ -273,7 +273,7 @@ function ModalEdit(props, ref) {
                           }}
                           error={
                             (errors.name && errors.name.type === 'required') ||
-                            (errors.name && errors.name.type === 'maxLength')
+                              (errors.name && errors.name.type === 'maxLength')
                               ? true
                               : false
                           }
